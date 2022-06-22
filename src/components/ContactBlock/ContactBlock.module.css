@@ -1,0 +1,117 @@
+@font-face {
+    font-family: "Rubik Regular";
+    src: url("../../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Medium";
+    src: url("../../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Bold";
+    src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+
+.container{
+    background: #3D45B9;
+    width:  100%;
+    padding: 75px 5%;
+    box-sizing: border-box;
+    display: flex;
+    margin-top: 30px;
+}
+.leftBlock{
+    width: 50%;
+    padding: 0 0 30px 0;
+    box-sizing: border-box;
+}
+.rightBlock{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.titleBlock{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.titleImage{
+    height: 48px;
+    width: 48px;
+    margin-right: 10px;
+}
+.title{
+    font-size: 32px;
+    font-family: "Rubik Bold";
+    box-sizing: border-box;
+    color: white;
+}
+.subtitle{
+    font-family: "Rubik Medium";
+    font-size: 22px;
+    color: white;
+}
+.image{
+    position: absolute;
+    margin-top: 40px;
+    height: 400px;
+}
+.footer{
+    width: 100%;
+    padding: 0 0 0 50px;
+    box-sizing: border-box;
+    margin-top: 75px;
+}
+.input{
+    border: none;
+    border-radius: 10px 0 0 10px;
+    padding: 10px;
+    background: white;
+    font-family: "Rubik Medium";
+    width: 250px;
+}
+.input:focus{
+    outline: none;
+}
+.form{
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+}
+.btn{
+    background: #2D1E85;
+    color: white;
+    font-family: "Rubik Medium";
+    border-radius: 0 10px 10px 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 992px){
+    .leftBlock{
+        width: 100%;
+    }
+    .rightBlock{
+        display: none;
+    }
+    .footer{
+        margin-top: 20px;
+    }
+    .input{
+        width: 200px;
+    }
+    .title{
+        font-size: 28px;
+    }
+    .subtitle{
+        font-size: 15px;
+        line-height: 13px;
+    }
+}
+@media screen and (max-width: 600px){
+    .input{
+        width: 150px;
+    }
+}

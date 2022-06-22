@@ -1,0 +1,82 @@
+.body{
+    background: linear-gradient(90deg, #7365C6 1.99%, #6657BF 46.33%, #412FAE 98.22%);
+    min-height: 100vh;
+    height: auto;
+}
+
+.container {
+    background-color: #F1F5ED;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    height: auto;
+}
+
+.title_block{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    align-items: center;
+}
+.coursesBlock{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.applicationsTable{
+    width: 100%;
+}
+.applicationsTable > th{
+    display: flex;
+    justify-content: space-around;
+}
+
+.active_application{
+    background-color: #c6ffb4;
+    font-weight: 500;
+}
+
+.table_row:hover{
+    border: 2px solid coral;
+}
+
+.active_application:hover{
+    border: 3px solid #0016D9;
+}
+
+.inactive_application{
+    background-color: #ffcbcb;
+    font-weight: 500;
+}
+
+.inactive_application:hover{
+    border: 3px solid #0016D9;
+}
+
+#td{
+    text-align: center;
+    border: 1px solid black;
+}
+.callCenterElements{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+@media screen and (max-width: 761px){
+    .title_block{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}

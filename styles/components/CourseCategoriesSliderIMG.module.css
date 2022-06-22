@@ -1,0 +1,116 @@
+@font-face {
+    font-family: "Rubik Regular";
+    src: url("../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Medium";
+    src: url("../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Bold";
+    src: url("../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+
+.container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.centerTitle{
+    font-weight: 700;
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: auto;
+    color: black;
+    width: 15%;
+    /*box-shadow: 0 2px 7px 0 rgba(10,10,10, 0.05), 3px 27px 54px -34px rgba(0, 0, 0, 0.4);*/
+
+    transition: 0.3s;
+    font-family: "Rubik Medium";
+    text-align: center;
+}
+.category:hover{
+    text-decoration: none;
+    color: #0048ff;
+}
+.img{
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.categories{
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow{
+    cursor: pointer;
+    color: black;
+    border: none;
+    background: none;
+    font-size: 32px;
+    margin: 0 auto;
+    transition: 0.3s;
+    font-family: "Rubik Medium";
+}
+.arrow:active{
+    outline: none;
+}
+.arrow:disabled{
+    color: #A5B4CB;
+    border: none;
+    background: none;
+}
+.arrow:disabled:hover{
+    color: #A5B4CB;
+}
+
+
+@media screen and (max-width: 1260px){
+
+}
+
+@media screen and (max-width: 1160px){
+
+}
+
+@media screen and (max-width: 761px){
+    .categories{
+        display: flex;
+        flex-wrap: nowrap;
+        font-size: 9px;
+    }
+    .img{
+        height: 64px;
+        width: 64px;
+    }
+    .container{
+        align-items: center;
+        margin: 10px 0 30px 0;
+    }
+    .category {
+        margin: 0;
+        width: 30%;
+    }
+}

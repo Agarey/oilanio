@@ -1,0 +1,69 @@
+.teacherCard:hover > .imageBlock > .hoverBlock{
+    -webkit-box-shadow: 0px 0px 64px -5px rgba(34, 60, 80, 0.5) inset;
+    -moz-box-shadow: 0px 0px 64px -5px rgba(34, 60, 80, 0.5) inset;
+    box-shadow: 0px 0px 64px -5px rgba(34, 60, 80, 0.5) inset;
+}
+.teacherCard{
+    width: 100%;
+    /*background-color: rgba(60,88,185,0.1);*/
+    padding: 10px;
+    height: auto;
+    margin: 0 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.03);
+}
+.imageBlock{
+    background-size: cover;
+    height: 360px;
+    width: 100%;
+    border-radius: 10px;
+    background-position: center;
+}
+.teacherCard:hover > .imageBlock > .hoverBlock{
+    -webkit-box-shadow: 0px 0px 64px -5px rgba(34, 60, 80, 0.5) inset;
+    -moz-box-shadow: 0px 0px 64px -5px rgba(34, 60, 80, 0.5) inset;
+    box-shadow: 0px 0px 64px -5px rgba(34, 60, 80, 0.5) inset;
+}
+.fullname{
+    font-family: "Gilroy Bold";
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    display: block
+}
+.description{
+    margin-top: 20px;
+    font-size: 14px;
+    font-family: "Gilroy Regular";
+    display: block;
+    height: 48px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.info_button{
+    font-family: "Gilroy Regular";
+    font-size: 14px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid #5571d3;
+    transition: 0.5s;
+    color: #5571d3;
+    width: 95%;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.description.show{
+    overflow: auto;
+    height: auto;
+}
+@media screen and (max-width: 761px){
+    .teacherCard{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .tabCourseCardTitleBLock{
+        width: 100%;
+    }
+}

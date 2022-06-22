@@ -1,0 +1,22 @@
+.modalBody{
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(0, 134, 255, 0.0);
+    backdrop-filter: blur(1px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+.loader{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loader img{
+    width: 128px;
+    height: 128px;
+}

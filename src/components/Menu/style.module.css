@@ -1,0 +1,44 @@
+.container{
+    height: calc(100vh - 190px);
+    background-color: #412FAE;
+    padding-top: 75px;
+    display: flex;
+    border-radius: 0 25px 25px 0;
+    position: sticky;
+}
+
+.menuList{
+    position: -webkit-sticky;
+    width: 100%;
+    list-style: none;
+}
+
+.menu_item{
+    font-size: 25px;
+    margin-bottom: 40px;
+    font-family: "Rubik Medium", serif;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.menu_item:hover{
+    color: #978fea;
+}
+
+.active{
+    border-right: 20px solid #fff;
+}
+@media screen and (max-width: 761px){
+    .container{
+        height: auto;
+        padding: 10px;
+    }
+    .menuList{
+        padding: 0;
+    }
+    .menu_item{
+        margin: 0;
+        font-size: 16px;
+    }
+}

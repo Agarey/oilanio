@@ -1,0 +1,52 @@
+.container{
+    width: 100%;
+    min-height: 200px;
+    border-radius: 15px;
+    box-shadow: 0 0 3px grey;
+    padding: 3%;
+}
+
+.title{
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.buttons_block{
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons_block > * {
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 14px;
+    color: #fff;
+    box-shadow: 0 0 5px lightgray;
+}
+
+.buttons_block > .edit_button{
+    background-color: #008000FF;
+}
+
+.buttons_block > .archive_button{
+    background-color: #d99708;
+}
+
+.buttons_block > .delete_button{
+    background-color: #be2020;
+}
+
+.row{
+    margin-bottom: 10px;
+}
+
+.row_title{
+    font-weight: 700;
+    margin: 0;
+}
+
+.row_input{
+    width: 100%;
+}

@@ -1,0 +1,184 @@
+@font-face {
+    font-family: "Rubik Regular";
+    src: url("../../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Medium";
+    src: url("../../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Bold";
+    src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+.errorMessage{
+    width: 100%;
+    text-align: center;
+    color: #ff0000;
+    font-family: "Rubik Regular";
+}
+.message{
+    width: 100%;
+    text-align: center;
+    color: black;
+    font-family: "Rubik Regular";
+}
+.signInBody{
+    width: 100%;
+    height: 85vh;
+    padding: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    position: relative;
+}
+.bgPic{
+    height: 300px;
+    position: absolute;
+    left: 70%;
+    top: 0%;
+}
+.bgPic2{
+    height: 300px;
+    position: absolute;
+    right: 70%;
+    bottom: 0%;
+}
+.formsBlock{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    z-index: 1;
+}
+.formBody{
+    height: auto;
+    min-height: 300px;
+    width: 450px;
+    border-radius: 10px;
+    background-color: transparent;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+}
+.titleBlock{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.title{
+    font-family: 'Rubik Medium';
+    font-size: 24px;
+    color: black;
+    text-align: center;
+}
+.header{
+    width: 100%;
+    height: auto;
+    background: white;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+}
+.form{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    padding: 20px 10px 50px 10px;
+}
+.headerItemLeft{
+    border-radius: 10px 0 0 0;
+}
+.headerItemRight{
+    border-radius: 0 10px 0 0;
+}
+.headerItem{
+    width: 50%;
+    padding: 15px 10px;
+    font-family: "Rubik Regular";
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.selected{
+    background: #412FAE;
+    color: white;
+    transition: 0.3s;
+}
+.input{
+    font-size: 16px;
+    width: 75%;
+    color: black;
+    border: 1px solid white;
+    background: #EFEFEF;
+    margin-bottom: 10px;
+    font-family: 'Rubik Regular';
+    border-radius: 5px;
+    padding: 5px 30px 5px 5px;
+    transition: 0.3s;
+}
+.eye{
+    color: white;
+    position: absolute;
+    right: 17%;
+    top: 20%;
+    cursor: pointer;
+    height: 16px;
+}
+.input:focus{
+    outline: none
+}
+.input::placeholder{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.submitBtnBody{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.submitBtn{
+    font-family: 'Rubik Regular';
+    border: none;
+    font-size: 16px;
+    width: 75%;
+    color: white;
+    background: #412FAE;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 30px;
+}
+.submitBtn:focus{
+    outline: none;
+}
+.inputBody{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.modal{
+    z-index: 100;
+    position: fixed;
+    width: 300px;
+    height: auto;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    left: 5px;
+    bottom: 5px;
+}
+@media screen and (max-width: 761px){
+    .formBody{
+        width: 100%;
+    }
+    .signInBody{
+        height: auto;
+    }
+    .bgPic, .bgPic2 {
+        display: none;
+    }
+}

@@ -1,0 +1,34 @@
+.modalBody{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    transform: scale(0);
+    z-index: 999;
+}
+.modalBodyActive{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    transform: scale(1);
+    z-index: 999;
+}
+.leftBlock{
+    height: 200px;
+    width: 100px;
+    background-color: white;
+}
+.rightBlock{
+    height: 200px;
+    width: 100px;
+    background-color: white;
+}

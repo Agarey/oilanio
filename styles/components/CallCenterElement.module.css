@@ -1,0 +1,115 @@
+.body{
+    width: 49%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    background: #5E7CDF;
+    border-radius: 15px;
+}
+.tableInput{
+    border: none;
+    background: transparent;
+    color: black;
+}
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.headerLeft{
+    display: flex;
+}
+.title{
+    color: white;
+    margin-right: 5px;
+    font-size: 16px;
+}
+.content{
+    width: 100%;
+    transition: 1s;
+    overflow: hidden;
+}
+.closeBtnWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+.list{
+    width: 100%;
+}
+.listItem{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.listItemTitle{
+    color: white;
+    font-size: 14px;
+    margin-right: 5px;
+}
+.listItemInput{
+    border: 1px solid #c1c1c1;
+    background: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.listItemInput:focus, .listItemTextarea:focus, .tableInput:focus{
+    outline: none;
+}
+.listItemTextarea{
+    border: 1px solid #c1c1c1;
+    background: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 100%;
+    height: 50px;
+    resize: none;
+}
+.tableInputComment{
+    height: 32px;
+    width: 150px;
+    border: none;
+    background: transparent;
+}
+.saveBtn{
+    padding: 5px 10px;
+    background: #AFCDE7;
+    color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: none;
+}
+.saveBtn:disabled{
+    background: darkgray;
+}
+.tableBody{
+    width: 100%;
+    padding: 20px;
+    overflow: auto;
+    background: white;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 7px 10px -6px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 7px 10px -6px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 7px 10px -6px rgba(34, 60, 80, 0.2);
+}
+.tableTitleRow{
+    background: #AFCDE7;
+    color: white;
+}
+.table{
+    width: 100%;
+    border: #c1c1c1;
+    border-radius: 20px;
+}
+.rows{
+    background: #D8E6F3;
+    color: white;
+    transition: 0.3s;
+}
+.rows.edited{
+    background: #ffb75e;
+}

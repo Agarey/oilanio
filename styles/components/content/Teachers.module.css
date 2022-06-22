@@ -1,0 +1,102 @@
+.container {
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    position: relative;
+}
+
+.animatedCircle_1{
+    position: absolute;
+    left: 50%;
+    margin-left: -500px;
+    top: 50%;
+    margin-top: -570px;
+    width: 1000px;
+    height: 1000px;
+    border: 3px solid #ffffff8c;
+    border-radius: 1000px;
+    background-color: #95bddc;
+    z-index: 1;
+
+    -webkit-animation-name: animatedCircle;
+    animation-name: animatedCircle;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.animatedCircle_2{
+    position: absolute;
+    left: 50%;
+    margin-left: -350px;
+    top: 50%;
+    margin-top: -420px;
+    width: 700px;
+    height: 700px;
+    border: 1px solid #ffffff8c;
+    border-radius: 700px;
+    background-color: #ffffff23;
+    z-index: 1;
+
+    -webkit-animation-name: animatedCircle;
+    animation-name: animatedCircle;
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.animatedCircle_3{
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    top: 50%;
+    margin-top: -270px;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ffffff8c;
+    border-radius: 400px;
+    background-color: #ffffff23;
+    z-index: 1;
+
+    -webkit-animation-name: animatedCircle;
+    animation-name: animatedCircle;
+    -webkit-animation-duration: 1.2s;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes animatedCircle {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+@keyframes animatedCircle {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}

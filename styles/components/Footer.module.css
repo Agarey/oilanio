@@ -1,0 +1,87 @@
+@font-face {
+    font-family: "Rubik Regular";
+    src: url("../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Medium";
+    src: url("../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Bold";
+    src: url("../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 50px 5%;
+    background: white;
+    width: 100%;
+}
+.logo{
+    display: flex;
+}
+.svg > *{
+    transition: 0.3s;
+}
+.svg:hover path{
+    transition: 0.3s;
+    fill: rgba(246,137,57,1) ;
+}
+.svg:hover rect{
+    transition: 0.3s;
+    fill: rgba(246,137,57,1) ;
+}
+.svg:hover circle{
+    transition: 0.3s;
+    fill: rgba(246,137,57,1) ;
+}
+.svg:hover{
+}
+
+.column{
+}
+.columnTitle{
+    font-family: "Rubik Bold";
+    font-size: 18px;
+}
+.columnLinks{
+    width: 100%;
+    margin-top: 10px;
+}
+.link{
+    color: black;
+    text-decoration: none;
+    font-family: "Rubik Regular";
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 5px;
+}
+.link:hover{
+    text-decoration: none;
+    color: black;
+}
+.wrapper{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+@media screen and (max-width: 761px){
+    .container{
+        display: block;
+        padding: 15px;
+    }
+    .wrapper{
+        margin-top: 10px;
+        flex-wrap: wrap;
+        padding: 0 5%;
+        box-sizing: border-box;
+    }
+    .column{
+        width: 50%;
+        margin-bottom: 15px;
+    }
+}

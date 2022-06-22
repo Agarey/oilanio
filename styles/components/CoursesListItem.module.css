@@ -1,0 +1,35 @@
+.container{
+    height: 200px;
+    background-color: #FFAE03;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    transition: 1s;
+    text-shadow: 0 0 1px black;
+}
+
+.container:hover{
+    height: 200px;
+    background-color: #FFAE03;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    transition: 0.5s;
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 0 10px black;
+}
+
+.courseNameText{
+
+}

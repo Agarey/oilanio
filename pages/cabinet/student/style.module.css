@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "Rubik Regular";
+    src: url("../../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Medium";
+    src: url("../../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Bold";
+    src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+
+
+.titleBlock{
+    width: 100%;
+    padding: 0 5%;
+    margin: 30px 0;
+}
+.title{
+    color: black;
+    font-family: "Rubik Bold";
+    font-size: 32px;
+}
+.wrapper{
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: [card] 23% [card] 23% [card] 23% [card] 23%;
+}
+.message{
+    font-family: "Rubik Bold";
+}
+@media screen and (max-width: 992px){
+    .wrapper{
+        width: 100%;
+        display: grid;
+        grid-template-columns: [card] 50% [card] 50%;
+    }
+}
+@media screen and (max-width: 600px){
+    .wrapper{
+        width: 100%;
+        display: grid;
+        grid-template-columns: [card] 100%;
+    }
+
+    .wrapper > *{
+        margin-bottom: 30px;
+    }
+}

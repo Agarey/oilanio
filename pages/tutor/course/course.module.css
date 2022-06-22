@@ -1,0 +1,9 @@
+.container{
+    margin: 0 15%;
+    border: 1px solid red;
+    height: 50px;
+}
+
+.tutor_info{
+    display: flex;
+}

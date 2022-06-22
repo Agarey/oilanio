@@ -1,0 +1,93 @@
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+.card{
+    padding: 20px;
+    box-sizing: border-box;
+    width: 30%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.cardTop{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.id{
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #412FAE;
+    color: white;
+    font-family: "Rubik Bold";
+    font-size: 128px;
+    line-height: 112px;
+}
+.cardTitle{
+    font-family: "Rubik Bold";
+    font-size: 24px;
+}
+.price{
+    font-family: "Rubik Bold";
+    font-size: 34px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: #412FAE;
+}
+.list{
+    width: 100%;
+    margin-top: 15px;
+}
+.listItem{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.opportunitiesImage{
+    width: 12px;
+    height: 10px;
+    margin-right: 5px;
+}
+.opportunities{
+    font-family: "Rubik Regular";
+    font-size: 14px;
+}
+.btn{
+    font-family: sans-serif;
+    font-size: 16px;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #412FAE;
+    transition: 0.5s;
+    margin: 0;
+    font-family: "Rubik Medium";
+}
+.center{
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 761px){
+    .container{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .price{
+        font-size: 24px;
+    }
+    .card{
+        width: 50%;
+        margin: 0;
+    }
+}

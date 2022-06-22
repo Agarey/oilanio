@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "NeoSansPro Bold";
+    src: url("../../public/fonts/NeoSansPro/NeoSansPro-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NeoSansPro Medium";
+    src: url("../../public/fonts/NeoSansPro/NeoSansPro-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NeoSansPro Regular";
+    src: url("../../public/fonts/NeoSansPro/NeoSansPro-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Gilroy Bold";
+    src: url("../../public/fonts/Gilroy/Gilroy-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Gilroy Medium";
+    src: url("../../public/fonts/Gilroy/Gilroy-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Gilroy Regular";
+    src: url("../../public/fonts/Gilroy/Gilroy-Regular.ttf") format("truetype");
+}
+.container{
+    text-align: left;
+    margin: 10px;
+    font-size: 16px;
+    color: #fff;
+}
+.container> *{
+    color: white;
+    font-family: "Gilroy Bold";
+    transition: 0.2s;
+}
+
+.container > *:hover{
+    text-shadow: 0 0 2px #000;
+    color: #95bddc;
+    text-decoration: none;
+}

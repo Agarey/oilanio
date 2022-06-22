@@ -1,0 +1,120 @@
+@font-face {
+    font-family: "Rubik Regular";
+    src: url("../../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Medium";
+    src: url("../../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Bold";
+    src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+
+.container{
+    width: 80%;
+    background: #5654BF;
+    border-radius: 30px;
+    padding: 20px;
+    position: relative;
+}
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.title{
+    color: white;
+    font-size: 22px;
+    font-family: "Rubik Medium";
+}
+.input{
+    width: 23%;
+    font-size: 16px;
+    background: white;
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: "Rubik Medium";
+    color: black;
+}
+.input:placeholder-shown{
+    color: #000;
+}
+.input:focus{
+    outline: none;
+}
+.input::placeholder{
+    color: #6a6a6a;
+}
+.wrapper_main{
+    display: flex;
+    flex-direction: column;
+}
+.wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+.search_by_name_input_wrapper{
+    display: flex;
+    justify-content: center;
+}
+.btn{
+    background: #412FAE;
+    font-family: "Rubik Regular";
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.firstPng{
+    left: -30px;
+    bottom: -30px;
+    position: absolute;
+    height: 86px;
+}
+.secondPng{
+    right: -30px;
+    top: -30px;
+    position: absolute;
+    height: 86px;
+}
+@media (max-width: 992px){
+    .firstPng{
+        display: none;
+    }
+    .secondPng{
+        display: none;
+    }
+    .wrapper{
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .input{
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        padding: 8px 10px;
+    }
+    .input::placeholder{
+        font-size: 13px;
+    }
+    .header{
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px){
+    .displayNoneOnMobile{
+        display: none;
+    }
+}

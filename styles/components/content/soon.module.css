@@ -1,0 +1,79 @@
+@font-face {
+    font-family: "NeoSansPro Bold";
+    src: url("../../../public/fonts/NeoSansPro/NeoSansPro-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NeoSansPro Medium";
+    src: url("../../../public/fonts/NeoSansPro/NeoSansPro-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NeoSansPro Regular";
+    src: url("../../../public/fonts/NeoSansPro/NeoSansPro-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Gilroy Bold";
+    src: url("../../../public/fonts/Gilroy/Gilroy-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Gilroy Medium";
+    src: url("../../../public/fonts/Gilroy/Gilroy-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Gilroy Regular";
+    src: url("../../../public/fonts/Gilroy/Gilroy-Regular.ttf") format("truetype");
+}
+
+.container {
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.soonBody{
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(60,88,185,1) 0%, rgba(119,148,248,1) 100%);
+
+}
+
+.titleBlock{
+    width: 50%;
+    margin-top: 1em;
+}
+.soonIllustration{
+    width: 100%;
+}
+.illustrationBlock{
+    width:50%;
+    position: relative;
+}
+.main_text_big{
+    font-size: 36px;
+    font-family: "Gilroy Bold";
+    color: #fff;
+}
+@media screen and (max-width: 761px) {
+    .illustrationBlock{
+        display: none;
+        width: 0;
+    }
+    .titleBlock{
+        width: 100%;
+    }
+    .main_text_big{
+        font-size: 36px;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .soonBody{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

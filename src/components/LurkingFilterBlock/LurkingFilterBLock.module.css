@@ -1,0 +1,91 @@
+@font-face {
+    font-family: "Rubik Regular";
+    src: url("../../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Medium";
+    src: url("../../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Rubik Bold";
+    src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+}
+
+.container{
+    width: 100%;
+    padding: 0 9%;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+.header{
+    width: 100%;
+}
+.btn{
+    background: #EEEDED;
+    padding: 10px;
+    color: black;
+    font-family: "Rubik Regular";
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    width: 125px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.rotateBtn{
+    transform: rotate(180deg);
+    transition: 0.5s;
+}
+.list{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    transition: 0.3s;
+    height: 0;
+    flex-wrap: wrap;
+}
+.listShow{
+    height: 100px;
+    transition: 0.3s;
+}
+.select{
+    background: #EEEDED;
+    padding: 10px;
+    color: black;
+    font-family: "Rubik Medium";
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    margin-right: 20px;
+}
+.select:focus{
+    outline: none;
+}
+.button{
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-family: "Rubik Medium";
+    background: #412FAE;
+}
+.button:active{
+    outline: none;
+}
+@media screen and (max-width: 762px){
+    .list{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .listShow{
+        height: auto;
+    }
+    .select{
+        margin-bottom: 10px;
+    }
+    .header{
+        margin-bottom: 15px;
+    }
+}
