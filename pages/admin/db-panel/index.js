@@ -24,9 +24,11 @@ const DbPanel = () => {
     const [title, setTitle] = useState(null)
     const [img_src, setImg_src] = useState(null)
     const [website_url, setWebsite_url] = useState(null)
+    const [twogis_link, setTwogis_link] = useState(null)
     const [addresses, setAddresses] = useState(null)
     const [phones, setPhones] = useState(null)
     const [description, setDescription] = useState(null)
+    const [subtitle, setSubtitle] = useState(null)
     const [city_id, setCity_id] = useState(null)
     const [url, setUrl] = useState(null)
     const [background_image_url, setBsackground_image_url] = useState(null)
@@ -41,9 +43,12 @@ const DbPanel = () => {
     const [categories, setCategories] = useState([]);
 
     const [cardTitle, setCardTitle] = useState('');
+    const [cardDescription, setCardDescription] = useState('');
     const [cardDirectionId, setCardDirectionId] = useState(1);
     const [cardPrice, setCardPrice] = useState(0);
+    const [cardSchedule, setCardSchedule] = useState('');
     const [cardUnitOfTime, setCardUnitOfTime] = useState('Курс');
+    const [cardAges, setCardAges] = useState('');
     const [cardIsOnline, setCardIsOnline] = useState(false);
 
     const loadData = () => {
@@ -61,13 +66,16 @@ const DbPanel = () => {
     const addCourseCard = async () => {
         const data = {
             cardTitle,
+            cardDescription,
             cardDirectionId,
             cardPrice,
+            cardSchedule,
+            cardAges,
             cardUnitOfTime,
             cardIsOnline,
             courseId: selectedCenterId
         }
-
+        
         await console.log(data);
 
         await axios({
@@ -87,7 +95,7 @@ const DbPanel = () => {
             title: title,
             img_src: img_src,
             rating: 5,
-            subtitle: description,
+            subtitle: subtitle,
             website_url: website_url,
             addresses: addresses,
             phones: phones,
@@ -102,6 +110,7 @@ const DbPanel = () => {
             instagram: instagram,
             email: email,
             is_personal_bank_account: true,
+            twogis_link: twogis_link
         }
 
         await axios({
@@ -177,6 +186,10 @@ const DbPanel = () => {
                                 <input type="text" className={styles.wrapperItemInput} onChange={e => setWebsite_url(e.target.value)}/>
                             </div>
                             <div className={styles.wrapperItem}>
+                                <span className={styles.wrapperItemTitle}>Ссылка на 2gis (если имеется):</span> <br/>
+                                <input type="text" className={styles.wrapperItemInput} onChange={e => setTwogis_link(e.target.value)}/>
+                            </div>
+                            <div className={styles.wrapperItem}>
                                 <span className={styles.wrapperItemTitle}>Адреса:</span> <br/>
                                 <input type="text" className={styles.wrapperItemInput} onChange={e => setAddresses(e.target.value)}/>
                             </div>
@@ -187,7 +200,15 @@ const DbPanel = () => {
                                        onChange={e => setPhones(e.target.value)}/>
                             </div>
                             <div className={styles.wrapperItem}>
-                                <span className={styles.wrapperItemTitle}>Описание центра:</span> <br/>
+                                <span className={styles.wrapperItemTitle}>Краткое описание центра:</span> <br/>
+                                <textarea style={{width: '50%',height:'100px'}} onChange={e => setSubtitle(e.target.value)}
+                                          className={styles.wrapperItemInput}
+                                >
+
+                               </textarea>
+                            </div>
+                            <div className={styles.wrapperItem}>
+                                <span className={styles.wrapperItemTitle}>Полное описание центра:</span> <br/>
                                 <textarea style={{width: '50%',height:'100px'}} onChange={e => setDescription(e.target.value)}
                                           className={styles.wrapperItemInput}
                                 >
@@ -341,6 +362,15 @@ const DbPanel = () => {
 
                                 <span className={styles.wrapperItemTitle}>Название курса:</span> <br/>
                                 <input type="text" onChange={e => setCardTitle(e.target.value)}/> <br/>
+
+                                <span className={styles.wrapperItemTitle}>Описание курса:</span> <br/>
+                                <input type="text" onChange={e => setCardDescription(e.target.value)}/> <br/>
+
+                                <span className={styles.wrapperItemTitle}>Расписание:</span> <br/>
+                                <input type="text" onChange={e => setCardSchedule(e.target.value)}/> <br/>
+
+                                <span className={styles.wrapperItemTitle}>Возрастная категория:</span> <br/>
+                                <input type="text" onChange={e => setCardAges(e.target.value)}/> <br/>
 
                                 <span className={styles.wrapperItemTitle}>Направление:</span> <br/>
                                 <select

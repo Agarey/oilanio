@@ -16,18 +16,11 @@ import ContactBlock from "../../src/components/ContactBlock";
 import Footer from "../../src/components/Footer/Footer";
 import LurkingFilterBlock from "../../src/components/LurkingFilterBlock";
 import CourseSearchResultIsNotDefind from "../../src/components/CourseSearchResultIsNotDefind";
-import ModalWindow from '../../src/components/Modal/ModalWindow';
-import { CourseSearchForm } from '../../src/components/Forms/CourseSearchForm/CourseSearchForm';
 
 const Catalog = () => {
     const router = useRouter();
 
     const [cardsToShow, setCardsToShow] = useState(8)
-    const [showCourseSearchModal, setShowCourseSearchModal] = useState(false);
-
-    function handleCloseCourseSearchModal(){
-        setShowCourseSearchModal(false);
-    }
 
     const addCards = () => {
             setCardsToShow(cardsToShow+8)
@@ -92,7 +85,6 @@ const Catalog = () => {
     const [filtersLoading, setFiltersLoading] = useState(false);
     const [coursesLoading, setCoursesLoading] = useState(false);
     const [loadingModal, setLoadingModal] = useState(false);
-    const [regions, setRegions] = useState([]);
 
     const [showUps, setShowUps] = useState(false)
 
@@ -103,19 +95,11 @@ const Catalog = () => {
     useEffect(async () => {
         let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
         setImagesBase(imagesBaseResponse.data);
-
-        let regionsResponse = await axios.get(`${globals.productionServerDomain}/getRegions`);
-        setRegions(regionsResponse.data);
-
         setCoursesLoading(true);
         loadFilters();
         loadCourseCards().then(() => setCoursesLoading(false));
         loadStocks().then(() => setStocksLoading(false));
         window.scrollTo(0, 0);
-
-        // setTimeout(() => {
-        //     setShowCourseSearchModal(true);
-        // }, 1)
     }, [])
 
     function componentDidMount() {
@@ -131,8 +115,6 @@ const Catalog = () => {
                 <div dangerouslySetInnerHTML={{__html: ym()}}/>
             </Head>
 
-            <ModalWindow backgroundColor={'#5654bf'} show={showCourseSearchModal} handleClose={handleCloseCourseSearchModal} body={<CourseSearchForm directions={filters[1]} regions={regions} cities={filters[0]}/>}/>
-
             <div className={styles.filterBlockWrapper}>
                 <FilterBlock filters={filters} filterBtnHandler={filterBtnHandler}/>
             </div>
@@ -144,6 +126,7 @@ const Catalog = () => {
                 {
                     stocksLoading ? <LoadingBlock/> : (stocks.length != 0 ? <SimpleSlider stocks={stocks}/> : <LoadingBlock/>)
                 }
+                
             </div>
             <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
                 <Image src={'/cryptocurrency-certificate.png'} className={styles.titleImg}/>

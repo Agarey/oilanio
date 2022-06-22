@@ -12,7 +12,7 @@ const PartnersBlock = () => {
         let result = await axios.get(`${globals.productionServerDomain}/partners_block/`);
         setPartners(result.data)
     }, [])
-
+    console.log(partners)
     return(
         <div className={styles.container}>
             <div className={styles.titleBlock}>

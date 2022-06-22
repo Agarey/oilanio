@@ -90,6 +90,50 @@ function TutorCourseCardEdit(props){
 
             <div style={{width: '100%', display: hide ? 'block' : 'none'}}>
                 <div className={styles.row}>
+                    <p className={styles.row_title}>Название курса</p>
+                    <div style={{display: 'flex'}}>
+                        <input
+                            type={'text'}
+                            className={styles.row_input}
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                            disabled={!editMode}
+                        />
+                    </div>
+
+                    <p className={styles.row_title}>Минимальный возраст</p>
+                    <div style={{display: 'flex'}}>
+                        <input
+                            type={'number'}
+                            className={styles.row_input}
+                            value={minAge}
+                            onChange={e => setMinAge(e.target.value)}
+                            disabled={!editMode}
+                        />
+                    </div>
+
+                    <p className={styles.row_title}>Максимальный возраст</p>
+                    <div style={{display: 'flex'}}>
+                        <input
+                            type={'number'}
+                            className={styles.row_input}
+                            value={maxAge}
+                            onChange={e => setMaxAge(e.target.value)}
+                            disabled={!editMode}
+                        />
+                    </div>
+
+                    <p className={styles.row_title}>Расписание</p>
+                    <div style={{display: 'flex'}}>
+                        <input
+                            type={'text'}
+                            className={styles.row_input}
+                            value={schedule}
+                            onChange={e => setSchedule(e.target.value)}
+                            disabled={!editMode}
+                        />
+                    </div>
+
                     <p className={styles.row_title}>Цена</p>
                     <div style={{display: 'flex'}}>
                         <input

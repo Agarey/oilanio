@@ -8,6 +8,8 @@ const axios = require("axios").default;
 
 const DbPanelTutor = () => {
     const [fullname, setFullname] = useState('');
+    const [img_src, setImg_src] = useState(null);
+    const [description, setDescription] = useState('');
     const [canWorkOnline, setCanWorkOnline] = useState(false);
     const [canWorkOffline, setCanWorkOffline] = useState(false);
     const [phone, setPhone] = useState('');
@@ -50,6 +52,8 @@ const DbPanelTutor = () => {
     const createTutor = async () => {
         const data = {
             fullname,
+            img_src,
+            description,
             canWorkOnline,
             canWorkOffline,
             phone,
@@ -106,6 +110,7 @@ const DbPanelTutor = () => {
             categoryId,
             minAge,
             maxAge,
+            schedule,
             startRequirements,
             expectingResults,
             durationValue,
@@ -153,7 +158,23 @@ const DbPanelTutor = () => {
                             onChange={e => setFullname(e.target.value)}
                         />
                     </div>
-
+                    <div className={styles.inputRow}>
+                        <p className={styles.inputTitle}>О репетиторе</p>
+                        <input
+                            type="text"
+                            className={styles.input}
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles.inputRow}>
+                        <p className={styles.inputTitle}>Ссылка на фото:</p>
+                        <input 
+                            type="text" 
+                            className={styles.input} 
+                            onChange={e => setImg_src(e.target.value)}
+                        />
+                    </div>
                     <div className={styles.inputRow}>
                         <div style={{display: 'flex'}}>
                             <p className={styles.inputTitle}>Может работать онлайн</p>
@@ -301,6 +322,46 @@ const DbPanelTutor = () => {
                         >
                             {tutorsList.map(item => <option value={item.id}>{item.fullname} (id: {item.id})</option>)}
                         </select>
+                    </div>
+
+                    <div className={styles.inputRow}>
+                        <p className={styles.inputTitle}>Название курса</p>
+                        <input
+                            type="text"
+                            className={styles.input}
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={styles.inputRow}>
+                        <p className={styles.inputTitle}>Минимальный возраст</p>
+                        <input
+                            type="number"
+                            className={styles.input}
+                            value={minAge}
+                            onChange={e => setMinAge(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={styles.inputRow}>
+                        <p className={styles.inputTitle}>Максимальный возраст</p>
+                        <input
+                            type="number"
+                            className={styles.input}
+                            value={maxAge}
+                            onChange={e => setMaxAge(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={styles.inputRow}>
+                        <p className={styles.inputTitle}>Расписание</p>
+                        <input
+                            type="text"
+                            className={styles.input}
+                            value={schedule}
+                            onChange={e => setSchedule(e.target.value)}
+                        />
                     </div>
 
                     <div className={styles.inputRow}>

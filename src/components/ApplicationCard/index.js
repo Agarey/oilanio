@@ -9,6 +9,11 @@ const ApplicationCard = ({application, ...props}) => {
     const [datetime, setDatetime] = useState(application.datetime && application.datetime.split('T')[0])
     const [isActive, setIsActive] = useState(application.is_active);
 
+    const dateOptions = { timeZone: 'Asia/Almaty', month: 'numeric', day: 'numeric', year: 'numeric' };
+
+    const dateFormatter = new Intl.DateTimeFormat('ru-RU', dateOptions);
+    const dateAsFormattedString = dateFormatter.format(new Date(application.datetime));
+
     return (
         <div className={styles.container}>
             <div className={styles.titleImageBody} style={{
@@ -25,7 +30,7 @@ const ApplicationCard = ({application, ...props}) => {
                         {isActive ? 'Активна' : 'Деактивирована'}
                         {isActive===false && <span className={styles.deactivatingDate}>{deactivatingDate}</span>}
                     </span></span> <br/>
-                    <span className={styles.subtitle}>Заявка отправлена: <span style={{fontFamily: 'Rubik Medium'}}>{datetime}</span></span> <br/>
+                    <span className={styles.subtitle}>Заявка отправлена: <span style={{fontFamily: 'Rubik Medium'}}>{dateAsFormattedString}</span></span> <br/>
                     <span className={styles.subtitle}>Формат занятий: <span style={{fontFamily: 'Rubik Medium'}}>{application.is_online ? 'Онлайн' : 'Офлайн'}</span></span> <br/>
                     <span className={styles.subtitle}>Эл. почта: <span style={{fontFamily: 'Rubik Medium'}}>{application.student_email}</span></span>
                 </div>

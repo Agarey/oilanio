@@ -55,8 +55,8 @@ function coursePage(props) {
 
     let [phones, setPhones] = useState(props.course.phones.split('  '));
     const [courseDescription, setCourseDecription] = useState(props.course.description!=null ? props.course.description.split('|') : [])
-    const [subcourseDescription, setSubcourseDecription] = useState(courseDetails.description!=null ? courseDetails.description.split('|') : []);
-
+    const [subcourseDescription, setSubcourseDecription] = useState(props.courseDetails.description!=null ? props.courseDetails.description.split('|') : []);
+ 
     const [hideMap, setHideMap] = useState( true)
 
     const [subcourseCardsToShow, setSubcourseCardsToShow] = useState(4)
@@ -236,7 +236,6 @@ function coursePage(props) {
             role_id: 4
         };
 
-
         axios({
             method: 'post',
             url: `${globals.productionServerDomain}/createCourseSearchTicket`,
@@ -278,7 +277,7 @@ function coursePage(props) {
             <div className={newStyles.container} >
 
                 <div className={styles.headerBlock}>
-                    <div className={newStyles.image} style={{ backgroundImage: `url(${props.course.img_src})` }}>
+                    <div className={newStyles.image} style={props.course.img_src?{ backgroundImage: `url(${props.course.img_src})` }:{backgroundImage: `url('https://realibi.kz/file/510188.jpg')`}}>
                         {
                             promotionsLoaded && promotions.length>0 && (
                                 <>
@@ -333,110 +332,10 @@ function coursePage(props) {
                             )
                         }
                     </div>
-                    <div className={styles.mobileHeader}>
-                        <div className={newStyles.imageMobile} style={{ backgroundImage: `url(${props.course.img_src})` }}>
-                            {
-                                promotionsLoaded && promotions.length>0 && (
-                                    <>
-                                        <div className={classnames(styles.promotionStar, showPromotions ? styles.whiteStar : styles.violetStar)}
-                                             onClick={()=>setShowPromotions(!showPromotions)}
-                                        >
-                                            {
-                                                showPromotions ? (
-                                                    <span className={styles.starTitle} style={{color: 'black', fontSize: 24}}>X</span>
-                                                ) : (
-                                                    <>
-                                                        <span className={styles.starTitle}>АКЦИЯ</span>
-                                                        <span className={styles.starSubtitle}>(нажми)</span>
-                                                    </>
-                                                )
-                                            }
-
-                                        </div>
-                                        {
-                                            showPromotions && (
-                                                <div className={styles.promotionBlock}>
-                                                    <div style={{width: '100%'}}>
-                                                        <div className={styles.promotionItem}>
-                                                            <span className={styles.promotionTitle}>Акция</span>
-                                                            <span className={styles.promotionSubtitle}>{promotions[promotionIndex].text}</span>
-                                                        </div> <br/>
-                                                        <div className={styles.promotionItem}>
-                                                            <span className={styles.promotionTitle}>Что нужно сделать?</span>
-                                                            <span className={styles.promotionSubtitle}>Введите промокод <b>“{promotions[promotionIndex].promocode}”</b>, в поле <b>“Промокод”</b>, когда будете оставлять заявку этому центру</span>
-                                                        </div>
-                                                    </div>
-
-                                                    {
-                                                        promotions.length>1 && (
-                                                            <div className={styles.nextPromotionBtnBody}>
-                                                            <span className={styles.nextPromotionBtn}
-                                                                  onClick={()=>{
-                                                                      if(promotionIndex===promotions.length-1){
-                                                                          setPromotionIndex(0)
-                                                                      } else {
-                                                                          setPromotionIndex(promotionIndex+1)
-                                                                      }
-                                                                  }}
-                                                            >Следующая акция</span>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            )
-                                        }
-                                    </>
-                                )
-                            }
-                        </div>
-                        <div className={styles.mobileWrapper}>
-                            <div style={{width: '100%'}}>
-                                <span className={newStyles.fullname} style={{fontSize: 18}}>{courseDetails.title ==='test' ? '' : courseDetails.title}</span> <br/>
-                                <span className={newStyles.leftValue}>{props.course.title}</span>
-                            </div>
-
-                            <div className={styles.mobileWrapperFooter}>
-                                <div className={styles.enableOnMobile}>
-                                    <button className={styles.button} onClick={async () => {
-                                        handleShow();
-                                    }}>Оставить заявку</button>
-                                </div>
-                                <a
-                                    onClick={() => {
-                                        ym(78186067,'reachGoal','whatsapp_click_center');
-                                        axios.post(globals.productionServerDomain + '/logUserClick',{
-                                            course_id: courseDetails.course_id,
-                                            card_id: courseDetails.id,
-                                            event_name: 'whatsapp'
-                                        })
-                                    }}
-                                    href={`https://api.whatsapp.com/send?phone=${props.course.phones}&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BF%D0%B8%D1%88%D1%83%20%D0%92%D0%B0%D0%BC%20%D1%81%20%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D1%8B%20Oilan, `}>
-                                    <div
-                                        style={{
-                                            height: '100%',
-                                            width: 45,
-                                            marginLeft: 10,
-                                            borderRadius: 8,
-                                            backgroundImage: `url('/whatsapp_logo.png')`,
-                                            backgroundPosition: 'center',
-                                            backgroundRepeat: 'no-repeat',
-                                            backgroundSize: 'contain',
-                                            boxShadow: '0 0 1px grey',
-                                            backgroundColor: '#23d366'
-                                        }}
-                                    >
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                     <div className={classnames(newStyles.headerItemThird)}>
                         <div className={newStyles.infoList}>
-                            <div className={newStyles.disableOnMobile}>
-                                <span className={(newStyles.fullname)}>{courseDetails.title ==='test' ? '' : courseDetails.title}</span> <br/>
-                            </div>
-                            <br/>
-                            <div className={classnames(newStyles.disableOnMobile, newStyles.infoItem)}>
+                            <span className={newStyles.fullname}>{courseDetails.title ==='test' ? '' : courseDetails.title}</span> <br/> <br/>
+                            <div className={newStyles.infoItem}>
                                 <span className={newStyles.leftSubTitle}>Центр</span>
                                 <span className={newStyles.leftValue}>{props.course.title}</span>
                             </div>
@@ -455,6 +354,10 @@ function coursePage(props) {
                             <div className={newStyles.infoItem}>
                                 <span className={newStyles.leftSubTitle}>Формат занятий:</span>
                                 <span className={newStyles.leftValue}>{courseDetails.format}</span>
+                            </div>
+                            <div className={newStyles.infoItem}>
+                                <span className={newStyles.leftSubTitle}>Тип занятий:</span>
+                                <span className={newStyles.leftValue}>{courseDetails.type}</span>
                             </div>
                             <br/>
                             <div className={newStyles.infoItem}>
@@ -478,7 +381,11 @@ function coursePage(props) {
                                 width: '100%',
                                 marginTop: 10
                             }}>
-
+                                <div className={styles.enableOnMobile}>
+                                    <button className={styles.button} onClick={async () => {
+                                        handleShow();
+                                    }}>Оставить заявку</button>
+                                </div>
                                 <div className={styles.disableOnMobile}>
                                     <button className={styles.button} onClick={async () => {
                                         handleShow();

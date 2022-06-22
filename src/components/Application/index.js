@@ -13,24 +13,60 @@ export default function Application(props){
 
     const handleCardPickModalClose = () => setCardPickModal(false);
     const handlePaymentModalClose = () => setShowPaymentModal(false);
-    return(
+    const CountDown = ({ hours = 0, minutes = 0, seconds = 0 }) => {
+  
+    const [over, setOver] = React.useState(false);
+    const [[h, m, s], setTime] = React.useState([hours, minutes, seconds]);
+
+    const tick = () => {
+        if (over) return;
+
+        if (h === 0 && m === 0 && s === 0) {
+            setOver(true);
+        } else if (m === 0 && s === 0) {
+            setTime([h - 1, 59, 59]);
+        } else if (s == 0) {
+            setTime([h, m - 1, 59]);
+        } else {
+            setTime([h, m, s - 1]);
+        }
+    };
+
+
+    React.useEffect(() => {
+        const timerID = setInterval(() => tick(), 1000);
+        return () => clearInterval(timerID);
+    });
+
+    return (
+        <span>
+            {`${h.toString().padStart(2, '0')}:${m
+                .toString()
+                .padStart(2, '0')}:${s.toString().padStart(2, '0')}`}
+        </span>
+        );
+    };
+    return((new Date(application.datetime).getTime() + 86400000) > (new Date().getTime())?(
         <>
             <ModalWindow show={showPaymentModal} handleClose={handlePaymentModalClose} heading={'Приобретите подписку для возможности откликнуться на заявку!'} body={<SubscriptionPaymentForm handleClose={handlePaymentModalClose}/>}/>
             <ModalWindow
                 show={showCardPickModal}
                 handleClose={handleCardPickModalClose}
                 heading={'Созвонитесь с клиентом!'}
-                body={
-                    <>
-                        <p style={{color: '#000'}}>Номер телефона: {application.phone}</p>
-                        <p style={{color: '#000'}}>Сообщение от клиента: {application.message}</p>
-                    </>
-                }
+                body={<p style={{color: '#000'}}>{application.phone}</p>}
             />
 
             <div className={styles.container}>
                 <p className={styles.name}>{application.name}</p>
                 <p className={styles.direction}>{props.categoryName}</p>
+                <p><b>Активна с: </b>{application.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}</p>
+                <p className={styles.application_item_text}>
+                                <b>Осталось: </b><CountDown 
+                                hours={Math.floor((((new Date(application.datetime).getTime()) + 86400000)-(new Date().getTime()))/1000/60/60)} 
+                                minutes={Math.floor((((new Date(application.datetime).getTime()) + 86400000)-(new Date().getTime()))/1000/60)%60}
+                                seconds={Math.floor((((new Date(application.datetime).getTime()) + 86400000)-(new Date().getTime()))/1000)%60} />
+                                
+                            </p>
                 {application.is_active ? (
                     <button
                         className={styles.button}
@@ -50,6 +86,6 @@ export default function Application(props){
                 )}
 
             </div>
-        </>
+        </>):(<></>)
     );
 }

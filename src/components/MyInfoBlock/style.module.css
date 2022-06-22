@@ -4,8 +4,8 @@
 }
 
 .center_logo{
-    width: 250px;
-    height: 250px;
+    width: 95%;
+    aspect-ratio: 1/1;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -38,6 +38,7 @@
 
 .info_text{
     font-family: "Rubik Regular";
+    white-space: pre-wrap;
 }
 
 .cards_block{

@@ -14,23 +14,25 @@
 .body{
     width: 100%;
     position: relative;
-    min-height: 100vh;
-    background: #5F2FAE;
+    min-height: 140vh;
+    background: white;
     padding: 0 5%;
     box-sizing: border-box;
     z-index: 8;
+    color: black;
 }
 .whiteBody{
     width: 100%;
     min-height: 100vh;
     background: white;
+    color: black;
     padding: 0 5%;
     box-sizing: border-box;
     z-index: 8;
 }
 .dropdown-menu { overflow-y: scroll; height: 200px; }
 .main_title{
-    color: #fff;
+    color: black;
     font-family: "Rubik Bold";
     font-size: 24px;
     font-weight: bold;
@@ -74,28 +76,95 @@
 }
 .selectBlock, .techSupportInput{
     width: 80%;
-    border: none;
+
     cursor: pointer;
     border-radius: 5px;
     padding: 10px;
+    border: 1px solid rgba(0,0,0,0.2);
     box-sizing: border-box;
-    background: #7D54BF;
-    color: white;
+    background: white;
+    color: black;
     margin-bottom: 10px;
     font-family: "Rubik Medium";
 }
-
+.selectBlock::placeholder{
+    color: black !important;
+    opacity: 0.7 !important;
+}
+.primarySelect{
+    width: 80%;
+    border: none;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #cad3ee;
+}
+.selectSide{
+    width: 50%;
+}
+.course{
+    background-color: #422FAF;
+    width: 50%;
+    border-radius: 5px;
+    font-family: "Rubik Medium";
+    cursor: pointer;
+    color: white;
+    border: none;
+    /*box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);*/
+    padding: 10px;
+    transition: 0.3s;
+    font-size: 16px;
+    z-index: 5;
+    
+}
+.tutor{
+    background-color: #cad3ee;
+    border-radius: 5px;
+    width: 50%;
+    font-family: "Rubik Medium";
+    cursor: pointer;
+    color: black;
+    border: none;
+    /*box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);*/
+    padding: 10px;
+    transition: 0.3s;
+    font-size: 16px;
+    z-index: 5;
+    white-space: nowrap;
+}
 .selectBlock:focus, .techSupportInput:focus{
     outline: none;
 }
 .techSupportInput::placeholder{
     color: rgba(255, 255, 255, 0.54);
 }
+.selectBlock::placeholder{
+    color: #ffffff;
+    opacity: 0.5;
+}
+.downButton{
+    font-family: "Rubik Medium";
+    background-color: #422FAF;
+    color: white;
+    border: none;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    font-size: 18px;
+    margin-bottom: 20px;
+    width: 80%;
+/*    margin-left: 40%;
+    margin-top: 3%;*/
+}
+.downButton:hover{
+    background: #FFF973;
+    color: black;
+}
 .button{
     font-family: "Rubik Medium";
     cursor: pointer;
-    background-color: #FFF973;
-    color: black;
+    background-color: #422FAF;
+    color: white;
     width: max-content;
     border: none;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
@@ -105,6 +174,7 @@
     font-size: 16px;
     margin-top: 5px;
     z-index: 5;
+    width: 80%;
 }
 .message{
     display: flex;
@@ -124,9 +194,17 @@
     justify-content: right;
     align-items: center;
 }
+.imageText{
+    position: absolute;
+    padding-top: 79%;
+    left: 18%;
+    font-family: 'Rubik Medium';
+    font-size: 1.2vw;
+}
 .image{
     position: absolute;
-    width: 100%;
+    width: 80%;
+    right: 20%;
 }
 .imageTitle{
     position: absolute;
@@ -142,7 +220,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    /*height: 70vh;*/
 }
 .loading{
     height: 300px;
@@ -192,7 +270,14 @@
         grid-column-gap: 2%;
     }
 }
-
+@media (max-width: 820px){
+    .tutor{
+        font-size: 0.75em;
+    }
+    .course{
+        font-size: 0.75em;
+    }
+}
 @media (max-width: 600px){
     .imageBlock{
         display: none;
@@ -216,7 +301,10 @@
     .selectBlock{
         width: 100%;
     }
+    .primarySelect{
+        width: 100%;
+    }
     .body{
-        min-height: 100vh;
+        min-height: 120vh;
     }
 }

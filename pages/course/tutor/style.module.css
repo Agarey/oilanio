@@ -22,17 +22,6 @@
     height: 350px;
     margin-right: 20px;
 }
-.imageMobile{
-    position: relative;
-    width: 50%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 20px;
-    height: auto;
-    height: 200px;
-    margin-right: 20px;
-}
 .promotionStar{
     position: absolute;
     left: 0;
@@ -67,6 +56,7 @@
     word-break: break-word;
 }
 .infoList{
+    width: 100%;
 }
 .courseInfoListFooter{
     width: 100%;
@@ -95,6 +85,7 @@
     font-family: "Rubik Regular";
     color: #00000099;
     font-size: 14px;
+    word-wrap: break-word !important;
 }
 .courseInfo{
     width: 100%;
@@ -107,15 +98,12 @@
 }
 @media (max-width: 600px){
     .image{
-        display: none;
-    }
-    .disableOnMobile{
-        display: none;
+        width: 100%;
+        margin: 0 0 10px 0;
     }
     .headerItem{
         width: 100%;
     }
-
     .headerItem3{
         margin-top: 10px;
     }

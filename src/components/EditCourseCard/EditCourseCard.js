@@ -33,7 +33,6 @@ export default function EditCourseCard(props) {
     const [duration, setDuration] = useState(props.course.duration);
     const [durationNumber, setDurationNumber] = useState(props.course.duration !== null ? props.course.duration.slice(' ')[0] : ' ');
     const [durationWord, setDurationWord] = useState(props.course.duration !== null ? props.course.duration.slice(' ')[1] : ' ');
-    const [ages, setAges] = useState(props.course.ages);
     const [agesMin, setAgesMin] = useState('1');
     const [agesMax, setAgesMax] = useState('60');
     const [format, setFormat] = useState(props.course.format);
@@ -104,10 +103,17 @@ export default function EditCourseCard(props) {
                     <span style={{color: '#FF8300', fontWeight: 'bold' }}>{props.course.approved ? null : 'Карта находится в модерации'}</span>
                     <span style={{color: '#FF8300', fontWeight: 'bold' }}>{props.course.is_archived === true ? 'Карта находится в архиве' : null }</span>
                     <div className={styles.info_smallBody}>
-                        <input className={styles.title} disabled={!edit} value={editCourseTitle}
-                               onChange={event => {
-                                setEditCourseTitle(event.target.value);
-                            }} />
+                        <div 
+                            className={styles.Divtitle}
+                            style={!edit?{display: 'flex'}:{display: 'none'}}
+                        >{editCourseTitle}</div>
+                        <input className={styles.title} 
+                            disabled={edit ? false : true} 
+                            style={edit?{display: 'flex'}:{display: 'none'}}
+                            value={editCourseTitle}
+                            onChange={event => {
+                            setEditCourseTitle(event.target.value);
+                        }} />
                     </div>
 
                     <select
@@ -125,6 +131,25 @@ export default function EditCourseCard(props) {
 
                         <div className={classnames(showInfo ? styles.show : styles.hide)}>
 
+                            <p className={styles.info_title}>Название курса:</p>
+                            <input className={styles.title} 
+                                disabled={edit ? false : true} 
+                                value={editCourseTitle}
+                                onChange={event => {
+                                setEditCourseTitle(event.target.value);
+                            }} />
+
+                            <p className={styles.info_title}>Направление:</p>
+                            <select
+                                className={styles.select}
+                                onChange={e => setCategoryId(e.target.value)}
+                                disabled={!edit}
+                                value={categoryId}
+                            >
+                                {edit ? (props.courseCategories === undefined ? null : (props.courseCategories.map(category => category.name === "test" ? null : (<option value={category.id}>{category.name}</option>))))
+                                : <option value={props.course.category_id}>{props.course.category_name}</option>}
+                            </select>
+
                             <p className={styles.info_title}>Описание курса:</p>
                             <div className={styles.info_smallBody}>
                                 <textarea className={styles.textArea} disabled={edit ? false : true} onChange={e => setDescription(e.target.value)}>
@@ -132,43 +157,14 @@ export default function EditCourseCard(props) {
                                 </textarea>
                             </div>
 
-                            <p className={styles.info_title}>Возрастная категория: </p>
-                            {edit ? (
-                                <div className={classnames(styles.info_smallBody, styles.flexbox)}>
-                                    <input
-                                        min={3}
-                                        max={60}
-                                        onChange={e => {
-                                            setAgesMin(e.target.value);
-                                            setAges(agesMin + '-' + agesMax);
-                                        }}
-                                        type="number"
-                                        className={classnames(styles.select, styles.input, styles.select50)}
-                                        placeholder="От"
-                                    />
-                                    <input
-                                        min={3}
-                                        max={60}
-                                        onChange={e => {
-                                            setAgesMax(e.target.value);
-                                            setAges(agesMin + '-' + agesMax);
-                                        }}
-                                        type="number"
-                                        className={classnames(styles.select, styles.input, styles.select50)}
-                                        placeholder="До"
-                                    />
-                                </div>
-                            ) : (
-                                    <p className={styles.info_small}>{ages}</p>
-                                )}
-
-
-
                             <p className={styles.info_title}>Вид занятий: </p>
                             <div className={styles.info_smallBody}>
                                 <select className={styles.select} disabled={edit ? false : true} value={type} onChange={e => setType(e.target.value)}>
+                                    <option value="" disabled>Выберите тип занятий</option>
                                     <option value="Групповые занятия">Групповые занятия</option>
                                     <option value="Индивидуальные занятия">Индивидуальные занятия</option>
+                                    <option value="Парные занятия">Парные занятия</option>
+                                    <option value="Мини-групповые занятия">Мини-групповые занятия</option>
                                 </select>
                             </div>
 

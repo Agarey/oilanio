@@ -27,7 +27,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(90deg, #7365C6 1.99%, #6657BF 46.33%, #412FAE 98.22%);
+    background-color: white;
+    color: black;
+   /* background: linear-gradient(90deg, #7365C6 1.99%, #6657BF 46.33%, #412FAE 98.22%);*/
     z-index: 7;
     padding-left: 5%;
     padding-right: 5%;
@@ -278,7 +280,7 @@
         z-index: 7;
     }
     .logo{
-        order: 3;
+        order: 1;
         width: auto;
         margin: 10px 0px;
     }
@@ -289,9 +291,12 @@
         order: 2;
     }
     .menuButtonBody{
-        order: 1;
+        order: 3;
         display: flex;
         align-items: center;
+    }
+    .menuButtonBody span{
+        display: none;
     }
     .mobileMenu{
         transition: 0.5s;

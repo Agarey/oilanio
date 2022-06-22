@@ -43,7 +43,7 @@ const CourseCategoriesSliderIMG = (props) => {
                         return (
                             category.id !== 0 ?
                                 (
-                                    <a href={`/courses?direction=${category.id}&city=0&price=0&isOnline=0&searchingCenter=1`} key={idx} className={styles.category}>
+                                    <a href={`/courses?centerName=&direction=${category.id}&city=0&price=0&isOnline=0&searchingCenter=1`} key={idx} className={styles.category}>
                                         <div className={styles.img}
                                             style={{backgroundImage: `url("${category.img_src}")`, marginBottom: 10}}
                                         >

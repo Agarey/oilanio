@@ -4,8 +4,8 @@ import factStyles from '../../components/FactCard/style.module.css'
 import styles from '../../../styles/components/SimpleSlider.module.css'
 import SubCourseCard from "../SubCourseCard/SubCourseCard";
 import StockCard from "../StockCard/StockCard";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import CourseTeacherCard from "../CourseTeacherCard/CourseTeacherCard";
 import homeStyles from '../../../styles/Home.module.css'
 import FactCard from "../FactCard";
@@ -80,17 +80,26 @@ export default function SimpleSlider(props) {
         prevArrow: <SamplePrevArrow />,
         variableWidth: false,
         centerPadding: '120px',
-        centerMode: false,
+        centerMode: true,
         pauseOnFocus: true,
         initialSlide: 0,
         responsive: [
             {
-                breakpoint: 1024,
+                breakpoint: 760,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: false,
                     centerMode: false,
+                    centerPadding: '0'
+                }
+            },
+            {breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    centerMode: true,
                     centerPadding: '0'
                 }
             }
@@ -110,22 +119,24 @@ export default function SimpleSlider(props) {
         );
     } else if (props.stocks !== undefined) {
         let stockImages = [
-            'https://realibi.kz/file/589347.jpeg',
-            'https://realibi.kz/file/616675.jpeg',
-            'https://realibi.kz/file/22051.jpeg',
-            'https://realibi.kz/file/615174.jpg',
-            'https://realibi.kz/file/475432.jpg'
+            'https://realibi.kz/file/844307.png',
+            'https://realibi.kz/file/493619.png',
+            'https://realibi.kz/file/531074.png',
+            'https://realibi.kz/file/339448.png',
+            'https://realibi.kz/file/269125.png'
         ]
         let imageIndex = -1;
         return (
             <div style={{width: '100%'}}>
-                <Slider {...settings} style={{height: '100%'}}>
+                <Slider {...settings} style={{height: '100%'}} className={styles.slider}>
                     {props.stocks.map(elem => {
                         imageIndex++;
                         if(imageIndex === 5){
                             imageIndex = 0;
                         }
-                        return (<StockCard image={stockImages[imageIndex]} stock={elem}/>)
+                        return (<div className={styles.slider_item}><StockCard 
+                            image={stockImages[imageIndex]} 
+                            stock={elem}/></div>)
                     })}
                 </Slider>
             </div>

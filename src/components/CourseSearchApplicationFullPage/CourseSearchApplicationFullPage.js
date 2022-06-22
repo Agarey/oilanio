@@ -15,7 +15,7 @@ import TutorCourseCard from "../TutorCourseCard";
 import ModalWindow from "../Modal/ModalWindow";
 import {BecomeAPartner} from "../Forms/BecomeAPartnerForm/BecomeAPartner";
 import CourseSearchResultIsNotDefind from "../CourseSearchResultIsNotDefind";
-import {useRouter} from "next/router";
+import validator from 'validator'
 
 const axios = require('axios').default;
 
@@ -23,7 +23,9 @@ export default function CourseSearchApplicationFullPage(props){
     const [step, setStep] = useState(1)
     const [firstStepValidationState, setFirstStepValidationState] = useState(false)
 
-    const [directions, setDirections] = useState(props.directions);
+    const [searchCenter, setSearchCenter] = useState(1);
+    
+    const [show, setShow] = useState(false);
 
     const [directionId, setDirectionId] = useState(1);
     const [cityDistrict, setCityDistrict] = useState(0);
@@ -73,8 +75,12 @@ export default function CourseSearchApplicationFullPage(props){
     useEffect(() => {
         setLoading(true)
         loadData();
-
     }, [])
+
+    const handleClose = () => {
+        setShow(false);
+        props.close(false)
+    }
 
     function firstStepValidation(){
         if(!isOnline){
@@ -91,9 +97,29 @@ export default function CourseSearchApplicationFullPage(props){
             setSubMessageForUser("Выберите направление!");
             ym('reachGoal','send_application_button_pressed_unsuccessfully')
             return false
-        }else if(price === null){
+        }else if(name.length < 3){
             setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Выберите цену!");
+            setSubMessageForUser("Заполните имя!");
+            ym('reachGoal','send_application_button_pressed_unsuccessfully')
+            return false
+        }else if(phone.length < 16){
+            setMessageForUser("Заполните все поля!");
+            setSubMessageForUser("Заполните номер телефона!");
+            ym('reachGoal','send_application_button_pressed_unsuccessfully')
+            return false
+        }else if(email.length < 1){
+            setMessageForUser("Заполните все поля!");
+            setSubMessageForUser("Заполните электронную почту!");
+            ym('reachGoal','send_application_button_pressed_unsuccessfully')
+            return false
+        }else if(!validator.isEmail(email)){
+            setMessageForUser("Заполните все поля!");
+            setSubMessageForUser("Неверная электронная почта!");
+            ym('reachGoal','send_application_button_pressed_unsuccessfully')
+            return false
+        }else if(comment.length < 3){
+            setMessageForUser("Заполните все поля!");
+            setSubMessageForUser("Заполните описание курса!");
             ym('reachGoal','send_application_button_pressed_unsuccessfully')
             return false
         }else{
@@ -108,42 +134,41 @@ export default function CourseSearchApplicationFullPage(props){
             direction: directionId.toString(),
             price: price,
             center: '0',
-            isOnline: isOnline ? 1 : 0,
+            isOnline: isOnline,
             //individualLesson: individualLesson,
             sortType: '0'
         }
 
-        console.log('data to request', data)
+        let postResult = await axios.post(`${globals.productionServerDomain}/${props.searchCenter ? 'courseCardsFilter' : 'tutorCourseCardsFilter'}/`, data);
+        console.log("RESULT CARDS", postResult);
+        setCourseCards(postResult.data);
 
-        router.push(`/third?city=${isOnline ? 0 : cityId}&direction=${directionId.toString()}&price=${price}&isOnline=${isOnline?1:0}&searchCenter=${props.searchCenter ? 1 : 0}`)
-
-        // let postResult = await axios.post(`${globals.productionServerDomain}/${props.searchCenter ? 'courseCardsFilter' : 'tutorCourseCardsFilter'}/`, data);
-        // console.log("RESULT CARDS", postResult.data);
-        // setCourseCards(postResult.data);
-        //
-        // setLoading(false)
+        setLoading(false)
     }
-
-    const router = useRouter();
 
     function Main(){
         return(
             <div className={styles.body}>
-                <div className={styles.displayNoneOnMobile}>
-                    <Image src={'Other05.png'} style={{left: 0, bottom: 0, position: 'absolute', height: 256}}/>
-                </div>
+                {/*<div className={styles.displayNoneOnMobile}>*/}
+                {/*    <Image src={'Other05.png'} style={{left: 0, bottom: 0, position: 'absolute', height: 256}}/>*/}
+                {/*</div>*/}
 
                 <div className={styles.header}>
                     <div className={styles.goBack} onClick={()=>{
-                        router.back()
+                        if(step === 1){
+                            props.close(false)
+                        }
+                        if(step === 2){
+                            setStep(1)
+                        }
                     }}>
-                        <Image src={'/left-arrow.png'} className={styles.goBackImg}/>
+                        <Image src={'/left-arrow-black.png'} className={styles.goBackImg}/>
                     </div>
                     <h1 className={styles.main_title}>
                         {
                             step === 1 ? (
                                 <>
-                                    Введите данные о <span className={ styles.orange}>{props.searchCenter ? 'курсе' : 'репетиторе'}</span>
+                                    Заполните данные
                                 </>
                             ) : (
                                 <>
@@ -156,45 +181,111 @@ export default function CourseSearchApplicationFullPage(props){
 
                 <div className={styles.wrapper}>
                     <div className={styles.techSupportInputsWrapper}>
-                        {/*<select className={styles.selectBlock} onChange={e => setDirectionId(e.target.value)}>*/}
-                        {/*    <option value="0">Город</option>*/}
-                        {/*        props.cities !== undefined*/}
-                        {/*            ?*/}
-                        {/*            (props.cities.map(filterOption => (*/}
-                        {/*                filterOption.name !== "test"*/}
-                        {/*                    ?*/}
-                        {/*                    (<option value={filterOption.id}>{filterOption.name}</option>)*/}
-                        {/*                    : null*/}
-                        {/*            )))*/}
-                        {/*            :*/}
-                        {/*            null*/}
-                        {/*    }*/}
-                        {/*</select>*/}
-
                         {
                             step === 1 ? firstStep() : secondStep()
                         }
-
                     </div>
                     <div className={styles.imageBlock} >
                         {
-                            step === 2 && <span className={styles.imageTitle}>
+                            step === 2 &&
+                            <span className={styles.imageTitle}>
                                 Подбираем - <span className={styles.orange}>Мы</span> <br/>
                                 Выбираете - <span className={styles.orange}>Вы</span> <br/>
                             </span>
                         }
 
-                        <Image className={styles.image} src={step === 1 ? '/Other11.png' : '/Other04.png'}/>
+                        <Image className={styles.image} src={step === 1 ? 'https://realibi.kz/file/73343.jpg' : '/Other04.png'}/>
+                        <p className={styles.imageText}>заполняют заявку на Oilan, чтобы изучить что-то новое</p>
                     </div>
                 </div>
 
             </div>
         )
     }
+
+    const sendApplication = (courseId, userInfo) => {
+
+        let data = {
+            city_id: cityId,
+            direction_id: directionId,
+            name: userInfo.fullName,
+            phone: userInfo.phone,
+            email: userInfo.email,
+            age: age,
+            isOnline: isOnline,
+            course_id: courseId,
+            role_id: Boolean(searchCenter) ? 4 : 6,
+            message: comment,
+        };
+        console.log(props.searchCenter)
+        axios({
+            method: 'post',
+            url: `${globals.productionServerDomain}/createCourseSearchTicket`,
+            data: data,
+            headers: {
+                'Authorization': `Bearer ${globals.localStorageKeys.authToken}`
+            }
+        }).then(function(res){
+
+        }).catch(() => {
+            alert('Что-то пошло нетак!');
+        });
+    }
+
     function firstStep(){
         return(
             <>
-                
+                <ModalWindow show={show} handleClose={handleClose} heading={'Ваша заявка была отправлена'} body={(
+                    <div style={{color: '#000', fontSize: 16, textAlign: 'center'}}>
+                        <p>Сообщение со входом в личный кабинет <br/> было отправлено на вашу почту. <br/>
+                        В ближайшее время с вами свяжутся центры/репетиторы.</p>
+                        <button 
+                        className={styles.downButton}
+                        onClick = {handleClose}
+                        >
+                            Понятно
+                        </button>
+                    </div>
+                )}/>
+                <div className={styles.primarySelect}>
+                    <button 
+                        className={Boolean(searchCenter) ? styles.course : styles.tutor} 
+                        onClick={ () => {
+                            setSearchCenter(1);
+                            props.loadCategoriesCallback(Boolean(1));
+                        }
+                    }
+                    >
+                        Ищу центр
+                    </button>
+                    <button 
+                        className={Boolean(!searchCenter) ? styles.course : styles.tutor} 
+                        onClick={ () => {
+                            setSearchCenter(0);
+                            props.loadCategoriesCallback(Boolean(0));
+                        }
+                    }
+                    >
+                        Ищу репетитора
+                    </button>
+                </div>
+
+
+                <select className={styles.selectBlock} value={directionId} onChange={e => setDirectionId(e.target.value)}>
+                    {
+                        props.directions !== undefined
+                            ?
+                            (props.directions.map(filterOption => (
+                                filterOption.name !== "test"
+                                    ?
+                                    (<option value={filterOption.id}>{filterOption.name}</option>)
+                                    : null
+                            )))
+                            :
+                            null
+                    }
+                </select>
+
                 <select className={styles.selectBlock} onChange={e => {
                     if(Number(e.target.value)===0){
                         setIsOnline(false)
@@ -209,7 +300,6 @@ export default function CourseSearchApplicationFullPage(props){
 
                 {isOnline===false ? (
                     <>
-
                         <select className={styles.selectBlock} value={cityId} onChange={e => {
                             setCityId(e.target.value);
                         }}>
@@ -227,82 +317,70 @@ export default function CourseSearchApplicationFullPage(props){
                         </select>
                     </>
                 ) : null}
-                <select className={styles.selectBlock} value={directionId} onChange={e => setDirectionId(e.target.value)}>
-                    {
-                        props.directions !== undefined
-                            ?
-                            (props.directions.map(filterOption => (
-                                filterOption.name !== "test"
-                                    ?
-                                    (<option value={filterOption.id}>{filterOption.name}</option>)
-                                    : null
-                            )))
-                            :
-                            null
-                    }
-                    {/*<option value={1}>Английский язык</option>*/}
-                    {/*<option value={2}>Чешский язык</option>*/}
-                    {/*<option value={3}>Турецкий язык</option>*/}
-                    {/*<option value={7}>Казахский язык</option>*/}
-                    {/*<option value={8}>IELTS, TOEFL, SAT, NUFYPET</option>*/}
-                    {/*<option value={13}>Немецкий язык</option>*/}
-                    {/*<option value={14}>Английский язык для детей</option>*/}
-                </select>
 
-                {/*<label style={{display: 'flex', alignItems: 'center', cursor: 'pointer'}}>*/}
-                {/*    <input*/}
-                {/*        type="radio"*/}
-                {/*        name={'isOnline'}*/}
-                {/*        value={'Офлайн'}*/}
-                {/*        checked={!isOnline}*/}
-                {/*        onClick={() => setIsOnline(!isOnline)}*/}
-                {/*    />*/}
-                {/*    <p*/}
-                {/*        style={{margin: '0 0 0 10px'}}*/}
-                {/*        className={styles.simple_text}*/}
-                {/*    >*/}
-                {/*        Офлайн*/}
-                {/*    </p>*/}
-                {/*</label>*/}
+                <input type="text" value={name} onChange={e => setName(e.target.value)} className={styles.selectBlock} style={{cursor: "text", color: 'black'}} placeholder={'Имя'}/>
+                <input
+                    type="text"
+                    className={styles.selectBlock}
+                    style={{cursor: "text"}}
+                    onKeyDown={e => {
+                        if(e.keyCode === 8){
+                            setPhone(phone.slice(0,-1));
+                        }
+                    }}
+                    onChange={e => globals.checkPhoneMask(e.target.value, setPhone)}
+                    placeholder='Номер телефона'
+                    value={phone}
+                />
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={styles.selectBlock} style={{cursor: "text"}} placeholder={'Электронная почта'}/>
 
-                {/*<label style={{display: 'flex', alignItems: 'center', marginBottom: 10, cursor: 'pointer'}}>*/}
-                {/*    <input*/}
-                {/*        type="radio"*/}
-                {/*        name={'isOnline'}*/}
-                {/*        value={'Онлайн'}*/}
-                {/*        checked={isOnline}*/}
-                {/*        onClick={() => setIsOnline(!isOnline)}*/}
-                {/*    />*/}
-                {/*    <p*/}
-                {/*        style={{margin: '0 0 0 10px'}}*/}
-                {/*        className={styles.simple_text}*/}
-                {/*    >*/}
-                {/*        Онлайн*/}
-                {/*    </p>*/}
-                {/*</label>*/}
+                <textarea
+                    value={comment}
+                    onChange={e => setComment(e.target.value)}
+                    className={styles.selectBlock}
+                    style={{cursor: "text"}}
+                    rows="5"
+                    placeholder={'Описание курса, возраст учащегося, желаемое время, и пожелания. Способы связи со мной (позвонить, написать в Whatsapp, Telegram)'}
+                ></textarea>
 
-                <select className={styles.selectBlock} value={price} onChange={e => setPrice(e.target.value)}>
-                    <option value="0">Цена</option>
-                    <option value={'0-20000'}>0 - 20 000KZT</option>
-                    <option value={'20000-40000'}>20 000 - 40 000KZT</option>
-                    <option value={'40000-60000'}>40 000 - 60 000KZT</option>
-                    <option value={'60000-80000'}>60 000 - 80 000KZT</option>
-                    <option value={'80000-100000'}>80 000 - 100 000KZT</option>
-                    <option value={'100000'}>100 000KZT +</option>
-                </select>
-
+                {/*<select className={styles.selectBlock} value={price} onChange={e => setPrice(e.target.value)}>*/}
+                {/*    <option value="0">Цена</option>*/}
+                {/*    <option value={'0-20000'}>0 - 20 000KZT</option>*/}
+                {/*    <option value={'20000-40000'}>20 000 - 40 000KZT</option>*/}
+                {/*    <option value={'40000-60000'}>40 000 - 60 000KZT</option>*/}
+                {/*    <option value={'60000-80000'}>60 000 - 80 000KZT</option>*/}
+                {/*    <option value={'80000-100000'}>80 000 - 100 000KZT</option>*/}
+                {/*    <option value={'100000'}>100 000KZT +</option>*/}
+                {/*</select>*/}
+                <label style={{fontFamily: 'Rubik Medium', color: 'black', marginTop: '5px', cursor: 'pointer'}}>
+                    <input
+                        type="checkbox"
+                        onClick={() => {
+                            setOfertaCheck(!ofertaCheck)
+                        }}
+                        checked={ofertaCheck ? true : false}
+                    /> Я принимаю условия <a href="/offer/student" style={{color: 'black', textDecoration: 'underline'}}>публичной оферты.</a>
+                </label>
                 <button className={styles.button}
                         onClick={() => {
-                            if(firstStepValidation()){
-                                setMessageForUser("");
-                                setSubMessageForUser("");
-                                // setStep(3);
-                                setLoading(true);
-                                getCards();
-                                ym('reachGoal','go-to-second-while-searching-button-pressed')
+                            if(ofertaCheck === false){
+                                setMessageForUser("Заявка не была отправлена!");
+                                setSubMessageForUser("Прочтите публичную оферту и дайте свое согласие!");
+                                ym('reachGoal','send_application_button_pressed_unsuccessfully')
+                            }
+                            else {
+                                if(firstStepValidation()){
+                                    sendApplication(0, {
+                                        fullName: name,
+                                        phone: phone,
+                                        email: email
+                                    });
+                                    ym('reachGoal','go-to-second-step-while-searching-button-pressed');
+                                    setShow(true);
+                                }
                             }
                         }}
-                >Подобрать {props.searchCenter ? 'курсы' : 'репетитора'}</button>
+                >Создать заявку</button>
 
                 <span className={styles.message}>
                     {messageForUser}
@@ -330,7 +408,7 @@ export default function CourseSearchApplicationFullPage(props){
                     placeholder='Номер телефона'
                     value={phone}
                 />
-                <input type="email" value={email} placeholder={'Электронная почта'} onChange={(e)=>{
+                <input type="text" value={email} placeholder={'Электронная почта'} onChange={(e)=>{
                     setEmail(e.target.value)
                 }} className={styles.techSupportInput}/>
                 {/*<textarea*/}
@@ -403,34 +481,6 @@ export default function CourseSearchApplicationFullPage(props){
                 </span>
             </>
         )
-    }
-
-    const sendApplication = (courseId, userInfo) => {
-
-        let data = {
-            city_id: cityId,
-            direction_id: directionId,
-            name: userInfo.fullName,
-            phone: userInfo.phone,
-            email: userInfo.email,
-            age: age,
-            isOnline: isOnline,
-            course_id: courseId,
-            role_id: props.searchCenter ? 4 : 6
-        };
-
-        axios({
-            method: 'post',
-            url: `${globals.productionServerDomain}/createCourseSearchTicket`,
-            data: data,
-            headers: {
-                'Authorization': `Bearer ${globals.localStorageKeys.authToken}`
-            }
-        }).then(function(res){
-
-        }).catch(() => {
-            alert('Что-то пошло нетак!');
-        });
     }
 
     function lastStep(){

@@ -204,7 +204,7 @@ function SignIn(props){
                                             } else {
                                                 axios.post(`${globals.productionServerDomain}/studentLogin/`, {phone: studentPhone}).then(function(res){
                                                     localStorage.setItem(globals.localStorageKeys.currentStudent, JSON.stringify(res.data));
-                                                    router.push(`${globals.productionSiteDomain}/cabinet/student`)
+                                                    router.push(`/cabinet/student`)
                                                     return
                                                 }).catch(function(){
                                                     setMessageText('Номер телефона не найден!')

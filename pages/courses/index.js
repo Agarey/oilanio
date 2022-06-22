@@ -8,6 +8,7 @@ import React, {useState, useEffect} from "react";
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css'
 import SimpleSlider from "../../src/components/SimpleSlider/SimpleSlider";
+import LoadingBlock from "../../src/components/LoadingBlock";
 import StockCard from "../../src/components/StockCard/StockCard";
 import ContactButton from "../../src/components/ContactButton/ContactButton";
 import {useContext} from "react";
@@ -73,6 +74,11 @@ function Courses({props}) {
 
     const [imagesBase, setImagesBase] = useState([]);
 
+    const [cardsToShow, setCardsToShow] = useState(8)
+
+    const addCards = () => {
+            setCardsToShow(cardsToShow+8)
+    }
     const loadCourseCards = async () => {
         setLoading(true)
 
@@ -81,6 +87,7 @@ function Courses({props}) {
 
         let result = await axios.get(`${globals.productionServerDomain}/courseCards/`).then(() => {
             setCourseCards(result.data);
+            console.log(result.data);
         }).then(() => {
             setLoading(false);
         });
@@ -441,7 +448,13 @@ function Courses({props}) {
                         <>
                             <div className={styles.img_title}>
                                 <img src="/notebook-dynamic-color.png" style={{height: 48, width: 48}} alt=""/>
-                                <p>{currentCourseCategory}</p>
+                                    {searchingCenterState===false && (
+                                        <p>Найденные репетиторы</p>
+                                    )}
+                                    {searchingCenterState===true && (
+                                        <p>{currentCourseCategory}</p>
+                                    )}
+                                
                             </div>
 
                             {
@@ -450,7 +463,7 @@ function Courses({props}) {
                                         courseCards.length > 0 ? (
                                             <div className={classnames(styles.courses_block)}>
                                                 {
-                                                    courseCards.map((course, idx) => {
+                                                    courseCards.slice(0, cardsToShow).map((course, idx) => {
                                                         if (course.title !== 'test') {
                                                             return (
                                                                 <div className={styles.courseCard_item}>
@@ -473,6 +486,12 @@ function Courses({props}) {
                                     </div>
                                 )
                             }
+
+                            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
+                                <a className={styles.link} onClick={()=> {
+                                    addCards()
+                                }}>Смотреть еще</a>
+                            </div>
                         </>
                     )
                 }

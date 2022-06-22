@@ -254,8 +254,15 @@ export default function CourseCard(props) {
 
                                 {
                                     showPromotions===false &&
-                                    <div className={styles.image_block} style={{
+                                    <div className={styles.image_block} style={props.course.img_src?
+                                    {
                                         backgroundImage: `url(${props.course.img_src})`,
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        backgroundColor: 'white',
+                                        border: '1px solid white'
+                                    }:{
+                                        backgroundImage: `url('https://realibi.kz/file/510188.jpg')`,
                                         backgroundPosition: 'center',
                                         backgroundSize: 'cover',
                                         backgroundColor: 'white',
@@ -263,7 +270,20 @@ export default function CourseCard(props) {
                                     }}>
                                     </div>
                                 }
-
+                                    <div style={props.course.verificated?
+                                        {
+                                            backgroundSize: '100% 100%',
+                                            backgroundPosition: 'center',
+                                            backgroundRepeat: 'no-repeat',
+                                            height: '40px',
+                                            width: '40px',
+                                            position: 'absolute',
+                                            right: '15px',
+                                            backgroundImage: 'url(https://realibi.kz/file/890265.png)',
+                                            top: '15px'
+                                        }:{
+                                            
+                                        }}></div>
                             </div>
 
 
@@ -285,7 +305,7 @@ export default function CourseCard(props) {
                                            })
                                        }}
                                     >
-                                        {props.course.title.length < 24 ? (props.course.title) : (props.course.title.substr(0, 24).concat('...'))}
+                                        {props.course.title.length < 124 ? (props.course.title) : (props.course.title.substr(0, 124).concat('...'))}
                                     </p>
                                     <p className={styles.subtitle}>
                                         {props.course.course_title.length < 32 ? (props.course.course_title) : (props.course.course_title.substr(0, 32).concat('...'))}

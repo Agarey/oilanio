@@ -143,7 +143,7 @@ function Cabinet(){
 
                     res.data.map(item => {
                         if(directionsArrayTemp.includes(item.direction_id)){
-                            if(item.is_active){
+                            if((new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())){
                                 newApplicationsCount++;
                             }
                             applicationArray.push(item);

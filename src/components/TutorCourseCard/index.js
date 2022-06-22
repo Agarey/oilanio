@@ -92,13 +92,20 @@ export default function TutorCourseCard(props) {
                     </div>
 
                     <div className={styles.titleImage__Body}>
-                        <div className={styles.image_block} style={{
-                            backgroundImage: `url(${props.course.img_src})`,
-                            backgroundPosition: 'center',
-                            backgroundSize: 'cover',
-                            backgroundColor: 'white',
-                            border: '1px solid white'
-                        }}>
+                        <div className={styles.image_block} style={props.course.img_src?
+                            {
+                                backgroundImage: `url(${props.course.img_src})`,
+                                backgroundPosition: 'center',
+                                backgroundSize: 'cover',
+                                backgroundColor: 'white',
+                                border: '1px solid white'
+                            }:{
+                                backgroundImage: `url(https://realibi.kz/file/338803.png)`,
+                                backgroundPosition: 'center',
+                                backgroundSize: 'cover',
+                                backgroundColor: 'white',
+                                border: '1px solid white'
+                            }}>
                         </div>
                     </div>
                 </div>
@@ -106,7 +113,7 @@ export default function TutorCourseCard(props) {
                 <div>
                     <p className={styles.fullname}>
 
-                        {props.course.fullname!=undefined && props.course.fullname.length < 20 ? (props.course.fullname) : (props.course.fullname.substr(0, 20).concat('...'))}
+                        {props.course.fullname}
 
                     </p>
                 </div>
@@ -115,7 +122,7 @@ export default function TutorCourseCard(props) {
                     <div>
                         <p className={styles.course_title}>
 
-                            {props.course.category_name!=undefined && props.course.category_name.length < 20 ? (props.course.category_name) : (props.course.category_name.substr(0, 20).concat('...'))}
+                            {props.course.category_name}
 
                         </p>
 

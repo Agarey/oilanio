@@ -12,9 +12,9 @@
 }
 
 .container {
-    padding: 20px;
+    padding: 0px;
     box-sizing: border-box;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     margin-top: 10px;
     box-sizing: border-box;
@@ -57,6 +57,12 @@
 }
 .formatInputBody{
     margin: 0 10px;
+}
+.link{
+    color: black;
+    font-family: "Rubik Medium";
+    text-decoration: none;
+    cursor: pointer;
 }
 .formatLabel{
     cursor: pointer;
@@ -154,9 +160,11 @@
 }
 
 .courses_block{
+   box-sizing: border-box;
     width: 100%;
     display: grid;
-    grid-template-columns: [card] 25% [card] 25% [card] 25% [card] 25%;
+    justify-content: center;
+    grid-template-columns: [card] 20% [card] 20% [card] 20% [card] 20%;
 }
 
 .courseCard_item{
@@ -549,9 +557,11 @@
     }
 
     .courses_block{
+        grid-area: cards;
         width: 100%;
         display: grid;
-        grid-template-columns: [card] 100%;
+        grid-template-columns: [card] 49% [card] 49%;
+        grid-column-gap: 2%;
     }
 
     .courses_block > *{

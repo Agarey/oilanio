@@ -50,7 +50,39 @@ function Cabinet(){
     const [courseCards, setCourseCards] = useState([]);
 
     const [applications, setApplications] = useState([]);
+    const CountDown = ({ hours = 0, minutes = 0, seconds = 0 }) => {
+  
+    const [over, setOver] = React.useState(false);
+    const [[h, m, s], setTime] = React.useState([hours, minutes, seconds]);
 
+    const tick = () => {
+        if (over) return;
+
+        if (h === 0 && m === 0 && s === 0) {
+            setOver(true);
+        } else if (m === 0 && s === 0) {
+            setTime([h - 1, 59, 59]);
+        } else if (s == 0) {
+            setTime([h, m - 1, 59]);
+        } else {
+            setTime([h, m, s - 1]);
+        }
+    };
+
+
+    React.useEffect(() => {
+        const timerID = setInterval(() => tick(), 1000);
+        return () => clearInterval(timerID);
+    });
+
+    return (
+        <span>
+            {`${h.toString().padStart(2, '0')}:${m
+                .toString()
+                .padStart(2, '0')}:${s.toString().padStart(2, '0')}`}
+        </span>
+        );
+    };
     const editProfileData = () => {
         let data = {
             id: Number(localStorage.getItem('center id')),
@@ -118,7 +150,7 @@ function Cabinet(){
 
             let applicationData = await axios.get(`${globals.productionServerDomain}/tutorApplications/${tutorId}`);
             setApplications(applicationData.data);
-
+            console.log(applicationData.data)
             await loadFilters()
         }else{
             router.push('/login');
@@ -135,7 +167,9 @@ function Cabinet(){
 
     useEffect(() => {
         loadData();
+        applications.map(item => (console.log(item)))
     }, [])
+
 
     return (
         <div>
@@ -154,10 +188,15 @@ function Cabinet(){
                     </div>
                     <div className={styles.tutor_info}>
                         <div className={styles.tutor_info_row}>
+                            <div 
+                                className={styles.FIOdiv}
+                                style={!editMode?{display: 'flex'}:{display: 'none'}}
+                            >{fullname}</div>
                             <input
                                 className={classnames(styles.tutor_info_input, styles.FIO)}
                                 disabled={!editMode}
                                 type="text"
+                                style={editMode?{display: 'flex'}:{display: 'none'}}
                                 value={fullname}
                                 onChange={e => setFullname(e.target.value)}
                             />
@@ -182,12 +221,12 @@ function Cabinet(){
                                     value={canWorkOnline ? 'Да' : 'Нет'}
                                 />
                             ) : (
-                                <input
+                                <div className={styles.checkDiv}><input
                                     className={styles.checkbox}
                                     type="checkbox"
                                     checked={canWorkOnline}
                                     onClick={e => setCanWorkOnline(e.target.checked)}
-                                />
+                                /></div>
                             )}
                         </div>
                         <div className={styles.tutor_info_row}>
@@ -200,12 +239,12 @@ function Cabinet(){
                                     value={canWorkOffline ? 'Да' : 'Нет'}
                                 />
                             ) : (
-                                <input
+                                <div className={styles.checkDiv}><input
                                     className={styles.checkbox}
                                     type="checkbox"
                                     checked={canWorkOffline}
                                     onClick={e => setCanWorkOffline(e.target.checked)}
-                                />
+                                /></div>
                             )}
                         </div>
                         <div className={styles.tutor_info_row}>
@@ -218,12 +257,12 @@ function Cabinet(){
                                     value={canWorkOnDeparture ? 'Да' : 'Нет'}
                                 />
                             ) : (
-                                <input
+                                <div className={styles.checkDiv}><input
                                     className={styles.checkbox}
                                     type="checkbox"
                                     checked={canWorkOnDeparture}
                                     onClick={e => setCanWorkOnDeparture(e.target.checked)}
-                                />
+                                /></div>
                             )}
                         </div>
                         <div className={styles.tutor_info_row}>
@@ -311,7 +350,7 @@ function Cabinet(){
                 </div>
 
                 <div className={styles.applications}>
-                    {applications.map(item => (
+                    {applications.map(item => (new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())?( 
                         <div className={styles.application_item}>
                             <div
                                 className={styles.application_item_status_block}
@@ -324,7 +363,16 @@ function Cabinet(){
                             </div>
 
                             <br/>
-
+                            <p className={styles.application_item_text}>
+                                <b>Активна с: </b>{item.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
+                            </p>
+                            <p className={styles.application_item_text}>
+                                <b>Осталось: </b><CountDown 
+                                hours={Math.floor((((new Date(item.datetime).getTime()) + 86400000)-(new Date().getTime()))/1000/60/60)} 
+                                minutes={Math.floor((((new Date(item.datetime).getTime()) + 86400000)-(new Date().getTime()))/1000/60)%60}
+                                seconds={Math.floor((((new Date(item.datetime).getTime()) + 86400000)-(new Date().getTime()))/1000)%60} />
+                                
+                            </p>
                             <p className={styles.application_item_name}>
                                 {item.name}
                             </p>
@@ -334,8 +382,11 @@ function Cabinet(){
                             <p className={styles.application_item_text}>
                                 {item.deactivated_date === null ? item.phone : 'Номер уже скрыт!'}
                             </p>
+                            <p className={styles.application_item_text}>
+                                {item.message}
+                            </p>
                         </div>
-                    ))}
+                    ):(<></>))}
                 </div>
 
                 <div className={styles.block_title}>

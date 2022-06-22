@@ -17,13 +17,14 @@ function StockCard (props){
                             <span className={styles.description}>Промокод: <span className={styles.promocode}>Oilan2022</span> </span>
                         </div>
                     </div>
-                </div>
-                <div style={{width: '100%', marginTop: '-24px', height: 32}}>
+                     <div style={{width: '100%', height: 32}}>
                     <a href={`/course/center/${encodeURIComponent(props.stock.url)}?id=${encodeURIComponent(props.stock.subcourse_id)}`}
                        target="_blank"
                        className={styles.linkButton}
                     >Узнать больше</a>
                 </div>
+                </div>
+               
             </div>
     // <Link href={`/${props.stock.url}?id=${props.stock.subcourse_id}`}>
     //         <div className={styles.stockCard} >

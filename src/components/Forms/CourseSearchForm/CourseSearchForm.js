@@ -2,225 +2,237 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import styles from '../../../../styles/components/form.module.css'
 const axios = require('axios').default;
 import globals from "../../../globals";
+import PhoneInput from "react-phone-number-input/input";
 import 'react-phone-number-input/style.css'
-import ModalWindow from '../../Modal/ModalWindow'
-import validator from 'validator'
-import classnames from 'classnames'
+import kz from 'react-phone-number-input/locale/ru.json'
 
 export function CourseSearchForm(props) {
-    const [directions, setDirections] = useState([]);
-
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [comment, setComment] = useState("");
-    const [cityId, setCityId] = useState(1);
-    const [isOnline, setIsOnline] = useState(false);
-    const [directionId, setDirectionId] = useState(directions.length !== 0 ? directions[0].id : 1);
+    const [cityId, setCityId] = useState(null);
+    const [isOnline, setIsOnline] = useState(null);
+    const [age, setAge] = useState(null);
+    const [directionId, setDirectionId] = useState(null);
     const [messageForUser, setMessageForUser] = useState(null);
     const [subMessageForUser, setSubMessageForUser] = useState(null);
-    const [searchCenter, setSearchCenter] = useState(true);
-    const [cityDistrict, setCityDistrict] = useState(false);
+    const [submitButtonPressed, setSubmitButtonPressed] = useState(false);
+    const [successfulApplication, setSuccessfulApplication] = useState(false);
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => {
-        setShow(false);
-    }
-
-    const sendApplication = (courseId, userInfo) => {
-
-        let data = {
-            city_id: cityId,
-            direction_id: directionId,
-            name: userInfo.fullName,
-            phone: userInfo.phone,
-            email: userInfo.email,
-            isOnline: isOnline,
-            course_id: courseId,
-            role_id: searchCenter ? 4 : 6,
-            message: comment
-        };
-
-        axios({
-            method: 'post',
-            url: `${globals.productionServerDomain}/createCourseSearchTicket`,
-            data: data,
-        }).then(function(res){
-
-        }).catch(() => {
-            alert('Что-то пошло нетак!');
-        });
-    }
-
-    const loadCategories = (searchCenter) => {
-        setDirections([{ name: 'Загружаем направления...', id: 0 }]);
-        axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
-            searchingCenter: searchCenter,
-        }).then(res => {
-            console.log("FILTERS", res.data);
-            setDirections(res.data)
-        })
-    }
-
-    function inputsValidation(){
-        if(!isOnline){
-            if(cityDistrict === '0' || cityDistrict === null){
-                setMessageForUser("Заполните все поля!");
-                setSubMessageForUser("Выберите район города!");
-                ym('reachGoal','send_application_button_pressed_unsuccessfully')
-                return false
-            }
-        }
-
-        if(directionId === '0' || directionId === null){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Выберите направление!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else if(name.length < 3){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Заполните имя!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else if(phone.length < 16){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Заполните номер телефона!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else if(email.length < 1){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Заполните электронную почту!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else if(!validator.isEmail(email)){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Неверная электронная почта!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else if(comment.length < 3){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Заполните описание курса!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else{
-            return true
-        }
-    }
-
-    useEffect(() => {
-        loadCategories(true);
-    }, [])
+    const [ofertaCheck, setOfertaCheck] = useState(false);
 
     return (
         <div className={styles.contactFormBody}>
             <div className={styles.techSupportHeader}>
-                <span className={styles.contactFormTitle}>Хотите быстро найти самый <br/> подходящий курс?</span>
+                <span className={styles.contactFormTitle}>Какие курсы вы ищете?</span>
                 <span className={styles.contactFormDesc}>
-                    Заполните информацию об обучении и <br/> ожидайте звонка от центра/репетитора!
+                    Заполните заявку, и центры свяжутся с вами!
                 </span>
             </div>
             <div className={styles.techSupportInputsWrapper}>
-                <ModalWindow show={show} handleClose={handleClose} heading={'Ваша заявка была отправлена'} body={(
-                        <div style={{color: '#000', fontSize: 14, textAlign: 'center'}}>
-                            <p>Сообщение со входом в личный кабинет <br/> было отправлено на вашу почту. <br/>
-                            В ближайшее время с вами свяжутся центры/репетиторы.</p>
-                        </div>
-                    )}/>
-
-                <div className={styles.selectWrapper}>
-                    <select className={classnames(styles.selectBlock, styles.select)} value={Number(searchCenter)} onChange={e => {
-                        setSearchCenter(Boolean(+e.target.value));
-                        loadCategories(Boolean(+e.target.value));
-                    }}>
-                        <option value={1}>Ищу центр</option>
-                        <option value={0}>Ищу репетитора</option>
-                    </select>
-                </div>
-
-                <div className={styles.selectWrapper}>
-                    <select className={classnames(styles.selectBlock, styles.select)} value={directionId} onChange={e => setDirectionId(e.target.value)}>
-                        {
-                            directions !== undefined
-                                ?
-                                (directions.map(filterOption => (
-                                    filterOption.name !== "test"
-                                        ?
-                                        (<option value={filterOption.id}>{filterOption.name}</option>)
-                                        : null
-                                )))
-                                :
-                                null
-                        }
-                    </select>
-                </div>
-
-                <div className={styles.selectWrapper}>
-                    <select className={classnames(styles.selectBlock, styles.select)} onChange={e => {
-                        if(Number(e.target.value)===0){
-                            setIsOnline(false)
-                        } else if(Number(e.target.value)===1){
-                            setIsOnline(true)
-                        }
-                        console.log('isOnline: ', isOnline)
-                    }}>
-                        <option value="0">Офлайн</option>
-                        <option value="1">Онлайн</option>
-                    </select>
-                </div>
-
-                {isOnline===false ? (
-                    <>
-                        <div className={styles.selectWrapper}>
-                            <select className={classnames(styles.selectBlock, styles.select)} value={cityId} onChange={e => {
-                                setCityId(e.target.value);
-                            }}>
-                                {props.cities !== undefined ? props.cities.map(item => <option value={item.id}>{item.name}</option>): (<option value={null}>Загружаем города...</option>)}
-                            </select>
-                        </div>
-                    </>
-                ) : null}
-
-                <input type="text" value={name} onChange={e => setName(e.target.value)} className={styles.selectBlock} placeholder={'Имя'}/>
-                <input
-                    type="text"
+                <select
                     className={styles.selectBlock}
-                    onKeyDown={e => {
-                        if(e.keyCode === 8){
-                            setPhone(phone.slice(0,-1));
-                        }
-                    }}
-                    onChange={e => globals.checkPhoneMask(e.target.value, setPhone)}
-                    placeholder='Номер телефона'
+                    onChange={e => setDirectionId(e.target.value)}
+                >
+                    <option value="0">Направление</option>
+                    {
+                        props.directions !== undefined
+                            ?
+                            (props.directions.map(filterOption => (
+                                filterOption.name !== "test"
+                                    ?
+                                    (<option value={filterOption.id}>{filterOption.name}</option>)
+                                    : null
+                            )))
+                            :
+                            null
+                    }
+                </select>
+
+                {/*<select*/}
+                {/*    className={styles.selectBlock}*/}
+                {/*    onChange={e => setCityId(e.target.value)}*/}
+                {/*>*/}
+                {/*    <option value="0">Ваш город</option>*/}
+                {/*    {*/}
+                {/*        props.cities !== undefined*/}
+                {/*            ?*/}
+                {/*            (props.cities.map(filterOption => (*/}
+                {/*                filterOption.name !== "test"*/}
+                {/*                    ?*/}
+                {/*                    (<option value={filterOption.id}>{filterOption.name}</option>)*/}
+                {/*                    : null*/}
+                {/*            )))*/}
+                {/*            :*/}
+                {/*            null*/}
+                {/*    }*/}
+                {/*</select>*/}
+
+                <select
+                    className={styles.selectBlock}
+                    onChange={e => setIsOnline(e.target.value)}
+                >
+                    <option value={false}>Формат занятий</option>
+                    <option value={true}>Онлайн</option>
+                    <option value={false}>Офлайн</option>
+                </select>
+
+                <input type="text" placeholder={'Ваше имя'} onChange={(e)=>{
+                    setName(e.target.value)
+                }} className={styles.techSupportInput}/>
+
+                {/*<input type="text" placeholder={'Возраст учащегося'} onChange={(e)=>{*/}
+                {/*    setAge(e.target.value)*/}
+                {/*}} className={styles.techSupportInput}/>*/}
+
+                <PhoneInput
+                    placeholder={'Ваш номер телефона'}
+                    className={styles.techSupportInput}
+                    labels={kz}
+                    international={false}
+                    defaultCountry="KZ"
                     value={phone}
-                />
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={styles.selectBlock} placeholder={'Электронная почта'}/>
+                    onChange={setPhone}/>
+
+                <input type="text" placeholder={'Ваш email'} onChange={(e)=>{
+                    setEmail(e.target.value)
+                }} className={styles.techSupportInput}/>
 
                 <textarea
-                    value={comment}
-                    onChange={e => setComment(e.target.value)}
-                    className={styles.selectBlock}
-                    rows="3"
-                    placeholder={'Например: Пишите на WhatsApp, не удобно говорить по телефону'}
-                ></textarea>
+                    placeholder={`Описание курса - возраст учащегося, 
+желаемое время и так далее. 
+Чем подробнее описание, тем лучше будет поиск.`
+                    }
+                    rows={4}
+                    onChange={(e)=>{
+                        setComment(e.target.value)
+                    }}
+                    className={styles.techSupportTextArea}
+                >
 
-                <button className={styles.selectBlock}
+                </textarea>
+
+                {/*<span className={styles.contactFormDesc} style={{*/}
+                {/*    paddingBottom: '4%',*/}
+                {/*    textAlign: 'center',*/}
+                {/*    marginTop: '2%'*/}
+                {/*}}>*/}
+                {/*    Цена в месяц*/}
+                {/*</span>*/}
+
+                {/*<div style={{display: 'flex', justifyContent: 'space-between'}}>*/}
+                {/*    <div style={{width: '40%'}}>*/}
+                {/*        <input*/}
+                {/*            type="number"*/}
+                {/*            placeholder={'От'} onChange={(e)=>{*/}
+                {/*                setMinPrice(e.target.value)*/}
+                {/*            }}*/}
+                {/*            className={styles.techSupportInput}*/}
+
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*    <div style={{width: '40%'}}>*/}
+                {/*        <input*/}
+                {/*            type="number"*/}
+                {/*            placeholder={'До'}*/}
+                {/*            onChange={(e)=>{*/}
+                {/*                setMaxPrice(e.target.value)*/}
+                {/*            }}*/}
+                {/*            className={styles.techSupportInput}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                <label style={{fontFamily: 'sans-serif', fontWeight: 'bold', color: 'white', marginTop: '10px'}}>
+                    <input
+                        type="checkbox"
                         onClick={() => {
-                            if(inputsValidation()){
-                                sendApplication(0, {
-                                    fullName: name,
+                            setOfertaCheck(!ofertaCheck)
+                        }}
+                    /> Я принимаю условия <a href="/offer/student" style={{color: 'white', textDecoration: 'underline'}}>публичной оферты.</a>
+                </label>
+
+            </div>
+
+
+            <div className={styles.contactFormDesc} style={{
+                paddingTop: '3%',
+                paddingBottom: '3%',
+                textAlign: 'center',
+                color: successfulApplication ? 'green' : 'red',
+                width: '100%',
+            }}>
+                {messageForUser}
+                <br/>
+                {subMessageForUser}
+            </div>
+
+            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
+                <span
+                    className={submitButtonPressed ? styles.techSupportSubmitPressed : styles.techSupportSubmitNotPressed}
+                    onClick={() => {
+                        if(directionId === '0' || directionId === null){
+                            setMessageForUser("Заполните все поля!");
+                            setSubMessageForUser("Выберите направление!");
+                        }else if(name === ''){
+                            setMessageForUser("Заполните все поля!");
+                            setSubMessageForUser("Введите имя!");
+                        }
+                        else if(phone === ''){
+                            setMessageForUser("Заполните все поля!");
+                            setSubMessageForUser("Введите телефон!");
+                        }
+                        else if(email === ''){
+                            setMessageForUser("Заполните все поля!");
+                            setSubMessageForUser("Введите почту!");
+                        }
+                        else if(comment === ''){
+                            setMessageForUser("Заполните все поля!");
+                            setSubMessageForUser("Введите описание!");
+                        }
+                        else if(ofertaCheck === false){
+                            setMessageForUser("Заявка не была отправлена!");
+                            setSubMessageForUser("Прочтите публичную оферту и дайте свое согласие!");
+                        }
+                        else {
+                            axios({
+                                method: 'post',
+                                url: `${globals.productionServerDomain}/createCourseSearchTicket`,
+                                data: {
+                                    city_id: cityId,
+                                    direction_id: directionId,
+                                    name: name,
                                     phone: phone,
-                                    email: email
-                                });
-                                ym('reachGoal','go-to-second-step-while-searching-button-pressed');
-                                setShow(true);
-                            }
-                        }}
-                        style = {{
-                            backgroundColor: '#5654bf',
-                            color: '#fff'
-                        }}
-                >Отправить заявку</button>
+                                    email: email,
+                                    message: comment,
+                                    age: age,
+                                    isOnline: isOnline
+                                }
+                            }).then(res => {
+                                setSuccessfulApplication(true);
+                                setMessageForUser('Ваша заявка сохранена!');
+                                setSubMessageForUser('Проверьте электронную почту!');
+                                setSubmitButtonPressed(true);
+                            });
+                        }
+
+                }}>{submitButtonPressed ? ('Заявка отправлена!') : ('Отправить заявку')}</span>
+            </div>
+            <div className={styles.contactFormFooter}>
+                {/*<span*/}
+                {/*    className={styles.contactFormTitle}*/}
+                {/*    style={{*/}
+                {/*        fontSize: '14px',*/}
+                {/*        fontFamily: 'sans-serif',*/}
+                {/*        fontWeight: 'bold',*/}
+                {/*        color: 'white'}}>*/}
+                {/*    Или позвоните нам, мы поможем подобрать нужный курс!*/}
+                {/*</span>*/}
+                <div className={styles.contactFormFooterFlex}>
+                    <div><img src="/phone-call.png" alt="" className={styles.contactFormIcon}/><a href="tel:87088007177" className={styles.contactFormLink}>+7 (708) 800-71-77</a></div>
+                    {/*<div><img src="/phone-call.png" alt="" className={styles.contactFormIcon}/><a href="tel:87086157439" className={styles.contactFormLink}>+7 (708) 800-71-77</a></div>*/}
+                    <div><img src="/mail.png" alt="" className={styles.contactFormIcon}/><a href="mailto:oilanedu@gmail.com" className={styles.contactFormLink}>oilanedu@gmail.com</a></div>
+                </div>
             </div>
         </div>
     );

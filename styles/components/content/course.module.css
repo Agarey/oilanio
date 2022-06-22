@@ -315,7 +315,6 @@
 .slick-prev:before, .slick-next:before{
     color:red;
 }
-
 .backToCoursesPageButtonBody{
     width: 100%;
     display: flex;
@@ -681,18 +680,7 @@
     text-align: center;
     font-family: "Rubik Regular";
 }
-.mobileHeader{
-    display: none;
-}
-.mobileWrapper{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.mobileWrapperFooter{
-    display: flex;
-}
+
 @media screen and (max-width: 1200px){
     .card_item{
         width: 50%;
@@ -700,15 +688,6 @@
 }
 
 @media screen and (max-width: 761px){
-    .mobileHeader{
-        width: 100%;
-        display: flex;
-    }
-    .button{
-        font-size: 10px;
-        white-space: nowrap;
-    }
-
     .promotionStar{
         left: -15px;
         top: -36px;

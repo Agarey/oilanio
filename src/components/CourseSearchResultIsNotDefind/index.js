@@ -1,11 +1,8 @@
 import styles from './style.module.css'
 import {Link} from "react-router-dom";
 import {Image} from "react-bootstrap";
-import {useRouter} from "next/router";
 
 const CourseSearchResultIsNotDefind = (props) => {
-
-    const router = useRouter();
     return (
         <div className={styles.container}>
             <div className={styles.leftSide}>
@@ -19,7 +16,7 @@ const CourseSearchResultIsNotDefind = (props) => {
                         : (
                             <>
                                 Попробуйте поискать в <a href="/catalog" className={styles.link}>каталоге</a>, <br/>
-                                или подберите курс <a className={styles.link} onClick={()=>router.back()}>ещё раз</a>.
+                                или подберите курс <a className={styles.link} onClick={()=>props.setStep(1)}>ещё раз</a>.
                             </>
                         )
                     }

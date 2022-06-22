@@ -169,6 +169,7 @@
     font-size: 14px;
     color: #6a6a6a;
     margin: 0;
+    word-wrap: break-word;
 }
 .showHideBtn{
     font-family: sans-serif;
@@ -422,6 +423,17 @@
     position: absolute;
     left: 15px;
     right: 0;
+    bottom: 15px;
+}
+.verification_block{
+    background-size: 70% 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 72px;
+    width: 72px;
+    position: absolute;
+    right: 5px;
+    background-image: url(https://realibi.kz/file/777788.png);
     bottom: 15px;
 }
 .hideContact{
