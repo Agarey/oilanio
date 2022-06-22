@@ -9,7 +9,7 @@ import TutorCreateCourseCard from "../../../src/components/TutorCreateCourseCard
 import globals from "../../../src/globals";
 import {useRouter} from "next/router";
 import ModalWindow from "../../../src/components/Modal/ModalWindow";
-import SubscriptionPaymentForm from "../../../src/components/Forms/SubscriptionPaymentForm/SubscriptionPaymentForm";
+import SubscriptionTutorPaymentForm from "../../../src/components/Forms/SubscriptionTutorPaymentForm/SubscriptionTutorPaymentForm";
 import Head from "next/head";
 
 const axios = require('axios').default
@@ -178,7 +178,7 @@ function Cabinet(){
                 <title>Oilan - Кабинет</title>
                 <link rel="icon" href="/atom-icon.png" />
             </Head>
-            <ModalWindow show={show} handleClose={handleClose} heading={`Подключить подписку`} body={<SubscriptionPaymentForm/>}/>
+            <ModalWindow show={show} handleClose={handleClose} heading={`Подключить подписку`} body={<SubscriptionTutorPaymentForm/>}/>
             <div className={styles.container}>
                 <div className={styles.tutor_info_block}>
                     <div className={styles.tutor_image} style={{
