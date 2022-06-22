@@ -164,7 +164,7 @@ const CreateApplication = (props) => {
     const dataCities = {
         datasets: [
             {
-                data: [filters[0].length, 20-filters[0].length],
+                data: [filters[0].length, 25-filters[0].length],
                 backgroundColor: [
                     '#412FAE',
                     '#cad3ee',
