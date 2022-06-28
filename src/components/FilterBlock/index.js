@@ -5,10 +5,10 @@ import {Image} from "react-bootstrap";
 const FilterBlock = ({filters, filterBtnHandler, ...props}) => {
     return (
         <div className={styles.container}>
-            <div className={styles.disableOnMobile}>
+            {/*<div className={styles.disableOnMobile}>
                 <Image src={'/double-l-shape.png'} className={styles.firstPng}/>
                 <Image src={'/robmik-tuda-suda.png'} className={styles.secondPng}/>
-            </div>
+            </div>*/}
 
             <div className={styles.header}>
                 <span className={styles.title}>ВЫБЕРИТЕ УДОБНЫЕ НАСТРОЙКИ ПОИСКА</span>
@@ -17,7 +17,7 @@ const FilterBlock = ({filters, filterBtnHandler, ...props}) => {
             {/*    <input type="text" className={styles.input} placeholder={'Введите название центра или курса'} style={{width: '100%'}}/>*/}
             {/*</div>*/}
             <div className={styles.wrapper_main}>
-                <div className={styles.search_by_name_input_wrapper}>
+                {/*<div className={styles.search_by_name_input_wrapper}>
                     <input
                         className={styles.input}
                         style={{
@@ -28,7 +28,7 @@ const FilterBlock = ({filters, filterBtnHandler, ...props}) => {
                         type="text"
                         placeholder={'Введите название центра или имя репетитора'}
                     />
-                </div>
+                </div>*/}
                 <div className={styles.wrapper}>
                     <select className={styles.input} style={{cursor: 'pointer'}}
                             name="citySelect" id="citySelect"
@@ -67,7 +67,7 @@ const FilterBlock = ({filters, filterBtnHandler, ...props}) => {
                         <option value="1">Онлайн</option>
                         <option value="2">Оффлайн</option>
                     </select>
-                    <select className={styles.input} style={{cursor: 'pointer'}}
+                    {/*<select className={styles.input} style={{cursor: 'pointer'}}
                             name="priceSelect"
                             id="priceSelect"
                     >
@@ -78,7 +78,7 @@ const FilterBlock = ({filters, filterBtnHandler, ...props}) => {
                         <option value="60000-80000">60.000-80.000KZT</option>
                         <option value="80000-100000">80.000-100.000KZT</option>
                         <option value="100000">100.000KZT+</option>
-                    </select>
+                    </select>*/}
                 </div>
             </div>
             <div className={styles.header} style={{marginTop: 20}}>

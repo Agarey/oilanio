@@ -83,14 +83,14 @@ export default function CourseSearchApplicationFullPage(props){
     }
 
     function firstStepValidation(){
-        if(!isOnline){
-            if(cityDistrict === '0' || cityDistrict === null){
-                setMessageForUser("Заполните все поля!");
-                setSubMessageForUser("Выберите район города!");
-                ym('reachGoal','send_application_button_pressed_unsuccessfully')
-                return false
-            }
-        }
+        // if(!isOnline){
+        //     if(cityDistrict === '0' || cityDistrict === null){
+        //         setMessageForUser("Заполните все поля!");
+        //         setSubMessageForUser("Выберите район города!");
+        //         ym('reachGoal','send_application_button_pressed_unsuccessfully')
+        //         return false
+        //     }
+        // }
 
         if(directionId === '0' || directionId === null){
             setMessageForUser("Заполните все поля!");
@@ -107,22 +107,26 @@ export default function CourseSearchApplicationFullPage(props){
             setSubMessageForUser("Заполните номер телефона!");
             ym('reachGoal','send_application_button_pressed_unsuccessfully')
             return false
-        }else if(email.length < 1){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Заполните электронную почту!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else if(!validator.isEmail(email)){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Неверная электронная почта!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else if(comment.length < 3){
-            setMessageForUser("Заполните все поля!");
-            setSubMessageForUser("Заполните описание курса!");
-            ym('reachGoal','send_application_button_pressed_unsuccessfully')
-            return false
-        }else{
+        }
+        // else if(email.length < 1){
+        //     setMessageForUser("Заполните все поля!");
+        //     setSubMessageForUser("Заполните электронную почту!");
+        //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
+        //     return false
+        // }
+        // else if(!validator.isEmail(email)){
+        //     setMessageForUser("Заполните все поля!");
+        //     setSubMessageForUser("Неверная электронная почта!");
+        //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
+        //     return false
+        // }
+        // else if(comment.length < 3){
+        //     setMessageForUser("Заполните все поля!");
+        //     setSubMessageForUser("Заполните описание курса!");
+        //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
+        //     return false
+        // }
+        else{
             setFirstStepValidationState(true)
             return true
         }
@@ -298,7 +302,7 @@ export default function CourseSearchApplicationFullPage(props){
                     <option value="1">Онлайн</option>
                 </select>
 
-                {isOnline===false ? (
+                {/*{isOnline===false ? (
                     <>
                         <select className={styles.selectBlock} value={cityId} onChange={e => {
                             setCityId(e.target.value);
@@ -316,9 +320,9 @@ export default function CourseSearchApplicationFullPage(props){
                             }
                         </select>
                     </>
-                ) : null}
+                ) : null}*/}
 
-                <input type="text" value={name} onChange={e => setName(e.target.value)} className={styles.selectBlock} style={{cursor: "text", color: 'black'}} placeholder={'Имя'}/>
+                <input type="text" value={name} onChange={e => setName(e.target.value)} className={styles.selectBlock} style={{cursor: "text", color: 'black'}} placeholder={'Имя*'}/>
                 <input
                     type="text"
                     className={styles.selectBlock}
@@ -329,19 +333,19 @@ export default function CourseSearchApplicationFullPage(props){
                         }
                     }}
                     onChange={e => globals.checkPhoneMask(e.target.value, setPhone)}
-                    placeholder='Номер телефона'
+                    placeholder='Номер телефона*'
                     value={phone}
                 />
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={styles.selectBlock} style={{cursor: "text"}} placeholder={'Электронная почта'}/>
 
-                <textarea
+                {/*<textarea
                     value={comment}
                     onChange={e => setComment(e.target.value)}
                     className={styles.selectBlock}
                     style={{cursor: "text"}}
                     rows="5"
                     placeholder={'Описание курса, возраст учащегося, желаемое время, и пожелания. Способы связи со мной (позвонить, написать в Whatsapp, Telegram)'}
-                ></textarea>
+                ></textarea>*/}
 
                 {/*<select className={styles.selectBlock} value={price} onChange={e => setPrice(e.target.value)}>*/}
                 {/*    <option value="0">Цена</option>*/}

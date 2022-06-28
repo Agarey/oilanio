@@ -118,7 +118,8 @@ const Catalog = () => {
             <div className={styles.filterBlockWrapper}>
                 <FilterBlock filters={filters} filterBtnHandler={filterBtnHandler}/>
             </div>
-            <div className={styles.titleBlock}>
+
+            {/*<div className={styles.titleBlock}>
                 <Image src={'/fire-dynamic-color.png'} className={styles.titleImg}/>
                 <span className={styles.title} style={{marginTop: 10}}>Актуальные акции</span>
             </div>
@@ -134,7 +135,8 @@ const Catalog = () => {
             </div>
             {
                 filtersLoading ? <LoadingBlock/> : (filters[1] !== undefined ? <CourseCategoriesSliderIMG categories={filters[1]}/> : null)
-            }
+            }*/}
+            
             <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
                 <Image src={'/notebook-dynamic-color.png'} className={styles.titleImg}/>
                 <span className={styles.title}>Популярные курсы</span>

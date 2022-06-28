@@ -5,7 +5,7 @@ import {SignupToCourseForm} from "../Forms/SignupToCourseForm/SignupToCourseForm
 import ModalWindow from "../Modal/ModalWindow";
 import classnames from 'classnames';
 import globals from "../../globals";
-import Image from "next/image";
+import {Image} from "react-bootstrap";
 
 const axios = require('axios').default;
 
@@ -311,6 +311,7 @@ export default function ModerateCourseCard(props) {
                             width: '100%',
                             aspectRatio: '1/1'
                     }}>
+                    <Image style={{width: '100%', opacity: '0.5'}} src={'https://realibi.kz/file/694538.png'}/>
                     </div>
                     </p>
                     <div className={styles.editRow}>

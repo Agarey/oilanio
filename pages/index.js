@@ -283,10 +283,10 @@ const CreateApplication = (props) => {
                                         ym('reachGoal','ostavit-zayavku-button-pressed')
                                     }}
                             >Создать заявку</button>
-                            <button className={styles.button2}
+                            {/*<button className={styles.button2}
                                     onClick={() => {
                                     router.push('/catalog');
-                                }}>Перейти в каталог</button>
+                                }}>Перейти в каталог</button>*/}
                         </div>
                         <div className={styles.rounds}>
                             <div className={styles.forRC}>
@@ -385,10 +385,10 @@ const CreateApplication = (props) => {
                                         ym('reachGoal','ostavit-zayavku-button-pressed')
                                     }}
                             >Создать заявку</button>
-                            <button className={styles.mobileButton2}
+                            {/*<button className={styles.mobileButton2}
                                     onClick={() => {
                                     router.push('/catalog');
-                                }}>Перейти в каталог</button>
+                                }}>Перейти в каталог</button>*/}
                     </div>
                 </div>
                 <div className={styles.obenGide} 
