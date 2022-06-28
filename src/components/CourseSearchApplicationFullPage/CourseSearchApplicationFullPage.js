@@ -302,14 +302,14 @@ export default function CourseSearchApplicationFullPage(props){
                     <option value="1">Онлайн</option>
                 </select>
 
-                {/*{isOnline===false ? (
+                {isOnline===false ? (
                     <>
                         <select className={styles.selectBlock} value={cityId} onChange={e => {
                             setCityId(e.target.value);
                         }}>
                             {props.cities.map(item => <option value={item.id}>{item.name}</option>)}
                         </select>
-                        <select className={styles.selectBlock} value={cityDistrict} onChange={e => setCityDistrict(e.target.value)}>
+                        {/*<select className={styles.selectBlock} value={cityDistrict} onChange={e => setCityDistrict(e.target.value)}>
                             <option value={0}>Все районы</option>
                             {
                                 regions.map(item => {
@@ -318,9 +318,9 @@ export default function CourseSearchApplicationFullPage(props){
                                     }
                                 })
                             }
-                        </select>
+                        </select>*/}
                     </>
-                ) : null}*/}
+                ) : null}
 
                 <input type="text" value={name} onChange={e => setName(e.target.value)} className={styles.selectBlock} style={{cursor: "text", color: 'black'}} placeholder={'Имя*'}/>
                 <input
