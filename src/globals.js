@@ -1,7 +1,7 @@
 export default {
-    productionServerDomain: "https://realibi.kz",
+    // productionServerDomain: "https://realibi.kz",
     productionSiteDomain: "https://oilan.io",
-    // productionServerDomain: "http://localhost:3030",
+    productionServerDomain: "http://localhost:3030",
     // productionSiteDomain: "http://localhost:3000",
     devSiteDomain: "http://localhost:3000",
     ftpDomain: "https://realibi.kz",

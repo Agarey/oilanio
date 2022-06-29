@@ -339,7 +339,7 @@ const CreateApplication = (props) => {
                             <div className={styles.forRC}>
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={filters[2].length} format='(,ddd).dd' theme="default" animation="count"/></div>
-                                    {!isSafari?
+                                    {isSafari?
                                     (<Doughnut className={styles.hole} data={dataCenters} options={{responsive: true, cutout: '80%'}}/>
                                     ):(<></>)}
                                 </div>
