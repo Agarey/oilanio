@@ -63,7 +63,7 @@
     margin-top: 10px;
 }
 .search_by_name_input_wrapper{
-    display: flex;
+    display: none;
     justify-content: center;
 }
 .btn{
