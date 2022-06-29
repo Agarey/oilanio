@@ -468,7 +468,7 @@ function Courses({props}) {
                                                             return (
                                                                 <div className={styles.courseCard_item}>
                                                                     {searchingCenterState===false && (
-                                                                        <TutorCourseCard key={idx} coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} sendApplicationCallback={sendApplication} setLoadingModal={setLoadingModal} course={course}/>
+                                                                        <TutorCourseCard key={idx} coverImage={course.img_src} sendApplicationCallback={sendApplication} setLoadingModal={setLoadingModal} course={course}/>
                                                                     )}
                                                                     {searchingCenterState===true && (
                                                                         <CourseCard key={idx} coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} sendApplicationCallback={sendApplication} setLoadingModal={setLoadingModal} course={course}/>

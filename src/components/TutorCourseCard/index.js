@@ -94,7 +94,7 @@ export default function TutorCourseCard(props) {
                     <div className={styles.titleImage__Body}>
                         <div className={styles.image_block} style={props.course.img_src?
                             {
-                                backgroundImage: `url(${props.course.img_src})`,
+                                backgroundImage: `url(${props.course.category_img})`,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'cover',
                                 backgroundColor: 'white',
