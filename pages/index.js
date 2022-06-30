@@ -262,7 +262,7 @@ const CreateApplication = (props) => {
                 <div className={styles.main}>
                     <div className={styles.mainLeft}>
                         <div className={styles.titleBlock}>
-                            <span className={styles.title}>Нужно найти репетитора или образовательный цент р?</span>
+                            <span className={styles.title}>Нужно найти репетитора или образовательный центр?</span>
                         </div>
                     
                         <span 
@@ -370,7 +370,7 @@ const CreateApplication = (props) => {
                                     (<Doughnut className={styles.hole} data={dataCities} options={{responsive: true, cutout: '80%',}}/>
                                     ):(<></>)}
                                 </div>
-                                <p>Городов РК</p>
+                                <p>Городов Р К</p>
                             </div>
                         </div>
                     <div className={styles.buttons_block2}>
