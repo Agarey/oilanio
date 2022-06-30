@@ -370,7 +370,7 @@ const CreateApplication = (props) => {
                                     (<Doughnut className={styles.hole} data={dataCities} options={{responsive: true, cutout: '80%',}}/>
                                     ):(<></>)}
                                 </div>
-                                <p>Городов Р К</p>
+                                <p>Городов РК</p>
                             </div>
                         </div>
                     <div className={styles.buttons_block2}>
