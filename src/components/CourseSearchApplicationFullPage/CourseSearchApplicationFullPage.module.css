@@ -74,9 +74,9 @@
     height: 16px;
     cursor: pointer;
 }
-.selectBlock, .techSupportInput{
+.selectBlock, .techSupportInput {
     width: 80%;
-
+    -webkit-appearance: none;
     cursor: pointer;
     border-radius: 5px;
     padding: 10px;
