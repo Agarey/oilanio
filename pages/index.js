@@ -94,7 +94,7 @@ const CreateApplication = (props) => {
         }
         else if(navigator.userAgent.indexOf("Safari") != -1)
         {
-            setIsSafari(true);
+            setIsSafari(false);
         }
         else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
         {
