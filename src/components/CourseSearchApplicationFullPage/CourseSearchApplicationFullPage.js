@@ -166,7 +166,7 @@ export default function CourseSearchApplicationFullPage(props){
                             setStep(1)
                         }
                     }}>
-                        <Image src={'/left-arrow-black.png'} className={styles.goBackImg}/>
+                        {/* <Image src={'/left-arrow-black.png'} className={styles.goBackImg}/> */}
                     </div>
                     <h1 className={styles.main_title}>
                         {
@@ -290,7 +290,8 @@ export default function CourseSearchApplicationFullPage(props){
                         }
                     </select>
                     <span className={styles.selectName}>
-                        Направление *
+                        Направление 
+                        <span className={styles.selectNameStar}> *</span>
                     </span>
                 </div>
                 
@@ -307,7 +308,8 @@ export default function CourseSearchApplicationFullPage(props){
                         <option value="1">Онлайн</option>
                     </select>
                     <span className={styles.selectName}>
-                        Формат обучение *
+                        Формат обучение 
+                        <span className={styles.selectNameStar}> *</span>
                     </span>
                 </div>
 
@@ -329,7 +331,8 @@ export default function CourseSearchApplicationFullPage(props){
                             }
                         </select>*/}
                         <span className={styles.selectName}>
-                            Город *
+                            Город 
+                            <span className={styles.selectNameStar}> *</span>
                         </span>
                     </div>
 
@@ -345,7 +348,8 @@ export default function CourseSearchApplicationFullPage(props){
                         placeholder={'Введите Ваше имя'}
                     />
                     <span className={styles.selectName}>
-                        Имя *
+                        Имя 
+                        <span className={styles.selectNameStar}> *</span>
                     </span>
                 </div>
 
@@ -364,7 +368,8 @@ export default function CourseSearchApplicationFullPage(props){
                         value={phone}
                     />
                     <span className={styles.selectName}>
-                        Номер телефона *
+                        Номер телефона 
+                        <span className={styles.selectNameStar}> *</span>
                     </span>
                 </div>
 
