@@ -322,10 +322,16 @@ export default function CourseSearchApplicationFullPage(props){
                     </>
                 ) : null}
 
-                <input type="text" value={name} onChange={e => setName(e.target.value)} className={styles.selectBlock} style={{cursor: "text", color: 'black'}} placeholder={'Имя*'}/>
+                <input 
+                    type="text" 
+                    value={name} 
+                    onChange={e => setName(e.target.value)} 
+                    className={styles.techSupportInput} 
+                    style={{cursor: "text", color: 'black'}} 
+                    placeholder={'Имя*'}/>
                 <input
                     type="text"
-                    className={styles.selectBlock}
+                    className={styles.techSupportInput}
                     style={{cursor: "text"}}
                     onKeyDown={e => {
                         if(e.keyCode === 8){
@@ -336,7 +342,12 @@ export default function CourseSearchApplicationFullPage(props){
                     placeholder='Номер телефона*'
                     value={phone}
                 />
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={styles.selectBlock} style={{cursor: "text"}} placeholder={'Электронная почта'}/>
+                <input 
+                    type="email" value={email} 
+                    onChange={e => setEmail(e.target.value)} 
+                    className={styles.techSupportInput} 
+                    style={{cursor: "text"}} 
+                    placeholder={'Электронная почта'}/>
 
                 {/*<textarea
                     value={comment}
