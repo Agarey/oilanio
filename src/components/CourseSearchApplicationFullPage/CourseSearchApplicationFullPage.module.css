@@ -100,6 +100,20 @@
     background-size: .65em auto, 100%;
 }
 
+.selectContainer {
+    position: relative;
+    margin: 5px 0;
+}
+
+.selectName {
+    position: absolute;
+    left: 12px;
+    padding: 0 5px;
+    bottom: 45px;
+    background: #fff;
+    font-size: 15px;
+}
+
 .primarySelect{
     width: 80%;
     border: none;
