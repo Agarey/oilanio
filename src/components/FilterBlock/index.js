@@ -96,7 +96,7 @@ const FilterBlock = ({filters, filterBtnHandler, ...props}) => {
                     let isOnline = document.getElementById("isOnlineSelect").value;
 
                     filterBtnHandler(centerName, city, direction, price, isOnline, '1');
-                }}>Найти курс</span>
+                }}>Найти центр</span>
 
                 <span className={styles.btn} onClick={()=>{
                     let centerName = document.getElementById("centerName").value;
