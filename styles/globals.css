@@ -115,11 +115,9 @@ a {
     display: block;
 }
 .slick-slide a{
-    opacity: 0;
     transition-duration: 1s;
 }
 .slick-slide span{
-    opacity: 0;
     transition-duration: 1s;
 }
 .slick-slide.slick-loading img
