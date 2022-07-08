@@ -58,7 +58,7 @@
     background-repeat: no-repeat;
     background-image: url("../../../public/fon.png");
 }
-.btn{;
+.btn{
     font-family: sans-serif;
     font-size: 16px;
     color: white;
@@ -293,6 +293,11 @@
     padding-left: 5%;
     padding-right: 5%;
     display: flex;
+}
+@media screen and (max-width: 975px){
+    .main_text_big{
+        font-size: 35px;
+    }
 }
 
 @media screen and (max-width: 761px){

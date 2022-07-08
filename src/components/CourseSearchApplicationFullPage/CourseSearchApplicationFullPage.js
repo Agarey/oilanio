@@ -308,7 +308,7 @@ export default function CourseSearchApplicationFullPage(props){
                         <option value="1">Онлайн</option>
                     </select>
                     <span className={styles.selectName}>
-                        Формат обучение 
+                        Формат обучения 
                         <span className={styles.selectNameStar}> *</span>
                     </span>
                 </div>

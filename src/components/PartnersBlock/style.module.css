@@ -51,6 +51,14 @@
     margin-bottom: 15px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 920px){
+    .link{
+        width: 33%;
+        height: 200px;
+    }
+}
+
 @media screen and (max-width: 600px){
     .link{
         width: 29%;
