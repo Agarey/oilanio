@@ -54,6 +54,7 @@ export const courseViewsData = {
 };
 
 export default function StatisticsBlock(props){
+    console.log(props);
     const data = {
         labels: ['Неактивные', 'Активные'],
         datasets: [

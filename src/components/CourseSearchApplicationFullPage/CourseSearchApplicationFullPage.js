@@ -166,7 +166,7 @@ export default function CourseSearchApplicationFullPage(props){
                             setStep(1)
                         }
                     }}>
-                        <Image src={'/left-arrow-black.png'} className={styles.goBackImg}/>
+                        {/* <Image src={'/left-arrow-black.png'} className={styles.goBackImg}/> */}
                     </div>
                     <h1 className={styles.main_title}>
                         {
@@ -274,36 +274,47 @@ export default function CourseSearchApplicationFullPage(props){
                     </button>
                 </div>
 
-
-                <select className={styles.selectBlock} value={directionId} onChange={e => setDirectionId(e.target.value)}>
-                    {
-                        props.directions !== undefined
-                            ?
-                            (props.directions.map(filterOption => (
-                                filterOption.name !== "test"
-                                    ?
-                                    (<option value={filterOption.id}>{filterOption.name}</option>)
-                                    : null
-                            )))
-                            :
-                            null
-                    }
-                </select>
-
-                <select className={styles.selectBlock} onChange={e => {
-                    if(Number(e.target.value)===0){
-                        setIsOnline(false)
-                    } else if(Number(e.target.value)===1){
-                        setIsOnline(true)
-                    }
-                    console.log('isOnline: ', isOnline)
-                }}>
-                    <option value="0">Офлайн</option>
-                    <option value="1">Онлайн</option>
-                </select>
+                <div className={styles.selectContainer}>
+                    <select className={styles.selectBlock} value={directionId} onChange={e => setDirectionId(e.target.value)}>
+                        {
+                            props.directions !== undefined
+                                ?
+                                (props.directions.map(filterOption => (
+                                    filterOption.name !== "test"
+                                        ?
+                                        (<option value={filterOption.id}>{filterOption.name}</option>)
+                                        : null
+                                )))
+                                :
+                                null
+                        }
+                    </select>
+                    <span className={styles.selectName}>
+                        Направление 
+                        <span className={styles.selectNameStar}> *</span>
+                    </span>
+                </div>
+                
+                <div className={styles.selectContainer}>
+                    <select className={styles.selectBlock} onChange={e => {
+                        if(Number(e.target.value)===0){
+                            setIsOnline(false)
+                        } else if(Number(e.target.value)===1){
+                            setIsOnline(true)
+                        }
+                        console.log('isOnline: ', isOnline)
+                    }}>
+                        <option value="0">Офлайн</option>
+                        <option value="1">Онлайн</option>
+                    </select>
+                    <span className={styles.selectName}>
+                        Формат обучения 
+                        <span className={styles.selectNameStar}> *</span>
+                    </span>
+                </div>
 
                 {isOnline===false ? (
-                    <>
+                    <div className={styles.selectContainer}>
                         <select className={styles.selectBlock} value={cityId} onChange={e => {
                             setCityId(e.target.value);
                         }}>
@@ -319,24 +330,61 @@ export default function CourseSearchApplicationFullPage(props){
                                 })
                             }
                         </select>*/}
-                    </>
+                        <span className={styles.selectName}>
+                            Город 
+                            <span className={styles.selectNameStar}> *</span>
+                        </span>
+                    </div>
+
                 ) : null}
 
-                <input type="text" value={name} onChange={e => setName(e.target.value)} className={styles.selectBlock} style={{cursor: "text", color: 'black'}} placeholder={'Имя*'}/>
-                <input
-                    type="text"
-                    className={styles.selectBlock}
-                    style={{cursor: "text"}}
-                    onKeyDown={e => {
-                        if(e.keyCode === 8){
-                            setPhone(phone.slice(0,-1));
-                        }
-                    }}
-                    onChange={e => globals.checkPhoneMask(e.target.value, setPhone)}
-                    placeholder='Номер телефона*'
-                    value={phone}
-                />
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={styles.selectBlock} style={{cursor: "text"}} placeholder={'Электронная почта'}/>
+                <div className={styles.selectContainer}>
+                    <input 
+                        type="text" 
+                        value={name} 
+                        onChange={e => setName(e.target.value)} 
+                        className={styles.techSupportInput} 
+                        style={{cursor: "text", color: 'black'}} 
+                        placeholder={'Введите Ваше имя'}
+                    />
+                    <span className={styles.selectName}>
+                        Имя 
+                        <span className={styles.selectNameStar}> *</span>
+                    </span>
+                </div>
+
+                <div className={styles.selectContainer}>
+                    <input
+                        type="text"
+                        className={styles.techSupportInput}
+                        style={{cursor: "text"}}
+                        onKeyDown={e => {
+                            if(e.keyCode === 8){
+                                setPhone(phone.slice(0,-1));
+                            }
+                        }}
+                        onChange={e => globals.checkPhoneMask(e.target.value, setPhone)}
+                        placeholder='Введите номер телефона'
+                        value={phone}
+                    />
+                    <span className={styles.selectName}>
+                        Номер телефона 
+                        <span className={styles.selectNameStar}> *</span>
+                    </span>
+                </div>
+
+                <div className={styles.selectContainer}>
+                    <input 
+                        type="email" value={email} 
+                        onChange={e => setEmail(e.target.value)} 
+                        className={styles.techSupportInput} 
+                        style={{cursor: "text"}} 
+                        placeholder={'Введите адрес электронной почты'}
+                    />
+                    <span className={styles.selectName}>
+                        Электронная почта
+                    </span>
+                </div>
 
                 {/*<textarea
                     value={comment}

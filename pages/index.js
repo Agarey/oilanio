@@ -32,6 +32,7 @@ const Odometer = dynamic(import('react-odometerjs'), {
     ssr: false,
     loading: () => 0
 });
+
 ChartJS.register(
     ArcElement,
     CategoryScale,
@@ -178,6 +179,16 @@ const CreateApplication = (props) => {
         ],
     };
 
+    const optionsDon = {
+        responsive: true,
+        plugins: {
+            tooltip: {
+                enabled: false,
+            },
+        },
+        cutout: '80%' 
+    }
+
     const loadFilters = async () => {
         setFiltersLoading(true)
         let result = await axios.get(`${globals.productionServerDomain}/filters`);
@@ -293,7 +304,8 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={filters[2].length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataCenters} options={{responsive: true, cutout: '80%'}}/>
+                                    (<Doughnut className={styles.hole} data={dataCenters} options={optionsDon}
+                                    />
                                     ):(<></>)}
                                 </div>
                                 <p>Учебных центров</p>
@@ -302,7 +314,7 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={tutors.length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataTutors} tooltips={false} options={{responsive: true, cutout: '80%',}}/>
+                                    (<Doughnut className={styles.hole} data={dataTutors} tooltips={false} options={optionsDon}/>
                                     ):(<></>)}
                                 </div>
                                 <p>Репетиторов</p>
@@ -311,7 +323,7 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={filters[1].length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataCategories} options={{responsive: true, cutout: '80%',}}/>
+                                    (<Doughnut className={styles.hole} data={dataCategories} options={optionsDon}/>
                                     ):(<></>)}
                                 </div>
                                 <p>Направлений</p>
@@ -320,7 +332,7 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={filters[0].length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataCities} options={{responsive: true, cutout: '80%',}}/>
+                                    (<Doughnut className={styles.hole} data={dataCities} options={optionsDon}/>
                                     ):(<></>)}
                                 </div>
                                 <p>Городов РК</p>
@@ -340,7 +352,7 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={filters[2].length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataCenters} options={{responsive: true, cutout: '80%'}}/>
+                                    (<Doughnut className={styles.hole} data={dataCenters} options={optionsDon}/>
                                     ):(<></>)}
                                 </div>
                                 <p>Учебных центров</p>
@@ -349,7 +361,7 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={tutors.length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataTutors} tooltips={false} options={{responsive: true, cutout: '80%',}}/>
+                                    (<Doughnut className={styles.hole} data={dataTutors} tooltips={false} options={optionsDon}/>
                                     ):(<></>)}
                                 </div>
                                 <p>Репетиторов</p>
@@ -358,7 +370,7 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={filters[1].length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataCategories} options={{responsive: true, cutout: '80%',}}/>
+                                    (<Doughnut className={styles.hole} data={dataCategories} options={optionsDon}/>
                                     ):(<></>)}
                                 </div>
                                 <p>Направлений</p>
@@ -367,10 +379,10 @@ const CreateApplication = (props) => {
                                 <div className={styles.doughnut}>
                                     <div className={styles.counter}><Odometer value={filters[0].length} format='(,ddd).dd' theme="default" animation="count"/></div>
                                     {!isSafari?
-                                    (<Doughnut className={styles.hole} data={dataCities} options={{responsive: true, cutout: '80%',}}/>
+                                    (<Doughnut className={styles.hole} data={dataCities} options={optionsDon}/>
                                     ):(<></>)}
                                 </div>
-                                <p>Городов Р К</p>
+                                <p>Городов РК</p>
                             </div>
                         </div>
                     <div className={styles.buttons_block2}>
