@@ -1,298 +1,441 @@
-import styles from './ModeratorBlock.module.css'
-import Head from 'next/head'
-import React, {useEffect, useState} from "react";
-import {default as axios} from "axios";
+import styles from "./ModeratorBlock.module.css";
+import React, { useEffect, useState } from "react";
+import { default as axios } from "axios";
 import globals from "../../globals";
-import {useRouter} from "next/router";
-import {Image} from "react-bootstrap";
+import { useRouter } from "next/router";
 import LoadingBlock from "../LoadingBlock";
-import coursesStyles from "../../../styles/components/content/Courses.module.css";
 import ModerateCourseCard from "../ModerateCourseCard/ModerateCourseCard";
-import LurkingFilterBlock from "../LurkingFilterBlock";
 import CourseSearchResultIsNotDefind from "../CourseSearchResultIsNotDefind";
+import CardsList from "./CardsList";
+import Pagination from "./Pagination";
 
 const ModeratorBlock = () => {
-    const router = useRouter();
+  // счетчики карточек по типу
+  const [allCardsCount, setAllCardsCount] = useState(0);
+  const [verifiedCardsCount, setVerifiedCardsCount] = useState(0);
+  const [notVerifiedCardsCount, setNotVerifiedCardsCount] = useState(0);
+  const [redCardsCount, setRedCardsCount] = useState(0);
+  const [yellowCardsCount, setYellowCardsCount] = useState(0);
+  const [byCenterCardsCount, setByCenterCardsCount] = useState(0);
 
+  // выбранный радио баттон
+  const [allCardsChecked, setAllCardsChecked] = useState(true);
+  const [verifiedCardsChecked, setVerifiedCardsChecked] = useState(false);
+  const [notVerifiedCardsChecked, setNotVerifiedCardsChecked] = useState(false);
+  const [redCardsChecked, setRedCardsChecked] = useState(false);
+  const [yellowCardsChecked, setYellowCardsChecked] = useState(false);
+  const [cardsByCenterIdChecked, setCardsByCenterIdChecked] = useState(false);
 
+  // текущий выбранный список карточек
+  const [currentList, setCurrentList] = useState([]);
+  const [allCardsList, setAllCardsList] = useState([]);
+  const [redList, setRedList] = useState([]);
+  const [yellowList, setYellowList] = useState([]);
+  const [verificatedList, setVerificatedList] = useState([]);
+  const [notVerificatedList, setNotVerificatedList] = useState([]);
+  const [byCenterIdList, setByCenterIdList] = useState([]);
 
-    const [imagesBase, setImagesBase] = useState([]);
-    const loadCourseCards = async (directionId) => {
-        setCoursesLoading(true)
-        let result = await axios.get(`${globals.productionServerDomain}/courseCards/`);
-        setCourseCards(result.data);
-        console.log('courseCards', result.data)
-        setShowUps(true)
+  const [selectedCenterId, setSelectedCenterId] = useState(0);
+
+  const [filters, setFilters] = useState([]);
+
+  const [coursesLoading, setCoursesLoading] = useState(false);
+
+  const [loadingModal, setLoadingModal] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage] = useState(10);
+
+  useEffect(async () => {
+    await loadFilters();
+    await loadCourseCards();
+    // countCardLists();
+  }, []);
+
+  useEffect(() => {
+    countCardLists();
+  }, [allCardsList]);
+
+  const loadFilters = async () => {
+    let result = await axios.get(`${globals.productionServerDomain}/filters`);
+    setFilters(result.data);
+  };
+
+  const loadCourseCards = async () => {
+    setCoursesLoading(true);
+    let result = await axios
+      .get(`${globals.productionServerDomain}/courseCards/`)
+      .then((result) => {
+        setAllCardsList(result.data);
+        setCurrentList(result.data);
+      });
+    // alert("data loaded")
+    setCoursesLoading(false);
+    // setAllCardsList(prevValue => {
+    //   return result.data;
+    // })
+    // setAllCardsList(result.data);
+    // setCurrentList(allCardsList)
+    // setCurrentList(allCardsList);
+    // console.log(`current list:`, currentList);
+  };
+
+  const countCardLists = () => {
+    setAllCardsCount(allCardsList.length);
+
+    setRedCardsCount(0);
+    setYellowCardsCount(0);
+    setVerifiedCardsCount(0);
+    setNotVerifiedCardsCount(0);
+    setByCenterCardsCount(0);
+
+    allCardsList.forEach(function (course) {
+      if (
+        !course.title ||
+        !course.addresses ||
+        !course.ages ||
+        !course.category ||
+        !course.course_desc ||
+        !course.course_title ||
+        !course.description ||
+        !course.format ||
+        !course.img_src ||
+        !course.phones ||
+        !course.price ||
+        !course.schedule ||
+        !course.type
+      ) {
+        // setRedList(prevValue => {
+        //   return [...prevValue, course];
+        // })
+        // redList.push(course);
+        // console.log(course)
+        // console.log(redCardsCount)
+        setRedCardsCount((prevValue) => {
+          return prevValue + 1;
+        });
+      }
+    });
+
+    allCardsList.forEach(function (course) {
+      if (course.verificated) {
+        setVerifiedCardsCount((prevValue) => {
+          return prevValue + 1;
+        });
+      }
+    });
+
+    allCardsList.forEach(function (course) {
+      if (!course.verificated) {
+        setNotVerifiedCardsCount((prevValue) => {
+          return prevValue + 1;
+        });
+      }
+    });
+
+    allCardsList.forEach(function (course) {
+      if (course.course_id == selectedCenterId) {
+        setByCenterCardsCount((prevValue) => {
+          return prevValue + 1;
+        });
+      }
+    });
+
+    allCardsList.forEach(function (course) {
+      const str = String(course.img_src);
+      const substr = "realibi";
+      const checkLink = str.includes(substr);
+      if (
+        (course.title == course.description && course.title) ||
+        (course.title == course.course_desc && course.title) ||
+        (course.description == course.course_desc && course.description) ||
+        course.ages == " - " ||
+        (course.img_src && !checkLink)
+      ) {
+        // setYellowList(prevValue => {
+        //   return [...prevValue, course];
+        // })
+        // yellowList.push(course);
+        setYellowCardsCount((prevValue) => {
+          return (prevValue += 1);
+        });
+      }
+    });
+  };
+
+  const onListLoaded = (list) => {
+    setCurrentList((prevValue) => {
+      return list;
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log('selectedCenterId: ', selectedCenterId)
+  // }, [selectedCenterId])
+
+  useEffect(async () => {
+    if (allCardsChecked) {
+      // console.log(`allCardsChecked`);
+      const result = await axios.get(
+        `${globals.productionServerDomain}/courseCards/`
+      );
+      const list = result.data;
+      setCurrentPage(1);
+      //загрузить все карточки
+      setCurrentList([]);
+      setCurrentList(() => {
+        return [...list]
+      })
+      setCurrentList(allCardsList);
+      // console.log
+    } else if (verifiedCardsChecked) {
+      // console.log(`verifiedCardsChecked`);
+      const result = await axios.get(
+        `${globals.productionServerDomain}/verificatedCourseCards/`
+      );
+      const list = result.data;
+      setCurrentPage(1);
+      setCurrentList([]);
+      setCurrentList(() => {
+        return [...list];
+      });
+    } else if (notVerifiedCardsChecked) {
+      // console.log(`notVerifiedCardsChecked`);
+      //загрузить не верифицированные карточки
+      const result = await axios.get(
+        `${globals.productionServerDomain}/notVerificatedCourseCards/`
+      );
+      const list = result.data;
+      setCurrentPage(1);
+      setCurrentList([]);
+      setCurrentList(() => {
+        return [...list];
+      });
+    } else if (redCardsChecked) {
+      // console.log(`redCardsChecked`);
+      //загрузить красные карточки
+      const result = await axios.get(
+        `${globals.productionServerDomain}/courseCards/`
+      );
+      setCurrentPage(1);
+      let list = result.data.filter((course) => {
+        if (
+          !course.title ||
+          !course.addresses ||
+          !course.ages ||
+          !course.category ||
+          !course.course_desc ||
+          !course.course_title ||
+          !course.description ||
+          !course.format ||
+          !course.img_src ||
+          !course.phones ||
+          !course.price ||
+          !course.schedule ||
+          !course.type
+        ) {
+          return course;
+        }
+      });
+      setCurrentList([]);
+      setCurrentList(() => {
+        return [...list];
+      });
+    } else if (yellowCardsChecked) {
+      // console.log(`yellowCardsChecked`);
+      const result = await axios.get(
+        `${globals.productionServerDomain}/courseCards/`
+      );
+      //загрузить желтые карточки
+      const substr = "realibi";
+      setCurrentPage(1);
+      let list = result.data.filter((course) => {
+        const str = String(course.img_src);
+        const checkLink = str.includes(substr);
+        if (
+          (course.title == course.description && course.title) ||
+          (course.title == course.course_desc && course.title) ||
+          (course.description == course.course_desc && course.description) ||
+          course.ages == " - " ||
+          (course.img_src && !checkLink)
+        ) {
+          return course;
+        }
+      });
+      setCurrentList([]);
+      setCurrentList(() => {
+        return [...list];
+      });
+    } else if (cardsByCenterIdChecked) {
+      // console.log(`cardsByCenterIdChecked`);
+      setCurrentPage(1);
+      // загрузить карточки центра
+      const centerId = selectedCenterId;
+      // console.log(`center id: `, centerId)
+      const result = await axios.get(
+        `${globals.productionServerDomain}/courseCardsByCenterId/${centerId}`
+      );
+      const list = result.data
+      setByCenterCardsCount(list.length)
+      setCurrentList([]);
+      setCurrentList(() => {
+        return [...list]
+      });
     }
-    const loadFilters = async () => {
-        setFiltersLoading(true)
-        let result = await axios.get(`${globals.productionServerDomain}/filters`);
-        setFilters(result.data)
-        setFiltersLoading(false)
-    }
-    const loadStocks = async () => {
-        setStocksLoading(true)
-        let result = await axios.post(`${globals.productionServerDomain}/loadDirectionPromotions`, {direction_id: 0});
-        setStocks(result.data);
-    }
+  }, [
+    allCardsChecked,
+    verifiedCardsChecked,
+    notVerifiedCardsChecked,
+    redCardsChecked,
+    yellowCardsChecked,
+    cardsByCenterIdChecked,
+    selectedCenterId
+  ]);
 
-    const [stocksLoading, setStocksLoading] = useState(false);
-    const [filtersLoading, setFiltersLoading] = useState(false);
-    const [coursesLoading, setCoursesLoading] = useState(false);
-    const [loadingModal, setLoadingModal] = useState(false);
-    const [redCheck, setRedCheck] = useState(false);
-    const [yellowCheck, setYellowCheck] = useState(false);
-    const [allCards, setAllCards] = useState(true);
-    const [verificatedCards, setVerificatedCards] = useState(false);
-    const [notVerificatedCards, setNotVerificatedCards] = useState(false);
-    const [showUps, setShowUps] = useState(false)
-    const [selectedCenterId, setSelectedCenterId] = useState(0);
-    const [findByCenter, setFindByCenter] = useState(false)
-    const [filters, setFilters] = useState([]);
-    const [stocks, setStocks] = useState([]);
-    const [courseCards, setCourseCards] = useState([]);
-    console.log(selectedCenterId)
-    useEffect(async () => {
-        setCoursesLoading(true);
-        loadFilters();
-        loadCourseCards().then(() => setCoursesLoading(false));
-        loadStocks().then(() => setStocksLoading(false));
-        window.scrollTo(0, 0);
-    }, [])
-    let redCount = 0
-    courseCards.forEach(function(course) {
-    if (!course.title || !course.addresses || !course.ages || !course.category || !course.course_desc || !course.course_title || !course.description || !course.format || !course.img_src || !course.phones || !course.price || !course.schedule || !course.type) {           
-    redCount = redCount+1;}
-    });
+  useEffect(() => {
+    // console.log(currentCards);
+  }, [currentCards]);
 
-    let verCount = 0
-    courseCards.forEach(function(course) {
-    if (course.verificated) {           
-    verCount = verCount+1;}
-    });
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards = currentList.slice(indexOfFirstCard, indexOfLastCard);
 
-    let notVerCount = 0
-    courseCards.forEach(function(course) {
-    if (!course.verificated) {           
-    notVerCount = notVerCount+1;}
-    });
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    let byCenterCount = 0
-    courseCards.forEach(function(course) {
-    if (course.course_id == selectedCenterId) {           
-    byCenterCount = byCenterCount+1;}
-    });
-
-    let yellowCount = 0
-    courseCards.forEach(function(course) {
-    const str = String(course.img_src);
-    const substr = 'realibi';
-    const checkLink = str.includes(substr);
-    if (((course.title == course.description) && course.title) || ((course.title == course.course_desc) && course.title) || ((course.description == course.course_desc) && course.description) || course.ages == " - " || (course.img_src && !checkLink)) {           
-    yellowCount = yellowCount+1;}
-    });
-
-    function componentDidMount() {
-        window.scrollTo(0, 0);
-    }
-
-    return (
-        <div>
-            <div className={styles.filterArea}>
-                <div className={styles.leftArea}>
-                    <p className={styles.moderate}>
-                        <b>Все карточки ({courseCards.length}): </b> 
-                        <input
-                            type="radio"
-                            onClick={() => {
-                                setAllCards(true);
-                                setRedCheck(false);
-                                setYellowCheck(false);
-                                setVerificatedCards(false);
-                                setNotVerificatedCards(false);
-                                setFindByCenter(false);
-                                }
-                            }
-                            checked={allCards}
-                            />
-                    </p>
-                    <p className={styles.moderate}>
-                        <b>Только утвержденные ({verCount}): </b> 
-                        <input
-                            type="radio"
-                            onClick={() => {
-                                setVerificatedCards(true);
-                                setNotVerificatedCards(false);
-                                setAllCards(false);
-                                setRedCheck(false);
-                                setYellowCheck(false);
-                                setFindByCenter(false);
-                                }
-                            }
-                            checked={verificatedCards}
-                            />
-                    </p>
-                    <p className={styles.moderate}>
-                        <b>Только не утвержденные ({notVerCount}): </b> 
-                        <input
-                            type="radio"
-                            onClick={() => {
-                                setNotVerificatedCards(true);
-                                setVerificatedCards(false);
-                                setAllCards(false);
-                                setRedCheck(false);
-                                setYellowCheck(false);
-                                setFindByCenter(false);
-                                }
-                            }
-                            checked={notVerificatedCards}
-                            />
-                    </p>
-                </div>
-                <div className={styles.rightArea}>
-                    <p className={styles.moderate}>
-                        <b>С незаполненными полями ({redCount}): </b> 
-                        <input
-                            type="radio"
-                            onClick={() => {
-                                setRedCheck(true);
-                                setAllCards(false);
-                                setYellowCheck(false);
-                                setVerificatedCards(false);
-                                setNotVerificatedCards(false);
-                                setFindByCenter(false);
-                                }
-                            }
-                            checked={redCheck}
-                        />
-                    </p>
-                    <p className={styles.moderate}>
-                        <b>С неверными или повторяющимися полями ({yellowCount}): </b> 
-                        <input
-                            type="radio"
-                            onClick={() => {
-                                setYellowCheck(true);
-                                setAllCards(false);
-                                setRedCheck(false);
-                                setVerificatedCards(false);
-                                setNotVerificatedCards(false);
-                                setFindByCenter(false);
-                                }
-                            }
-                            checked={yellowCheck}
-                        />
-                    </p>
-                    <p className={styles.moderate}>
-                        <b>Поиск по центру ({byCenterCount}): </b> 
-                        <input
-                            type="radio"
-                            onClick={() => {
-                                setFindByCenter(true);
-                                setYellowCheck(false);
-                                setAllCards(false);
-                                setRedCheck(false);
-                                setVerificatedCards(false);
-                                setNotVerificatedCards(false);
-                                }
-                            }
-                            checked={findByCenter}
-                        />
-                        <select disabled={!findByCenter} className={styles.wrapperItemInput} onChange={e => setSelectedCenterId(e.target.value)}>
-                            {
-                                filters[2] !== undefined
-                                    ?
-                                    (filters[2].map(filterOption =>
-                                        filterOption.title !== "test"
-                                            ?
-                                            (<option value={filterOption.id}>{filterOption.title}</option>)
-                                            :
-                                            null
-                                    ))
-                                    :
-                                    null
-                            }
-                        </select>
-                    </p>
-                </div>
-            </div>
-            {
-                courseCards.length > 0 && (
-                    <div className={styles.courses_block}>
-                        {
-                            courseCards.map(course => {
-                                const str = String(course.img_src);
-                                const substr = 'realibi';
-                                const checkLink = str.includes(substr);
-                                if(course.title !== 'test'){
-                                    if (redCheck == true) {
-                                        if (!course.title || !course.addresses || !course.ages || !course.category || !course.course_desc || !course.course_title || !course.description || !course.format || !course.img_src || !course.phones || !course.price || !course.schedule || !course.type){
-                                            return (
-                                                <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                                    <ModerateCourseCard setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                                </div>
-                                            )
-                                        }
-                                    }
-                                    if (yellowCheck == true) {
-                                        if (((course.title == course.description) && course.title) || ((course.title == course.course_desc) && course.title) || ((course.description == course.course_desc) && course.description) || course.ages == " - " || (course.img_src && !checkLink)){
-                                            return (
-                                                <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                                    <ModerateCourseCard setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                                </div>
-                                            )
-                                        }
-                                    }
-                                    if (verificatedCards == true) {
-                                        if (course.verificated){
-                                            return (
-                                                <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                                    <ModerateCourseCard setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                                </div>
-                                            )
-                                        }
-                                    }
-                                    if (notVerificatedCards == true) {
-                                        if (!course.verificated){
-                                            return (
-                                                <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                                    <ModerateCourseCard setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                                </div>
-                                            )
-                                        }
-                                    }
-                                    if (findByCenter == true) {
-                                        if (selectedCenterId == course.course_id){
-                                            return (
-                                                <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                                    <ModerateCourseCard setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                                </div>
-                                            )
-                                        }
-                                    }
-                                    if (allCards == true) {
-                                        return (
-                                        <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                            <ModerateCourseCard setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                        </div>
-                                    )
-                                }
-
-
-                                }
-                            })
-                        }
-                    </div>
-                )
-            }
-            {
-                coursesLoading ? (<LoadingBlock/> ) : (
-                    showUps && (courseCards.length < 1 ? <CourseSearchResultIsNotDefind catalog={true}/> : null)
-                )
-            }
-
-
+  return (
+    <div>
+      <div className={styles.filterArea}>
+        <div className={styles.leftArea}>
+          <p className={styles.moderate}>
+            <b>Все карточки ({allCardsCount}): </b>
+            <input
+              type="radio"
+              value="allCardsChecked"
+              onClick={() => {
+                setAllCardsChecked(true);
+                setVerifiedCardsChecked(false);
+                setNotVerifiedCardsChecked(false);
+                setRedCardsChecked(false);
+                setYellowCardsChecked(false);
+                setCardsByCenterIdChecked(false);
+                // onRadioButtonClicked();
+              }}
+              checked={allCardsChecked}
+            />
+          </p>
+          <p className={styles.moderate}>
+            <b>Только утвержденные ({verifiedCardsCount}): </b>
+            <input
+              type="radio"
+              value="verificatedChecked"
+              onClick={() => {
+                setAllCardsChecked(false);
+                setVerifiedCardsChecked(true);
+                setNotVerifiedCardsChecked(false);
+                setRedCardsChecked(false);
+                setYellowCardsChecked(false);
+                setCardsByCenterIdChecked(false);
+                // onRadioButtonClicked();
+              }}
+              checked={verifiedCardsChecked}
+            />
+          </p>
+          <p className={styles.moderate}>
+            <b>Только не утвержденные ({notVerifiedCardsCount}): </b>
+            <input
+              type="radio"
+              value="notVerificatedChecked"
+              onClick={() => {
+                setAllCardsChecked(false);
+                setVerifiedCardsChecked(false);
+                setNotVerifiedCardsChecked(true);
+                setRedCardsChecked(false);
+                setYellowCardsChecked(false);
+                setCardsByCenterIdChecked(false);
+                // onRadioButtonClicked();
+              }}
+              checked={notVerifiedCardsChecked}
+            />
+          </p>
         </div>
-    )
-}
+        <div className={styles.rightArea}>
+          <p className={styles.moderate}>
+            <b>С незаполненными полями ({redCardsCount}): </b>
+            <input
+              type="radio"
+              onClick={() => {
+                setAllCardsChecked(false);
+                setVerifiedCardsChecked(false);
+                setNotVerifiedCardsChecked(false);
+                setRedCardsChecked(true);
+                setYellowCardsChecked(false);
+                setCardsByCenterIdChecked(false);
+                // onRadioButtonClicked();
+              }}
+              checked={redCardsChecked}
+            />
+          </p>
+          <p className={styles.moderate}>
+            <b>С неверными или повторяющимися полями ({yellowCardsCount}): </b>
+            <input
+              type="radio"
+              onClick={() => {
+                setAllCardsChecked(false);
+                setVerifiedCardsChecked(false);
+                setNotVerifiedCardsChecked(false);
+                setRedCardsChecked(false);
+                setYellowCardsChecked(true);
+                setCardsByCenterIdChecked(false);
+                // onRadioButtonClicked();
+              }}
+              checked={yellowCardsChecked}
+            />
+          </p>
+          <p className={styles.moderate}>
+            <b>Поиск по центру ({byCenterCardsCount}): </b>
+            <input
+              type="radio"
+              onClick={() => {
+                setAllCardsChecked(false);
+                setVerifiedCardsChecked(false);
+                setNotVerifiedCardsChecked(false);
+                setRedCardsChecked(false);
+                setYellowCardsChecked(false);
+                setCardsByCenterIdChecked(true);
+                // onRadioButtonClicked();
+              }}
+              checked={cardsByCenterIdChecked}
+            />
+            <select
+              disabled={!cardsByCenterIdChecked}
+              className={styles.wrapperItemInput}
+              onChange={(e) => setSelectedCenterId(e.target.value)}
+            >
+              {filters[2] !== undefined
+                ? filters[2].map((filterOption) =>
+                    filterOption.title !== "test" ? (
+                      <option value={filterOption.id}>
+                        {filterOption.title}
+                      </option>
+                    ) : null
+                  )
+                : null}
+            </select>
+          </p>
+        </div>
+      </div>
+      {currentCards.length > 0 && (
+        <div>
+          <CardsList currentCards={currentCards} setLoadingModal={setLoadingModal}/>
+          <div style={{width: "100%"}}>
+            <Pagination cardsPerPage={cardsPerPage} totalCards={currentList.length} paginate={paginate} currentPage={currentPage}/>
+          </div>
+          
+        </div>
+      )
+        }
+    </div>
+  );
+};
 
 export default ModeratorBlock;
