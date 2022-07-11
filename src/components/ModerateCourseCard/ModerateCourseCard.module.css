@@ -13,6 +13,46 @@
     border-radius:15px;
     padding: 3px;
 }
+.modalButtons{
+    border-radius: 15px;
+    background-color: #412FAE;
+    color: white;
+}
+.modalButtons:hover{
+    background-color: yellow;
+    color: black;
+}
+.previewLogo{
+    width: 50%;
+    aspect-ratio: 1/1;
+    margin-left: 25%;
+}
+.avatarEditor{
+    position: absolute;
+    /*width: 80%;*/
+    z-index: 10;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin-left: 15%;
+}
+.avatarClose{
+    border-radius: 15px 15px 0px 0px;
+    background-color: #412FAE;
+    color: white;
+}
+.avatarClose:hover{
+    background-color: red;
+    color: black;
+}
+.avatarSave{
+    border-radius: 0px 0px 15px 15px;
+    background-color: #412FAE;
+    color: white;
+}
+.avatarSave:hover{
+    background-color: yellow;
+    color: black;
+}
 .editRow p{
     border: 2px solid black;
     background-color: white;

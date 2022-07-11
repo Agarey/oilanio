@@ -1,6 +1,7 @@
 import styles from './ModerateCourseCard.module.css'
 import Link from "next/link";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
+import ReactAvatarEditor from "react-avatar-editor";
 import {SignupToCourseForm} from "../Forms/SignupToCourseForm/SignupToCourseForm";
 import ModalWindow from "../Modal/ModalWindow";
 import classnames from 'classnames';
@@ -67,6 +68,85 @@ export default function ModerateCourseCard(props) {
     const [wordsToShowLength, setWordsToShowLength] = useState(10)
     const [heartValue, setHeartValue] = useState('\u2661')
 
+    const [editAvatar, setEditAvatar] = useState(false);
+    const [image, setImage] = useState(props.course.img_src);
+    const [scale, setScale] = useState(1);
+    const [rotate, setRotate] = useState(0);
+    const [borderRadius, setBorderRadius] = useState(0);
+    const [preview, setPreview] = useState(null);
+    const [width, setWidth] = useState(300);
+    const [height, setHeight] = useState(300);
+    const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
+    const [allowZoomOut, setAllowZoomOut] = useState(false);
+    const editorRef = useRef(null);
+
+    const handleNewImage = e => {
+        setImage(e.target.files[0]);
+    };
+
+    const handleSave = data => {
+        const editor = editorRef.current;
+        const img = editor.getImageScaledToCanvas().toDataURL();
+        const rect = editor.getCroppingRect();
+        
+        setPreview({
+        img,
+        rect,
+        scale: scale,
+        width: width,
+        height: height,
+        borderRadius: borderRadius
+        });
+    };
+
+    const handleScale = e => {
+        const scale = parseFloat(e.target.value);
+        setScale(scale);
+    };
+
+    const handleAllowZoomOut = ({ target: { checked: allowZoomOut } }) => {
+        setAllowZoomOut(allowZoomOut);
+    };
+
+    const rotateLeft = e => {
+        e.preventDefault();
+        setRotate(rotate - 90);
+    };
+
+    const rotateRight = e => {
+        e.preventDefault();
+        setRotate(rotate + 90);
+    };
+
+    const handleBorderRadius = e => {
+        const borderRadius = parseInt(e.target.value, 10);
+        setBorderRadius(borderRadius);
+    };
+
+    const handleXPosition = e => {
+        const x = parseFloat(e.target.value);
+        setPosition({ ...position, x });
+    };
+
+    const handleYPosition = e => {
+        const y = parseFloat(e.target.value);
+        setPosition({ ...position, y });
+    };
+
+    const handleWidth = e => {
+        const width = parseInt(e.target.value, 10);
+        setWidth(width);
+    };
+
+    const handleHeight = e => {
+        const height = parseInt(e.target.value, 10);
+        setHeight(height);
+    };
+
+    const handlePositionChange = position => {
+        setPosition(position);
+    };
+
     const [filters, setFilters] = useState([[],[],[]])
     const str = String(props.course.img_src);
     const substr = 'realibi';
@@ -104,6 +184,22 @@ export default function ModerateCourseCard(props) {
         });
     }, [])
 
+    useEffect(() => {
+        setEditCourseTitle(props.course.title)
+        setEditCourseLogo(props.course.img_src)
+        setEditCourseSchedule(props.course.schedule)
+        setEditCoursePrice(props.course.price)
+        setEditCourseCurrency(props.course.currency)
+        setEditCourseUOT(props.course.unit_of_time)
+        setEditCourseCategory(props.course.category)
+        setEditCourseFormat(props.course.format)
+        setEditCourseType(props.course.type)
+        setEditCourseAges(props.course.ages)
+        setEditCourseAddresses(props.course.addresses)
+        setEditCourseDescription(props.course.description)
+        setEditCourseCDescription(props.course.course_desc)
+        setVerifyCheck(props.course.verificated)
+    }, [props])
 
     const updateVerificated = (targetInfo) => {
 
@@ -140,7 +236,18 @@ export default function ModerateCourseCard(props) {
                 alert('Changes saved!')
             )
     }
+    const [imgFile, setImgFile] = useState(null);
+    const updateLogoFile = () => {
+        let formData = new FormData();
+        formData.append('file', imgFile);
 
+        axios({
+            method: "post",
+            url: `${globals.ftpDomain}/file/upload`,
+            data: formData,
+            headers: {"Content-Type": "multipart/form-data"},
+        })
+    }
     const updateCourseDescription = (targetInfo) => {
 
         let data = {
@@ -253,6 +360,132 @@ export default function ModerateCourseCard(props) {
 
     return (
             <div className={styles.cardBlock}>
+                <div className={styles.avatarEditor} style={editAvatar?{display: 'flex', flexDirection:'column',backgroundColor:'white'}:{display:'none'}}>
+                  <button className={styles.avatarClose} onClick={() => {
+                            setEditAvatar(false);
+                        }} >Закрыть</button>
+                  <ReactAvatarEditor
+                    ref={editorRef}
+                    image={image}
+                    scale={scale}
+                    rotate={0}
+                    width={width}
+                    height={height}
+                    position={position}
+                    onPositionChange={setPosition}
+                    borderRadius={width / (100 / borderRadius)}
+                    border={[125, 50]}
+                    color={[0, 0, 0, 0.8]}
+                    className="editor-canvas"
+                  />
+                  <br/>
+                  Загрузить новый файл логотипа:
+                  <input name="newImage" type="file" onChange={handleNewImage} />
+                  <br />
+                  Zoom:
+                  <input
+                    name="scale"
+                    type="range"
+                    onChange={handleScale}
+                    min="0"
+                    max="2"
+                    step="0.01"
+                    defaultValue="1"
+                  />
+                  <br />
+                  
+                  <input
+                    style={{display:'none'}}
+                    name="allowZoomOut"
+                    type="checkbox"
+                    onChange={handleAllowZoomOut}
+                    checked={allowZoomOut}
+                  />
+                  <br style={{display:'none'}}/>
+                  Border radius:
+                  <input
+                    name="scale"
+                    type="range"
+                    onChange={handleBorderRadius}
+                    min="0"
+                    max="50"
+                    step="1"
+                    defaultValue="0"
+                  />
+                  <input
+                    style={{display:'none'}}
+                    name="width"
+                    type="number"
+                    onChange={handleWidth}
+                    min="50"
+                    max="400"
+                    step="10"
+                    value={width}
+                  />
+                  <input
+                    style={{display:'none'}}
+                    name="height"
+                    type="number"
+                    onChange={handleHeight}
+                    min="50"
+                    max="400"
+                    step="10"
+                    value={height}
+                  />
+                  <input
+                    style={{display:'none'}}
+                    name="scale"
+                    type="range"
+                    onChange={handleXPosition}
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={position.x}
+                  />
+                  <input
+                    style={{display:'none'}}
+                    name="scale"
+                    type="range"
+                    onChange={handleYPosition}
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={position.y}
+                  />
+                  <div style={{display:'none'}}><button className={styles.modalButtons} onClick={rotateLeft}>&#x21ba;</button>
+                  <button className={styles.modalButtons} onClick={rotateRight}>&#x21bb;</button></div>
+                  <br />
+                  <input className={styles.modalButtons} type="button" onClick={handleSave} value="Preview" />
+                  {!!preview && (
+                    <img
+                      className={styles.previewLogo}
+                      crossorigin="anonymous"
+                      src={preview.img}
+                      alt="avatar"
+                      // style={{
+                      //   borderRadius: `${(Math.min(preview.height, preview.width) + 10) *
+                      //     (preview.borderRadius / 2 / 100)}px`
+                      // }}
+                    />
+                    
+                  )}
+                  <br />
+                  <input className={styles.avatarSave} type="button" onClick={() => {
+                            setImgFile(preview.img);
+                            updateLogoFile();
+                        }}
+                        value="Save" />
+                  {/* {!!preview && (
+                    <Preview
+                      width={
+                        preview.scale < 1 ? preview.width : (preview.height * 478) / 270
+                      }
+                      height={preview.height}
+                      image="avatar.jpg"
+                      rect={preview.rect}
+                    />
+                  )} */}
+                </div>
                 <div className={styles.primalBlock}>
                     <p><b>Id центра:</b> {props.course.course_id}</p> 
                     <p><b>Центр:</b> {props.course.course_title}</p>
@@ -313,6 +546,9 @@ export default function ModerateCourseCard(props) {
                     }}>
                     <Image style={{width: '100%', opacity: '0.5'}} src={'https://realibi.kz/file/694538.png'}/>
                     </div>
+                    <button className={styles.avatarSave} onClick={() => {
+                            setEditAvatar(true);
+                        }} >Изменить</button>
                     </p>
                     <div className={styles.editRow}>
                         <p className={styles.link} 
