@@ -69,7 +69,7 @@ export default function ModerateCourseCard(props) {
     const [heartValue, setHeartValue] = useState('\u2661')
 
     const [editAvatar, setEditAvatar] = useState(false);
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(props.course.img_src);
     const [scale, setScale] = useState(1);
     const [rotate, setRotate] = useState(0);
     const [borderRadius, setBorderRadius] = useState(0);
@@ -88,7 +88,7 @@ export default function ModerateCourseCard(props) {
         const editor = editorRef.current;
         const img = editor.getImageScaledToCanvas().toDataURL();
         const rect = editor.getCroppingRect();
-
+        
         setPreview({
         img,
         rect,
@@ -200,7 +200,7 @@ export default function ModerateCourseCard(props) {
         setEditCourseCDescription(props.course.course_desc)
         setVerifyCheck(props.course.verificated)
     }, [props])
-    
+
     const updateVerificated = (targetInfo) => {
 
         let data = {
@@ -379,7 +379,7 @@ export default function ModerateCourseCard(props) {
                     className="editor-canvas"
                   />
                   <br/>
-                  New File:
+                  Загрузить новый файл логотипа:
                   <input name="newImage" type="file" onChange={handleNewImage} />
                   <br />
                   Zoom:
@@ -412,9 +412,8 @@ export default function ModerateCourseCard(props) {
                     step="1"
                     defaultValue="0"
                   />
-                  <br />
-                  Avatar Width:
                   <input
+                    style={{display:'none'}}
                     name="width"
                     type="number"
                     onChange={handleWidth}
@@ -423,9 +422,8 @@ export default function ModerateCourseCard(props) {
                     step="10"
                     value={width}
                   />
-                  <br />
-                  Avatar Height:
                   <input
+                    style={{display:'none'}}
                     name="height"
                     type="number"
                     onChange={handleHeight}
@@ -434,9 +432,8 @@ export default function ModerateCourseCard(props) {
                     step="10"
                     value={height}
                   />
-                  <br />
-                  X Position:
                   <input
+                    style={{display:'none'}}
                     name="scale"
                     type="range"
                     onChange={handleXPosition}
@@ -445,9 +442,8 @@ export default function ModerateCourseCard(props) {
                     step="0.01"
                     value={position.x}
                   />
-                  <br />
-                  Y Position:
                   <input
+                    style={{display:'none'}}
                     name="scale"
                     type="range"
                     onChange={handleYPosition}
@@ -456,12 +452,10 @@ export default function ModerateCourseCard(props) {
                     step="0.01"
                     value={position.y}
                   />
+                  <div style={{display:'none'}}><button className={styles.modalButtons} onClick={rotateLeft}>&#x21ba;</button>
+                  <button className={styles.modalButtons} onClick={rotateRight}>&#x21bb;</button></div>
                   <br />
-                  Rotate:
-                  <button onClick={rotateLeft}>Left</button>
-                  <button onClick={rotateRight}>Right</button>
-                  <input type="button" onClick={handleSave} value="Preview" />
-                  <br />
+                  <input className={styles.modalButtons} type="button" onClick={handleSave} value="Preview" />
                   {!!preview && (
                     <img
                       className={styles.previewLogo}
@@ -552,7 +546,7 @@ export default function ModerateCourseCard(props) {
                     }}>
                     <Image style={{width: '100%', opacity: '0.5'}} src={'https://realibi.kz/file/694538.png'}/>
                     </div>
-                    <button onClick={() => {
+                    <button className={styles.avatarSave} onClick={() => {
                             setEditAvatar(true);
                         }} >Изменить</button>
                     </p>
