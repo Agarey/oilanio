@@ -31,13 +31,14 @@ function Cabinet(){
     const [applications, setApplications] = useState([]);
     const [teachers, setTeachers] = useState([]);
     const [newApplicationsCount, setNewApplicationsCount] = useState(0);
+    const [isTutors, setIsTutors] = useState(false);
 
     const getActivePage = () => {
         switch(activeMenuIndex){
             case 0:
                 return(<StatisticsBlock applications={applications} newApplicationsCount={newApplicationsCount} clickStatistics={clickStatistics}/>)
             case 1:
-                return(<ApplicationsBlock applications={applications} courseInfo={courseInfo} courseCards={courseCards} directionsArray={directionsArray} subscriptionInfo={subscriptionInfo} categories={courseCategories}/>);
+                return(<ApplicationsBlock isTutors={isTutors} applications={applications} courseInfo={courseInfo} courseCards={courseCards} directionsArray={directionsArray} subscriptionInfo={subscriptionInfo} categories={courseCategories}/>);
             case 2:
                 return(<SubscriptionBlock courseInfo={courseInfo}/>)
             case 3:
@@ -241,7 +242,7 @@ function Cabinet(){
                 <title>Oilan - Кабинет</title>
                 <link rel="icon" href="/atom-icon.png" />
             </Head>
-            {courseInfo && (<CabinetHeader courseInfo={courseInfo}/>)}
+            {courseInfo && (<CabinetHeader isTutors={isTutors} courseInfo={courseInfo}/>)}
 
             <div className={styles.container}>
                 <div className={styles.menu}>

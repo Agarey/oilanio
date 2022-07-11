@@ -11,7 +11,7 @@ export default function CabinetHeader(props){
 
     const dateFormatter = new Intl.DateTimeFormat('ru-RU', dateOptions);
     const dateAsFormattedString = dateFormatter.format(new Date(nextPaymentDate));
-
+    
     return(
             props.courseInfo !== null ? (
                 <div className={styles.container}>
@@ -40,7 +40,7 @@ export default function CabinetHeader(props){
                                 />
                             </div>
                             <div className={styles.text}>
-                                <p className={styles.center_name}>{props.courseInfo.title}</p>
+                                <p className={styles.center_name}>{!props.isTutors ? props.courseInfo.title : props.courseInfo.fullname}</p>
                                 <p
                                     className={styles.logout_button}
                                     onClick={() => {
