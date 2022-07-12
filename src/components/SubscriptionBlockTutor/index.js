@@ -1,5 +1,4 @@
 import styles from './style.module.css'
-import SubscriptionCardsWrapper from "../SubscriptionCardsWrapper";
 import SubscriptionTutorCardsWrapper from '../SubscriptionTutorCardsWrapper';
 
 const SubscriptionBlockTutor = (props) => {
@@ -30,20 +29,6 @@ const SubscriptionBlockTutor = (props) => {
                         </div>
                     </div>
                 </div>
-                {/*<div className={styles.rightBlock} style={{backgroundColor: '#fff', padding: 15, borderRadius: 10}}>*/}
-                {/*    <span className={styles.bold} style={{fontSize: 18}}>История подписок</span>*/}
-                {/*    <div className={styles.list} style={{marginTop: 15}}>*/}
-                {/*        <div className={styles.listItemR}>*/}
-                {/*            <span className={styles.date}>01.01.01</span> <span>Подписка по тарифу Standart</span> <span className={styles.medium}>17 900KZT</span>*/}
-                {/*        </div>*/}
-                {/*        <div className={styles.listItemR}>*/}
-                {/*            <span className={styles.date}>01.01.01</span> <span>Подписка по тарифу Standart</span> <span className={styles.medium}>17 900KZT</span>*/}
-                {/*        </div>*/}
-                {/*        <div className={styles.listItemR}>*/}
-                {/*            <span className={styles.date}>01.01.01</span> <span>Подписка по тарифу Standart</span> <span className={styles.medium}>17 900KZT</span>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
             <div style={{marginTop: 50}}>
                 <span className={styles.headerTitle}>Подписочные планы</span>

@@ -10,7 +10,7 @@ export default function ApplicationsBlock(props){
         {props.applications.map(item => {
           let categoryName = props.categories.filter(category => category.id === item.direction_id)[0].name;
           return(
-            <div className={styles.application}>
+            <div key={item.id} className={styles.application}>
               <Application 
                 isTutors={props.isTutors} 
                 center={props.courseInfo} 

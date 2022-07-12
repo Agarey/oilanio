@@ -139,9 +139,6 @@ function Cabinet(){
                     let applicationArray = [];
                     let newApplicationsCount = 0;
 
-                    console.log('directionArray')
-                    console.log(directionsArrayTemp);
-
                     res.data.map(item => {
                         if(directionsArrayTemp.includes(item.direction_id)){
                             if((new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())){
@@ -150,7 +147,6 @@ function Cabinet(){
                             applicationArray.push(item);
                         }
                     })
-
                     setApplications(applicationArray);
                     setNewApplicationsCount(newApplicationsCount);
                 }).catch((err)=>{
@@ -234,7 +230,7 @@ function Cabinet(){
 
     useEffect(async () => {
         await loadData();
-    }, [])
+    }, []);
 
     return (
         <div style={{backgroundColor: '#FAF8FF'}}>

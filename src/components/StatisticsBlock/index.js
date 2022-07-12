@@ -113,7 +113,6 @@ export default function StatisticsBlock(props){
     setSelectValue(e.target.value)
   }
 
-  console.log(selectValue);
   return(
     <>
       <ModalWindow
@@ -127,11 +126,11 @@ export default function StatisticsBlock(props){
             <option>Неактивные заявки</option>
           </select>
           {selectValue === "Активные заявки" ? <> {
-            props.applications.map((item, i) => {
+            props.applications.map(item => {
               let isActive = (new Date(item.datetime).getTime() + 86400000) > (new Date().getTime());
               if (isActive) {
                 return (
-                  <div className={styles.application}>
+                  <div key={item.id} className={styles.application}>
                     <p className={styles.app_name}>
                       {item.name} <b 
                         style={(new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())? {color: "green"} : {color: "red"}}
@@ -157,7 +156,7 @@ export default function StatisticsBlock(props){
               let isActive = (new Date(item.datetime).getTime() + 86400000) > (new Date().getTime());
               if (!isActive) {
                 return (
-                  <div className={styles.application}>
+                  <div key={item.id} className={styles.application}>
                     <p className={styles.app_name}>
                       {item.name} <b 
                         style={(new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())? {color: "green"} : {color: "red"}}
@@ -181,7 +180,7 @@ export default function StatisticsBlock(props){
           </> : <>
             {props.applications.map((item, i) => {
               return (
-                <div className={styles.application}>
+                <div key={item.id} className={styles.application}>
                   <p className={styles.app_name}>
                     {item.name} <b 
                       style={(new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())? {color: "green"} : {color: "red"}}
@@ -237,7 +236,7 @@ export default function StatisticsBlock(props){
           <div className={styles.popularCardsList}>
             {
               props.clickStatistics.map(item => (
-                <div className={styles.popularCardItem}>
+                <div key={item.id} className={styles.popularCardItem}>
                   <CabinetPopularCard card={item}/>
                 </div>
               ))

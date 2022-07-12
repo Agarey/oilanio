@@ -19,8 +19,8 @@ function Cabinet(){
   let router = useRouter();
   const [editMode, setEditMode] = useState(false);
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  // const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
 
   const [tutor, setTutor] = useState({
     id: 0,
@@ -64,8 +64,6 @@ function Cabinet(){
   const [clickStatistics, setClickStatistics] = useState([]);
   const [newApplicationsCount, setNewApplicationsCount] = useState(0);
   const [isTutors, setIsTutors] = useState(true);
-
-  let allApplication = null;
 
   const editProfileData = () => {
     let data = {
@@ -153,8 +151,6 @@ function Cabinet(){
           courseInfo={courseInfo}
           courseCards={courseCards}
           subscriptionInfo={subscriptionInfo}
-          // applications={applications}
-          // allApplication={allApplication}
         />)
       case 1:
         return (<ApplicationsBlock 
@@ -207,11 +203,10 @@ function Cabinet(){
     let courseId = '';
     let token = '';
 
-    if(localStorage.getItem(globals.localStorageKeys.centerId) != null){
+    if(localStorage.getItem(globals.localStorageKeys.centerId) !== null){
       courseId = +localStorage.getItem(globals.localStorageKeys.centerId);
       token = JSON.parse(localStorage.getItem(globals.localStorageKeys.authToken)).token;
       let applicationData = await axios.get(`${globals.productionServerDomain}/tutorApplications/${courseId}`);
-      console.log(applicationData);
       setApplications(applicationData.data);
 
       await axios({
@@ -243,15 +238,12 @@ function Cabinet(){
       }).then(async function(res){
         let applicationArray = [];
         let newApplicationsCount = 0;
-        console.log('directionArray')
-        console.log(directionsArrayTemp);
         res.data.map(item => {
           if ((new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())){
             newApplicationsCount++;
           }
           applicationArray.push(item);
         });
-        console.log(applicationArray);
         setApplications(applicationArray);
         setNewApplicationsCount(newApplicationsCount);
       })
@@ -270,21 +262,6 @@ function Cabinet(){
         setFilters(res.data);
       }).catch(() => {
         alert('Ошибка при загрузке фильтров!');
-      });
-          
-      await axios({
-        method: 'post',
-        url: `${globals.productionServerDomain}/getApplicationResponsePermission`,
-        data: {
-          center_id: +localStorage.getItem(globals.localStorageKeys.centerId)
-        },
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("auth token")).token}`
-        }
-      }).then(function(res){
-        setSubscriptionInfo(res.data);
-      }).catch(() => {
-        router.push('/login');
       });
 
       await axios({
@@ -362,35 +339,15 @@ function Cabinet(){
   useLayoutEffect(() =>{
     if(localStorage.getItem(globals.localStorageKeys.centerId) != null) {
       let roleId = +localStorage.getItem(globals.localStorageKeys.roleId);
-      if (roleId === 6) {
-        router.push('/cabinet/tutor')
+      if (roleId === 4) {
+        router.push('/cabinet')
       }
-    }
+    } 
   }, []);
 
   useEffect(async () => {
     await loadData();
   }, []);
-
-  if (applications.length > 0) {
-    // allApplication = <>
-      // {applications.map(item => {
-      //   let categoryName = courseCategories.filter(category => category.id === item.direction_id).name;
-      //   return  (
-      //     <div className={styles.application}>
-      //       <Application 
-      //         isTutors={isTutors} 
-      //         center={courseInfo} 
-      //         courseCards={courseCards} 
-      //         subscriptionInfo={subscriptionInfo} 
-      //         application={item} 
-      //         categoryName={categoryName}
-      //       />
-      //     </div>
-      //   )
-      // })}
-    // </> 
-  };
 
   return (
     <div style={{backgroundColor: '#FAF8FF'}}>
