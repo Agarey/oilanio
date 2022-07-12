@@ -35,14 +35,13 @@
     height: 50px;
     font-size: 30px;
     margin-bottom: 20px;
-    font-weight: 700;
     color: #000;
 }
 
 .FIOdiv{
     font-size: 30px;
     margin-bottom: 20px;
-    font-weight: 700;
+    /* font-weight: 700; */
     color: #000;
 }
 
@@ -61,31 +60,6 @@
     /*border: 0.2px solid grey;*/
     border-radius: 10px;
     box-shadow: 0 0 5px grey;
-}
-
-.tutor_description_textarea{
-    box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    height: 100%;
-    width: 100%;
-    resize: none;
-}
-
-.tutor_description_textarea:disabled{
-    background-color: transparent;
-    border: transparent;
-    color: #000;
-    -webkit-text-fill-color:#000; /* Override iOS / Android font color change */
-    -webkit-opacity:1; /* Override iOS opacity change affecting text & background color */
-    color:#000; /* Override IE font color change */
-}
-
-
-.info_title{
-    margin: 0;
-    height: 100%;
-    font-weight: 700;
-    white-space: nowrap;
 }
 
 .block_title{

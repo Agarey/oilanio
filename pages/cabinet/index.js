@@ -36,13 +36,30 @@ function Cabinet(){
     const getActivePage = () => {
         switch(activeMenuIndex){
             case 0:
-                return(<StatisticsBlock applications={applications} newApplicationsCount={newApplicationsCount} clickStatistics={clickStatistics}/>)
+                return(<StatisticsBlock 
+                    applications={applications} 
+                    newApplicationsCount={newApplicationsCount} 
+                    clickStatistics={clickStatistics}
+                />)
             case 1:
-                return(<ApplicationsBlock isTutors={isTutors} applications={applications} courseInfo={courseInfo} courseCards={courseCards} directionsArray={directionsArray} subscriptionInfo={subscriptionInfo} categories={courseCategories}/>);
+                return(<ApplicationsBlock 
+                    isTutors={isTutors} 
+                    applications={applications} 
+                    courseInfo={courseInfo} 
+                    courseCards={courseCards} 
+                    directionsArray={directionsArray} 
+                    subscriptionInfo={subscriptionInfo} 
+                    categories={courseCategories}
+                />);
             case 2:
                 return(<SubscriptionBlock courseInfo={courseInfo}/>)
             case 3:
-                return(<MyInfoBlock teachers={teachers} courseCategories={courseCategories} courseInfo={courseInfo} courseCards={courseCards}/>);
+                return(<MyInfoBlock 
+                    teachers={teachers} 
+                    courseCategories={courseCategories} 
+                    courseInfo={courseInfo} 
+                    courseCards={courseCards}
+                />);
             default:
                 return(<></>);
         }

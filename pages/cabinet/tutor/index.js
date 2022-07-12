@@ -19,9 +19,6 @@ function Cabinet(){
   let router = useRouter();
   const [editMode, setEditMode] = useState(false);
 
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-
   const [tutor, setTutor] = useState({
     id: 0,
     fullname: 'Алиби Дуйсеналиев',
@@ -135,7 +132,7 @@ function Cabinet(){
 
   const editProfileDataHandler = (e) => editProfileData(e.target.value);
 
-  const setEditModeHandler = (e) => setEditMode(!editMode);
+  const setEditModeHandler = () => setEditMode(!editMode);
 
   const setDescriptionHandler = (e) => setDescription(e.target.value);
 

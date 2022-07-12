@@ -1,6 +1,7 @@
 .center_info_block{
     width: 100%;
     display: flex;
+    justify-content: space-between;
 }
 
 .center_logo{
@@ -16,13 +17,8 @@
 }
 
 .col_1_4{
-    width: 35%;
+    width: 40%;
 }
-
-/* .col_3_4{
-    width: 70%;
-
-} */
 
 .center_title{
     font-size: 28px;
@@ -31,7 +27,7 @@
 }
 
 .info_title{
-    font-size: 22px;
+    font-size: 19px;
     font-family: "Rubik Medium";
     margin-top: 8px;
     margin-bottom: 0;
@@ -76,11 +72,11 @@
 
 .tutor_info_block{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .tutor_info_block > * {
-    width: 81%;
+    /* width: 81%; */
     height: auto;
     margin: 0 10px;
 }
@@ -139,6 +135,10 @@
     -webkit-text-fill-color:#000; /* Override iOS / Android font color change */
     -webkit-opacity:1; /* Override iOS opacity change affecting text & background color */
     color:#000; /* Override IE font color change */
+}
+
+.tutor_description_text {
+    font-size: 18px;
 }
 
 
@@ -240,6 +240,9 @@
     padding: 4px;
 }
 
+.container {
+    width: 60%;
+}
 @media screen and (max-width: 980px){
     .checkDiv{
         padding-right: 0;
