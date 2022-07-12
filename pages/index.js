@@ -214,7 +214,16 @@ const CreateApplication = (props) => {
             "   });\n" +
             "</script>\n" +
             "<noscript><div><img src=\"https://mc.yandex.ru/watch/78186067\" style=\"position:absolute; left:-9999px;\" alt=\"\" /></div></noscript>\n" +
-            "<!-- /Yandex.Metrika counter -->"
+            "<!-- /Yandex.Metrika counter -->\n" +
+            "<!-- Global site tag (gtag.js) - Google Analytics -->\n" + 
+            "<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-221758621-1\">\n" + 
+            "</script>\n" + 
+            "<script>\n" + 
+            "  window.dataLayer = window.dataLayer || [];\n" + 
+            "  function gtag(){dataLayer.push(arguments);}\n" + 
+            "  gtag('js', new Date());\n" +  
+            "  gtag('config', 'UA-221758621-1');\n" + 
+            "</script>\n" +
         );
     }
 
