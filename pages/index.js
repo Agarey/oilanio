@@ -223,7 +223,7 @@ const CreateApplication = (props) => {
             "  function gtag(){dataLayer.push(arguments);}\n" + 
             "  gtag('js', new Date());\n" +  
             "  gtag('config', 'UA-221758621-1');\n" + 
-            "</script>\n" +
+            "</script>"
         );
     }
 
