@@ -275,6 +275,54 @@ export default function CourseSearchApplicationFullPage(props){
                 </div>
 
                 <div className={styles.selectContainer}>
+                    <input 
+                        type="text" 
+                        value={name} 
+                        onChange={e => setName(e.target.value)} 
+                        className={styles.techSupportInput} 
+                        style={{cursor: "text", color: 'black'}} 
+                        placeholder={'Введите Ваше имя'}
+                    />
+                    <span className={styles.selectName}>
+                        Имя 
+                        <span className={styles.selectNameStar}> *</span>
+                    </span>
+                </div>
+
+                <div className={styles.selectContainer}>
+                    <input
+                        type="text"
+                        className={styles.techSupportInput}
+                        style={{cursor: "text"}}
+                        onKeyDown={e => {
+                            if(e.keyCode === 8){
+                                setPhone(phone.slice(0,-1));
+                            }
+                        }}
+                        onChange={e => globals.checkPhoneMask(e.target.value, setPhone)}
+                        placeholder='Введите номер телефона'
+                        value={phone}
+                    />
+                    <span className={styles.selectName}>
+                        Номер телефона 
+                        <span className={styles.selectNameStar}> *</span>
+                    </span>
+                </div>
+
+                <div className={styles.selectContainer}>
+                    <input 
+                        type="email" value={email} 
+                        onChange={e => setEmail(e.target.value)} 
+                        className={styles.techSupportInput} 
+                        style={{cursor: "text"}} 
+                        placeholder={'Введите адрес электронной почты'}
+                    />
+                    <span className={styles.selectName}>
+                        Электронная почта
+                    </span>
+                </div>
+                
+                <div className={styles.selectContainer}>
                     <select className={styles.selectBlock} value={directionId} onChange={e => setDirectionId(e.target.value)}>
                         {
                             props.directions !== undefined
@@ -337,54 +385,6 @@ export default function CourseSearchApplicationFullPage(props){
                     </div>
 
                 ) : null}
-
-                <div className={styles.selectContainer}>
-                    <input 
-                        type="text" 
-                        value={name} 
-                        onChange={e => setName(e.target.value)} 
-                        className={styles.techSupportInput} 
-                        style={{cursor: "text", color: 'black'}} 
-                        placeholder={'Введите Ваше имя'}
-                    />
-                    <span className={styles.selectName}>
-                        Имя 
-                        <span className={styles.selectNameStar}> *</span>
-                    </span>
-                </div>
-
-                <div className={styles.selectContainer}>
-                    <input
-                        type="text"
-                        className={styles.techSupportInput}
-                        style={{cursor: "text"}}
-                        onKeyDown={e => {
-                            if(e.keyCode === 8){
-                                setPhone(phone.slice(0,-1));
-                            }
-                        }}
-                        onChange={e => globals.checkPhoneMask(e.target.value, setPhone)}
-                        placeholder='Введите номер телефона'
-                        value={phone}
-                    />
-                    <span className={styles.selectName}>
-                        Номер телефона 
-                        <span className={styles.selectNameStar}> *</span>
-                    </span>
-                </div>
-
-                <div className={styles.selectContainer}>
-                    <input 
-                        type="email" value={email} 
-                        onChange={e => setEmail(e.target.value)} 
-                        className={styles.techSupportInput} 
-                        style={{cursor: "text"}} 
-                        placeholder={'Введите адрес электронной почты'}
-                    />
-                    <span className={styles.selectName}>
-                        Электронная почта
-                    </span>
-                </div>
 
                 {/*<textarea
                     value={comment}
