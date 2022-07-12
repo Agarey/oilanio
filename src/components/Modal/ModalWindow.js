@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Modal} from "react-bootstrap";
 import styles from '../../../styles/components/ModalWindow.module.css'
+
 export default function ModalWindow(props) {
     if(props.contactForm !== undefined ){
      return (
@@ -28,6 +29,4 @@ export default function ModalWindow(props) {
             </Modal>
         )
     }
-
-
 }

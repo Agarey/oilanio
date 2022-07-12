@@ -4,12 +4,13 @@
 }
 
 .container_1_3{
-    width: 29%;
+    width: 35%;
     background-color: #fff;
     padding: 0 5%;
     border-radius: 11px;
     box-sizing: border-box;
     margin: 20px 0;
+    text-align: center;
 }
 
 .container_2_3{
@@ -35,6 +36,59 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.btnApplication {
+    font-family: "Rubik Medium";
+    cursor: pointer;
+    background-color: #422FAF;
+    color: white;
+    border: none;
+    box-shadow: 0px 10px 20px rgb(0 0 0 / 15%);
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.3s;
+    font-size: 16px;
+    z-index: 5;
+    margin: 10px 0;
+}
+
+.application {
+    background-color: #faf8ff;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 11px;
+    padding: 10px;
+}
+
+.app_name {
+    font-size: 25px;
+    margin: 0;
+}
+
+.app_direction {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 10px 0;
+}
+
+.selectAppl {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    background: white;
+    color: black;
+    margin-bottom: 10px;
+    font-family: "Rubik regular";
+    background-image: url('data:image/svg+xml,\ <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">\<path d="M1 1.46387L7 8.5353L13 1.46387" stroke="black" stroke-width="2" stroke-linecap="round"/>\</svg>');
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    appearance: none;
+}
+
 @media screen and (max-width: 761px){
     .container_1_3{
         width: 100%;

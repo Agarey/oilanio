@@ -85,7 +85,7 @@ const SubscriptionTutorCardsWrapper = () => {
                             <div className={styles.list}>
                                 {card.opportunities.map(title => (
                                     <div className={styles.listItem}>
-                                        <Image src={'violet_galochka.png'} className={styles.opportunitiesImage}/>
+                                        <Image src={"https://realibi.kz/file/146377.png"} className={styles.opportunitiesImage}/>
                                         <span className={styles.opportunities}>{title}</span>
                                     </div>
                                 ))}
