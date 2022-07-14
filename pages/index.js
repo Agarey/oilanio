@@ -5,6 +5,7 @@ import ym from 'react-yandex-metrika';
 import {Image} from "react-bootstrap";
 import classnames from 'classnames';
 import { useRouter } from 'next/router'
+
 import CourseSearchApplicationFullPage
     from "../src/components/CourseSearchApplicationFullPage/CourseSearchApplicationFullPage";
 import CourseHelpWithFullPage

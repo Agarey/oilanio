@@ -80,6 +80,10 @@ const router = useRouter();
             console.log(result);
         }
     }
+    function prettify(num) {
+        var n = num.toString();
+        return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ');
+    }
 
     return (
         <div className={styles.formBody} >

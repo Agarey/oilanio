@@ -83,6 +83,7 @@
     transition: 0.3s;
 }
 .titleImageBody{
+    /*border: 3px solid white;*/
     height: 250px;
     background-size: contain;
     background-repeat: no-repeat;
@@ -413,4 +414,13 @@
     .info_button{
         width: 100%;
     }
+    /*.titleImageBody{*/
+    /*    height: 80px;*/
+    /*}*/
+    /*.image_block{*/
+    /*    top: 60px;*/
+    /*    height: 42px;*/
+    /*    width: 42px;*/
+    /*    left: 5px;*/
+    /*}*/
 }
