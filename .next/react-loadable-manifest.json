@@ -1,1 +1,8 @@
-{}
+{
+  "catalog\\index.js -> react-odometerjs": {
+    "id": "catalog\\index.js -> react-odometerjs",
+    "files": [
+      "static/chunks/node_modules_react-odometerjs_dist_index_js.js"
+    ]
+  }
+}
