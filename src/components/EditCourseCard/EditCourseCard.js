@@ -15,7 +15,6 @@ export default function EditCourseCard(props) {
     const [showPhoneNumber, setShowPhoneNumber] = useState(false);
     const [showContacts, setShowContacts] = useState(false);
 
-
     function prettify(num) {
         var n = num.toString();
         return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ');
@@ -79,27 +78,6 @@ export default function EditCourseCard(props) {
 
             <div className={styles.info_block}>
                 <div style={{}}>
-                    {/*<div className={styles.titleBlock}>*/}
-                    {/*    <div>*/}
-                    {/*        <p className={styles.course_title}>{editCourseTitle}</p>*/}
-                    {/*    </div>*/}
-                    {/*    /!*<div className={styles.socnetBlock} style={{ marginBottom: 5 }}>*!/*/}
-                    {/*    /!*    {props.course.instagram ? (*!/*/}
-                    {/*    /!*        <>*!/*/}
-                    {/*    /!*            <a target='_blank' href={`https://www.instagram.com/${props.course.instagram}/`}>*!/*/}
-                    {/*    /!*                <img src="/instagram.png" className={styles.icons} alt="" />*!/*/}
-                    {/*    /!*            </a>*!/*/}
-                    {/*    /!*        </>*!/*/}
-                    {/*    /!*    ) : null || undefined}*!/*/}
-                    {/*    /!*    {props.course.website !== null ? (*!/*/}
-                    {/*    /!*        <>*!/*/}
-                    {/*    /!*            <a target='_blank' href={`${props.course.website}`}>*!/*/}
-                    {/*    /!*                <img src="/network.png" className={styles.icons} alt="" />*!/*/}
-                    {/*    /!*            </a>*!/*/}
-                    {/*    /!*        </>*!/*/}
-                    {/*    /!*    ) : null}*!/*/}
-                    {/*    /!*</div>*!/*/}
-                    {/*</div>*/}
                     <span style={{color: '#FF8300', fontWeight: 'bold' }}>{props.course.approved ? null : 'Карта находится в модерации'}</span>
                     <span style={{color: '#FF8300', fontWeight: 'bold' }}>{props.course.is_archived === true ? 'Карта находится в архиве' : null }</span>
                     <div className={styles.info_smallBody}>
@@ -149,6 +127,7 @@ export default function EditCourseCard(props) {
                                 {edit ? (props.courseCategories === undefined ? null : (props.courseCategories.map(category => category.name === "test" ? null : (<option value={category.id}>{category.name}</option>))))
                                 : <option value={props.course.category_id}>{props.course.category_name}</option>}
                             </select>
+
 
                             <p className={styles.info_title}>Описание курса:</p>
                             <div className={styles.info_smallBody}>

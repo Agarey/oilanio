@@ -23,6 +23,7 @@
     src: url("../../public/fonts/Gilroy/Gilroy-Regular.ttf") format("truetype");
 }
 
+
 .container {
     display: flex;
     flex-direction: column;
@@ -454,13 +455,4 @@
         margin-bottom: 30px;
         width: 100%;
     }
-    /*.titleImageBody{*/
-    /*    height: 80px;*/
-    /*}*/
-    /*.image_block{*/
-    /*    top: 60px;*/
-    /*    height: 42px;*/
-    /*    width: 42px;*/
-    /*    left: 5px;*/
-    /*}*/
 }
