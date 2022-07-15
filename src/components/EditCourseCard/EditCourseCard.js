@@ -15,18 +15,10 @@ export default function EditCourseCard(props) {
   const [showPhoneNumber, setShowPhoneNumber] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
 
-<<<<<<< HEAD
   function prettify(num) {
     var n = num.toString();
     return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ');
   }
-=======
-
-    function prettify(num) {
-        var n = num.toString();
-        return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ');
-    }
->>>>>>> origin/mirror
 
   const coursePrice = prettify(props.course.price)
   const [showControlPanel, setShowControlPanel] = useState(false)
