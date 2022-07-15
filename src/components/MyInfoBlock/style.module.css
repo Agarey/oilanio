@@ -29,6 +29,10 @@
     margin: 0;
 }
 
+.center_subtitle {
+    font-size: 14px;
+}
+
 .info_title{
     font-size: 22px;
     font-family: "Rubik Medium";
@@ -49,6 +53,16 @@
 }
 .card{
     width: 30%;
+}
+
+.edit_profile_button{
+    width: 100%;
+    background-color: #412FAE;
+    color: #fff;
+    border: 1px solid #412FAE;
+    border-radius: 10px;
+    box-shadow: 0 0 5px lightgray;
+    margin: 10px;
 }
 
 @media screen and (max-width: 761px){

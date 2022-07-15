@@ -268,14 +268,14 @@
 }
 .info_button{
     font-family: sans-serif;
-    font-size: 1.5vh;
+    font-size: 15px;
     padding: 3px 8px;
     border-radius: 3px;
     border: 1px solid #5571d3;
     transition: 0.5s;
     background: #412FAE;
     color: #fff;
-    width: 50%;
+    /* width: 50%; */
     text-align: center;
     margin-bottom: 5px;
 }
@@ -398,6 +398,7 @@
 .btnsWrapper{
     display: flex;
     width: 100%;
+    flex-direction: column;
 }
 @media screen and (max-width: 761px){
     .container {
