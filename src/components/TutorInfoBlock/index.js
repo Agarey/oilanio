@@ -2,7 +2,6 @@ import styles from './style.module.css';
 import TutorCreateCourseCard from "../TutorCreateCourseCard";
 import TutorCourseCardEdit from "../TutorCourseCardEdit/TutorCourseCardEdit";
 import classnames from 'classnames';
-import CreateCourseCard from '../CreateCourseCard/CreateCourseCard';
 
 export default function TutorInfoBlock(props){
   return (
@@ -195,18 +194,11 @@ export default function TutorInfoBlock(props){
       </div>
       <div className={styles.coursecards_block}>
       <div>
-        <TutorCreateCourseCard 
-          directions={props.filters[1]} 
-          course={props.courseInfo}
-        />
+        <TutorCreateCourseCard directions={props.filters[1]}/>
       </div>
       {props.courseCards.map(item => (
         <div>
-          <TutorCourseCardEdit 
-            course={item} 
-            directions={props.filters[1]}
-            courseInfo={props.courseInfo}
-          />
+          <TutorCourseCardEdit course={item} directions={props.filters[1]}/>
         </div>
       ))}
     </div>

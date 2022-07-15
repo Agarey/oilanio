@@ -64,6 +64,7 @@
 }
 
 .coursecards_block > *{
+    display: flex;
     width: 30%;
     margin: 1%;
     justify-content: center;
@@ -165,6 +166,7 @@
 }
 
 .coursecards_block > *{
+    display: flex;
     width: 30%;
     margin: 1%;
     justify-content: center;
@@ -181,9 +183,9 @@
 
 .edit_profile_button{
     width: 100%;
-    background-color: #412FAE;
+    background-color: #d99708;
     color: #fff;
-    border: 1px solid #412FAE;
+    border: 1px solid #d99708;
     border-radius: 10px;
     box-shadow: 0 0 5px lightgray;
 }

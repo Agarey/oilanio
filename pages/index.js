@@ -57,6 +57,7 @@ const CreateApplication = (props) => {
     const [odometerValue, setOdometerValue] = useState(0);
     const browser = ''
     const [isSafari, setIsSafari] = useState(false)
+    
     useEffect(()=>{
         setShowSecondSlide(false)
         axios.get(`${globals.productionServerDomain}/filters`).then(res => {

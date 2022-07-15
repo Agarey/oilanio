@@ -6,6 +6,7 @@ import globals from "../../globals";
 
 function TutorCourseCardEdit(props){
     const [editMode, setEditMode] = useState(false);
+
     const [title, setTitle] = useState(props.course.title);
     const [categoryId, setCategoryId] = useState(props.course.category_id);
     const [minAge, setMinAge] = useState(props.course.min_age);
@@ -19,9 +20,7 @@ function TutorCourseCardEdit(props){
     const [currency, setCurrency] = useState(props.course.currency);
     const [unitOfTime, setUnitOfTime] = useState(props.course.unit_of_time);
 
-    const [hide, setHide] = useState(false);
-
-    console.log(props.course);
+    const [hide, setHide] = useState(false)
 
     const editData = () => {
         const data = {
@@ -77,35 +76,7 @@ function TutorCourseCardEdit(props){
 
     return (
         <div className={styles.container}>
-            <div className={styles.titleImage__Body}>
-                <div className={styles.titleImageWrapper}>
-                    <div className={styles.titleImageBody}
-                        style={{
-                            backgroundImage: `url(https://realibi.kz/file/138424.png)`
-                        }}
-                    >
-                    </div>
-                </div>
-                <div className={styles.image_block} style={{
-                    backgroundImage: `url(${props.courseInfo.img_src})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    backgroundColor: 'white',
-                    border: '1px solid white'
-                }}>
-                </div>
-            </div>
             <div className={styles.row}>
-                <p className={styles.row_title}>Название курса</p>
-                    <div style={{display: 'flex'}}>
-                        <input
-                            type={'text'}
-                            className={styles.row_input}
-                            value={title}
-                            onChange={e => setTitle(e.target.value)}
-                            disabled={!editMode}
-                        />
-                    </div>
                 <p className={styles.row_title}>Направление</p>
                 <select
                     className={styles.row_input}
@@ -115,12 +86,21 @@ function TutorCourseCardEdit(props){
                 >
                     {props.directions.map(item => <option value={item.id}>{item.name}</option>)}
                 </select>
-
-                
             </div>
 
             <div style={{width: '100%', display: hide ? 'block' : 'none'}}>
                 <div className={styles.row}>
+                    <p className={styles.row_title}>Название курса</p>
+                    <div style={{display: 'flex'}}>
+                        <input
+                            type={'text'}
+                            className={styles.row_input}
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                            disabled={!editMode}
+                        />
+                    </div>
+
                     <p className={styles.row_title}>Минимальный возраст</p>
                     <div style={{display: 'flex'}}>
                         <input
@@ -188,6 +168,8 @@ function TutorCourseCardEdit(props){
                     </div>
                 </div>
             </div>
+
+
 
             <div className={styles.buttons_block}>
                 <button className={styles.edit_button}

@@ -1,34 +1,9 @@
 .container{
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    color: #5274fc;
-    box-shadow: 0 2px 9px -5px rgba(0,0,0,0.6);
-    border-radius: 10px;
-    margin: 0 15px;
-    margin-bottom: 30px;
-    transition: 0.5s;
-    overflow: hidden;
-}
-.titleImage__Body{
-    height: 200px;
     width: 100%;
-    box-sizing: border-box;
-    position: relative;
-}
-.titleImageWrapper{
-    width: 100%;
-    overflow: hidden;
-}
-
-.titleImageBody{
-    height: 166px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: relative;
-    box-sizing: border-box;
-    transition: 0.5s ease;
-    border-radius: 10px 10px 0 0;
+    min-height: 200px;
+    border-radius: 15px;
+    box-shadow: 0 0 3px grey;
+    padding: 3%;
 }
 
 .title{
@@ -39,7 +14,6 @@
 .buttons_block{
     display: flex;
     flex-direction: column;
-    padding: 10px;
 }
 
 .buttons_block > * {
@@ -50,54 +24,29 @@
     font-size: 14px;
     color: #fff;
     box-shadow: 0 0 5px lightgray;
-    background-color: #412FAE;
+}
+
+.buttons_block > .edit_button{
+    background-color: #008000FF;
+}
+
+.buttons_block > .archive_button{
+    background-color: #d99708;
+}
+
+.buttons_block > .delete_button{
+    background-color: #be2020;
 }
 
 .row{
     margin-bottom: 10px;
-    padding: 10px;
 }
 
 .row_title{
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #474747;
-    font-weight: 600;
-    margin-bottom: 0;
+    font-weight: 700;
+    margin: 0;
 }
 
 .row_input{
     width: 100%;
-    border: 1px solid #a5b4cb;
-    border-radius: 10px;
-    padding: 5px;
-    color: #263a59;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background-color: transparent;
-    font-family: sans-serif;
-    font-size: 12px;
-    -webkit-transition: .3s;
-    transition: .3s;
-}
-
-.row_input:disabled {
-    color: #263a59;
-    cursor: no-drop;
-    border: none;
-    padding: 0;
-    appearance: none;
-}
-
-.image_block{
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 48px;
-    width: 48px;
-    border-radius: 50%;
-    position: absolute;
-    left: 10px;
-    right: 0;
-    bottom: 10px;
 }
