@@ -3,6 +3,7 @@ import styles from './style.module.css'
 import EditCourseCard from "../EditCourseCard/EditCourseCard";
 import CreateCourseCard from "../CreateCourseCard/CreateCourseCard";
 import {Image} from "react-bootstrap";
+import classnames from 'classnames';
 import EditTeacherCard from "../EditTeacherCard/EditTeacherCard";
 import CreateTeacherCard from "../CreateTeacherCard/CreateTeacherCard";
 
@@ -15,8 +16,27 @@ export default function MyInfoBlock(props){
           </div>
         </div>
         <div className={styles.col_3_4}>
+          <div className={styles.tutor_info_row}>
+            <div 
+              className={styles.FIOdiv}
+              style={!props.editMode?{display: 'flex'}:{display: 'none'}}
+            >
+              {props.fullname}
+            </div>
+            <input
+              className={classnames(styles.tutor_info_input, styles.FIO)}
+              disabled={!props.editMode}
+              type="text"
+              style={props.editMode? {display: 'flex'}:{display: 'none'}}
+              value={props.fullname}
+              onChange={props.setFullnameHandler}
+            />
+          </div>
           <p className={styles.center_title}>
             {props.courseInfo.title}
+          </p>
+          <p className={styles.center_subtitle}>
+            {props.courseInfo.subtitle}
           </p>
           <p className={styles.info_title}>
             О центре:
@@ -30,6 +50,34 @@ export default function MyInfoBlock(props){
           <p className={styles.info_text}>
             {props.courseInfo.addresses}
           </p>
+          <div 
+            className={styles.course_info_row} 
+            style={{marginTop: 10, display: "flex"}}
+          >
+            {props.editMode ? (
+              <>
+                <button
+                  className={styles.edit_profile_button}
+                  onClick={props.editProfileDataHandler}
+                >
+                  Сохранить
+                </button>
+                <button
+                  className={styles.edit_profile_button}
+                  onClick={props.setEditModeHandler}
+                >
+                  Отменить
+                </button>
+              </>
+            ) : (
+              <button
+                className={styles.edit_profile_button}
+                onClick={props.setEditModeHandler}
+              >
+                Редактировать данные
+              </button>
+             )}
+          </div>
         </div>
       </div>
       <hr/>

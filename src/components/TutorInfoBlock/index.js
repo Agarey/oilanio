@@ -18,7 +18,8 @@ export default function TutorInfoBlock(props){
                 <div 
                   className={styles.FIOdiv}
                   style={!props.editMode?{display: 'flex'}:{display: 'none'}}
-                >{props.fullname}
+                >
+                  {props.fullname}
                 </div>
                 <input
                   className={classnames(styles.tutor_info_input, styles.FIO)}
