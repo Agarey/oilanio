@@ -50,7 +50,7 @@ export default function MyInfoBlock(props){
           <p className={styles.info_text}>
             {props.courseInfo.addresses}
           </p>
-          <div 
+          {/*<div 
             className={styles.course_info_row} 
             style={{marginTop: 10, display: "flex"}}
           >
@@ -77,7 +77,7 @@ export default function MyInfoBlock(props){
                 Редактировать данные
               </button>
              )}
-          </div>
+          </div>*/}
         </div>
       </div>
       <hr/>
