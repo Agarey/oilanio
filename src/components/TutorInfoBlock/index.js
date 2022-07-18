@@ -272,7 +272,7 @@ export default function TutorInfoBlock(props){
                 }}>Создать</button>
         </div>
         <div className={styles.sertificate}>
-          <h2><center>Добавить сертификат</center></h2>
+          <center>Добавить сертификат</center>
           <button onClick={() => {
                             setShowSModal(1);
                         }} className={styles.createButton}>
@@ -282,7 +282,7 @@ export default function TutorInfoBlock(props){
         </div>
       {tutorSerfs.map(item => (props.tutor.id == item.tutor_id)?(
         <div className={styles.sertificate}>
-          <h2><center>{item.title}</center></h2>
+          <center>{item.title}</center>
           <Image className={styles.sertificateImg} src={item.img_src}/>
         </div>
       ):(<></>))}
