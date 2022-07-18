@@ -3,8 +3,59 @@ import TutorCreateCourseCard from "../TutorCreateCourseCard";
 import TutorCourseCardEdit from "../TutorCourseCardEdit/TutorCourseCardEdit";
 import classnames from 'classnames';
 import CreateCourseCard from '../CreateCourseCard/CreateCourseCard';
+import React, {useState, useEffect} from "react";
+import {default as axios} from "axios";
+import globals from "../../../src/globals";
+import {Image} from "react-bootstrap";
 
 export default function TutorInfoBlock(props){
+  const [tutorSerfs, setTutorSerfs] = useState([])
+  const [showSModal, setShowSModal] = useState(0)
+  const [sertificateTitle, setSertificateTitle] = useState('')
+  const [imgFile, setImgFile] = useState(null);
+  let serfCounter = 0;
+  useEffect(()=>{
+          axios.get(`${globals.productionServerDomain}/getSertificates`).then(res => {
+              setTutorSerfs(res.data);
+              console.log(res);
+          });
+      }, [])
+  console.log('PROPS', tutorSerfs.length)
+  const newSertificate = () => {
+    let id = tutorSerfs.length+1;
+    let title = sertificateTitle;
+    let tutor_id = props.tutor.id;
+    let img_src = '1'
+    console.log(title, tutor_id, img_src)
+    let formData = new FormData();
+        formData.append('file', imgFile);
+
+        axios({
+            method: "post",
+            url: `${globals.ftpDomain}/file/upload`,
+            data: formData,
+            headers: {"Content-Type": "multipart/form-data"},
+        })
+            .then(function (response) {
+                axios({
+                    method: 'post',
+                    url: `${globals.productionServerDomain}/createTutorSertificate`,
+                    headers: {
+                        'Authorization': `Bearer ${JSON.parse(localStorage.getItem("auth token")).token}`
+                    },
+                    data: {
+                        id: id,
+                        title: title,
+                        tutor_id: tutor_id,
+                        img_src: `https://realibi.kz/file/${response.data.split('/')[4]}`,
+                    }
+                }).then(res => {
+                    console.log("Status:" + res.status);
+                    location.reload()
+                });
+            })
+  };
+
   return (
     <div>
       <div className={styles.center_info_block}>
@@ -188,6 +239,53 @@ export default function TutorInfoBlock(props){
             </div>
           </div>
         </div>
+      </div>
+      <hr/>
+      <div className={styles.block_title}>
+        Ваши сертификаты:
+      </div>
+      <div className={styles.sertificatesBlock}>
+        <div className={styles.createSertificate} 
+          style={(showSModal == 1)?{display:'flex'}:{display:'none'}}>
+          <div className={styles.closeButtonBlock}>
+            <button className={styles.closeButton}
+              onClick={() => {
+                            setShowSModal(0);
+                        }}>X</button>
+          </div>
+          <div className={styles.forlabelsser}>
+            <p>Заголовок</p> 
+            <input onChange={event => {
+                                setSertificateTitle(event.target.value);}} 
+                                value={sertificateTitle}/>
+          </div>
+          <div className={styles.forlabelsser}>
+            <p>Фото сертификата</p> 
+            <input type="file"
+              onChange={function(e){
+                        setImgFile(e.target.files[0]);
+                    }}/>
+          </div>
+          <button onClick={async () => {
+                  await newSertificate();
+                  setShowSModal(0);
+                }}>Создать</button>
+        </div>
+        <div className={styles.sertificate}>
+          <h2><center>Добавить сертификат</center></h2>
+          <button onClick={() => {
+                            setShowSModal(1);
+                        }} className={styles.createButton}>
+            +
+          </button>
+          <Image className={styles.sertificateImg} src="https://realibi.kz/file/165614.jpg"/>
+        </div>
+      {tutorSerfs.map(item => (props.tutor.id == item.tutor_id)?(
+        <div className={styles.sertificate}>
+          <h2><center>{item.title}</center></h2>
+          <Image className={styles.sertificateImg} src={item.img_src}/>
+        </div>
+      ):(<></>))}
       </div>
       <hr/>
       <div className={styles.block_title}>
