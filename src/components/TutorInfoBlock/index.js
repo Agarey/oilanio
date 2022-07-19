@@ -20,13 +20,13 @@ export default function TutorInfoBlock(props){
               console.log(res);
           });
       }, [])
-  console.log('PROPS', tutorSerfs.length)
+  let lastSerf = tutorSerfs.slice(-1)
+  console.log()
   const newSertificate = () => {
-    let id = tutorSerfs.length+1;
+    let id = tutorSerfs.length + 1;
     let title = sertificateTitle;
     let tutor_id = props.tutor.id;
-    let img_src = '1'
-    console.log(title, tutor_id, img_src)
+    console.log('new id', id)
     let formData = new FormData();
         formData.append('file', imgFile);
 
@@ -51,6 +51,7 @@ export default function TutorInfoBlock(props){
                     }
                 }).then(res => {
                     console.log("Status:" + res.status);
+                    alert("Сертификат добавлен")
                     location.reload()
                 });
             })
@@ -271,7 +272,7 @@ export default function TutorInfoBlock(props){
                   setShowSModal(0);
                 }}>Создать</button>
         </div>
-        <div className={styles.sertificate}>
+        <div className={styles.sertificateAdd}>
           <center>Добавить сертификат</center>
           <button onClick={() => {
                             setShowSModal(1);
