@@ -13,6 +13,7 @@ export default function TutorInfoBlock(props){
   const [showSModal, setShowSModal] = useState(0)
   const [sertificateTitle, setSertificateTitle] = useState('')
   const [imgFile, setImgFile] = useState(null);
+  let maxSerfId = 0;
   let serfCounter = 0;
   useEffect(()=>{
           axios.get(`${globals.productionServerDomain}/getSertificates`).then(res => {
@@ -20,10 +21,18 @@ export default function TutorInfoBlock(props){
               console.log(res);
           });
       }, [])
+  tutorSerfs.forEach(sertificate => {
+                if (sertificate.id > maxSerfId){
+                  maxSerfId = sertificate.id
+                  }
+                }
+              );
+    console.log('tutorSerfs', tutorSerfs)
+    console.log('maxSerfId', maxSerfId)
   let lastSerf = tutorSerfs.slice(-1)
   console.log()
   const newSertificate = () => {
-    let id = tutorSerfs.length + 1;
+    let id = maxSerfId + 1;
     let title = sertificateTitle;
     let tutor_id = props.tutor.id;
     console.log('new id', id)
