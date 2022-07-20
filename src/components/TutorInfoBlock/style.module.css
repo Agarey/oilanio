@@ -338,9 +338,24 @@
 .container {
     width: 60%;
 }
+
+@media screen and (max-width: 1000px){
+    .sertificate{
+        font-size: 1.4em;
+    }
+    .sertificateAdd{
+        font-size: 1.4em;
+    }
+}
 @media screen and (max-width: 980px){
     .checkDiv{
         padding-right: 0;
+    }
+    .sertificate{
+        width: 40%;
+    }
+    .sertificateAdd{
+        width: 40%;
     }
 }
 
@@ -349,7 +364,12 @@
         margin: 3% 5%;
         background-color: #fff;
     }
-
+    .sertificate{
+        font-size: 1.2em;
+    }
+    .sertificateAdd{
+        font-size: 1.2em;
+    }
     .checkDiv{
         padding-right: 25%;
     }
@@ -419,5 +439,17 @@
     .coursecards_block > *{
         width: 100%;
         margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 440px){
+    .sertificate{
+        font-size: 1em;
+    }
+    .sertificateAdd{
+        font-size: 1em;
+    }
+    .createButton{
+        top: 0px;
     }
 }
