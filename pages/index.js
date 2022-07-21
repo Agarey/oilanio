@@ -1,6 +1,7 @@
 import styles from '../styles/components/content/CreateApplication.module.css'
 import Header from "../src/components/Header/Header";
 import ContactButton from "../src/components/ContactButton/ContactButton";
+import NoizyWindow from "../src/components/NoizyWindow/NoizyWindow";
 import ym from 'react-yandex-metrika';
 import {Image} from "react-bootstrap";
 import classnames from 'classnames';
@@ -45,6 +46,7 @@ ChartJS.register(
 const CreateApplication = (props) => {
     const [showSecondSlide, setShowSecondSlide] = useState(false)
     const [showThirdSlide, setShowThirdSlide] = useState(false)
+    const [showNoizyWindow, setShowNoizyWindow] = useState(false)
     const [showGide, setShowGide] = useState(false)
     const [primeHide, setPrimeHide] = useState(false)
     const [filters, setFilters] = useState([[],[],[]])
@@ -114,6 +116,7 @@ const CreateApplication = (props) => {
           setOdometerValue(300);
         }, 1000);
       }, []);
+
     const dataCenters = {
         datasets: [
             {
@@ -191,6 +194,7 @@ const CreateApplication = (props) => {
 
     const loadFilters = async () => {
         setFiltersLoading(true)
+        loadCategories(true);
         let result = await axios.get(`${globals.productionServerDomain}/filters`);
         setFilters(result.data)
         setFiltersLoading(false)
@@ -237,6 +241,13 @@ const CreateApplication = (props) => {
         })
     }
     
+    function test(){
+        // loadCategories(true);
+        setShowNoizyWindow(true);
+    }
+     
+    setInterval( test, 60000 );
+
     return(
         <div className={styles.body}
              style={{ minHeight: '100vh', position: 'relative'}}
@@ -279,6 +290,10 @@ const CreateApplication = (props) => {
             <Header/>
 
             <div className={styles.container}>
+                {
+                        showNoizyWindow ? (
+                <NoizyWindow loadCategoriesCallback={loadCategories} setSearchCenterCallback={setSearchCenter} searchCenter={searchCenter} close={setShowNoizyWindow} cities={filters[0]} directions={directions}/>
+                ):(<></>)}
                 <div className={styles.main}>
                     <div className={styles.mainLeft}>
                         <div className={styles.titleBlock}>
