@@ -1,14 +1,16 @@
-
+import NoizyWindow from "../../src/components/NoizyWindow/NoizyWindow";
 import styles from './style.module.css'
 import Header from "../../src/components/Header/Header";
 import Head from "next/head";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import HomeContent from "../../src/components/Content/HomeContent/HomeContent";
 import WhyUs from "../../src/components/WhyUs";
 import ContactBlock from "../../src/components/ContactBlock";
 import Footer from "../../src/components/Footer/Footer";
 import PartnersBlock from "../../src/components/PartnersBlock";
 import FactsAboutUs from "../../src/components/FactsAboutUs";
+import {default as axios} from "axios";
+import globals from "../../src/globals";
 
 const About = () => {
 
@@ -33,6 +35,38 @@ const About = () => {
         );
     }
 
+    const [showNoizyWindow, setShowNoizyWindow] = useState(false)
+    const [directions, setDirections] = useState([]);
+    const [searchCenter, setSearchCenter] = useState(true)
+    const [filters, setFilters] = useState([]);
+    const [filtersLoading, setFiltersLoading] = useState(false);
+
+    const loadFilters = async () => {
+        setFiltersLoading(true)
+        loadCategories(true);
+        let result = await axios.get(`${globals.productionServerDomain}/filters`);
+        setFilters(result.data)
+        setFiltersLoading(false)
+    }
+    useEffect(async () => {
+        loadFilters();
+    }, [])
+    function loadCategories(searchCenter){
+        setDirections([{ name: 'Загружаем направления...', id: 0 }]);
+        axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
+            searchingCenter: searchCenter,
+        }).then(res => {
+            // console.log("FILTERS", res.data);
+            setDirections(res.data)
+        })
+    }
+
+    function openNoize(){
+        // loadCategories(true);
+        setShowNoizyWindow(true);
+    }
+     
+    setInterval( openNoize, 300000 );
     return(
         <div>
             <div className={styles.intro}>
@@ -41,7 +75,10 @@ const About = () => {
                     <link rel="icon" href="/atom-icon.png" />
                     <div dangerouslySetInnerHTML={{__html: ymetrica()}}/>
                 </Head>
-
+                {
+                        showNoizyWindow ? (
+                <NoizyWindow loadCategoriesCallback={loadCategories} setSearchCenterCallback={setSearchCenter} searchCenter={searchCenter} close={setShowNoizyWindow} cities={filters[0]} directions={directions}/>
+                ):(<></>)}
                 <Header/>
                 <HomeContent/>
                 <FactsAboutUs/>

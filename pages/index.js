@@ -241,12 +241,12 @@ const CreateApplication = (props) => {
         })
     }
     
-    function test(){
+    function openNoize(){
         // loadCategories(true);
         setShowNoizyWindow(true);
     }
      
-    setInterval( test, 60000 );
+    setInterval( openNoize, 300000 );
 
     return(
         <div className={styles.body}

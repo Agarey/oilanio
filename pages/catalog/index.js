@@ -6,6 +6,7 @@ import FilterBlock from "../../src/components/FilterBlock";
 import {default as axios} from "axios";
 import globals from "../../src/globals";
 import {useRouter} from "next/router";
+import NoizyWindow from "../../src/components/NoizyWindow/NoizyWindow";
 import {Image} from "react-bootstrap";
 import SimpleSlider from "../../src/components/SimpleSlider/SimpleSlider";
 import CourseCategoriesSliderIMG from "../../src/components/CourseCategoriesSliderIMG";
@@ -19,9 +20,10 @@ import CourseSearchResultIsNotDefind from "../../src/components/CourseSearchResu
 
 const Catalog = () => {
     const router = useRouter();
-
+    const [showNoizyWindow, setShowNoizyWindow] = useState(false)
     const [cardsToShow, setCardsToShow] = useState(8)
-
+    const [directions, setDirections] = useState([]);
+    const [searchCenter, setSearchCenter] = useState(true)
     const addCards = () => {
             setCardsToShow(cardsToShow+8)
     }
@@ -71,6 +73,7 @@ const Catalog = () => {
     }
     const loadFilters = async () => {
         setFiltersLoading(true)
+        loadCategories(true);
         let result = await axios.get(`${globals.productionServerDomain}/filters`);
         setFilters(result.data)
         setFiltersLoading(false)
@@ -80,7 +83,15 @@ const Catalog = () => {
         let result = await axios.post(`${globals.productionServerDomain}/loadDirectionPromotions`, {direction_id: 0});
         setStocks(result.data);
     }
-
+    function loadCategories(searchCenter){
+        setDirections([{ name: 'Загружаем направления...', id: 0 }]);
+        axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
+            searchingCenter: searchCenter,
+        }).then(res => {
+            // console.log("FILTERS", res.data);
+            setDirections(res.data)
+        })
+    }
     const [stocksLoading, setStocksLoading] = useState(false);
     const [filtersLoading, setFiltersLoading] = useState(false);
     const [coursesLoading, setCoursesLoading] = useState(false);
@@ -105,7 +116,12 @@ const Catalog = () => {
     function componentDidMount() {
         window.scrollTo(0, 0);
     }
-
+    function openNoize(){
+        // loadCategories(true);
+        setShowNoizyWindow(true);
+    }
+     
+    setInterval( openNoize, 300000 );
     return (
         <div>
             <Header white={true}/>
@@ -114,7 +130,10 @@ const Catalog = () => {
                 <link rel="icon" href="/atom-icon.png" />
                 <div dangerouslySetInnerHTML={{__html: ym()}}/>
             </Head>
-
+            {
+                        showNoizyWindow ? (
+                <NoizyWindow loadCategoriesCallback={loadCategories} setSearchCenterCallback={setSearchCenter} searchCenter={searchCenter} close={setShowNoizyWindow} cities={filters[0]} directions={directions}/>
+                ):(<></>)}
             <div className={styles.filterBlockWrapper}>
                 <FilterBlock filters={filters} filterBtnHandler={filterBtnHandler}/>
             </div>

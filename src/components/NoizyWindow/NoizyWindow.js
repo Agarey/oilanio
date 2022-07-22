@@ -159,7 +159,11 @@ export default function NoizyWindow(props){
 
                 <div className={styles.header}>
                     <div className={styles.closeNoizy}>
-                        <button onClick={handleClose}>X</button>
+                        <button 
+                            className={styles.closeNoizyBut} 
+                            onClick={handleClose}>
+                                X
+                        </button>
                     </div>
                     <h5>Оставьте заявку прямо сейчас!</h5>
                 </div>

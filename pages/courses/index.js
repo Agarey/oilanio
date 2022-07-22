@@ -6,6 +6,7 @@ import HorizontalLine from "../../src/components/HorizontalLine/HorizaontalLine"
 import Footer from "../../src/components/Footer/Footer";
 import React, {useState, useEffect} from "react";
 import Slider from 'react-animated-slider';
+import NoizyWindow from "../../src/components/NoizyWindow/NoizyWindow";
 import 'react-animated-slider/build/horizontal.css'
 import SimpleSlider from "../../src/components/SimpleSlider/SimpleSlider";
 import LoadingBlock from "../../src/components/LoadingBlock";
@@ -54,7 +55,7 @@ function Courses({props}) {
     const [directionId, setDirectionId] = useState(0);
     const [isOnline, setIsOnline] = useState(0);
     const [courseId, setCourseId] = useState(0);
-
+    const [showNoizyWindow, setShowNoizyWindow] = useState(false)
     const [searchingTutors, setSearchingTutors] = useState(false);
     const [courseCards, setCourseCards] = useState(null);
     const [filters, setFilters] = useState([]);
@@ -62,13 +63,13 @@ function Courses({props}) {
     const [loadingModal, setLoadingModal] = useState(false);
     const [openMoreSort, setOpenMoreSort] = useState(false)
     const [hideSort, setHideSort] = useState(false)
-
+    const [directions, setDirections] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [cardsNum, setCardsNum] = useState(12);
-
+    const [searchCenter, setSearchCenter] = useState(true)
     const [sortType, setSortType] = useState(0)
     const [lessonType, setLessonType] = useState(0)
-
+    const [filtersLoading, setFiltersLoading] = useState(false);
     const [currentCourseCategory, setCurrentCourseCategory] = useState("Найденные курсы")
     const [tempCategoryId, setTempCategoryId] = useState("Все направления")
 
@@ -124,6 +125,8 @@ function Courses({props}) {
     }
     const [searchingCenterState, setSearchingCenterState] = useState(true)
     useEffect(async () =>{
+        setFiltersLoading(true)
+        loadCategories(true)
         setLoading(true)
         const params = new URLSearchParams(window.location.search);
         console.log('params', params);
@@ -227,6 +230,22 @@ function Courses({props}) {
         });
     }
 
+    function loadCategories(searchCenter){
+        setDirections([{ name: 'Загружаем направления...', id: 0 }]);
+        axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
+            searchingCenter: searchCenter,
+        }).then(res => {
+            // console.log("FILTERS", res.data);
+            setDirections(res.data)
+        })
+    }
+
+    function openNoize(){
+        // loadCategories(true);
+        setShowNoizyWindow(true);
+    }
+     
+    setInterval( openNoize, 300000 );
     return (
         <div id={'page_top'}>
             <ModalWindow
@@ -255,7 +274,10 @@ function Courses({props}) {
                 <link rel="icon" href="/atom-icon.png"/>
                 <div dangerouslySetInnerHTML={{__html: ym()}}/>
             </Head>
-
+            {
+                        showNoizyWindow ? (
+                <NoizyWindow loadCategoriesCallback={loadCategories} setSearchCenterCallback={setSearchCenter} searchCenter={searchCenter} close={setShowNoizyWindow} cities={filters[0]} directions={directions}/>
+                ):(<></>)}
             <Header white={true}/>
             {/*<ContactButton/>*/}
             {/*<div className={styles.topHeader}>*/}
