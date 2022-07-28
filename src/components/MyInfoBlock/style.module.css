@@ -33,6 +33,10 @@
     font-size: 14px;
 }
 
+.center_info_input {
+    width: 100%;
+}
+
 .info_title{
     font-size: 22px;
     font-family: "Rubik Medium";
@@ -43,6 +47,7 @@
 .info_text{
     font-family: "Rubik Regular";
     white-space: pre-wrap;
+    /* width: 100%; */
 }
 
 .cards_block{
