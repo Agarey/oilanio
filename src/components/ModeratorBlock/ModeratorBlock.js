@@ -28,7 +28,7 @@ const ModeratorBlock = () => {
   };
 
   return (
-    <div style={{width: '80%'}}>
+    <div style={{width: '95%'}}>
       <div style={{
                 display: 'flex',
                 justifyContent: 'center',

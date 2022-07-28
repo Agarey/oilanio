@@ -80,6 +80,8 @@ function Courses({props}) {
     const addCards = () => {
             setCardsToShow(cardsToShow+8)
     }
+
+    console.log(courseCards);
     const loadCourseCards = async () => {
         setLoading(true)
 
@@ -147,6 +149,7 @@ function Courses({props}) {
         if (params.has('city')) {
             city = params.get('city');
             setCityId(Number(city));
+            console.log(cityId);
             //document.getElementById("citySelect").value = city.toString();
         }
         if (params.has('price')) {

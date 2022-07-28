@@ -182,6 +182,7 @@ function Cabinet(){
           canWorkOnDeparture={canWorkOnDeparture}
           setCanWorkOnDepartureHandler={setCanWorkOnDepartureHandler}
           address={address}
+          cityId={cityId}
           setAddressHandler={setAddressHandler}
           teachingLanguage={teachingLanguage}
           setTeachingLanguageHandler={setTeachingLanguageHandler}

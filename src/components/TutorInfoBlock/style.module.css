@@ -237,14 +237,12 @@
     font-size: 18px;
 }
 
-
 .info_title{
     margin: 0;
     height: 100%;
     font-weight: 700;
     white-space: nowrap;
 }
-
 
 .block_title{
     margin-top: 20px;
@@ -359,10 +357,17 @@
     }
 }
 
+@media screen and (max-width: 760px){
+    .container {
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: 600px){
     .container{
         margin: 3% 5%;
         background-color: #fff;
+        /* width: 100%; */
     }
     .sertificate{
         font-size: 1.2em;
