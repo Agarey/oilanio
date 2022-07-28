@@ -26,7 +26,7 @@ function Cabinet(){
     title: '',
     subtitle: '',
     img_src: 'https://image.freepik.com/free-photo/portrait-of-white-man-isolated_53876-40306.jpg',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+    description: '',
     phones: '',
     email: '',
     website_url: '',
@@ -49,7 +49,16 @@ function Cabinet(){
   const [newApplicationsCount, setNewApplicationsCount] = useState(0);
   const [isTutors, setIsTutors] = useState(false);
 
-  
+  const [title, setTitle] = useState(course.title);
+  const [subtitle, setSubtitle] = useState(course.subtitle);
+  const [description, setDescription] = useState(course.description);
+  const [phones, setPhones] = useState(course.phones); 
+  const [email, setEmail] = useState(course.email);
+  const [website_url, setWebsiteUrl] = useState(course.website_url);
+  const [instagram, setInstagram] = useState(course.instagram);
+  const [addresses, setAddresses] = useState(course.addresses);
+  const [city_id, setCityId] = useState(course.city_id);
+
   const setProfileStates = (profileObject) => {
     setTitle(profileObject.title);
     setSubtitle(profileObject.subtitle);
@@ -62,20 +71,7 @@ function Cabinet(){
     setCityId(profileObject.city_id);
   }
 
-  const [title, setTitle] = useState(course.title);
-  const [subtitle, setSubtitle] = useState(course.subtitle);
-  const [description, setDescription] = useState(course.description);
-  const [phones, setPhones] = useState(course.phones); 
-  const [email, setEmail] = useState(course.email);
-  const [website_url, setWebsiteUrl] = useState(course.website_url);
-  const [instagram, setInstagram] = useState(course.instagram);
-  const [addresses, setAddresses] = useState(course.addresses);
-  const [cityId, setCityId] = useState(course.city_id);
-
   const editProfileData = () => {
-    console.log(globals.localStorageKeys.authToken);
-    console.log(Number(localStorage.getItem('center id')));
-    
     let data = {
       id: Number(localStorage.getItem('center id')),
       title,
@@ -86,7 +82,7 @@ function Cabinet(){
       website_url,
       instagram,
       addresses,
-      cityId,
+      city_id,
     };
 
     axios({
@@ -162,7 +158,7 @@ function Cabinet(){
           setInstagramHandler={setInstagramHandler}
           addresses={addresses}
           setAddressesHandler={setAddressesHandler}
-          editProfileDataHandler={editProfileDataHandler}
+          editProfileDataHandler={(e) => editProfileDataHandler(e)}
         />);
       default:
         return(<></>);
@@ -184,7 +180,8 @@ function Cabinet(){
         }
       }).then(async function(res){
         await setCourse(res.data[0]);
-        setProfileStates(res.data[0]);
+        await setProfileStates(res.data[0]);
+        console.log(res.data[0]);
         await setCourseInfo(res.data[0]);
       }).catch(() => {
         router.push('/login');
