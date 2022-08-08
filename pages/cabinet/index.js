@@ -15,8 +15,8 @@ import style from "../direction/direction.module.css";
 
 function Cabinet(){
   const menuItems = [
-    {title: 'Статистика', index: 0},
-    {title: 'Заявки', index: 1},
+    {title: 'Заявки', index: 0},
+    {title: 'Статистика', index: 1},
     {title: 'Подписка', index: 2},
     {title: 'Моя информация', index: 3}
   ];
@@ -59,6 +59,10 @@ function Cabinet(){
   const [addresses, setAddresses] = useState(course.addresses);
   const [city_id, setCityId] = useState(course.city_id);
 
+  const phoneTest = /(?:\+|\d)[\d\-\(\) ]{8,}\d/g;
+  const emailTest = /.([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})./;
+  const urlTest = /.([a-zA-Z0-9]([-a-zA-Z0-9]{0,61}[a-zA-Z0-9])?\.)?([a-zA-Z0-9]{1,2}([-a-zA-Z0-9]{0,252}[a-zA-Z0-9])?)\.([a-zA-Z]{2,63})./;
+
   const setProfileStates = (profileObject) => {
     setTitle(profileObject.title);
     setSubtitle(profileObject.subtitle);
@@ -69,7 +73,7 @@ function Cabinet(){
     setInstagram(profileObject.instagram);
     setAddresses(profileObject.addresses);
     setCityId(profileObject.city_id);
-  }
+  };
 
   const editProfileData = () => {
     let data = {
@@ -98,31 +102,48 @@ function Cabinet(){
     }).catch(() => {
       router.push('/login');
     })
-  }
-
+  };
 
   const setEditModeHandler = () => setEditMode(!editMode);
-
   const setTitleHandler = (e) => setTitle(e.target.value);
-  const setSubtitleHandler = (e) => setSubtitle(e.target.value);
-  const setDescriptionHandler = (e) => setDescription(e.target.value);
+  const setSubtitleHandler = (e) => {
+    if (urlTest.exec(e.target.value) === title) {
+      setSubtitle(e.target.value);
+    } else if (
+      phoneTest.test(e.target.value) === true || 
+      emailTest.test(e.target.value) === true || 
+      urlTest.test(e.target.value) === true
+    ) {
+      alert("Нельзя ввести в описание номер телефона, e-mail, ссылку на сайт!");
+    } else {
+      setSubtitle(e.target.value);
+    }
+  };
+
+  const setDescriptionHandler = (e) => {
+    if (urlTest.exec(e.target.value) === title) {
+      setDescription(e.target.value);
+    } else if (
+      phoneTest.test(e.target.value) === true || 
+      emailTest.test(e.target.value) === true || 
+      urlTest.test(e.target.value) === true
+    ) {
+      alert("Нельзя ввести в описание номер телефона, e-mail, ссылку на сайт!");
+    } else {
+      setDescription(e.target.value);
+    }
+  };
+  
   const setPhonesHandler = (e) => setPhones(e.target.value);
   const setEmailHandler = (e) => setEmail(e.target.value);
   const setWebsiteUrlHandler = (e) => setWebsiteUrl(e.target.value);
   const setInstagramHandler = (e) => setInstagram(e.target.value);
   const setAddressesHandler = (e) => setAddresses(e.target.value);
-
   const editProfileDataHandler = (e) => editProfileData(e.target.value);
 
   const getActivePage = () => {
     switch(activeMenuIndex){
       case 0:
-        return(<StatisticsBlock 
-          applications={applications} 
-          newApplicationsCount={newApplicationsCount} 
-          clickStatistics={clickStatistics}
-        />)
-      case 1:
         return(<ApplicationsBlock 
           isTutors={isTutors} 
           applications={applications} 
@@ -132,6 +153,12 @@ function Cabinet(){
           subscriptionInfo={subscriptionInfo} 
           categories={courseCategories}
         />);
+      case 1:
+        return(<StatisticsBlock 
+          applications={applications} 
+          newApplicationsCount={newApplicationsCount} 
+          clickStatistics={clickStatistics}
+        />)
       case 2:
         return(<SubscriptionBlock courseInfo={courseInfo}/>)
       case 3:
@@ -163,7 +190,7 @@ function Cabinet(){
       default:
         return(<></>);
     }
-  }
+  };
 
   const loadData = async () => {
     let courseId = '';

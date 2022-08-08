@@ -8,13 +8,15 @@ import {default as axios} from "axios";
 import globals from "../../../src/globals";
 import {Image} from "react-bootstrap";
 import { registry } from 'chart.js';
+import TutorSertificate from '../TutorSertificate/TutorSertificate';
 
 export default function TutorInfoBlock(props){
   const [tutorSerfs, setTutorSerfs] = useState([])
   const [showSModal, setShowSModal] = useState(0)
   const [sertificateTitle, setSertificateTitle] = useState('')
   const [imgFile, setImgFile] = useState(null);
-
+  const [serfTitle, setSerfTitle] = useState("");
+  const [serfEdit, setSerfEdit] = useState(false);
 
   let maxSerfId = 0;
   let serfCounter = 0;
@@ -23,7 +25,7 @@ export default function TutorInfoBlock(props){
     axios.get(`${globals.productionServerDomain}/getSertificates`).then(res => {
       setTutorSerfs(res.data);
     });
-  }, [])
+  }, []);
 
   tutorSerfs.forEach(sertificate => {
     if (sertificate.id > maxSerfId) {
@@ -109,7 +111,7 @@ export default function TutorInfoBlock(props){
                       disabled={!props.editMode}
                       className={styles.tutor_description_textarea}
                       value={props.description === null ? '' : props.description}
-                      onChange={e => props.setDescription(e.target.value)}
+                      onChange={props.setDescriptionHandler}
                       placeholder={props.description === null ? 'Напишите информацию о своем опыте, стаже работы, образовании и достижениях' : null}
                     />
                   ) 
@@ -146,12 +148,13 @@ export default function TutorInfoBlock(props){
                     />
                   ) 
                   : (
-                    <div className={styles.checkDiv}><input
-                      className={styles.checkbox}
-                      type="checkbox"
-                      checked={props.canWorkOnline}
-                      onClick={props.setCanWorkOnlineHandler}
-                    />
+                    <div className={styles.checkDiv}>
+                      <input
+                        className={styles.checkbox}
+                        type="checkbox"
+                        checked={props.canWorkOnline}
+                        onClick={props.setCanWorkOnlineHandler}
+                      />
                     </div>
                   )
                 }
@@ -330,10 +333,7 @@ export default function TutorInfoBlock(props){
         </div>
         {tutorSerfs.map(item => (props.tutor.id == item.tutor_id)
           ?(
-            <div className={styles.sertificate}>
-              <center>{item.title}</center>
-              <Image className={styles.sertificateImg} src={item.img_src}/>
-            </div>
+            <TutorSertificate item={item} />
           )
           : (
             <></>

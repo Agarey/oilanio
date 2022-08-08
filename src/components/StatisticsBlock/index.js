@@ -139,13 +139,23 @@ export default function StatisticsBlock(props){
                       </b>
                     </p>
                     <p className={styles.app_direction}>{item.direction_name}</p>
-                    <p><b>Активна с: </b>{item.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}</p>
                     {(new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())? (
+                      <>
+                        <p>
+                          <b>Активна с: </b>
+                          {item.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
+                        </p>
                         <p>
                           <b>Активна до: </b> {new Date((new Date(item.datetime).getTime() + 86400000)).toLocaleDateString()}
                         </p>
+                      </>
                     ) : (
-                        <p>Заявка уже неактивна</p>
+                      <>
+                        <p>
+                          <b>Неактивна с: </b>
+                          {new Date(new Date(item.datetime).getTime() + 86400000).toLocaleDateString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
+                        </p>
+                      </>
                     )}
                   </div>
                 )
@@ -165,13 +175,23 @@ export default function StatisticsBlock(props){
                       </b>
                     </p>
                     <p className={styles.app_direction}>{item.direction_name}</p>
-                    <p><b>Активна с: </b>{item.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}</p>
                     {(new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())? (
+                      <>
+                        <p>
+                          <b>Активна с: </b>
+                          {item.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
+                        </p>
                         <p>
                           <b>Активна до: </b> {new Date((new Date(item.datetime).getTime() + 86400000)).toLocaleDateString()}
                         </p>
+                      </>
                     ) : (
-                        <p>Заявка уже неактивна</p>
+                      <>
+                        <p>
+                          <b>Неактивна с: </b>
+                          {new Date(new Date(item.datetime).getTime() + 86400000).toLocaleDateString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
+                        </p>
+                      </>
                     )}
                   </div>
                 )
@@ -189,17 +209,24 @@ export default function StatisticsBlock(props){
                     </b>
                   </p>
                   <p className={styles.app_direction}>{item.direction_name}</p>
-                  <p>
-                    <b>Активна с: </b>
-                    {item.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
-                  </p>
                   {(new Date(item.datetime).getTime() + 86400000) > (new Date().getTime())? (
-                    <p>
-                      <b>Активна до: </b> {new Date((new Date(item.datetime).getTime() + 86400000)).toLocaleDateString()}
-                    </p>
-                  ) : (
-                    <p>Заявка уже неактивна</p>
-                  )}
+                      <>
+                        <p>
+                          <b>Активна с: </b>
+                          {item.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
+                        </p>
+                        <p>
+                          <b>Активна до: </b> {new Date((new Date(item.datetime).getTime() + 86400000)).toLocaleDateString()}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p>
+                          <b>Неактивна с: </b>
+                          {new Date(new Date(item.datetime).getTime() + 86400000).toLocaleDateString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}
+                        </p>
+                      </>
+                    )}
                 </div>
               )        
             })}

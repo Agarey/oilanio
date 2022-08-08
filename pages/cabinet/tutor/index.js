@@ -34,8 +34,8 @@ function Cabinet(){
   });
 
   const menuItems = [
-    {title: 'Статистика', index: 0},
-    {title: 'Заявки', index: 1},
+    {title: 'Заявки', index: 0},
+    {title: 'Статистика', index: 1},
     {title: 'Подписка', index: 2},
     {title: 'Моя информация', index: 3}
   ];
@@ -61,6 +61,10 @@ function Cabinet(){
   const [clickStatistics, setClickStatistics] = useState([]);
   const [newApplicationsCount, setNewApplicationsCount] = useState(0);
   const [isTutors, setIsTutors] = useState(true);
+
+  const phoneTest = /(?:\+|\d)[\d\-\(\) ]{8,}\d/g;
+  const emailTest = /.([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})./;
+  const urlTest = /.([a-zA-Z0-9]([-a-zA-Z0-9]{0,61}[a-zA-Z0-9])?\.)?([a-zA-Z0-9]{1,2}([-a-zA-Z0-9]{0,252}[a-zA-Z0-9])?)\.([a-zA-Z]{2,63})./;
 
   const editProfileData = () => {
     let data = {
@@ -134,11 +138,31 @@ function Cabinet(){
 
   const setEditModeHandler = () => setEditMode(!editMode);
 
-  const setDescriptionHandler = (e) => setDescription(e.target.value);
+  const setDescriptionHandler = (e) => {
+    if (
+      phoneTest.test(e.target.value) === true 
+      || emailTest.test(e.target.value) === true 
+      || urlTest.test(e.target.value) === true
+    ) {
+      alert("Нельзя ввести в описание номер телефона, e-mail, ссылку на сайт!");
+    } else {
+      setDescription(e.target.value);
+    }
+  };
 
   const getActivePage = () => {
     switch(activeMenuIndex){
       case 0:
+        return (<ApplicationsBlock 
+          applications={applications} 
+          courseInfo={courseInfo} 
+          courseCards={courseCards} 
+          directionsArray={directionsArray} 
+          subscriptionInfo={subscriptionInfo} 
+          categories={courseCategories}
+          isTutors={isTutors}
+        />);
+      case 1:
         return (<StatisticsBlock 
           applications={applications} 
           newApplicationsCount={newApplicationsCount} 
@@ -149,16 +173,6 @@ function Cabinet(){
           courseCards={courseCards}
           subscriptionInfo={subscriptionInfo}
         />)
-      case 1:
-        return (<ApplicationsBlock 
-          applications={applications} 
-          courseInfo={courseInfo} 
-          courseCards={courseCards} 
-          directionsArray={directionsArray} 
-          subscriptionInfo={subscriptionInfo} 
-          categories={courseCategories}
-          isTutors={isTutors}
-        />);
       case 2:
         return (<SubscriptionBlockTutor 
           courseInfo={courseInfo}

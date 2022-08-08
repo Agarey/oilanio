@@ -36,9 +36,10 @@
     align-items: center;
     text-shadow: 0 0 3px grey;
     box-shadow: 0 0 3px grey;
-    font-family: "Rubik Regular";
-    border: 1px solid #412FAE;
+    font-family: "Rubik Regular" !important;
+    /* border: 1px solid #412FAE; */
     border-radius: 20px;
+    /* height: 300px; */
 }
 .sertificateAdd{
     display: flex;
@@ -47,13 +48,14 @@
     margin-right: 5px;
     margin-bottom: 15px;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    box-shadow: 0 0 3px orange;
+    box-shadow: 0 0 3px #412FAE;
     text-shadow: 0 0 3px grey;
     font-family: "Rubik Regular";
-    border: 1px solid red;
+    /* border: 1px solid red; */
     border-radius: 20px;
+    /* height: 300px; */
 }
 .closeButtonBlock{
     display: flex;
@@ -120,9 +122,21 @@
     margin: 0;
 }
 .sertificateImg{
-    width:100%;
+    width: 90%;
     border-radius: 0px 0px 20px 20px;
 }
+
+.serfDeleteBtn {
+    width: 90%;
+    background-color: #412FAE;
+    color: #fff;
+    border: 1px solid #412FAE;
+    border-radius: 10px;
+    box-shadow: 0 0 5px lightgrey;
+    margin: 5px;
+    font-size: 16px;
+}
+
 .info_title{
     font-size: 19px;
     font-family: "Rubik Medium";
