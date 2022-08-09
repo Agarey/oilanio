@@ -43,8 +43,8 @@
     color: #0048ff;
 }
 .img{
-    width: 184px;
-    height: 184px;
+    height: 235px;
+    width: 249px;
     border-radius: 50%;
     background-position: center;
     background-repeat: no-repeat;
@@ -95,6 +95,13 @@
 
 }
 
+@media screen and (max-width: 980px) {
+    .img {
+        height: 235px;
+        width: 249px;    
+    }
+}
+
 @media screen and (max-width: 761px){
     .categories{
         display: flex;
@@ -102,8 +109,9 @@
         font-size: 9px;
     }
     .img{
-        height: 64px;
-        width: 64px;
+        height: 235px;
+        width: 249px;
+    
     }
     .container{
         align-items: center;
@@ -112,5 +120,12 @@
     .category {
         margin: 0;
         width: 30%;
+    }
+}
+
+@media screen and (max-width: 438px) {
+    .categories {
+        display: flex;
+        flex-wrap: wrap;
     }
 }

@@ -32,6 +32,8 @@ import {
 } from 'chart.js';
 import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import dynamic from 'next/dynamic'
+import CourseSearchApplicationFullPage from '../../src/components/CourseSearchApplicationFullPage/CourseSearchApplicationFullPage';
+import classnames from 'classnames';
 
 const Odometer = dynamic(import('react-odometerjs'), {
     ssr: false,
@@ -90,6 +92,7 @@ const Catalog = () => {
         // setLoading(false);
         // setOpenMoreSort(true)
     }
+    
     const [imagesBase, setImagesBase] = useState([]);
     const loadCourseCards = async (directionId) => {
         setCoursesLoading(true)
@@ -110,6 +113,7 @@ const Catalog = () => {
         setStocks(result.data);
     }
 
+    
     const [stocksLoading, setStocksLoading] = useState(false);
     const [filtersLoading, setFiltersLoading] = useState(false);
     const [coursesLoading, setCoursesLoading] = useState(false);
@@ -134,6 +138,15 @@ const Catalog = () => {
     const [exitingOut, setExitingOut] = useState(false)
 
     const [loadingData, setLoadingData] = useState(true)
+
+    const [courseCategories, setCourseCategories] = useState([])
+    const [courses, setCourses] = useState([])
+    const [searchInput, setSearchInput] = useState('')
+    const [directionId, setDirectionId] = useState()
+    const [courseId, setCourseId] = useState()
+    const [searchFilter, setSearchFilter] = useState([])
+
+    const [showAboutUs, setShowAboutUs] = useState(false)
 
     const loadUserInfo = async () => {
         if(localStorage.getItem(globals.localStorageKeys.currentStudent) !== null){
@@ -198,6 +211,16 @@ const Catalog = () => {
             setTutorsWithPhoto(res.data);
             console.log('photos', res);
         });
+        axios({
+            method: 'post',
+            url: `${globals.productionServerDomain}/courseCategories`,
+        }).then(function(res){
+            setCourseCategories(res.data);
+        }).catch((err)=>{
+            alert("Произошла ошибка")
+            console.log("error")
+        })
+        axios.get(`${globals.productionServerDomain}/courses`).then(res => { setCourses(res.data) })
     }, [])
 
     useEffect(()=>{
@@ -215,6 +238,8 @@ const Catalog = () => {
         loadFilters();
         loadCourseCards().then(() => setCoursesLoading(false));
         loadStocks().then(() => setStocksLoading(false));
+        compareDirectrion(searchInput)
+        compareCourseName(searchInput)
         window.scrollTo(0, 0);
     }, [])
     useEffect(() => {
@@ -247,6 +272,7 @@ const Catalog = () => {
           setOdometerValue(300);
         }, 1000);
       }, []);
+
     const dataCenters = {
         datasets: [
             {
@@ -323,8 +349,107 @@ const Catalog = () => {
         window.scrollTo(0, 0);
     }
 
+    const compareDirectrion =  (value) => {
+        let direction_Id =  (courseCategories.find(el => el.name.toLowerCase() == value.toLowerCase())) 
+        if (!direction_Id) {direction_Id = 0} 
+        (direction_Id == 0)? {} : direction_Id = direction_Id.id
+        setDirectionId(direction_Id)
+        console.log(direction_Id)
+        console.log("directionId", directionId)
+        
+        const filterDirections = courseCategories.filter(category => {
+            return category.name.toLowerCase().includes(value.toLowerCase())
+        })
+        console.log("filterDirections", filterDirections)
+        setSearchFilter(filterDirections)
+    } 
+
+    const compareCourseName = (value) => {
+        let course_name = (courses.find(el => el.title.toLowerCase() == value.toLowerCase()))
+        if (!course_name) {course_name = ''}
+        (course_name == '')? {} : course_name = course_name.title
+        setCourseId(course_name)
+        console.log("COOURSE IDDDD", courseId)
+
+        const filterCourses = courses.filter(course => {
+            return course.title.toLowerCase().includes(value.toLowerCase())
+            filterCourses.replace()
+        })
+        console.log("filterCourses", filterCourses)
+        setSearchFilterCourses(filterCourses)
+    }
+    const [searchFilterCourses, setSearchFilterCourses] = useState([])
+
+    const searchItemClickHandler = (e) => {
+        setSearchInput(e.target.textContent)
+        setIsFilterOpen(false)
+    }
+
+    const inputClickHandler = () => {
+        setIsFilterOpen(true)
+    }
+    const [isFilterOpen, setIsFilterOpen] = useState(false)
+
+    useEffect(() => {
+        compareDirectrion(searchInput)
+        compareCourseName(searchInput)
+    }, [searchInput])
+
+
+    // function loadCategories(searchCenter){
+    //     setDirections([{ name: 'Загружаем направления...', id: 0 }]);
+    //     axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
+    //         searchingCenter: searchCenter,
+    //     }).then(res => {
+    //         // console.log("FILTERS", res.data);
+    //         setDirections(res.data)
+    //     })
+    // }
     return (
         <div>
+            <div className={showAboutUs ? styles.slide : styles.slideHide}>
+                    {showAboutUs ? <><div className={styles.downblock} style={{display: "flex"}}>
+                    <div className={styles.aboutUsBack} onClick={() => setShowAboutUs(!showAboutUs)}></div>
+                <div className={styles.downtitleBlock}>
+                    <span className={styles.downtitle}>Как это работает?</span>
+                </div>
+                <div className={styles.downRowsLeft}>
+                    <Image src={'https://realibi.kz/file/811213.jpg'} className={styles.downImg}/>
+                    <div className={styles.rowTextLeft}>
+                        <span className={styles.downRowTitle}>Начало</span>
+                        <p className={styles.downRowText}>Чтобы подать заявку центрам&#47;репетиторам, нажмите на кнопку <b>"Создать заявку"</b></p>
+                    </div>
+                </div>
+                <div className={styles.downRowsRight}>
+                    <div className={styles.rowTextRight}>
+                        <span className={styles.downRowTitle}>Заявка</span>
+                        <p className={styles.downRowText}>Заполните все необходимые для обучения поля, и нажмите на кнопку <b>"Создать заявку"</b></p>
+                    </div>
+                    <Image src={'https://realibi.kz/file/374313.jpg'} className={styles.downImg}/>
+                </div>
+                <div className={styles.downRowsLeft}>
+                    <Image src={'https://realibi.kz/file/847800.jpg'} className={styles.downImg}/>
+                    <div className={styles.rowTextLeft}>
+                        <span className={styles.downRowTitle}>Обучение</span>
+                        <p className={styles.downRowText}>В ближайшее время, наши партнеры свяжутся с вами. Вам лишь нужно будет выбрать самого подходящего для вас и начать обучение</p>
+                    </div>
+                </div>
+                <div className={styles.downRowsRight}>
+                    <div className={styles.rowTextRight}>
+                        <span className={styles.downRowTitle}>Что-то не так?</span>
+                        <p className={styles.downRowText}>Если что-то пошло не так, вы всегда можете сами найти себе курс на странице <a
+                            className={styles.downlink}
+                            onClick={() => {
+                                router.push('/catalog');
+                            }}
+                            >
+                                Каталога
+                            </a></p>
+                    </div>
+                    <Image src={'https://realibi.kz/file/224362.jpg'} className={styles.downImg}/>
+                </div>
+            </div></> : ''}
+                </div>
             <div className={styles.pageBody}>
             <div id={'header'} className={styles.whiteHeader}>
             {/*<YMInitializer accounts={[78186067]} options={{webvisor: true, defer: true}} version="2" />*/}
@@ -479,7 +604,7 @@ const Catalog = () => {
                             <li>
                                 <a
                                     className={styles.link}
-                                    style={{color: 'white'}}
+                                    style={{color: 'black'}}
                                     onClick={() => {
                                         router.push('/about');
                                     }}
@@ -490,7 +615,7 @@ const Catalog = () => {
                             <li>
                                 <a
                                     className={styles.link}
-                                    style={{color: 'white'}}
+                                    style={{color: 'black'}}
                                     onClick={() => {
                                         router.push('/catalog');
                                     }}
@@ -499,13 +624,13 @@ const Catalog = () => {
                                 </a>
                             </li>
                             <li onClick={handleShow}>
-                                <a className={styles.link} style={{color: 'white'}}>Стать партнером</a>
+                                <a className={styles.link} style={{color: 'black'}}>Стать партнером</a>
                             </li>
                             {
                                 isLogged ?
-                                    (<li style={{color: 'white'}}>
+                                    (<li style={{color: 'black'}}>
                                         <Link href={cabinetRoute}>
-                                            <a style={{color: 'white'}}>Личный кабинет</a>
+                                            <a style={{color: 'black'}}>Личный кабинет</a>
                                         </Link>
                                         <span className={styles.exitBtn} onClick={()=>{
                                             setExitingOut(true)
@@ -523,7 +648,7 @@ const Catalog = () => {
                                     :
                                     (<li>
                                         <Link href={cabinetRoute} className={styles.link}>
-                                            <a style={{color: 'white'}}>Войти</a>
+                                            <a style={{color: 'black'}}>Войти</a>
                                         </Link>
                                     </li>)
                             }
@@ -543,11 +668,66 @@ const Catalog = () => {
                 <h1>Нужен образовательный центр или репетитор?</h1>
                 <p>Найдите лучший всего за 15 минут</p>
                 <div className={styles.findCourseBlock}>
-                <input style={{width: '80%'}} placeholder={'Название специальности или языка'}/>
-                <button style={{width: '20%'}}>Найти</button>
+                <input onChange={(e) => {setSearchInput(e.target.value)
+                compareDirectrion(searchInput)
+                compareCourseName(searchInput)
+                setIsFilterOpen(true)
+            
+                }} value={searchInput} style={{width: '80%'}} placeholder={'Название специальности или языка'}/>
+                <button
+                    onClick={()=>{
+                        compareDirectrion(searchInput)
+                        compareCourseName(searchInput)
+                        let centerName = courseId;
+                        let city = 0;
+                        let direction = directionId;
+                        let price = 0;
+                        let isOnline = 0;
+                        console.log('coursessssssss', courses)
+                        console.log(searchInput)
+                        console.log("TESTING", centerName, city, direction, price, isOnline)
+                        filterBtnHandler(centerName, city, direction, price, isOnline, '1');
+                    }}
+                style={{width: '20%'}}>Найти</button>
+                <div className={styles.searchFilterWrapper}>
+                <ul className={styles.searchFilter}>
+                    {searchInput && isFilterOpen
+                        ? searchFilter.map(items => {
+                        return (
+                            <li className={styles.searchFilterItem} onClick={searchItemClickHandler}>
+                                {items.name}
+                            </li>
+                        )
+                    }) : null}
+                     {searchInput && isFilterOpen
+                        ? searchFilterCourses.map(items => {
+                        return (
+                            <li className={styles.searchFilterItem} onClick={searchItemClickHandler}>
+                                {items.title}
+                            </li>
+                        )
+                    }) : null}
+                </ul>
+                </div>
+
                 </div>   
                 <div className={styles.priorityCategories}>
-                <span>IELTS</span><span>TOEFL</span><span style={{textDecoration: 'underline'}}>Программирование</span><span>Английский язык</span>
+                <span onClick={() => {setSearchInput("IELTS")
+                    compareDirectrion(searchInput)
+                    compareCourseName(searchInput)
+                    setIsFilterOpen(true)}}>IELTS</span>
+                <span onClick={() => {setSearchInput("TOEFL")
+                    compareDirectrion(searchInput)
+                    compareCourseName(searchInput)
+                    setIsFilterOpen(true)}}>TOEFL</span>
+                    <span onClick={() => {setSearchInput("Программирование")
+                    compareDirectrion(searchInput)
+                    compareCourseName(searchInput)
+                    setIsFilterOpen(true)}}>Программирование</span>
+                    <span onClick={() => {setSearchInput("Английский язык")
+                    compareDirectrion(searchInput)
+                    compareCourseName(searchInput)
+                    setIsFilterOpen(true)}}>Английский язык</span>
                 </div>
                 <div className={styles.rounds}>
                     <div className={styles.forRC}>
@@ -587,11 +767,12 @@ const Catalog = () => {
                         <p>Городов РК</p>
                     </div>
                 </div>
-                <div style={{display:'block', textAlign:'center'}}>
-                    <button className={styles.howItWorks}>Как это работает?</button>
+                <div className={styles.howItWorksWrapper} style={{display:'block', textAlign:'center'}}>
+                    <button onClick={() => {setShowAboutUs(!showAboutUs); window.scrollBy(0,-10000);}} className={styles.howItWorks}>Как это работает?</button>
                 </div>
             </div>
             </div>
+
             <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
                 <span className={styles.title}>Топ репетиторов</span>
             </div>
