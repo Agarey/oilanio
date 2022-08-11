@@ -13,7 +13,7 @@
 
 .body {
   width: 100%;
-  position: relative;
+  position: absolute;
   min-height: 140vh;
   background: white;
   padding: 0 5%;
@@ -252,7 +252,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /*height: 70vh;*/
 }
 .loading {
   height: 300px;

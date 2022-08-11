@@ -313,7 +313,7 @@
     #6657bf 46.33%,
     #412fae 98.22%
   );
-  position: fixed;
+  position: relative;
   width: 100%;
   transition: 0.5s;
   transform: translateX(0%);

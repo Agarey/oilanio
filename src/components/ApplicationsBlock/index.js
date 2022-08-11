@@ -54,7 +54,6 @@ export default function ApplicationsBlock(props){
                   courseCards={props.courseCards} 
                   subscriptionInfo={props.subscriptionInfo} 
                   application={item} 
-                  categoryName={categoryName}
                   active={active}
                   deActive={deActive}
                 />
@@ -73,7 +72,6 @@ export default function ApplicationsBlock(props){
                       courseCards={props.courseCards} 
                       subscriptionInfo={props.subscriptionInfo} 
                       application={item} 
-                      categoryName={categoryName}
                       active={active}
                       deActive={deActive}
                     />

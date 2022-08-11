@@ -62,11 +62,12 @@ const About = () => {
     }
 
     function openNoize(){
-        // loadCategories(true);
         setShowNoizyWindow(true);
     }
+
+    setTimeout(openNoize, 30000)
      
-    setInterval( openNoize, 300000 );
+    setInterval(openNoize, 300000);
     return(
         <div>
             <div className={styles.intro}>

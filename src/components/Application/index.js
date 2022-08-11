@@ -58,7 +58,6 @@ export default function Application(props){
       />
       <div className={styles.container}>
         <p className={styles.name}>{application.name}</p>
-        <p className={styles.direction}>{props.categoryName}</p>
         <p>
           <b>Активна с: </b>
           {application.datetime.toLocaleString().replace(/^([^T]+)T(.+)$/,'$1').replace(/^(\d+)-(\d+)-(\d+)$/,'$3.$2.$1')}

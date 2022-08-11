@@ -14,14 +14,14 @@
 .body{
     position: fixed;
     right: 15px;
-    top: 7%;
+    bottom: 10px;
     background: white;
-    padding: 5px;
+    padding: 20px 40px;
     z-index: 7;
     color: black;
     border: 1px solid #422FAF;
     border-radius: 20px;
-    width: 30%;
+    width: 35%;
 }
 .whiteBody{
     width: 100%;
@@ -56,7 +56,7 @@
     flex-direction: column;
 }
 .header{
-    padding: 15px;
+    padding: 15px 0;
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
@@ -64,12 +64,18 @@
     align-items: center;
 }
 .header h5{
+    font-size: 24px;
     text-align: center;
     font-family: "Rubik Medium";
 }
 .closeNoizyBut{
-    font-size: 25px;
+    /* font-size: 25px; */
     animation: closeThisWindow 3s infinite;
+    background: url("https://realibi.kz/file/739461.png") no-repeat;
+    background-size: contain;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
 }
 @keyframes closeThisWindow{
     0%{color: #412fae;}
@@ -81,6 +87,10 @@
     flex-direction: row;
     justify-content: end;
     width: 95%;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 .closeNoizy button{
     border: none;
@@ -105,11 +115,11 @@
     cursor: pointer;
 }
 .selectBlock, .techSupportInput {
-    width: 95%;
+    width: 100%;
     -webkit-appearance: none;
     cursor: pointer;
     border-radius: 5px;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid rgba(0,0,0,0.2);
     box-sizing: border-box;
     background: white;
@@ -139,10 +149,18 @@
     position: absolute;
     left: 12px;
     padding: 0 5px;
+    top: 8px;
+    font-size: 18px;
+    font-family: "Rubik Medium";
+}
+
+.selectNameFocus {
+    position: absolute;
+    left: 16px;
+    padding: 0 5px;
     bottom: 45px;
     background: #fff;
-    font-size: 15px;
-    font-family: "Rubik Medium";
+    font-size: 14px;
 }
 
 .selectNameStar {
@@ -150,7 +168,7 @@
 }
 
 .primarySelect{
-    width: 95%;
+    width: 100%;
     border: none;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -303,6 +321,24 @@
 }
 .seeMore:hover{
     border-bottom: 1px solid black;
+}
+
+.check input {
+    display: none;
+}
+
+.check label::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url(../../../public/chekNoize.png) 0 0 no-repeat;
+    background-size: contain;
+}
+
+.check input:checked + label::before {
+    background: url(../../../public/chekNoizeOk.png) 0 0 no-repeat;
+    background-size: contain;
 }
 
 @media screen and (max-width: 1200px) {
