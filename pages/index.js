@@ -57,6 +57,7 @@ const CreateApplication = (props) => {
   const [odometerValue, setOdometerValue] = useState(0);
   const browser = "";
   const [isSafari, setIsSafari] = useState(false);
+
   useEffect(() => {
     setShowSecondSlide(false);
     axios.get(`${globals.productionServerDomain}/filters`).then((res) => {
@@ -218,6 +219,8 @@ const CreateApplication = (props) => {
     setShowNoizyWindow(true);
   }
 
+  setTimeout(openNoize, 30000)
+     
   setInterval(openNoize, 300000);
 
   return (

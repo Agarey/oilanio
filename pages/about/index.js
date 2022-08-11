@@ -47,10 +47,12 @@ const About = () => {
         let result = await axios.get(`${globals.productionServerDomain}/filters`);
         setFilters(result.data)
         setFiltersLoading(false)
-    }
+    };
+    
     useEffect(async () => {
         loadFilters();
-    }, [])
+    }, []);
+
     function loadCategories(searchCenter){
         setDirections([{ name: 'Загружаем направления...', id: 0 }]);
         axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
@@ -76,10 +78,18 @@ const About = () => {
                     <link rel="icon" href="/atom-icon.png" />
                     <div dangerouslySetInnerHTML={{__html: ymetrica()}}/>
                 </Head>
-                {
-                        showNoizyWindow ? (
-                <NoizyWindow loadCategoriesCallback={loadCategories} setSearchCenterCallback={setSearchCenter} searchCenter={searchCenter} close={setShowNoizyWindow} cities={filters[0]} directions={directions}/>
-                ):(<></>)}
+                { showNoizyWindow 
+                    ? (
+                    <NoizyWindow 
+                        loadCategoriesCallback={loadCategories} 
+                        setSearchCenterCallback={setSearchCenter} 
+                        searchCenter={searchCenter} 
+                        close={setShowNoizyWindow} 
+                        cities={filters[0]} 
+                        directions={directions}
+                    />)
+                    : <></>
+                }
                 <Header/>
                 <HomeContent/>
                 <FactsAboutUs/>

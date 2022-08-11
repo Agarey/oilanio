@@ -411,25 +411,34 @@ export default function CourseSearchApplicationFullPage(props) {
             </span>
           </div>
         ) : null}
-
+        <div className={styles.selectContainer}>
+          <select 
+            className={styles.selectBlock} 
+            value={price} 
+            onChange={e => setPrice(e.target.value)}
+          >
+            <option value="0">Выберите цену</option>
+            <option value={'0-20000'}>0 - 20 000KZT</option>
+            <option value={'20000-40000'}>20 000 - 40 000KZT</option>
+            <option value={'40000-60000'}>40 000 - 60 000KZT</option>
+            <option value={'60000-80000'}>60 000 - 80 000KZT</option>
+            <option value={'80000-100000'}>80 000 - 100 000KZT</option>
+            <option value={'100000'}>100 000KZT +</option>
+          </select>
+          <span className={styles.selectName}>
+            Цена
+          </span>
+        </div>
         <textarea
-                    value={comment}
-                    onChange={e => setComment(e.target.value)}
-                    className={styles.selectBlock}
-                    style={{cursor: "text"}}
-                    rows="5"
-                    placeholder={'Описание курса, возраст учащегося, желаемое время, и пожелания. Способы связи со мной (позвонить, написать в Whatsapp, Telegram)'}
-                ></textarea>
-
-        <select className={styles.selectBlock} value={price} onChange={e => setPrice(e.target.value)}>
-          <option value="0">Цена</option>
-          <option value={'0-20000'}>0 - 20 000KZT</option>
-          <option value={'20000-40000'}>20 000 - 40 000KZT</option>
-          <option value={'40000-60000'}>40 000 - 60 000KZT</option>
-          <option value={'60000-80000'}>60 000 - 80 000KZT</option>
-          <option value={'80000-100000'}>80 000 - 100 000KZT</option>
-          <option value={'100000'}>100 000KZT +</option>
-        </select>
+          value={comment}
+          onChange={e => setComment(e.target.value)}
+          className={styles.techSupportInput}
+          style={{cursor: "text"}}
+          rows="5"
+          placeholder={'Описание курса, возраст учащегося, желаемое время, и пожелания. Способы связи со мной (позвонить, написать в Whatsapp, Telegram)'}
+        />
+        
+        
         <label
           style={{
             fontFamily: "Rubik Medium",

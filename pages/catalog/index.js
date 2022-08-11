@@ -35,6 +35,7 @@ import dynamic from 'next/dynamic'
 import CourseSearchApplicationFullPage from '../../src/components/CourseSearchApplicationFullPage/CourseSearchApplicationFullPage';
 import classnames from 'classnames';
 import TutorCourseCard from '../../src/components/TutorCourseCard';
+import NoizyWindow from '../../src/components/NoizyWindow/NoizyWindow';
 
 const Odometer = dynamic(import('react-odometerjs'), {
     ssr: false,
@@ -52,7 +53,8 @@ ChartJS.register(
 const Catalog = () => {
     const router = useRouter();
 
-    const [cardsToShow, setCardsToShow] = useState(8)
+    const [cardsToShow, setCardsToShow] = useState(8);
+    const [showNoizyWindow, setShowNoizyWindow] = useState(false);
 
     const addCards = () => {
             setCardsToShow(cardsToShow+8)
@@ -134,7 +136,9 @@ const Catalog = () => {
     const [odometerValue, setOdometerValue] = useState(0);
     const browser = ''
     const [student, setStudent] = useState({})
-    const [center, setCenter] = useState({})
+    const [center, setCenter] = useState({});
+    const [directions, setDirections] = useState([]);
+    const [searchCenter, setSearchCenter] = useState(true)
 
     const [exitingOut, setExitingOut] = useState(false)
 
@@ -206,6 +210,16 @@ const Catalog = () => {
         console.log('pathname = ' + window.location.pathname)
     }, [])
 
+    function loadCategories(searchCenter){
+        setDirections([{ name: 'Загружаем направления...', id: 0 }]);
+        axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
+            searchingCenter: searchCenter,
+        }).then(res => {
+            // console.log("FILTERS", res.data);
+            setDirections(res.data)
+        })
+    }
+
     useEffect(()=>{
         axios.get(`${globals.productionServerDomain}/tutors`).then(res => {
             setTutors(res.data);
@@ -230,6 +244,7 @@ const Catalog = () => {
     useEffect(()=>{
         axios.get(`${globals.productionServerDomain}/filters`).then(res => {
             setroundFilters(res.data);
+            loadCategories(true);
             loadFilters();
             // console.log(res.data);
         });
@@ -447,8 +462,29 @@ const Catalog = () => {
         getCards();
     }, [isTutors]);
 
+    function openNoize(){
+        setShowNoizyWindow(true);
+    }
+
+    setTimeout(openNoize, 30000)
+     
+    setInterval(openNoize, 300000);
+
     return (
         <div>
+            { showNoizyWindow 
+                ? (
+                    <NoizyWindow 
+                        loadCategoriesCallback={loadCategories} 
+                        setSearchCenterCallback={setSearchCenter} 
+                        searchCenter={searchCenter} 
+                        close={setShowNoizyWindow} 
+                        cities={filters[0]} 
+                        directions={directions}
+                    />
+                )
+                : <></>
+            }
             <div className={showAboutUs ? styles.slide : styles.slideHide}>
                     {showAboutUs ? <><div className={styles.downblock} style={{display: "flex"}}>
                     <div className={styles.aboutUsBack} onClick={() => setShowAboutUs(!showAboutUs)}></div>
