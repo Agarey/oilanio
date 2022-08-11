@@ -23,8 +23,9 @@
     padding: 0 5%;
     box-sizing: border-box;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
+    flex-direction: column;
 }
 .titleImg{
     height: 48px;
@@ -71,7 +72,7 @@
 }
 .pageBody{
     background-image: url(https://realibi.kz/file/843135.png);
-    background-size: 100%;
+    background-size: 107%;
     background-repeat: no-repeat;
     height: auto !important;
 }
@@ -483,6 +484,15 @@
     color: black;
 }
 
+.course_btn_container {
+    margin-bottom: 30px;
+}
+
+.course_btn {
+    cursor: pointer;
+}
+
+
 @media (max-width: 600px){
     .hideButton{
         display: none;
@@ -546,8 +556,13 @@
     }
 
     .rounds {
-        width: 90% !important;
-        margin-left: 5% !important;
+        width: 96%;
+        margin-left: 5%;
+        margin-top: 13px;
+    }
+    .pageBody {
+        background-size: 157%;
+        background-position: center;
     }
 }
 
@@ -612,8 +627,10 @@
     .rounds {
         color: white;
         margin-top: 13px;
-        width: 140%;
-        margin-left: -19%;
+        /* width: 105%;
+        margin-left: 0px; */
+        width: 120%;
+    margin-left: -25px;
     }
     .mainImageTitleBlock p {
         font-size: 15px;
@@ -640,10 +657,10 @@
     .howItWorksWrapper {
         padding-top: 0px;
     }
-    .howItWorks {
+    /* .howItWorks {
         border: 2px solid black;
         color: black;
-    }
+    } */
 }
 @media screen and (max-width: 600px){
     .mainImageTitleBlock {
@@ -851,12 +868,12 @@
         display: none;
     }
     .howItWorksWrapper {
-        padding-top: 40px;
+        /* padding-top: 40px; */
     }
-    .howItWorks {
+    /* .howItWorks {
         border: 2px solid black !important;
         color: black !important;
-    }
+    } */
 }
 @media (max-width: 415px){
     .title{
@@ -978,9 +995,10 @@
     }
 }
 
-@media screen and (max-width: 320px) {
-    .mainImageTitleBlock p {
-        color: black;
+@media screen and (max-width: 380px) {
+    .pageBody {
+        background-size: 217% !important;
+        background-position: center;
     }
 }
 @media screen and (max-width: 600px) {
@@ -988,9 +1006,21 @@
         border: 2px solid white;
         color: white;
     }
+    .rounds {
+        display: flex;
+        height: 16%;
+        width: 79%;
+        margin-left: 50px;
+    }
 }
 @media screen and (max-width: 680px){
     .priorityCategories {
         display: none;
+    }
+}
+@media screen and (max-width: 470px){
+    .pageBody {
+        background-size: 179%;
+        background-position: center;
     }
 }

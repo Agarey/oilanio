@@ -34,6 +34,7 @@ import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import dynamic from 'next/dynamic'
 import CourseSearchApplicationFullPage from '../../src/components/CourseSearchApplicationFullPage/CourseSearchApplicationFullPage';
 import classnames from 'classnames';
+import TutorCourseCard from '../../src/components/TutorCourseCard';
 
 const Odometer = dynamic(import('react-odometerjs'), {
     ssr: false,
@@ -147,6 +148,9 @@ const Catalog = () => {
     const [searchFilter, setSearchFilter] = useState([])
 
     const [showAboutUs, setShowAboutUs] = useState(false)
+
+    const [tutorCards, setTutorCards] = useState([]);
+    const [isTutors, setIsTutors] = useState(false);
 
     const loadUserInfo = async () => {
         if(localStorage.getItem(globals.localStorageKeys.currentStudent) !== null){
@@ -396,15 +400,53 @@ const Catalog = () => {
     }, [searchInput])
 
 
-    // function loadCategories(searchCenter){
-    //     setDirections([{ name: 'Загружаем направления...', id: 0 }]);
-    //     axios.post(`${globals.productionServerDomain}/getFilteredCategories`, {
-    //         searchingCenter: searchCenter,
-    //     }).then(res => {
-    //         // console.log("FILTERS", res.data);
-    //         setDirections(res.data)
-    //     })
-    // }
+    const getCards = async () => {
+        console.log("Функция getCards");
+        if (isTutors) {
+          const data = {
+            centerName: "",
+            city: 1,
+            direction: "1",
+            price: "0",
+            center: "0",
+            isOnline: false,
+          };
+    
+          let postResult = await axios.post(
+            `${globals.productionServerDomain}/tutorCourseCardsFilter`,
+            data
+          );
+    
+          console.log("postResult равно", postResult.data);
+          setTutorCards(postResult.data);
+          setCoursesLoading(false);
+        } else {
+          const data = {
+            centerName: "",
+            city: 1,
+            direction: "1",
+            price: "0",
+            center: "0",
+            isOnline: false,
+            //individualLesson: individualLesson,
+            sortType: "0",
+          };
+    
+          let postResult = await axios.post(
+            `${globals.productionServerDomain}/courseCardsFilter/`,
+            data
+          );
+    
+          console.log("postResult равно", postResult.data);
+          setCourseCards(postResult.data);
+          setCoursesLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getCards();
+    }, [isTutors]);
+
     return (
         <div>
             <div className={showAboutUs ? styles.slide : styles.slideHide}>
@@ -683,9 +725,6 @@ const Catalog = () => {
                         let direction = directionId;
                         let price = 0;
                         let isOnline = 0;
-                        console.log('coursessssssss', courses)
-                        console.log(searchInput)
-                        console.log("TESTING", centerName, city, direction, price, isOnline)
                         filterBtnHandler(centerName, city, direction, price, isOnline, '1');
                     }}
                 style={{width: '20%'}}>Найти</button>
@@ -713,21 +752,33 @@ const Catalog = () => {
                 </div>   
                 <div className={styles.priorityCategories}>
                 <span onClick={() => {setSearchInput("IELTS")
-                    compareDirectrion(searchInput)
-                    compareCourseName(searchInput)
-                    setIsFilterOpen(true)}}>IELTS</span>
+                    let centerName = courseId;
+                    let city = 0;
+                    let direction = 8;
+                    let price = 0;
+                    let isOnline = 0;
+                    filterBtnHandler(centerName, city, direction, price, isOnline, '1')}}>IELTS</span>
                 <span onClick={() => {setSearchInput("TOEFL")
-                    compareDirectrion(searchInput)
-                    compareCourseName(searchInput)
-                    setIsFilterOpen(true)}}>TOEFL</span>
+                    let centerName = courseId;
+                    let city = 0;
+                    let direction = 8;
+                    let price = 0;
+                    let isOnline = 0;
+                    filterBtnHandler(centerName, city, direction, price, isOnline, '1')}}>TOEFL</span>
                     <span onClick={() => {setSearchInput("Программирование")
-                    compareDirectrion(searchInput)
-                    compareCourseName(searchInput)
-                    setIsFilterOpen(true)}}>Программирование</span>
+                    let centerName = courseId;
+                    let city = 0;
+                    let direction = 5;
+                    let price = 0;
+                    let isOnline = 0;
+                    filterBtnHandler(centerName, city, direction, price, isOnline, '1')}}>Программирование</span>
                     <span onClick={() => {setSearchInput("Английский язык")
-                    compareDirectrion(searchInput)
-                    compareCourseName(searchInput)
-                    setIsFilterOpen(true)}}>Английский язык</span>
+                    let centerName = courseId;
+                    let city = 0;
+                    let direction = 1;
+                    let price = 0;
+                    let isOnline = 0;
+                    filterBtnHandler(centerName, city, direction, price, isOnline, '1')}}>Английский язык</span>
                 </div>
                 <div className={styles.rounds}>
                     <div className={styles.forRC}>
@@ -777,39 +828,105 @@ const Catalog = () => {
                 <span className={styles.title}>Топ репетиторов</span>
             </div>
             {
-                filtersLoading ? <LoadingBlock/> : <TopTutorsSlider categories={tutorsWithPhoto}/>
+                filtersLoading ? <LoadingBlock/> : <TopTutorsSlider course={tutorsWithPhoto} categories={tutorsWithPhoto}/>
             }
             <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
                 <Image src={'/notebook-dynamic-color.png'} className={styles.titleImg}/>
                 <span className={styles.title}>Популярные курсы</span>
+                <div className={styles.course_btn_container}>
+                    <span
+                        className={styles.course_btn}
+                        style={!isTutors ? {color: "black"} : {color: "#767676"}}
+                        onClick={() => {
+                            setIsTutors(false);
+                        }}
+                    >Центры / </span>
+                    <span
+                        className={styles.course_btn}
+                        style={isTutors ? {color: "black"} : {color: "#767676"}}
+                        onClick={() => {
+                        setIsTutors(true);
+                        }}
+                    >Репетиторы</span>
+                </div>
             </div>
-            {
-                filters[0] != undefined && (<LurkingFilterBlock setCardsToShow={setCardsToShow} cities={filters[0]} directions={filters[1]} setCourseCards={setCourseCards} setCoursesLoading={setCoursesLoading}/>)
-            }
+            {isTutors 
+                ? <>
+                    {
+                        filters[0] != undefined && (
+                            <LurkingFilterBlock 
+                                setCardsToShow={setCardsToShow} 
+                                cities={filters[0]} 
+                                directions={filters[1]} 
+                                setCourseCards={setCourseCards}
+                                setTutorCards={setTutorCards}
+                                setCoursesLoading={setCoursesLoading}
+                                isTutors={isTutors}
+                            />)
+                    }
 
-            {
-                courseCards.length > 0 && (
-                    <div className={styles.courses_block}>
-                        {
-                            courseCards.slice(0, cardsToShow).map(course => {
-                                if(course.title !== 'test'){
-                                    return (
-                                        <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                            <CourseCard coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                        </div>
-                                    )
+                    {
+                        tutorCards.length > 0 && (
+                            <div className={styles.courses_block}>
+                                {
+                                    tutorCards.slice(0, cardsToShow).map((course, i)=> {
+                                        if(course.title !== 'test'){
+                                            // return (
+                                            //     <div style={{marginLeft: '5%', marginRight: '5%'}}>
+                                            if (course.title !== 'test') {
+                                                return (
+                                                    <div className={styles.courseCard_item}>
+                                                        <TutorCourseCard 
+                                                            key={i} 
+                                                            coverImage={course.img_src} 
+                                                            setLoadingModal={setLoadingModal} 
+                                                            course={course}
+                                                        />
+                                                    </div>
+                                                )
+                                            }
+                                        }
+                                    })
                                 }
-                            })
-                        }
-                    </div>
-                )
-            }
-            {
-                coursesLoading ? (<LoadingBlock/> ) : (
-                    showUps && (courseCards.length < 1 ? <CourseSearchResultIsNotDefind catalog={true}/> : null)
-                )
-            }
+                            </div>
+                        )
+                    }
+                    {
+                    coursesLoading ? (<LoadingBlock/> ) : (
+                        showUps && (tutorCards.length < 1 ? <CourseSearchResultIsNotDefind catalog={true}/> : null)
+                    )
+                }
+                </>
 
+                : <>
+                {
+                    filters[0] != undefined && (<LurkingFilterBlock setCardsToShow={setCardsToShow} cities={filters[0]} directions={filters[1]} setCourseCards={setCourseCards} setCoursesLoading={setCoursesLoading}/>)
+                }
+
+                {
+                    courseCards.length > 0 && (
+                        <div className={styles.courses_block}>
+                            {
+                                courseCards.slice(0, cardsToShow).map(course => {
+                                    if(course.title !== 'test'){
+                                        return (
+                                            <div style={{marginLeft: '5%', marginRight: '5%'}}>
+                                                <CourseCard coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
+                                            </div>
+                                        )
+                                    }
+                                })
+                            }
+                        </div>
+                    )
+                }
+                {
+                    coursesLoading ? (<LoadingBlock/> ) : (
+                        showUps && (courseCards.length < 1 ? <CourseSearchResultIsNotDefind catalog={true}/> : null)
+                    )
+                }
+                </>
+            }
 
 
             <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>

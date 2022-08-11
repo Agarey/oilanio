@@ -27,9 +27,7 @@ export default function TutorCourseCard(props) {
         return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ');
     }
 
-
     const coursePrice = prettify(props.course.price)
-
     const getCurrentDateTime = () => {
         let currentDate = new Date();
 
@@ -60,7 +58,7 @@ export default function TutorCourseCard(props) {
 
     return (
         <div className={styles.container} style={{width: props.application !== undefined ? '40%' : null}} >
-            <ModalWindow show={show} handleClose={handleClose} heading={'Оставить заявку репетитору'} body={<SignupToCourseForm sendApplicationCallback={props.sendApplicationCallback} course={props.course} tutor={props.course} handleClose={handleClose}/>}/>
+            <ModalWindow show={show} handleClose={handleClose} heading={'Оставить заявку репетитору'} body={<SignupToCourseForm sendApplicationCallback={props?.sendApplicationCallback} course={props.course} tutor={props.course} handleClose={handleClose}/>}/>
 
             <div style={{width: '100%'}}>
                 <div  className={styles.titleImage__Body}>
@@ -79,7 +77,7 @@ export default function TutorCourseCard(props) {
                                     ?
                                     'Репетитор не указал информацию о себе. :('
                                     :
-                                        props.course.tutor_description.length > symbolsToShow ?
+                                        props.course.tutor_description ?
                                             <>
                                                 {props.course.tutor_description.substr(0, symbolsToShow).concat('')}
                                                 <b>...остальное в "Узнать больше"</b>

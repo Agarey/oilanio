@@ -10,36 +10,59 @@ const LurkingFilterBlock = ({
   directions,
   setCoursesLoading,
   setCourseCards,
+  setTutorCards,
   ...props
 }) => {
   const [show, setShow] = useState(false);
 
-  const [isOnline, setIsOnline] = useState(false);
+  const [isOnline, setIsOnline] = useState(0);
   const [price, setPrice] = useState("0");
   const [cityId, setCityId] = useState("1");
   const [directionId, setDirectionId] = useState(1);
 
   const getCards = async () => {
     console.log("Функция getCards");
-    const data = {
-      centerName: "",
-      city: cityId,
-      direction: directionId.toString(),
-      price: price,
-      center: "0",
-      isOnline: isOnline,
-      //individualLesson: individualLesson,
-      sortType: "0",
-    };
+    if (props.isTutors) {
+      const data = {
+        centerName: "",
+        city: cityId,
+        direction: directionId.toString(),
+        price: price,
+        center: "0",
+        isOnline: isOnline,
+      };
+      console.log(data.isOnline);
 
-    let postResult = await axios.post(
-      `${globals.productionServerDomain}/courseCardsFilter/`,
-      data
-    );
+      let postResult = await axios.post(
+        `${globals.productionServerDomain}/tutorCourseCardsFilter`,
+        data
+      );
 
-    console.log("postResult равно", postResult.data);
-    setCourseCards(postResult.data);
-    setCoursesLoading(false);
+      console.log("postResult равно", postResult.data);
+      setTutorCards(postResult.data);
+      setCoursesLoading(false);
+    } else {
+      const data = {
+        centerName: "",
+        city: cityId,
+        direction: directionId.toString(),
+        price: price,
+        center: "0",
+        isOnline: isOnline,
+        //individualLesson: individualLesson,
+        sortType: "0",
+      };
+
+      console.log("Tutor", data);
+      let postResult = await axios.post(
+        `${globals.productionServerDomain}/courseCardsFilter/`,
+        data
+      );
+
+      console.log("postResult равно", postResult.data);
+      setCourseCards(postResult.data);
+      setCoursesLoading(false);
+    }
   };
 
   return (
@@ -87,9 +110,9 @@ const LurkingFilterBlock = ({
           className={styles.select}
           onChange={(e) => setIsOnline(e.target.value)}
         >
-          <option value={false}>Формат занятий</option>
-          <option value={true}>Онлайн</option>
-          <option value={false}>Офлайн</option>
+          <option value={0}>Формат занятий</option>
+          <option value={1}>Онлайн</option>
+          <option value={2}>Офлайн</option>
         </select>
         <select
           className={styles.select}

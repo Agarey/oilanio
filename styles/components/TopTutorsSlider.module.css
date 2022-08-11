@@ -109,8 +109,8 @@
         font-size: 9px;
     }
     .img{
-        height: 235px;
-        width: 249px;
+        height: 188px;
+        width: 190px;
     
     }
     .container{
@@ -122,10 +122,26 @@
         width: 30%;
     }
 }
-
+@media screen and (max-width: 500px) {
+    .img {
+        height: 134px;
+        width: 128px;
+    }
+}
 @media screen and (max-width: 438px) {
     .categories {
         display: flex;
         flex-wrap: wrap;
+    }
+    .img {
+        height: 168px;
+        width: 152px;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .img {
+        height: 134px;
+        width: 128px;
     }
 }
