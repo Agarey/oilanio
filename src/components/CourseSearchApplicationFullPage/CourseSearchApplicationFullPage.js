@@ -215,9 +215,9 @@ export default function CourseSearchApplicationFullPage(props) {
                   : "/Other04.png"
               }
             />
-            <p className={styles.imageText}>
+            {/* <p className={styles.imageText}>
               заполняют заявку на Oilan, чтобы изучить что-то новое
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
