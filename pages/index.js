@@ -414,7 +414,7 @@ const CreateApplication = (props) => {
           <div className={styles.mainRight}>
             <Image
               className={styles.img}
-              src={"https://realibi.kz/file/800132.png"}
+              src={"https://realibi.kz/file/274612.png"}
             />
           </div>
         </div>
