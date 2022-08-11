@@ -466,9 +466,19 @@ const Catalog = () => {
         setShowNoizyWindow(true);
     }
 
-    setTimeout(openNoize, 30000)
+    setTimeout(openNoize, 30000);
      
     setInterval(openNoize, 300000);
+
+    const optionsDon = {
+        responsive: true,
+        plugins: {
+          tooltip: {
+            enabled: false,
+          },
+        },
+        cutout: "80%",
+      };
 
     return (
         <div>
@@ -819,37 +829,85 @@ const Catalog = () => {
                 <div className={styles.rounds}>
                     <div className={styles.forRC}>
                         <div className={styles.doughnut}>
-                            <div className={styles.counter}><Odometer value={roundFilters[2].length} format='(,ddd).dd' theme="default" animation="count"/></div>
-                            {!isSafari?
-                            (<Doughnut className={styles.hole} data={dataCenters} options={{responsive: true, cutout: '80%'}}/>
-                            ):(<></>)}
+                            <div className={styles.counter}>
+                                <Odometer 
+                                    value={roundFilters[2].length} 
+                                    format='(,ddd).dd' 
+                                    theme="default" 
+                                    animation="count"
+                                />
+                            </div>
+                            {!isSafari
+                                ? (<Doughnut 
+                                    className={styles.hole} 
+                                    data={dataCenters} 
+                                    options={optionsDon}
+                                />)
+                                :(<></>)
+                            }
                         </div>
                         <p>Учебных центров</p>
                     </div>
                     <div className={styles.forRC}>
                         <div className={styles.doughnut}>
-                            <div className={styles.counter}><Odometer value={tutors.length} format='(,ddd).dd' theme="default" animation="count"/></div>
-                            {!isSafari?
-                            (<Doughnut className={styles.hole} data={dataTutors} tooltips={false} options={{responsive: true, cutout: '80%',}}/>
-                            ):(<></>)}
+                            <div className={styles.counter}>
+                                <Odometer 
+                                    value={tutors.length} 
+                                    format='(,ddd).dd' 
+                                    theme="default" 
+                                    animation="count"
+                                />
+                            </div>
+                            {!isSafari
+                                ?(<Doughnut 
+                                    className={styles.hole} 
+                                    data={dataTutors} 
+                                    tooltips={false} 
+                                    options={optionsDon}
+                                />)
+                                :(<></>)
+                            }
                         </div>
                         <p>Репетиторов</p>
                     </div>
                     <div className={styles.forRC}>
                         <div className={styles.doughnut}>
-                            <div className={styles.counter}><Odometer value={roundFilters[1].length} format='(,ddd).dd' theme="default" animation="count"/></div>
-                            {!isSafari?
-                            (<Doughnut className={styles.hole} data={dataCategories} options={{responsive: true, cutout: '80%',}}/>
-                            ):(<></>)}
+                            <div className={styles.counter}>
+                                <Odometer 
+                                    value={roundFilters[1].length} 
+                                    format='(,ddd).dd' 
+                                    theme="default" 
+                                    animation="count"
+                                />
+                            </div>
+                            {!isSafari
+                                ? (<Doughnut 
+                                    className={styles.hole} 
+                                    data={dataCategories} 
+                                    options={optionsDon}
+                                />)
+                                :(<></>)}
                         </div>
                         <p>Направлений</p>
                     </div>
                     <div className={styles.forRC}>
                         <div className={styles.doughnut}>
-                            <div className={styles.counter}><Odometer value={roundFilters[0].length} format='(,ddd).dd' theme="default" animation="count"/></div>
-                            {!isSafari?
-                            (<Doughnut className={styles.hole} data={dataCities} options={{responsive: true, cutout: '80%',}}/>
-                            ):(<></>)}
+                            <div className={styles.counter}>
+                                <Odometer 
+                                    value={roundFilters[0].length} 
+                                    format='(,ddd).dd' 
+                                    theme="default" 
+                                    animation="count"
+                                />
+                            </div>
+                            {!isSafari
+                                ?(<Doughnut 
+                                    className={styles.hole} 
+                                    data={dataCities} 
+                                    options={optionsDon}
+                                />)
+                                :(<></>)
+                            }
                         </div>
                         <p>Городов РК</p>
                     </div>

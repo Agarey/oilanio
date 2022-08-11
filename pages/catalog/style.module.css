@@ -129,14 +129,14 @@
     font-size: 1.1vw;
     font-family: "Rubik Medium";
 }
-.hole{
+/* .hole{
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     align-items: center;
-}
+} */
 .priorityCategories{
     margin-top: 10px;
     width: 90%;
