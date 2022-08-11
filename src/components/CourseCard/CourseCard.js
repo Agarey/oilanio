@@ -10,6 +10,27 @@ import Image from "next/image";
 const axios = require('axios').default;
 
 export default function CourseCard(props) {
+    const [filters, setFilters] = useState([]);
+    const [citiesList, setCitiesList] = useState([])
+
+    useEffect( async ()=>{
+        await axios.get(`${globals.productionServerDomain}/filters`).then(res => {
+            setFilters(res.data);
+            console.log(res);
+            setCitiesList(filters[0]);
+        })
+    }, []);
+
+    let cityId = props.course.city_id
+
+    const [cityName, setCityName] = useState([])
+
+    useEffect( async () => {
+        let city = await filters[0]?.find(el => el.id == cityId)
+        console.log("CITY>>>", city)
+        setCityName(city?.name)
+    }, [citiesList])
+
     const [show, setShow] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showPhoneNumber, setShowPhoneNumber] = useState(false);
@@ -301,16 +322,27 @@ export default function CourseCard(props) {
                                        onClick={() => {
                                            axios.post(globals.productionServerDomain + '/logUserClick',{
                                                course_id: props.course.course_id,
-                                               card_id: props.course.id
+                                               card_id: props.course.id,
                                            })
                                        }}
                                     >
                                         {props.course.title.length < 124 ? (props.course.title) : (props.course.title.substr(0, 124).concat('...'))}
                                     </p>
-                                    <p className={styles.subtitle}>
-                                        {props.course.course_title.length < 32 ? (props.course.course_title) : (props.course.course_title.substr(0, 32).concat('...'))}
-                                    </p>
-                                    <p className={styles.info_title}>{props.course.addresses}</p>
+                                    <label style={{display: "flex", flexDirection: "row"}}>
+                                        <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.4999 14.3153L10.9999 17.2754L5.4999 14.3153V11.1878L3.92847 10.3525V15.1946L10.9999 19.0004L18.0713 15.1946V10.3525L16.4999 11.1878V14.3153Z" fill="#6D5DD0"/>
+                                        <path d="M11 0L0 5.45725V6.76034L11 12.6072L20.4286 7.59564V11.7474H22V5.45725L11 0ZM18.8571 6.71096L17.2857 7.54621L11 10.8876L4.71429 7.54621L3.14286 6.71096L2.05371 6.132L11 1.69363L19.9463 6.132L18.8571 6.71096Z" fill="#6D5DD0"/>
+                                        </svg>
+                                        <p style={{marginLeft: '3px'}} className={styles.subtitle}>
+                                            {props.course.course_title.length < 32 ? (props.course.course_title) : (props.course.course_title.substr(0, 32).concat('...'))}
+                                        </p>
+                                    </label>
+                                    <lavel style={{display: "flex", flexDirection: "row"}}> <svg width="19" height="25" viewBox="0 0 19 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.8844 13.9687C15.0656 15.6281 13.9563 17.2812 12.8219 18.7656C11.7458 20.165 10.5952 21.5055 9.375 22.7812C8.15482 21.5055 7.00419 20.165 5.92813 18.7656C4.79375 17.2812 3.68438 15.6281 2.86563 13.9687C2.0375 12.2922 1.5625 10.7219 1.5625 9.375C1.5625 7.303 2.3856 5.31586 3.85073 3.85073C5.31586 2.3856 7.303 1.5625 9.375 1.5625C11.447 1.5625 13.4341 2.3856 14.8993 3.85073C16.3644 5.31586 17.1875 7.303 17.1875 9.375C17.1875 10.7219 16.7109 12.2922 15.8844 13.9687ZM9.375 25C9.375 25 18.75 16.1156 18.75 9.375C18.75 6.8886 17.7623 4.50403 16.0041 2.74587C14.246 0.98772 11.8614 0 9.375 0C6.8886 0 4.50403 0.98772 2.74587 2.74587C0.98772 4.50403 3.70503e-08 6.8886 0 9.375C0 16.1156 9.375 25 9.375 25Z" fill="#6D5DD0"/>
+                                            <path d="M9.375 12.5C8.5462 12.5 7.75134 12.1708 7.16529 11.5847C6.57924 10.9987 6.25 10.2038 6.25 9.375C6.25 8.5462 6.57924 7.75134 7.16529 7.16529C7.75134 6.57924 8.5462 6.25 9.375 6.25C10.2038 6.25 10.9987 6.57924 11.5847 7.16529C12.1708 7.75134 12.5 8.5462 12.5 9.375C12.5 10.2038 12.1708 10.9987 11.5847 11.5847C10.9987 12.1708 10.2038 12.5 9.375 12.5ZM9.375 14.0625C10.6182 14.0625 11.8105 13.5686 12.6896 12.6896C13.5686 11.8105 14.0625 10.6182 14.0625 9.375C14.0625 8.1318 13.5686 6.93951 12.6896 6.06044C11.8105 5.18136 10.6182 4.6875 9.375 4.6875C8.1318 4.6875 6.93951 5.18136 6.06044 6.06044C5.18136 6.93951 4.6875 8.1318 4.6875 9.375C4.6875 10.6182 5.18136 11.8105 6.06044 12.6896C6.93951 13.5686 8.1318 14.0625 9.375 14.0625Z" fill="#6D5DD0"/>
+                                            </svg>
+                                        <p style={{marginLeft: '3px'}} onClick={console.log("CITIES>>>", citiesList)} className={styles.info_title}>{cityName} {props.course.addresses}</p>
+                                    </lavel>
                                     {/*<div className={styles.stats}>*/}
                                     {/*    <div className={styles.stat}>*/}
                                     {/*        <Image src={'/like.png'} className={styles.statImage}/>*/}
@@ -492,11 +524,25 @@ export default function CourseCard(props) {
                 <div>
                     <div>
                         {props.course.currency === '$' ?
-                            (
-                                <p className={styles.info_price}>Цена: {props.course.currency}{coursePrice}/{props.course.unit_of_time}</p>
-                            )
-                            : (
-                                <p className={styles.info_price}>Цена: {coursePrice} {props.course.currency}/{props.course.unit_of_time}</p>
+                            (<label style={{display: "flex", flexDirection: "row", alignItems: 'baseline'}}>    
+                                <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 3.75033C1 3.19779 1.21949 2.66789 1.61019 2.27719C2.00089 1.88649 2.5308 1.66699 3.08333 1.66699H19.75C20.3025 1.66699 20.8324 1.88649 21.2231 2.27719C21.6138 2.66789 21.8333 3.19779 21.8333 3.75033V14.167C21.8333 14.7195 21.6138 15.2494 21.2231 15.6401C20.8324 16.0308 20.3025 16.2503 19.75 16.2503H3.08333C2.5308 16.2503 2.00089 16.0308 1.61019 15.6401C1.21949 15.2494 1 14.7195 1 14.167V3.75033Z" stroke="#6D5DD0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M11.4165 12.084C13.1424 12.084 14.5415 10.6849 14.5415 8.95898C14.5415 7.23309 13.1424 5.83398 11.4165 5.83398C9.69061 5.83398 8.2915 7.23309 8.2915 8.95898C8.2915 10.6849 9.69061 12.084 11.4165 12.084Z" stroke="#6D5DD0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.6667 16.2503C17.6667 15.1453 18.1057 14.0854 18.8871 13.304C19.6685 12.5226 20.7283 12.0837 21.8333 12.0837M1 5.83366C2.10507 5.83366 3.16488 5.39467 3.94628 4.61327C4.72768 3.83187 5.16667 2.77206 5.16667 1.66699L1 5.83366Z" stroke="#6D5DD0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                   
+                                <p style={{marginLeft: '3px'}} className={styles.info_price}>Цена: {props.course.currency}{coursePrice}/{props.course.unit_of_time}</p>
+                             </label>
+                             )
+                            : ( <label style={{display: "flex", flexDirection: "row", alignItems: 'baseline'}}> 
+                                <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 3.75033C1 3.19779 1.21949 2.66789 1.61019 2.27719C2.00089 1.88649 2.5308 1.66699 3.08333 1.66699H19.75C20.3025 1.66699 20.8324 1.88649 21.2231 2.27719C21.6138 2.66789 21.8333 3.19779 21.8333 3.75033V14.167C21.8333 14.7195 21.6138 15.2494 21.2231 15.6401C20.8324 16.0308 20.3025 16.2503 19.75 16.2503H3.08333C2.5308 16.2503 2.00089 16.0308 1.61019 15.6401C1.21949 15.2494 1 14.7195 1 14.167V3.75033Z" stroke="#6D5DD0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M11.4165 12.084C13.1424 12.084 14.5415 10.6849 14.5415 8.95898C14.5415 7.23309 13.1424 5.83398 11.4165 5.83398C9.69061 5.83398 8.2915 7.23309 8.2915 8.95898C8.2915 10.6849 9.69061 12.084 11.4165 12.084Z" stroke="#6D5DD0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.6667 16.2503C17.6667 15.1453 18.1057 14.0854 18.8871 13.304C19.6685 12.5226 20.7283 12.0837 21.8333 12.0837M1 5.83366C2.10507 5.83366 3.16488 5.39467 3.94628 4.61327C4.72768 3.83187 5.16667 2.77206 5.16667 1.66699L1 5.83366Z" stroke="#6D5DD0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                
+                                <p style={{marginLeft: '3px'}} className={styles.info_price}>Цена: {coursePrice} {props.course.currency}/{props.course.unit_of_time}</p>
+                                </label>
                             )
                         }
                     </div>
