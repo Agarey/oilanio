@@ -40,6 +40,8 @@ const About = () => {
     const [searchCenter, setSearchCenter] = useState(true)
     const [filters, setFilters] = useState([]);
     const [filtersLoading, setFiltersLoading] = useState(false);
+    const [sec, setSec] = useState(true);
+    const [min, setMin] = useState(false);
 
     const loadFilters = async () => {
         setFiltersLoading(true)
@@ -67,9 +69,15 @@ const About = () => {
         setShowNoizyWindow(true);
     }
 
-    setTimeout(openNoize, 30000)
-     
-    setInterval(openNoize, 300000);
+    // if (sec) {
+    //     setTimeout(openNoize, 30000);
+    //     setSec(false);
+    //     setMin(true);
+    // };
+    // if (min) {
+    //     setInterval(openNoize, 300000);
+    // };
+
     return(
         <div>
             <div className={styles.intro}>

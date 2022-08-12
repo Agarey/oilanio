@@ -60,8 +60,8 @@ const LurkingFilterBlock = ({
       );
 
       console.log("postResult равно", postResult.data);
-      setCourseCards(postResult.data);
-      setCoursesLoading(false);
+      await setCourseCards(postResult.data);
+      await setCoursesLoading(false);
     }
   };
 

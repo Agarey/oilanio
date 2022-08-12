@@ -57,6 +57,8 @@ const CreateApplication = (props) => {
   const [odometerValue, setOdometerValue] = useState(0);
   const browser = "";
   const [isSafari, setIsSafari] = useState(false);
+  const [sec, setSec] = useState(true);
+  const [min, setMin] = useState(false);
 
   useEffect(() => {
     setShowSecondSlide(false);
@@ -66,6 +68,8 @@ const CreateApplication = (props) => {
       // console.log(res.data);
     });
   }, []);
+
+  console.log(showSecondSlide);
 
   useEffect(() => {
     axios.get(`${globals.productionServerDomain}/tutors`).then((res) => {
@@ -215,13 +219,19 @@ const CreateApplication = (props) => {
   }
 
   function openNoize() {
-    // loadCategories(true);
     setShowNoizyWindow(true);
   }
-
-  setTimeout(openNoize, 30000)
-     
-  setInterval(openNoize, 300000);
+  
+  // if (sec) {
+  //   if (!showSecondSlide) {
+  //     setTimeout(openNoize, 30000);
+  //     setSec(false);
+  //     setMin(true);
+  //   }
+  // };
+  // if (min) {
+  //   if (!showSecondSlide) setInterval(openNoize, 300000);
+  // }; 
 
   return (
     <div

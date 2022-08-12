@@ -49,13 +49,13 @@
     grid-gap: 1%;
 }
 .link{
-    color: white;
+    color: black;
     font-family: "Rubik Medium";
     text-decoration: none;
     cursor: pointer;
 }
 .link:hover{
-    color: white;
+    color: #412FAE;
     text-decoration: none;
 }
 .howItWorks{
