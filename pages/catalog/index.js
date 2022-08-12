@@ -283,7 +283,7 @@ const Catalog = () => {
         }
         else if(navigator.userAgent.indexOf("Safari") != -1)
         {
-            setIsSafari(true);
+            setIsSafari(false);
         }
         else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
         {
@@ -906,14 +906,15 @@ const Catalog = () => {
                                     animation="count"
                                 />
                             </div>
-                            
-                                <Doughnut 
+                            {!isSafari
+                                ?(<Doughnut 
                                     className={styles.hole} 
                                     data={dataTutors} 
                                     tooltips={false} 
                                     options={optionsDon}
-                                />
-                                
+                                />)
+                                :(<></>)
+                            }
                         </div>
                         <p>Репетиторов</p>
                     </div>
