@@ -177,6 +177,12 @@ function SignIn(props) {
             } else if (res.data.roleId === 6) {
               router.push(`${globals.productionSiteDomain}/cabinet/tutor`);
             }
+
+            axios.post(`${globals.productionServerDomain}/newSession/`, {
+            user_id: res.data.centerId,
+            user_role: res.data.roleId,
+            log_date: new Date()
+          })
           } else {
             setError(true);
             setMessageText("Неправильные данные");
