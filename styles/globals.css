@@ -78,9 +78,12 @@ a {
     top: 0;
     left: 0;
 
-    display: block;
+    /* display: block; */
     margin-left: auto;
     margin-right: auto;
+    display: flex !important;
+    align-items: flex-start !important;
+    height: 350px;
 }
 .slick-track:before,
 .slick-track:after
