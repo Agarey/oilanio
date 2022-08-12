@@ -41,6 +41,8 @@ export function SignupToCourseForm(props) {
         return name !== '' && email !== '' && phone !== '' && ofertaCheck;
     }
 
+    console.log(props.tutor);
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
 
@@ -59,17 +61,17 @@ export function SignupToCourseForm(props) {
             <div>
                 {props.tutor!=undefined ? (
                     <>
-                        <span className={styles.courseTitle} >{props.tutor.fullname}</span>
+                        <span className={styles.courseTitle} >{props.tutor.tutorsName}</span>
                         <span className={styles.courseTitle} style={{fontSize: 18, fontFamily: 'Rubik Medium', marginBottom: 10, display: 'block'}}>
-                            {props.tutor.category_name}
+                            {props.tutor.courseCategory}
                         </span>
                         <div style={{margin: '10xp 0', display: 'flex', alignItems: 'center'}}>
-                        <span className={styles.courseDescription}>{props.tutor.tutor_description === null ? 'Репетитор не указал информацию о себе. :(' : props.tutor.tutor_description}</span>
+                        <span className={styles.courseDescription}>{props.tutor.tutorDescription === null ? 'Репетитор не указал информацию о себе. :(' : props.tutor.tutorDescription}</span>
                         </div>
                         <div style={{marginTop: '10px'}}>
-                            <span className={styles.courseInfoTitle}>Город:</span>
+                            <span className={styles.courseInfoTitle}>Город :</span>
                         </div>
-                        <span className={styles.courseDescription}>{props.tutor.city_name}. {props.tutor.can_work_online && 'Онлайн. '}{props.tutor.can_work_offline && 'Офлайн. '}</span>
+                        <span className={styles.courseDescription}>{props.tutorCity} {props.tutor.can_work_online && 'Онлайн. '}{props.tutor.can_work_offline && 'Офлайн. '}</span>
                         <div style={{marginTop: '10px'}}>
                             <span className={styles.courseInfoTitle}>Язык преподавания:</span>
                         </div>

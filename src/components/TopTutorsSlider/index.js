@@ -153,7 +153,7 @@ const getCards = async () => {
                 ? (
                   <a onClick={async () => {{setShow(!show)} 
                   console.log("findTutorId", findedTutor)}} key={idx} className={styles.category}>
-                    <ModalWindow show={show} handleClose={handleClose} heading={'Оставить заявку репетитору'} body={<SignupToCourseForm sendApplicationCallback={sendApplication} course={findedTutor} tutor={findedTutor} handleClose={handleClose}/>}/>
+                    <ModalWindow show={show} handleClose={handleClose} heading={'Оставить заявку репетитору'} body={<SignupToCourseForm sendApplicationCallback={sendApplication} course={findedTutor} tutor={findedTutor} tutorCity={category.city_name} handleClose={handleClose}/>}/>
                     <div className={styles.img}
                       style={{backgroundImage: `url("${category.img_src}")`, marginBottom: 10}}
                     >

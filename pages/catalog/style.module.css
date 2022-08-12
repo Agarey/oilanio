@@ -53,6 +53,7 @@
     font-family: "Rubik Medium";
     text-decoration: none;
     cursor: pointer;
+    margin-top: 79px;
 }
 .link:hover{
     color: #412FAE;

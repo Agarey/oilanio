@@ -24,8 +24,8 @@
     transition: 0.5s;
 }
 .fullname{
-    font-size: 16px;
-    font-family: "Rubik Bold";
+    font-size: 18px;
+    font-family: "Rubik Medium";
     margin: 5px 0 5px 0;
     color: black;
 }
@@ -132,7 +132,7 @@
 .info_block{
     width: 100%;
     height: auto;
-    padding: 0 5px;
+    /* padding: 0 5px; */
     display: flex;
     flex-direction: column;
     align-content: space-between;
@@ -165,11 +165,10 @@
 }
 
 .info_title{
+    margin-left: 3px;
+    font-size: 16px;
     font-family: "Rubik Regular";
-    font-size: 14px;
-    color: #6a6a6a;
-    margin: 0;
-    word-wrap: break-word;
+    color: rgba(0, 0, 0, 0.7);
 }
 .showHideBtn{
     font-family: sans-serif;
@@ -216,7 +215,7 @@
 }
 
 .info_price{
-    font-family: "Rubik Medium";
+    /* font-family: "Rubik Medium";
     margin-top: 4px;
     display: block;
     color: black;
@@ -224,7 +223,11 @@
     transition: 0.5s;
     word-wrap: break-word;
     overflow: hidden;
-    width: 100%;
+    width: 100%; */
+    margin-left: 3px;
+    font-size: 16px;
+    font-family: "Rubik Regular";
+    color: rgba(0, 0, 0, 0.7);
 }
 .container:hover .showHideBtn{
     color: white;

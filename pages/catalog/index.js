@@ -906,15 +906,14 @@ const Catalog = () => {
                                     animation="count"
                                 />
                             </div>
-                            {!isSafari
-                                ?(<Doughnut 
+                            
+                                <Doughnut 
                                     className={styles.hole} 
                                     data={dataTutors} 
                                     tooltips={false} 
                                     options={optionsDon}
-                                />)
-                                :(<></>)
-                            }
+                                />
+                                
                         </div>
                         <p>Репетиторов</p>
                     </div>
