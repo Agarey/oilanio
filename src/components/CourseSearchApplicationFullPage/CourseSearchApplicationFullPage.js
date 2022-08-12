@@ -211,13 +211,13 @@ export default function CourseSearchApplicationFullPage(props) {
               className={styles.image}
               src={
                 step === 1
-                  ? "https://realibi.kz/file/73343.jpg"
+                  ? "https://realibi.kz/file/968754.png"
                   : "/Other04.png"
               }
             />
-            <p className={styles.imageText}>
+            {/* <p className={styles.imageText}>
               заполняют заявку на Oilan, чтобы изучить что-то новое
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

@@ -46,6 +46,7 @@
     display: grid;
     justify-content: center;
     grid-template-columns: [card] 20% [card] 20% [card] 20% [card] 20%;
+    grid-gap: 1%;
 }
 .link{
     color: white;
@@ -71,7 +72,7 @@
     transition: 0.3s;
 }
 .pageBody{
-    background-image: url(https://realibi.kz/file/843135.png);
+    background-image: url(https://realibi.kz/file/620863.png);
     background-size: 107%;
     background-repeat: no-repeat;
     height: auto !important;
@@ -389,7 +390,7 @@
     position: absolute;
     width: 100%;
     transition: 0.5s;
-    transform: translateX(100%);
+    transform: translateX(-100%);
 }
 
 .downblock {

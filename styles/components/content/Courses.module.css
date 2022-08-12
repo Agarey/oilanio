@@ -165,6 +165,7 @@
     display: grid;
     justify-content: center;
     grid-template-columns: [card] 20% [card] 20% [card] 20% [card] 20%;
+    grid-gap: 1%;
 }
 
 .courseCard_item{

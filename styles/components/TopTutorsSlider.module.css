@@ -42,6 +42,9 @@
     text-decoration: none;
     color: #0048ff;
 }
+.categoryNone {
+    display: none !important;
+}
 .img{
     height: 235px;
     width: 249px;
@@ -84,6 +87,18 @@
 }
 .arrow:disabled:hover{
     color: #A5B4CB;
+}
+
+.labels {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.labels svg {
+    flex-shrink: 0;
+}
+.labels p {
+    margin-left: 3px ;
 }
 
 
