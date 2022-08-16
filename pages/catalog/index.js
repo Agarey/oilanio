@@ -159,13 +159,13 @@ const Catalog = () => {
     const [directionId, setDirectionId] = useState()
     const [courseId, setCourseId] = useState()
     const [searchFilter, setSearchFilter] = useState([])
+    const [tutorName, setTutorName] = useState()
+    const [searchFilterTutors, setSearchFilterTutors] = useState([])
 
     const [showAboutUs, setShowAboutUs] = useState(false)
 
     const [tutorCards, setTutorCards] = useState([]);
     const [isTutors, setIsTutors] = useState(false);
-    const [sec, setSec] = useState(true);
-    const [min, setMin] = useState(false);
 
     const loadUserInfo = async () => {
         if(localStorage.getItem(globals.localStorageKeys.currentStudent) !== null){
@@ -257,6 +257,7 @@ const Catalog = () => {
             setroundFilters(res.data);
             loadCategories(true);
             loadFilters();
+            console.log("res.data", res.data);
         });
     }, [])
 
@@ -270,6 +271,7 @@ const Catalog = () => {
         loadStocks().then(() => setStocksLoading(false));
         compareDirectrion(searchInput)
         compareCourseName(searchInput)
+        compareIsTutor(searchInput)
         window.scrollTo(0, 0);
     }, [])
     useEffect(() => {
@@ -410,6 +412,19 @@ const Catalog = () => {
     }
     const [searchFilterCourses, setSearchFilterCourses] = useState([])
 
+    const compareIsTutor = (value) => {
+        let tutor_name = (tutors.find(el => el.fullname.toLowerCase() == value.toLowerCase()))
+        if (!tutor_name) {tutor_name = ''}
+        (tutor_name == '')? {} : tutor_name = tutor_name.fullname
+        setTutorName(tutor_name)
+        console.log("tutorName", tutorName)
+
+        const filterTutors = tutors.filter(tutors => {
+            return tutors.fullname.toLowerCase().includes(value.toLowerCase())
+        })
+        setSearchFilterTutors(filterTutors)
+    }
+
     const searchItemClickHandler = (e) => {
         setSearchInput(e.target.textContent)
         setIsFilterOpen(false)
@@ -423,6 +438,7 @@ const Catalog = () => {
     useEffect(() => {
         compareDirectrion(searchInput)
         compareCourseName(searchInput)
+        compareIsTutor(searchInput)
     }, [searchInput])
 
 
@@ -807,6 +823,7 @@ const Catalog = () => {
                 <input onChange={(e) => {setSearchInput(e.target.value)
                 compareDirectrion(searchInput)
                 compareCourseName(searchInput)
+                compareIsTutor(searchInput)
                 setIsFilterOpen(true)
             
                 }} value={searchInput} style={{width: '80%'}} placeholder={'Название специальности или языка'}/>
@@ -814,12 +831,13 @@ const Catalog = () => {
                     onClick={()=>{
                         compareDirectrion(searchInput)
                         compareCourseName(searchInput)
-                        let centerName = courseId;
+                        compareIsTutor(searchInput)
+                        let centerName = courseId? courseId : tutorName;
                         let city = 0;
                         let direction = directionId;
                         let price = 0;
                         let isOnline = 0;
-                        filterBtnHandler(centerName, city, direction, price, isOnline, '1');
+                        filterBtnHandler(centerName, city, direction, price, isOnline, tutorName? '0' : '1');
                     }}
                 style={{width: '20%'}}>Найти</button>
                 <div className={styles.searchFilterWrapper}>
@@ -840,6 +858,14 @@ const Catalog = () => {
                             </li>
                         )
                     }) : null}
+                    {searchInput && isFilterOpen
+                        ? searchFilterTutors.map(items => {
+                            return (
+                                <li className={styles.searchFilterItem} onClick={searchItemClickHandler}>
+                                    {items.fullname}
+                                </li>
+                            )
+                        }) : null}
                 </ul>
                 </div>
 
