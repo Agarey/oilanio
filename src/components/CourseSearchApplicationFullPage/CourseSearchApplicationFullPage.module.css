@@ -117,10 +117,10 @@
   position: absolute;
   left: 12px;
   padding: 0 5px;
-  bottom: 45px;
   background: #fff;
   font-size: 15px;
   font-family: "Rubik Medium";
+  top: -10px;
 }
 
 .selectNameStar {

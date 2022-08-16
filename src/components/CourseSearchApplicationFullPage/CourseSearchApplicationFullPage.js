@@ -31,7 +31,7 @@ export default function CourseSearchApplicationFullPage(props) {
   const [directionId, setDirectionId] = useState(1);
   const [cityDistrict, setCityDistrict] = useState(0);
   const [price, setPrice] = useState("0");
-
+  const [connection, setConnection] = useState("Звонок");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -114,6 +114,11 @@ export default function CourseSearchApplicationFullPage(props) {
       setSubMessageForUser("Заполните номер телефона!");
       ym("reachGoal", "send_application_button_pressed_unsuccessfully");
       return false;
+    } else if (price === 0) {
+      setMessageForUser("Заполните все поля!");
+      setSubMessageForUser("Заполните цену!");
+      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+      return false;
     }
     // else if(email.length < 1){
     //     setMessageForUser("Заполните все поля!");
@@ -127,12 +132,12 @@ export default function CourseSearchApplicationFullPage(props) {
     //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
     //     return false
     // }
-    // else if(comment.length < 3){
-    //     setMessageForUser("Заполните все поля!");
-    //     setSubMessageForUser("Заполните описание курса!");
-    //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
-    //     return false
-    // }
+    else if(comment.length < 3){
+        setMessageForUser("Заполните все поля!");
+        setSubMessageForUser("Заполните описание курса!");
+        ym('reachGoal','send_application_button_pressed_unsuccessfully')
+        return false
+    }
     else {
       setFirstStepValidationState(true);
       return true;
@@ -224,7 +229,7 @@ export default function CourseSearchApplicationFullPage(props) {
     );
   }
 
-  const sendApplication = (courseId, userInfo) => {
+  const sendApplication = async (courseId, userInfo) => {
     let data = {
       city_id: cityId,
       direction_id: directionId,
@@ -236,9 +241,10 @@ export default function CourseSearchApplicationFullPage(props) {
       course_id: courseId,
       role_id: Boolean(searchCenter) ? 4 : 6,
       message: comment,
-      price: price
+      price: price,
+      connection: connection
     };
-    console.log(props.searchCenter);
+
     axios({
       method: "post",
       url: `${globals.productionServerDomain}/createCourseSearchTicket`,
@@ -250,7 +256,7 @@ export default function CourseSearchApplicationFullPage(props) {
       .then(function (res) {})
       .catch(() => {
         alert("Что-то пошло нетак!");
-      });
+      });  
   };
 
   function firstStep() {
@@ -427,18 +433,38 @@ export default function CourseSearchApplicationFullPage(props) {
           </select>
           <span className={styles.selectName}>
             Цена
+            <span className={styles.selectNameStar}> *</span>
           </span>
         </div>
-        <textarea
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-          className={styles.techSupportInput}
-          style={{cursor: "text"}}
-          rows="5"
-          placeholder={'Описание курса, возраст учащегося, желаемое время, и пожелания. Способы связи со мной (позвонить, написать в Whatsapp, Telegram)'}
-        />
-        
-        
+        <div className={styles.selectContainer}>
+          <select 
+            className={styles.selectBlock} 
+            value={connection} 
+            onChange={e => setConnection(e.target.value)}
+          >
+            <option value="Звонок">Звонок</option>
+            <option value="Whatsapp">Whatsapp</option>
+          </select>
+          <span className={styles.selectName}>
+            Предпочитаемый способ связи
+            <span className={styles.selectNameStar}> *</span>
+          </span>
+        </div>
+        <div className={styles.selectContainer}>
+          <textarea
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+            className={styles.techSupportInput}
+            style={{cursor: "text"}}
+            rows="5"
+            placeholder={'Описание курса, возраст учащегося, желаемое время, и пожелания. Способы связи со мной (позвонить, написать в Whatsapp, Telegram)'}
+            required
+          />
+          <span className={styles.selectName}>
+            Сообщение
+            <span className={styles.selectNameStar}> *</span>
+          </span>
+        </div>
         <label
           style={{
             fontFamily: "Rubik Medium",
