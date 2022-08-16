@@ -542,7 +542,7 @@ const CreateApplication = (props) => {
           </div>
         </div>
         <div className={styles.obenGide}>
-          <button
+          {/* <button
             style={{ marginRight: "0px" }}
             className={classnames(styles.button2, styles.hideButton)}
             onClick={() => {
@@ -554,7 +554,7 @@ const CreateApplication = (props) => {
             }}
           >
             Как это работает
-          </button>
+          </button> */}
         </div>
       </div>
       <Image
@@ -565,7 +565,9 @@ const CreateApplication = (props) => {
       <div
         className={styles.downblock}
         style={{
-          display: !showGide || showSecondSlide ? "none" : "flex",
+          display: 
+          // !showGide || showSecondSlide ? "none" : 
+          "flex",
           opacity: showSecondSlide ? "0" : "1",
         }}
       >
