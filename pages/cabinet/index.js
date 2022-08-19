@@ -17,8 +17,8 @@ function Cabinet(){
   const menuItems = [
     {title: 'Заявки', index: 0},
     {title: 'Статистика', index: 1},
-    {title: 'Подписка', index: 2},
-    {title: 'Моя информация', index: 3}
+    // {title: 'Подписка', index: 2},
+    {title: 'Моя информация', index: 2}
   ];
 
   const [course, setCourse] = useState({
@@ -159,9 +159,9 @@ function Cabinet(){
           newApplicationsCount={newApplicationsCount} 
           clickStatistics={clickStatistics}
         />)
+      // case 2:
+      //   return(<SubscriptionBlock courseInfo={courseInfo}/>)
       case 2:
-        return(<SubscriptionBlock courseInfo={courseInfo}/>)
-      case 3:
         return(<MyInfoBlock 
           teachers={teachers} 
           courseCategories={courseCategories} 

@@ -36,8 +36,8 @@ function Cabinet(){
   const menuItems = [
     {title: 'Заявки', index: 0},
     {title: 'Статистика', index: 1},
-    {title: 'Подписка', index: 2},
-    {title: 'Моя информация', index: 3}
+    // {title: 'Подписка', index: 2},
+    {title: 'Моя информация', index: 2}
   ];
 
   const [fullname, setFullname] = useState(tutor.fullname);
@@ -173,11 +173,11 @@ function Cabinet(){
           courseCards={courseCards}
           subscriptionInfo={subscriptionInfo}
         />)
+      // case 2:
+      //   return (<SubscriptionBlockTutor 
+      //     courseInfo={courseInfo}
+      //   />)
       case 2:
-        return (<SubscriptionBlockTutor 
-          courseInfo={courseInfo}
-        />)
-      case 3:
         return (<TutorInfoBlock 
           courseCategories={courseCategories} 
           courseInfo={courseInfo} 

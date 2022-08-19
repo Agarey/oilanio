@@ -81,10 +81,16 @@ export default function AllApplications(props){
             className={styles.button}
             onClick={() => {
               console.log(application.deactivated_date);
-              if ((new Date(props.center.next_payment_date).getTime()) > (new Date().getTime())) {
-                setCardPickModal(true);
-              } else{
+              if (props.courseInfo.status === "hold"|| props.courseInfo.status === "refused") {
                 setShowPaymentModal(true);
+              } else if (props.courseInfo.status === "beginner") {
+                setCardPickModal(true);
+              } else {
+                if ((new Date(props.center.next_payment_date).getTime()) > (new Date().getTime())) {
+                  setCardPickModal(true);
+                } else {
+                  setShowPaymentModal(true);
+                }
               }
             }}
           >

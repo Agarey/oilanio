@@ -243,12 +243,12 @@ function Courses({props}) {
         })
     }
 
-    function openNoize(){
-        // loadCategories(true);
-        setShowNoizyWindow(true);
-    }
+    // function openNoize(){
+    //     // loadCategories(true);
+    //     setShowNoizyWindow(true); 
+    // }
      
-    setInterval( openNoize, 300000 );
+    // setInterval( openNoize, 300000 );
     return (
         <div id={'page_top'}>
             <ModalWindow
@@ -273,7 +273,7 @@ function Courses({props}) {
             />
 
             <Head>
-                <title>Курсы</title>
+                <title> Курсы</title>
                 <link rel="icon" href="/atom-icon.png"/>
                 <div dangerouslySetInnerHTML={{__html: ym()}}/>
             </Head>

@@ -60,6 +60,10 @@ export default function CourseSearchApplicationFullPage(props) {
 
   const [imagesBase, setImagesBase] = useState([]);
 
+  const [appCountCourse, setAppCountCourse] = useState([]);
+
+  const [language, setLanguage] = useState(null);
+
   const loadData = async () => {
     let regionsResponse = await axios.get(
       `${globals.productionServerDomain}/getRegions`
@@ -116,7 +120,12 @@ export default function CourseSearchApplicationFullPage(props) {
       return false;
     } else if (price === 0) {
       setMessageForUser("Заполните все поля!");
-      setSubMessageForUser("Заполните цену!");
+      setSubMessageForUser("Выберите цену!");
+      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+      return false;
+    } else if (language === null) {
+      setMessageForUser("Заполните все поля!");
+      setSubMessageForUser("Выберите язык обучение!");
       ym("reachGoal", "send_application_button_pressed_unsuccessfully");
       return false;
     }
@@ -153,6 +162,7 @@ export default function CourseSearchApplicationFullPage(props) {
       isOnline: isOnline,
       //individualLesson: individualLesson,
       sortType: "0",
+      language: language
     };
 
     let postResult = await axios.post(
@@ -242,7 +252,8 @@ export default function CourseSearchApplicationFullPage(props) {
       role_id: Boolean(searchCenter) ? 4 : 6,
       message: comment,
       price: price,
-      connection: connection
+      connection: connection,
+      language: language
     };
 
     axios({
@@ -257,6 +268,64 @@ export default function CourseSearchApplicationFullPage(props) {
       .catch(() => {
         alert("Что-то пошло нетак!");
       });  
+    let dataStatus = {
+      category_id: directionId,
+      isOnline: isOnline,
+      city_id: cityId
+    };
+
+    const coursesStatus = await axios.get(`${globals.productionServerDomain}/getCenterStatus`, {
+      params: dataStatus
+    });
+
+    console.log(coursesStatus.data);
+
+    // const sessionsCourse = [];
+
+    // if (coursesStatus.data) {
+    //   const sessionsCourseCopy = await coursesStatus.data.map(async (course) => {
+    //     await axios.get(`${globals.productionServerDomain}/getSessionCourse`, {
+    //       params: {
+    //         id: +course.id
+    //       }
+    //     }).then(result => {
+    //       console.log(result.data);
+    //       sessionsCourse.push(result.data);
+    //       return result.data
+    //     });
+    //   })
+    //   console.log(sessionsCourse);
+    // }
+
+    if (coursesStatus.data) {
+      const appCountCourseCopy = await coursesStatus.data.map(async (course) => {
+        await axios.get(`${globals.productionServerDomain}/getCourseApplicationCount`, {
+          params: {
+            id: +course.id
+          }
+        }).then(result => {
+          return setAppCountCourse(prevState => {
+            return [
+              ...prevState,
+              result.data
+            ];
+          });
+        });
+      })
+    }
+
+    // if (appCountCourse.length > 0) {
+    //   appCountCourse.map(async (center) => {
+    //     if (center.length > 9) {
+    //       await axios.post(`${globals.productionServerDomain}/changeStatusToHold`, {
+    //         id: +center[0].course_id
+    //       })
+    //     } else {
+    //       return null;
+    //     }
+    //   })
+    // }
+
   };
 
   function firstStep() {
@@ -387,7 +456,26 @@ export default function CourseSearchApplicationFullPage(props) {
             <span className={styles.selectNameStar}> *</span>
           </span>
         </div>
-
+        {searchCenter === 0 
+          ? <div className={styles.selectContainer}>
+            <select
+              className={styles.selectBlock}
+              onChange={(e) => {
+                setLanguage(e.target.value)
+              }}
+            >
+              <option>Выберите язык обучение</option>
+              <option value="Казахский">Казахский</option>
+              <option value="Русский">Русский</option>
+              <option value="Английский">Английский</option>
+            </select>
+            <span className={styles.selectName}>
+              Язык обучения
+              <span className={styles.selectNameStar}> *</span>
+            </span>
+          </div>
+          : null
+        }
         {isOnline === false ? (
           <div className={styles.selectContainer}>
             <select

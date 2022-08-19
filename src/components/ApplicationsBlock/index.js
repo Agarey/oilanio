@@ -56,6 +56,7 @@ export default function ApplicationsBlock(props){
                   application={item} 
                   active={active}
                   deActive={deActive}
+                  courseInfo={props.courseInfo}
                 />
               </div>
             </>)}
@@ -74,6 +75,7 @@ export default function ApplicationsBlock(props){
                       application={item} 
                       active={active}
                       deActive={deActive}
+                      courseInfo={props.courseInfo}
                     />
                   </div>
                 </>)
@@ -89,6 +91,7 @@ export default function ApplicationsBlock(props){
                     courseCards={props.courseCards} 
                     subscriptionInfo={props.subscriptionInfo} 
                     application={item} 
+                    courseInfo={props.courseInfo}
                   />
                 </div>
               )        

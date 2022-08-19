@@ -18,9 +18,10 @@ export default function EditTeacherCard(props) {
     const data = {
       id: id,
       fullname: fullname,
-      description: description.replace(/\r?\n/g, "")
+      description: description
     };
     
+    console.log(data.description);
     axios({
       method: 'post',
       url: `${globals.productionServerDomain}/editTeacherInfo`,
@@ -116,9 +117,7 @@ export default function EditTeacherCard(props) {
                   method: 'post',
                   data: {teacherId: props.teacher.id},
                   url: `${globals.productionServerDomain}/deleteCourseTeacher`,
-                  headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("auth token")}`
-                  }
+                  
                 }).then(function(res){
                   setEdit(!edit);
                   location.reload();
