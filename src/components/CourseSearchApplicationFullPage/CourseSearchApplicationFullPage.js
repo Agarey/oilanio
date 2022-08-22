@@ -123,12 +123,13 @@ export default function CourseSearchApplicationFullPage(props) {
       setSubMessageForUser("Выберите цену!");
       ym("reachGoal", "send_application_button_pressed_unsuccessfully");
       return false;
-    } else if (language === null) {
-      setMessageForUser("Заполните все поля!");
-      setSubMessageForUser("Выберите язык обучение!");
-      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
-      return false;
-    }
+    } 
+    // else if (language === null) {
+    //   setMessageForUser("Заполните все поля!");
+    //   setSubMessageForUser("Выберите язык обучение!");
+    //   ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+    //   return false;
+    // }
     // else if(email.length < 1){
     //     setMessageForUser("Заполните все поля!");
     //     setSubMessageForUser("Заполните электронную почту!");
