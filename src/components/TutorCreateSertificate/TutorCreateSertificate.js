@@ -62,7 +62,9 @@ const TutorCreateSertificate = ({
               {
                 file: f,
                 fileUrl: e.target.result,
-                fileName: theFile.name
+                fileName: theFile.name,
+                fileTitle: "",
+                status: f.size > 1073741824 ? "Файл слишком большой" : "Назовите файл"
               }
             ];
           });
@@ -84,6 +86,7 @@ const TutorCreateSertificate = ({
       setImages([...images, file]);
       const fileReader = new FileReader();
       fileReader.onload = (function (theFile) {
+        console.log(theFile);
         return function (e) {
           setImageDatas(prevState => {
             return [
