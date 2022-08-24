@@ -3,11 +3,13 @@ import styles from './style.module.css';
 import {Image} from "react-bootstrap";
 import {default as axios} from "axios";
 import globals from "../../../src/globals";
+import classnames from 'classnames';
 
 const TutorSertificate = (props) => {
 
   const [serfTitle, setSerfTitle] = useState(props.item.title);
   const [serfEdit, setSerfEdit] = useState(false);
+  const [actionsShow, setActionsShow] = useState(false);
 
   const deleteSertificate = (id) => {
     axios({
@@ -52,15 +54,29 @@ const TutorSertificate = (props) => {
 
   return <>
     <div className={styles.sertificate}>
+      <div 
+        className={styles.sertificateActions}
+        onClick={() => setActionsShow(!actionsShow)}
+      >
+        Действия
+        <span className={actionsShow ?classnames(styles.dropdown, styles.dropdownShow) : styles.dropdown}></span>
+        <div className={styles.actionsItems} style={actionsShow ? {display: "block"} : {display: "none"}}>
+          <div onClick={serfEditModeHandler} className={styles.actionsEdit}>{!serfEdit ? "Редактировать" : "Отмена"}</div>
+          <div onClick={() => editSertificateTitle(props.item.id)} className={styles.actionsSave}>Сохранить</div>
+          <div onClick={() => deleteSertificate(props.item.id)} className={styles.actionsDelete}>Удалить</div>
+        </div>
+      </div>
+      
+      <Image src={props.item.img_src} className={styles.sertificateImg} />
       {!serfEdit 
-        ? <center>{props.item.title}</center> 
+        ? <p className={styles.titleCerf}>{props.item.title}</p> 
         : <input 
           onChange={onChangeSerfTitle}
           value={serfTitle}
+          className={styles.editInput}
         />
-      }           
-      <Image className={styles.sertificateImg} src={props.item.img_src}/>
-      {serfEdit
+      } 
+      {/* {serfEdit
         ? (
           <>
             <button
@@ -85,13 +101,13 @@ const TutorSertificate = (props) => {
             Редактировать данные
           </button>
         )
-      }
-      <button
+      } */}
+      {/* <button
         onClick={() => deleteSertificate(props.item.id)}
         className={styles.sertificateBtn}
       >
         Удалить
-      </button>
+      </button> */}
     </div>
   </>
 };

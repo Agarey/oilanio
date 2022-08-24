@@ -9,17 +9,13 @@ import globals from "../../../src/globals";
 import {Image} from "react-bootstrap";
 import { registry } from 'chart.js';
 import TutorSertificate from '../TutorSertificate/TutorSertificate';
+import TutorCreateSertificate from '../TutorCreateSertificate/TutorCreateSertificate';
 
 export default function TutorInfoBlock(props){
   const [tutorSerfs, setTutorSerfs] = useState([])
-  const [showSModal, setShowSModal] = useState(0)
-  const [sertificateTitle, setSertificateTitle] = useState('')
-  const [imgFile, setImgFile] = useState(null);
-  const [serfTitle, setSerfTitle] = useState("");
-  const [serfEdit, setSerfEdit] = useState(false);
+  const [showSModal, setShowSModal] = useState(false)
 
   let maxSerfId = 0;
-  let serfCounter = 0;
 
   useEffect(()=>{
     axios.get(`${globals.productionServerDomain}/getSertificates`).then(res => {
@@ -38,40 +34,41 @@ export default function TutorInfoBlock(props){
   
   let lastSerf = tutorSerfs.slice(-1)
   
-  const newSertificate = () => {
-    let id = maxSerfId + 1;
-    let title = sertificateTitle;
-    let tutor_id = props.tutor.id;
-    console.log('new id', id)
-    let formData = new FormData();
-    formData.append('file', imgFile);
+  // const newSertificate = async (sertificateTitle, imgFile, index) => {
+  //   let id = maxSerfId + (index + 1);
+  //   let title = sertificateTitle;
+  //   let tutor_id = props.tutor.id;
+  //   console.log('new id', id)
+  //   let formData = new FormData();
+  //   formData.append('file', imgFile);
 
-    axios({
-      method: "post",
-      url: `${globals.ftpDomain}/file/upload`,
-      data: formData,
-      headers: {"Content-Type": "multipart/form-data"},
-    })
-    .then(function (response) {
-      axios({
-        method: 'post',
-        url: `${globals.productionServerDomain}/createTutorSertificate`,
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem("auth token")).token}`
-        },
-        data: {
-        id: id,
-        title: title,
-        tutor_id: tutor_id,
-        img_src: `https://realibi.kz/file/${response.data.split('/')[4]}`,
-      }})
-      .then(res => {
-        console.log("Status:" + res.status);
-        alert("Сертификат добавлен")
-        location.reload()
-      });
-    })
-  };
+  //   await axios({
+  //     method: "post",
+  //     url: `${globals.ftpDomain}/file/upload`,
+  //     data: formData,
+  //     headers: {"Content-Type": "multipart/form-data"},
+  //   })
+  //   .then(function (response) {
+  //     console.log(response.data);
+  //     console.log(id, title, tutor_id, `https://realibi.kz/file/${response.data.split('/')[4]}`);
+  //     axios({
+  //       method: 'post',
+  //       url: `${globals.productionServerDomain}/createTutorSertificate`,
+  //       headers: {
+  //         'Authorization': `Bearer ${JSON.parse(localStorage.getItem("auth token")).token}`
+  //       },
+  //       data: {
+  //       id: id,
+  //       title: title,
+  //       tutor_id: tutor_id,
+  //       img_src: `https://realibi.kz/file/${response.data.split('/')[4]}`,
+  //     }})
+  //     .then(res => {
+  //       console.log("Status:" + res.status);
+  //     });
+  //   });
+  //   // location.reload();
+  // };
 
   const cityInfo = props.filters[0].filter(info => {
     if (info.id === props.cityId) {
@@ -217,9 +214,9 @@ export default function TutorInfoBlock(props){
                   className={styles.tutor_info_input}
                 >
                   {props.editMode 
-                    ? props.filters[0].map(item => <option value={item.id}>
-                      {item.name}</option>)
-                    : <option value={cityInfo[0].id}>{cityInfo[0].name}</option>
+                    // ? props.filters[0].map(item => <option value={item.id}>
+                    //   {item.name}</option>)
+                    // : <option value={cityInfo[0].id}>{cityInfo[0].name}</option>
                   }
                 </select>
               </div>
@@ -286,51 +283,12 @@ export default function TutorInfoBlock(props){
         Ваши сертификаты:
       </div>
       <div className={styles.sertificatesBlock}>
-        <div className={styles.createSertificate} 
-          style={(showSModal == 1)?{display:'flex'}:{display:'none'}}>
-          <div className={styles.closeButtonBlock}>
-            <button className={styles.closeButton}
-              onClick={() => {
-                setShowSModal(0);
-              }}
-            >
-              X
-            </button>
-          </div>
-          <div className={styles.forlabelsser}>
-            <p>Заголовок</p> 
-            <input onChange={event => {
-                setSertificateTitle(event.target.value);
-              }} 
-              value={sertificateTitle}
-            />
-          </div>
-          <div className={styles.forlabelsser}>
-            <p>Фото сертификата</p> 
-            <input type="file"
-              onChange={function(e){
-                setImgFile(e.target.files[0]);
-              }}
-            />
-          </div>
-          <button onClick={async () => {
-            await newSertificate();
-            setShowSModal(0);
-          }}>
-            Создать
-          </button>
-        </div>
-        <div className={styles.sertificateAdd}>
-          <center>Добавить сертификат</center>
-          <button onClick={() => {
-              setShowSModal(1);
-            }} 
-            className={styles.createButton}
-          >
-            +
-          </button>
-          <Image className={styles.sertificateImg} src="https://realibi.kz/file/165614.jpg"/>
-        </div>
+        <TutorCreateSertificate 
+          show={showSModal}
+          close={() => setShowSModal(false)}
+          // newSertificate={newSertificate}
+          tutorId={props.tutor.id}
+        />
         {tutorSerfs.map(item => (props.tutor.id == item.tutor_id)
           ?(
             <TutorSertificate item={item} />
@@ -339,6 +297,16 @@ export default function TutorInfoBlock(props){
             <></>
           ))
         }
+        <div className={styles.sertificateAdd}>
+          <p className={styles.sertificateAddTitle}>Нажмите на панель, чтобы выбрать и загрузить ваши файлы.</p>
+          <button 
+            onClick={() => {
+              setShowSModal(true);
+            }} 
+            className={styles.createButton}
+          ></button>
+        </div>
+        
       </div>
       <hr/>
       <div className={styles.block_title}>

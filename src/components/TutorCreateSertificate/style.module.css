@@ -1,0 +1,228 @@
+@font-face {
+  font-family: "Montserrat Regular";
+  src: url("../../../public/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat Medium";
+  src: url("../../../public/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat Bold";
+  src: url("../../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+
+.modal {
+  position: absolute;
+  z-index: 500;
+  background-color: white;
+  width: 80%;
+  border: 1px solid #ccc;
+  padding: 16px;
+  left: 10%;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  border-radius: 20px;
+}
+
+.serfInfoContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.serf_image {
+  border: 2px dashed #8E8E93;
+  border-radius: 20px;
+  width: 60%;
+}
+
+.drop_area {
+  width: 100%;
+  height: 250px;
+  padding: 70px 0;
+  border: 1px dashed #8E8E93;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #979797;
+  font-family: "Montserrat Regular";
+  text-align: center;
+}
+
+.drop_area_container {
+  width: 52%;
+}
+
+.drop_area_text {
+  padding: 0 65px;
+  margin-bottom: 12px;
+}
+
+.modalTitle {
+  font-family: "Montserrat Bold";
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.subTitle {
+  font-family: "Montserrat Regular";
+  font-size: 20px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.chooseFile {
+  background: url("https://realibi.kz/file/347443.png") no-repeat;
+  padding-left: 30px;
+  cursor: pointer;
+  color: #007AFF;
+}
+
+.closeBtn {
+  background: url("https://realibi.kz/file/282924.png") no-repeat;
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.uploadImages {
+  width: 47%;
+}
+
+.serfImg {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  margin-right: 5px;
+}
+
+.serfInfoText {
+  color: #8E8E93;
+  font-family: "Montserrat Regular";
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.serfCreateBtn {
+  background: #007AFF;
+  border: 1px solid #007AFF;
+  border-radius: 8px;
+  color: #fff;
+  font-family: "Montserrat Regular";
+  width: 100%;
+  padding: 6px;
+  margin-top: 14px;
+}
+
+.serfImagesInfo {
+  display: flex;
+  border: 1px solid #8E8E93;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.serfInfo {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.serfInfoTitle {
+  border-radius: 8px;
+  border: 1px solid;
+  padding: 5px;
+  width: 90%;
+}
+
+.deleteSerf {
+  background: url("https://realibi.kz/file/626899.png") no-repeat;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.statusFileName {
+  background: url("https://realibi.kz/file/688660.png") no-repeat;
+  padding-left: 20px;
+  background-size: 18px;
+  background-position: left;
+  margin-top: 14px;
+}
+
+.statusBigFile {
+  background: url("https://realibi.kz/file/198058.png") no-repeat;
+  padding-left: 20px;
+  background-size: 18px;
+  background-position: left;
+  margin-top: 14px;
+}
+
+.statusYes {
+  background: url("https://realibi.kz/file/863458.png") no-repeat;
+  padding-left: 20px;
+  background-size: 18px;
+  background-position: left;
+  margin-top: 14px;
+}
+
+.statusLoader {
+  background: url("https://realibi.kz/file/169557.gif") no-repeat;
+  padding-left: 20px;
+  background-size: 18px;
+  background-position: left;
+  margin-top: 14px;
+}
+
+.statusError {
+  background: url("https://realibi.kz/file/517519.png") no-repeat;
+  padding-left: 20px;
+  background-size: 18px;
+  background-position: left;
+  margin-top: 14px;
+}
+
+/* @media (min-width: 600px) {
+  .Modal {
+    width: 500px;
+    left: calc(50% - 250px);
+  }
+} */
+
+@media screen and (max-width: 1000px) {
+  .serfInfo {
+    width: 90%;
+  }
+  .serfInfoTitle {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .serfInfoContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .drop_area_container {
+    width: 100%;
+  }
+  .uploadImages {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .serfInfo {
+    width: 90%;
+  }
+  .serfInfoTitle {
+    width: 90%;
+  }
+}

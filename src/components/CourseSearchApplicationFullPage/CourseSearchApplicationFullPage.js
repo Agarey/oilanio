@@ -31,7 +31,7 @@ export default function CourseSearchApplicationFullPage(props) {
   const [directionId, setDirectionId] = useState(1);
   const [cityDistrict, setCityDistrict] = useState(0);
   const [price, setPrice] = useState("0");
-  const [connection, setConnection] = useState("Звонок");
+  const [connection, setConnection] = useState(0);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -103,12 +103,13 @@ export default function CourseSearchApplicationFullPage(props) {
     //     }
     // }
 
-    if (directionId === "0" || directionId === null) {
-      setMessageForUser("Заполните все поля!");
-      setSubMessageForUser("Выберите направление!");
-      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
-      return false;
-    } else if (name.length < 3) {
+    // if (directionId === "0" || directionId === null) {
+    //   setMessageForUser("Заполните все поля!");
+    //   setSubMessageForUser("Выберите направление!");
+    //   ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+    //   return false;
+    // } else 
+    if (name.length < 3) {
       setMessageForUser("Заполните все поля!");
       setSubMessageForUser("Заполните имя!");
       ym("reachGoal", "send_application_button_pressed_unsuccessfully");
@@ -118,12 +119,13 @@ export default function CourseSearchApplicationFullPage(props) {
       setSubMessageForUser("Заполните номер телефона!");
       ym("reachGoal", "send_application_button_pressed_unsuccessfully");
       return false;
-    } else if (price === 0) {
-      setMessageForUser("Заполните все поля!");
-      setSubMessageForUser("Выберите цену!");
-      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
-      return false;
     } 
+    // else if (price === 0) {
+    //   setMessageForUser("Заполните все поля!");
+    //   setSubMessageForUser("Выберите цену!");
+    //   ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+    //   return false;
+    // } 
     // else if (language === null) {
     //   setMessageForUser("Заполните все поля!");
     //   setSubMessageForUser("Выберите язык обучение!");
@@ -142,12 +144,12 @@ export default function CourseSearchApplicationFullPage(props) {
     //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
     //     return false
     // }
-    else if(comment.length < 3){
-        setMessageForUser("Заполните все поля!");
-        setSubMessageForUser("Заполните описание курса!");
-        ym('reachGoal','send_application_button_pressed_unsuccessfully')
-        return false
-    }
+    // else if(comment.length < 3){
+    //     setMessageForUser("Заполните все поля!");
+    //     setSubMessageForUser("Заполните описание курса!");
+    //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
+    //     return false
+    // }
     else {
       setFirstStepValidationState(true);
       return true;
@@ -240,93 +242,114 @@ export default function CourseSearchApplicationFullPage(props) {
     );
   }
 
+  // const sendApplication = async (courseId, userInfo) => {
+  //   let data = {
+  //     city_id: cityId,
+  //     direction_id: directionId,
+  //     name: userInfo.fullName,
+  //     phone: userInfo.phone,
+  //     email: userInfo.email,
+  //     age: age,
+  //     isOnline: isOnline,
+  //     course_id: courseId,
+  //     role_id: Boolean(searchCenter) ? 4 : 6,
+  //     message: comment,
+  //     price: price,
+  //     connection: connection,
+  //     language: language
+  //   };
+
+  //   axios({
+  //     method: "post",
+  //     url: `${globals.productionServerDomain}/createCourseSearchTicket`,
+  //     data: data,
+  //     headers: {
+  //       Authorization: `Bearer ${globals.localStorageKeys.authToken}`,
+  //     },
+  //   })
+  //     .then(function (res) {})
+  //     .catch(() => {
+  //       alert("Что-то пошло нетак!");
+  //     });  
+  //   let dataStatus = {
+  //     category_id: directionId,
+  //     isOnline: isOnline,
+  //     city_id: cityId
+  //   };
+
+  //   const coursesStatus = await axios.get(`${globals.productionServerDomain}/getCenterStatus`, {
+  //     params: dataStatus
+  //   });
+
+  //   console.log(coursesStatus.data);
+
+  //   // const sessionsCourse = [];
+
+  //   // if (coursesStatus.data) {
+  //   //   const sessionsCourseCopy = await coursesStatus.data.map(async (course) => {
+  //   //     await axios.get(`${globals.productionServerDomain}/getSessionCourse`, {
+  //   //       params: {
+  //   //         id: +course.id
+  //   //       }
+  //   //     }).then(result => {
+  //   //       console.log(result.data);
+  //   //       sessionsCourse.push(result.data);
+  //   //       return result.data
+  //   //     });
+  //   //   })
+  //   //   console.log(sessionsCourse);
+  //   // }
+
+  //   if (coursesStatus.data) {
+  //     const appCountCourseCopy = await coursesStatus.data.map(async (course) => {
+  //       await axios.get(`${globals.productionServerDomain}/getCourseApplicationCount`, {
+  //         params: {
+  //           id: +course.id
+  //         }
+  //       }).then(result => {
+  //         return setAppCountCourse(prevState => {
+  //           return [
+  //             ...prevState,
+  //             result.data
+  //           ];
+  //         });
+  //       });
+  //     })
+  //   }
+
+  //   // if (appCountCourse.length > 0) {
+  //   //   appCountCourse.map(async (center) => {
+  //   //     if (center.length > 9) {
+  //   //       await axios.post(`${globals.productionServerDomain}/changeStatusToHold`, {
+  //   //         id: +center[0].course_id
+  //   //       })
+  //   //     } else {
+  //   //       return null;
+  //   //     }
+  //   //   })
+  //   // }
+
+  // };
+
   const sendApplication = async (courseId, userInfo) => {
     let data = {
-      city_id: cityId,
-      direction_id: directionId,
       name: userInfo.fullName,
       phone: userInfo.phone,
-      email: userInfo.email,
-      age: age,
-      isOnline: isOnline,
-      course_id: courseId,
-      role_id: Boolean(searchCenter) ? 4 : 6,
-      message: comment,
-      price: price,
       connection: connection,
-      language: language
     };
 
     axios({
       method: "post",
-      url: `${globals.productionServerDomain}/createCourseSearchTicket`,
+      url: `${globals.productionServerDomain}/createCourseSearchLowTicket`,
       data: data,
       headers: {
         Authorization: `Bearer ${globals.localStorageKeys.authToken}`,
       },
     })
-      .then(function (res) {})
-      .catch(() => {
-        alert("Что-то пошло нетак!");
-      });  
-    let dataStatus = {
-      category_id: directionId,
-      isOnline: isOnline,
-      city_id: cityId
-    };
-
-    const coursesStatus = await axios.get(`${globals.productionServerDomain}/getCenterStatus`, {
-      params: dataStatus
-    });
-
-    console.log(coursesStatus.data);
-
-    // const sessionsCourse = [];
-
-    // if (coursesStatus.data) {
-    //   const sessionsCourseCopy = await coursesStatus.data.map(async (course) => {
-    //     await axios.get(`${globals.productionServerDomain}/getSessionCourse`, {
-    //       params: {
-    //         id: +course.id
-    //       }
-    //     }).then(result => {
-    //       console.log(result.data);
-    //       sessionsCourse.push(result.data);
-    //       return result.data
-    //     });
-    //   })
-    //   console.log(sessionsCourse);
-    // }
-
-    if (coursesStatus.data) {
-      const appCountCourseCopy = await coursesStatus.data.map(async (course) => {
-        await axios.get(`${globals.productionServerDomain}/getCourseApplicationCount`, {
-          params: {
-            id: +course.id
-          }
-        }).then(result => {
-          return setAppCountCourse(prevState => {
-            return [
-              ...prevState,
-              result.data
-            ];
-          });
-        });
-      })
-    }
-
-    // if (appCountCourse.length > 0) {
-    //   appCountCourse.map(async (center) => {
-    //     if (center.length > 9) {
-    //       await axios.post(`${globals.productionServerDomain}/changeStatusToHold`, {
-    //         id: +center[0].course_id
-    //       })
-    //     } else {
-    //       return null;
-    //     }
-    //   })
-    // }
-
+    .then(function (res) {})
+    .catch(() => {
+      alert("Что-то пошло нетак!");
+    });  
   };
 
   function firstStep() {
@@ -404,20 +427,7 @@ export default function CourseSearchApplicationFullPage(props) {
             <span className={styles.selectNameStar}> *</span>
           </span>
         </div>
-
-        <div className={styles.selectContainer}>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.techSupportInput}
-            style={{ cursor: "text" }}
-            placeholder={"Введите адрес электронной почты"}
-          />
-          <span className={styles.selectName}>Электронная почта</span>
-        </div>
-
-        <div className={styles.selectContainer}>
+        {/* <div className={styles.selectContainer}>
           <select
             className={styles.selectBlock}
             value={directionId}
@@ -435,9 +445,9 @@ export default function CourseSearchApplicationFullPage(props) {
             Направление
             <span className={styles.selectNameStar}> *</span>
           </span>
-        </div>
+        </div> */}
 
-        <div className={styles.selectContainer}>
+        {/* <div className={styles.selectContainer}>
           <select
             className={styles.selectBlock}
             onChange={(e) => {
@@ -456,8 +466,8 @@ export default function CourseSearchApplicationFullPage(props) {
             Формат обучения
             <span className={styles.selectNameStar}> *</span>
           </span>
-        </div>
-        {searchCenter === 0 
+        </div> */}
+        {/* {searchCenter === 0 
           ? <div className={styles.selectContainer}>
             <select
               className={styles.selectBlock}
@@ -476,8 +486,8 @@ export default function CourseSearchApplicationFullPage(props) {
             </span>
           </div>
           : null
-        }
-        {isOnline === false ? (
+        } */}
+        {/* {isOnline === false ? (
           <div className={styles.selectContainer}>
             <select
               className={styles.selectBlock}
@@ -489,7 +499,7 @@ export default function CourseSearchApplicationFullPage(props) {
               {props.cities.map((item) => (
                 <option value={item.id}>{item.name}</option>
               ))}
-            </select>
+            </select> */}
             {/*<select className={styles.selectBlock} value={cityDistrict} onChange={e => setCityDistrict(e.target.value)}>
                             <option value={0}>Все районы</option>
                             {
@@ -500,13 +510,13 @@ export default function CourseSearchApplicationFullPage(props) {
                                 })
                             }
                         </select>*/}
-            <span className={styles.selectName}>
+            {/* <span className={styles.selectName}>
               Город
               <span className={styles.selectNameStar}> *</span>
             </span>
           </div>
-        ) : null}
-        <div className={styles.selectContainer}>
+        ) : null} */}
+        {/* <div className={styles.selectContainer}>
           <select 
             className={styles.selectBlock} 
             value={price} 
@@ -524,22 +534,22 @@ export default function CourseSearchApplicationFullPage(props) {
             Цена
             <span className={styles.selectNameStar}> *</span>
           </span>
-        </div>
+        </div> */}
         <div className={styles.selectContainer}>
           <select 
             className={styles.selectBlock} 
             value={connection} 
             onChange={e => setConnection(e.target.value)}
           >
-            <option value="Звонок">Звонок</option>
-            <option value="Whatsapp">Whatsapp</option>
+            <option value="0">Звонок</option>
+            <option value="1">Whatsapp</option>
           </select>
           <span className={styles.selectName}>
             Предпочитаемый способ связи
             <span className={styles.selectNameStar}> *</span>
           </span>
         </div>
-        <div className={styles.selectContainer}>
+        {/* <div className={styles.selectContainer}>
           <textarea
             value={comment}
             onChange={e => setComment(e.target.value)}
@@ -553,7 +563,7 @@ export default function CourseSearchApplicationFullPage(props) {
             Сообщение
             <span className={styles.selectNameStar}> *</span>
           </span>
-        </div>
+        </div> */}
         <label
           style={{
             fontFamily: "Rubik Medium",
