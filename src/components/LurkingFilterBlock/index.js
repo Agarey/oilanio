@@ -14,19 +14,39 @@ const LurkingFilterBlock = ({
   ...props
 }) => {
   const [show, setShow] = useState(false);
-
+  const [category, setCategory] = useState(false);
+  const [type, setType] = useState(false);
   const [isOnline, setIsOnline] = useState(0);
   const [price, setPrice] = useState("0");
   const [cityId, setCityId] = useState("1");
   const [directionId, setDirectionId] = useState(1);
+  const [categoryId, setCategoryId] = useState(0);
+  const [typeId, setTypeId] = useState(0)
+  const [catIds, setCatIds] = useState([])
 
   const getCards = async () => {
     console.log("Функция getCards");
+    setCatIds([])
+    let currentCat
+    if (typeId != 0){
+      currentCat = typeId
+    } else if (categoryId != 0){
+      currentCat = categoryId
+    } else {
+      currentCat = directionId
+    }
+    catIds.push(Number(currentCat))
+    directions.map((item) => {
+      if (item.parent == currentCat){
+        catIds.push(item.id)
+      }
+    })
+    console.log('ids',catIds)
     if (props.isTutors) {
       const data = {
         centerName: "",
         city: cityId,
-        direction: directionId.toString(),
+        direction: (typeId!=0)?typeId.toString():(categoryId!=0)?categoryId.toString():directionId.toString(),
         price: price,
         center: "0",
         isOnline: isOnline,
@@ -45,7 +65,7 @@ const LurkingFilterBlock = ({
       const data = {
         centerName: "",
         city: cityId,
-        direction: directionId.toString(),
+        direction: catIds,
         price: price,
         center: "0",
         isOnline: isOnline,
@@ -97,11 +117,49 @@ const LurkingFilterBlock = ({
         </select>
         <select
           className={styles.select}
-          onChange={(e) => setDirectionId(e.target.value)}
+          onChange={(e) => {
+            setCategory(true)
+            setType(false)
+            setCategoryId(0)
+            setTypeId(0)
+            setDirectionId(e.target.value)}
+          }
         >
           <option value="1">Направления</option>
           {directions.map((item) => {
-            if (item.name != "test") {
+            if ((item.name != "test") && (item.parent == 0)) {
+              return <option value={item.id}>{item.name}</option>;
+            }
+          })}
+        </select>
+        <select
+          style={{display:category?'block':'none'}}
+          className={styles.select}
+          onChange={(e) => {
+            setType(true)
+            setTypeId(0)
+            setCategoryId(e.target.value)
+            }
+          }
+        >
+          <option value="1">Категории</option>
+          {directions.map((item) => {
+            if (item.parent == directionId) {
+              return <option value={item.id}>{item.name}</option>;
+            }
+          })}
+        </select>
+        <select
+          style={{display:type?'block':'none'}}
+          className={styles.select}
+          onChange={(e) => {
+            setTypeId(e.target.value)
+            }
+          }
+        >
+          <option value="1">Тип</option>
+          {directions.map((item) => {
+            if (item.parent == categoryId) {
               return <option value={item.id}>{item.name}</option>;
             }
           })}
