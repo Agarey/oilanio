@@ -139,7 +139,7 @@ const CreateApplication = (props) => {
   const dataCategories = {
     datasets: [
       {
-        data: [filters[1].length, 100 - filters[1].length],
+        data: [filters[1].length, 150 - filters[1].length],
         backgroundColor: ["#412FAE", "#cad3ee"],
         borderColor: ["#412FAE", "#cad3ee"],
         borderWidth: 1,

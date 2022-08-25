@@ -340,7 +340,7 @@ const Catalog = () => {
     const dataCategories = {
         datasets: [
             {
-                data: [roundFilters[1].length, 100-roundFilters[1].length],
+                data: [roundFilters[1].length, 150-roundFilters[1].length],
                 backgroundColor: [
                     '#412FAE',
                     '#cad3ee',
