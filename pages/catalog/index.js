@@ -246,7 +246,7 @@ const Catalog = () => {
         }).then(function(res){
             setCourseCategories(res.data);
         }).catch((err)=>{
-            alert("Произошла ошибка")
+            // alert("Произошла ошибка")
             console.log("error")
         })
         axios.get(`${globals.productionServerDomain}/courses`).then(res => { setCourses(res.data) })
