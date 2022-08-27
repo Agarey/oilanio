@@ -640,8 +640,8 @@
     margin-top: 30px;
     padding: 20px 0;
     background: url("https://realibi.kz/file/934620.png") no-repeat;
-    background-size: 50px;
-    background-position: 200px;
+    background-size: 39px;
+    background-position: 184px;
 }
 
 .buttonSingin {
@@ -1280,9 +1280,9 @@
     .pageBackground{
         width: 100%;
     }
-    .mainImageTitleBlock {
+    /* .mainImageTitleBlock {
         width: 100%;
-    }
+    } */
     .applicationBlock {
         width: 80%;
     }
