@@ -57,7 +57,7 @@ const Catalog = () => {
     const [showNoizyWindow, setShowNoizyWindow] = useState(false);
 
     const addCards = () => {
-            setCardsToShow(cardsToShow+8)
+        setCardsToShow(cardsToShow+8)
     }
 
     const ym = () => {
@@ -84,16 +84,7 @@ const Catalog = () => {
 
         const redirectUrl = `/courses?centerName=${centerName}&direction=${direction}&city=${city}&price=${price}&isOnline=${isOnline}&searchingCenter=${searchingCenter}`
 
-        await router.push(redirectUrl)
-        //
-        // let postResult = await axios.post(`${globals.productionServerDomain}/courseCardsFilter/`, data);
-        // setCourseCards(postResult['data']);
-        // document.querySelector('#coursesBlock').scrollIntoView({
-        //     behavior: 'smooth'
-        // });
-        //
-        // setLoading(false);
-        // setOpenMoreSort(true)
+        await router.push(redirectUrl);
     }
     
     const [imagesBase, setImagesBase] = useState([]);
@@ -241,12 +232,12 @@ const Catalog = () => {
             console.log('photos', res);
         });
         axios({
-            method: 'post',
+            method: 'get',
             url: `${globals.productionServerDomain}/courseCategories`,
         }).then(function(res){
             setCourseCategories(res.data);
         }).catch((err)=>{
-            // alert("Произошла ошибка")
+            alert("Произошла ошибка")
             console.log("error")
         })
         axios.get(`${globals.productionServerDomain}/courses`).then(res => { setCourses(res.data) })
@@ -340,7 +331,7 @@ const Catalog = () => {
     const dataCategories = {
         datasets: [
             {
-                data: [roundFilters[1].length, 150-roundFilters[1].length],
+                data: [roundFilters[1].length, 100-roundFilters[1].length],
                 backgroundColor: [
                     '#412FAE',
                     '#cad3ee',
@@ -370,13 +361,6 @@ const Catalog = () => {
         ],
     };
 
-    // const loadFilters = async () => {
-    //     setFiltersLoading(true)
-    //     let result = await axios.get(`${globals.productionServerDomain}/filters`);
-    //     setFilters(result.data)
-    //     setFiltersLoading(false)
-    // }
-    // const [filtersLoading, setFiltersLoading] = useState(false);
     function componentDidMount() {
         window.scrollTo(0, 0);
     }
@@ -449,10 +433,12 @@ const Catalog = () => {
             centerName: "",
             city: 1,
             direction: "1",
-            price: "0",
+            priceFrom: "0",
+            priceTo: "0",
             center: "0",
             isOnline: false,
           };
+          console.log(data);
     
           let postResult = await axios.post(
             `${globals.productionServerDomain}/tutorCourseCardsFilter`,
@@ -467,12 +453,14 @@ const Catalog = () => {
             centerName: "",
             city: 1,
             direction: "1",
-            price: "0",
+            priceFrom: "0",
+            priceTo: "0",
             center: "0",
             isOnline: false,
             //individualLesson: individualLesson,
             sortType: "0",
           };
+          console.log(data);
     
           let postResult = await axios.post(
             `${globals.productionServerDomain}/courseCardsFilter/`,
@@ -1013,7 +1001,7 @@ const Catalog = () => {
                         className={styles.course_btn}
                         style={isTutors ? {color: "black"} : {color: "#767676"}}
                         onClick={() => {
-                        setIsTutors(true);
+                            setIsTutors(true);
                         }}
                     >Репетиторы</span>
                 </div>

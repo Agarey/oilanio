@@ -14,40 +14,22 @@ const LurkingFilterBlock = ({
   ...props
 }) => {
   const [show, setShow] = useState(false);
-  const [category, setCategory] = useState(false);
-  const [type, setType] = useState(false);
+
   const [isOnline, setIsOnline] = useState(0);
-  const [price, setPrice] = useState("0");
+  const [priceFrom, setPriceFrom] = useState("0");
+  const [priceTo, setPriceTo] = useState("0");
   const [cityId, setCityId] = useState("1");
   const [directionId, setDirectionId] = useState(1);
-  const [categoryId, setCategoryId] = useState(0);
-  const [typeId, setTypeId] = useState(0)
-  const [catIds, setCatIds] = useState([])
 
   const getCards = async () => {
     console.log("Функция getCards");
-    setCatIds([])
-    let currentCat
-    if (typeId != 0){
-      currentCat = typeId
-    } else if (categoryId != 0){
-      currentCat = categoryId
-    } else {
-      currentCat = directionId
-    }
-    catIds.push(Number(currentCat))
-    directions.map((item) => {
-      if (item.parent == currentCat){
-        catIds.push(item.id)
-      }
-    })
-    console.log('ids',catIds)
     if (props.isTutors) {
       const data = {
         centerName: "",
         city: cityId,
-        direction: (typeId!=0)?typeId.toString():(categoryId!=0)?categoryId.toString():directionId.toString(),
-        price: price,
+        direction: directionId.toString(),
+        priceFrom: priceFrom,
+        priceTo: priceTo,
         center: "0",
         isOnline: isOnline,
       };
@@ -65,8 +47,9 @@ const LurkingFilterBlock = ({
       const data = {
         centerName: "",
         city: cityId,
-        direction: catIds,
-        price: price,
+        direction: directionId.toString(),
+        priceFrom: priceFrom,
+        priceTo: priceTo,
         center: "0",
         isOnline: isOnline,
         //individualLesson: individualLesson,
@@ -117,52 +100,62 @@ const LurkingFilterBlock = ({
         </select>
         <select
           className={styles.select}
-          onChange={(e) => {
-            setCategory(true)
-            setType(false)
-            setCategoryId(0)
-            setTypeId(0)
-            setDirectionId(e.target.value)}
-          }
+          onChange={(e) => setDirectionId(e.target.value)}
         >
           <option value="1">Направления</option>
           {directions.map((item) => {
-            if ((item.name != "test") && (item.parent == 0)) {
+            if (item.name != "test") {
               return <option value={item.id}>{item.name}</option>;
             }
           })}
         </select>
         <select
-          style={{display:category?'block':'none'}}
           className={styles.select}
-          onChange={(e) => {
-            setType(true)
-            setTypeId(0)
-            setCategoryId(e.target.value)
-            }
-          }
+          onChange={(e) => setPriceFrom(e.target.value)}
         >
-          <option value="1">Категории</option>
-          {directions.map((item) => {
-            if (item.parent == directionId) {
-              return <option value={item.id}>{item.name}</option>;
-            }
-          })}
+          <option value="0">Минимальная цена</option>
+          <option value={0}>0 KZT</option>
+          <option value={20000}>20 000 KZT</option>
+          <option value={40000}>40 000 KZT</option>
+          <option value={60000}>60 000 KZT</option>
+          <option value={80000}>80 000 KZT</option>
+          <option value={100000}>100 000 KZT +</option>
         </select>
         <select
-          style={{display:type?'block':'none'}}
           className={styles.select}
-          onChange={(e) => {
-            setTypeId(e.target.value)
-            }
-          }
+          onChange={(e) => setPriceTo(e.target.value)}
         >
-          <option value="1">Тип</option>
-          {directions.map((item) => {
-            if (item.parent == categoryId) {
-              return <option value={item.id}>{item.name}</option>;
-            }
-          })}
+          <option value="0">Максимальная цена</option>
+          <option 
+            style={priceFrom >= 20000 ? {display: "none"} : {display: "block"}} 
+            value={20000}
+          >
+            20 000 KZT
+          </option>
+          <option 
+            style={priceFrom >= 40000 ? {display: "none"} : {display: "block"}} 
+            value={40000}
+          >
+            40 000 KZT
+          </option>
+          <option 
+            style={priceFrom >= 60000 ? {display: "none"} : {display: "block"}} 
+            value={60000}
+          >
+            60 000 KZT
+          </option>
+          <option 
+            style={priceFrom >= 80000 ? {display: "none"} : {display: "block"}} 
+            value={80000}
+          >
+            80 000 KZT
+          </option>
+          <option 
+            style={priceFrom >= 100000 ? {display: "none"} : {display: "block"}} 
+            value={100000}
+          >
+            100 000 + KZT
+          </option>
         </select>
         <select
           className={styles.select}
@@ -171,18 +164,6 @@ const LurkingFilterBlock = ({
           <option value={0}>Формат занятий</option>
           <option value={1}>Онлайн</option>
           <option value={2}>Офлайн</option>
-        </select>
-        <select
-          className={styles.select}
-          onChange={(e) => setPrice(e.target.value)}
-        >
-          <option value="0">Цена</option>
-          <option value={"0-20000"}>0 - 20 000KZT</option>
-          <option value={"20000-40000"}>20 000 - 40 000KZT</option>
-          <option value={"40000-60000"}>40 000 - 60 000KZT</option>
-          <option value={"60000-80000"}>60 000 - 80 000KZT</option>
-          <option value={"80000-100000"}>80 000 - 100 000KZT</option>
-          <option value={"100000"}>100 000KZT +</option>
         </select>
         <button
           className={styles.button}
