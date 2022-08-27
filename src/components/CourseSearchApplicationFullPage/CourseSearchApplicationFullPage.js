@@ -94,21 +94,6 @@ export default function CourseSearchApplicationFullPage(props) {
   };
 
   function firstStepValidation() {
-    // if(!isOnline){
-    //     if(cityDistrict === '0' || cityDistrict === null){
-    //         setMessageForUser("Заполните все поля!");
-    //         setSubMessageForUser("Выберите район города!");
-    //         ym('reachGoal','send_application_button_pressed_unsuccessfully')
-    //         return false
-    //     }
-    // }
-
-    // if (directionId === "0" || directionId === null) {
-    //   setMessageForUser("Заполните все поля!");
-    //   setSubMessageForUser("Выберите направление!");
-    //   ym("reachGoal", "send_application_button_pressed_unsuccessfully");
-    //   return false;
-    // } else 
     if (name.length < 3) {
       setMessageForUser("Заполните все поля!");
       setSubMessageForUser("Заполните имя!");
@@ -119,38 +104,7 @@ export default function CourseSearchApplicationFullPage(props) {
       setSubMessageForUser("Заполните номер телефона!");
       ym("reachGoal", "send_application_button_pressed_unsuccessfully");
       return false;
-    } 
-    // else if (price === 0) {
-    //   setMessageForUser("Заполните все поля!");
-    //   setSubMessageForUser("Выберите цену!");
-    //   ym("reachGoal", "send_application_button_pressed_unsuccessfully");
-    //   return false;
-    // } 
-    // else if (language === null) {
-    //   setMessageForUser("Заполните все поля!");
-    //   setSubMessageForUser("Выберите язык обучение!");
-    //   ym("reachGoal", "send_application_button_pressed_unsuccessfully");
-    //   return false;
-    // }
-    // else if(email.length < 1){
-    //     setMessageForUser("Заполните все поля!");
-    //     setSubMessageForUser("Заполните электронную почту!");
-    //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
-    //     return false
-    // }
-    // else if(!validator.isEmail(email)){
-    //     setMessageForUser("Заполните все поля!");
-    //     setSubMessageForUser("Неверная электронная почта!");
-    //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
-    //     return false
-    // }
-    // else if(comment.length < 3){
-    //     setMessageForUser("Заполните все поля!");
-    //     setSubMessageForUser("Заполните описание курса!");
-    //     ym('reachGoal','send_application_button_pressed_unsuccessfully')
-    //     return false
-    // }
-    else {
+    } else {
       setFirstStepValidationState(true);
       return true;
     }
