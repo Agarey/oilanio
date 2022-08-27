@@ -1280,9 +1280,9 @@
     .pageBackground{
         width: 100%;
     }
-    /* .mainImageTitleBlock {
-        width: 100%;
-    } */
+    .mainImageTitleBlock {
+        width: 89%;
+    }
     .applicationBlock {
         width: 80%;
     }
