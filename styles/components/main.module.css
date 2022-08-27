@@ -1276,6 +1276,7 @@
     }
     .pageBody {
         height: 1260px;
+        margin-bottom: 105px;
     }
     .pageBackground{
         width: 100%;
@@ -1297,7 +1298,6 @@
     .forRC p {
         margin-top: 10px;
     }
-
 }
 
 @media screen and (max-width: 420px) {
