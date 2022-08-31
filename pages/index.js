@@ -841,12 +841,12 @@ const Catalog = () => {
             </div>
             </div>
 
-            <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
+            {/* <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
                 <span className={styles.title}>Топ репетиторов</span>
             </div>
             {
                 filtersLoading ? <LoadingBlock/> : <TopTutorsSlider course={tutorsWithPhoto} categories={tutorsWithPhoto}/>
-            }
+            } */}
             <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
                 <Image src={'/notebook-dynamic-color.png'} className={styles.titleImg}/>
                 <span className={styles.title}>Популярные курсы</span>
