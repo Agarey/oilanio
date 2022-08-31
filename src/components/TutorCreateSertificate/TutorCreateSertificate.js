@@ -213,7 +213,7 @@ const TutorCreateSertificate = ({
   return (
     <>
       <div style={{
-        transform: `translateY(${show ? 0 : "-100vh"})`,
+        transform: `translateY(${show ? 0 : "-200vh"})`,
         opacity: show ? 1 : 0
       }}
         className={styles.modal}

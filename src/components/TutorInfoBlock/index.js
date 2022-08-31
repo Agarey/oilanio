@@ -12,8 +12,8 @@ import TutorSertificate from '../TutorSertificate/TutorSertificate';
 import TutorCreateSertificate from '../TutorCreateSertificate/TutorCreateSertificate';
 
 export default function TutorInfoBlock(props){
-  const [tutorSerfs, setTutorSerfs] = useState([])
-  const [showSModal, setShowSModal] = useState(false)
+  const [tutorSerfs, setTutorSerfs] = useState([]);
+  const [showSModal, setShowSModal] = useState(false);
 
   let maxSerfId = 0;
 
@@ -33,42 +33,6 @@ export default function TutorInfoBlock(props){
   console.log('maxSerfId', maxSerfId)
   
   let lastSerf = tutorSerfs.slice(-1)
-  
-  // const newSertificate = async (sertificateTitle, imgFile, index) => {
-  //   let id = maxSerfId + (index + 1);
-  //   let title = sertificateTitle;
-  //   let tutor_id = props.tutor.id;
-  //   console.log('new id', id)
-  //   let formData = new FormData();
-  //   formData.append('file', imgFile);
-
-  //   await axios({
-  //     method: "post",
-  //     url: `${globals.ftpDomain}/file/upload`,
-  //     data: formData,
-  //     headers: {"Content-Type": "multipart/form-data"},
-  //   })
-  //   .then(function (response) {
-  //     console.log(response.data);
-  //     console.log(id, title, tutor_id, `https://realibi.kz/file/${response.data.split('/')[4]}`);
-  //     axios({
-  //       method: 'post',
-  //       url: `${globals.productionServerDomain}/createTutorSertificate`,
-  //       headers: {
-  //         'Authorization': `Bearer ${JSON.parse(localStorage.getItem("auth token")).token}`
-  //       },
-  //       data: {
-  //       id: id,
-  //       title: title,
-  //       tutor_id: tutor_id,
-  //       img_src: `https://realibi.kz/file/${response.data.split('/')[4]}`,
-  //     }})
-  //     .then(res => {
-  //       console.log("Status:" + res.status);
-  //     });
-  //   });
-  //   // location.reload();
-  // };
 
   const cityInfo = props.filters[0].filter(info => {
     if (info.id === props.cityId) {
@@ -170,12 +134,13 @@ export default function TutorInfoBlock(props){
                     />
                   ) 
                   : (
-                    <div className={styles.checkDiv}><input
-                      className={styles.checkbox}
-                      type="checkbox"
-                      checked={props.canWorkOffline}
-                      onClick={props.setCanWorkOfflineHandler}
-                    />
+                    <div className={styles.checkDiv}>
+                      <input
+                        className={styles.checkbox}
+                        type="checkbox"
+                        checked={props.canWorkOffline}
+                        onClick={props.setCanWorkOfflineHandler}
+                      />
                     </div>
                   )
                 }
@@ -214,9 +179,9 @@ export default function TutorInfoBlock(props){
                   className={styles.tutor_info_input}
                 >
                   {props.editMode 
-                    // ? props.filters[0].map(item => <option value={item.id}>
-                    //   {item.name}</option>)
-                    // : <option value={cityInfo[0].id}>{cityInfo[0].name}</option>
+                    ? props.filters[0].map(item => <option value={item.id}>
+                      {item.name}</option>)
+                    : <option value={cityInfo[0].id}>{cityInfo[0].name}</option>
                   }
                 </select>
               </div>
@@ -258,7 +223,10 @@ export default function TutorInfoBlock(props){
                       </button>
                       <button
                         className={styles.edit_profile_button}
-                        onClick={props.setEditModeHandler}
+                        onClick={() => {
+                          props.setEditModeHandler()
+                          location.reload();
+                        }}
                       >
                         Отменить
                       </button>
@@ -285,8 +253,9 @@ export default function TutorInfoBlock(props){
       <div className={styles.sertificatesBlock}>
         <TutorCreateSertificate 
           show={showSModal}
-          close={() => setShowSModal(false)}
-          // newSertificate={newSertificate}
+          close={() => {
+            setShowSModal(false);
+          }}
           tutorId={props.tutor.id}
         />
         {tutorSerfs.map(item => (props.tutor.id == item.tutor_id)

@@ -106,6 +106,8 @@ function Cabinet(){
       alert('Ошибка при загрузке фильтров!');
     });
   }
+  
+  const setEditModeHandler = () => setEditMode(!editMode);
 
   const setProfileStates = (profileObject) => {
     setFullname(profileObject.fullname);
@@ -126,7 +128,7 @@ function Cabinet(){
 
   const setCanWorkOfflineHandler = (e) => setCanWorkOffline(e.target.checked);
 
-  const setCanWorkOnDepartureHandler = (e) => setCanWorkOnDeparture(e.target.value);
+  const setCanWorkOnDepartureHandler = (e) => setCanWorkOnDeparture(e.target.checked);
 
   const setCanWorkOnlineHandler = (e) => setCanWorkOnline(e.target.checked);
 
@@ -135,8 +137,6 @@ function Cabinet(){
   const setTeachingLanguageHandler = (e) => setTeachingLanguage(e.target.value);
 
   const editProfileDataHandler = (e) => editProfileData(e.target.value);
-
-  const setEditModeHandler = () => setEditMode(!editMode);
 
   const setDescriptionHandler = (e) => {
     if (
@@ -218,6 +218,7 @@ function Cabinet(){
     if(localStorage.getItem(globals.localStorageKeys.centerId) !== null){
       courseId = +localStorage.getItem(globals.localStorageKeys.centerId);
       token = JSON.parse(localStorage.getItem(globals.localStorageKeys.authToken)).token;
+      console.log(+localStorage.getItem(globals.localStorageKeys.centerId));
       let applicationData = await axios.get(`${globals.productionServerDomain}/tutorApplications/${courseId}`);
       setApplications(applicationData.data);
 

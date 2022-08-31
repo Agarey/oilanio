@@ -233,7 +233,7 @@ const Catalog = () => {
         });
         axios({
             method: 'get',
-            url: `${globals.productionServerDomain}/courseCategories`,
+            url: `${globals.productionServerDomain}/getCourseCategories`,
         }).then(function(res){
             setCourseCategories(res.data);
         }).catch((err)=>{

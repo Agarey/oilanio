@@ -857,10 +857,6 @@
     }
 
     .rounds {
-        /* width: 96%;
-        margin-left: 5%;
-        margin-top: 13px; */
-        /* display: none; */
         display: grid;
         grid-template-columns: 1fr 1fr;
         flex-direction: row;
@@ -908,11 +904,6 @@
     .courses_block > *{
         margin-bottom: 30px;
     }
-
-/* 
-    .rounds{
-        display: none;
-    } */
     .hideButton{
         display: none;
     }
