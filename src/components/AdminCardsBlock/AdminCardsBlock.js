@@ -13,6 +13,7 @@ import globals from "../../globals";
 import CourseSearchApplicationInfo from "../CourseSearchApplicationInfo/CourseSearchApplicationInfo";
 import TelegramBotUser from "../TelegramBotUser/TelegramBotUser";
 import {useRouter} from "next/router";
+import { object } from 'prop-types';
 
 function AdminCardsBlock(){
     const router = useRouter();
@@ -50,12 +51,29 @@ function AdminCardsBlock(){
     let [directionActiveCards, setDirectionActiveCards] = useState([]);
     let [tutorsActiveCards, setTutorsActiveCards] = useState([]);
 
+
     let [categories, setCategories] = useState([]);
     let [selectedCategoryId, setSelectedCategoryId] = useState(0);
     let [selectedSubcourseId, setSelectedSubcourseId] = useState(0);
     let [subcourses, setSubcourses] = useState([]);
     let [promotionText, setPromotionText] = useState('');
     let [promotionDateTill, setPromotionDateTill] = useState('');
+
+    let [courseCardsTable, setCourseCardsTable] = useState(false);
+    let [tutorCardsTable, setTutorCardsTable] = useState(false)
+    const [allCardsList, setAllCardsList] = useState([]);
+    const [tutorAllCardsList, setTutorAllCardsList] = useState([]);
+    const [uniqueCards, setUniqueCards] = useState([])
+    const [selectedSubCourseTitle, setSelectedSubCourseTitle] = useState([])
+    const [selectedSubCourseClicksCount, setSelectedSubCourseClicksCount] = useState('')
+
+    const [tutorCardsStatistics, setTutorCardsStatistics] = useState()
+
+    const [allTutorsList, setAllTutorsList] = useState([])
+    const [courseCardsStatistics, setCourseCardsStatistics] = useState([])
+
+    const [cardsOfCourseAndTutorCardsTable, setCardsOfCourseAndTutorCardsTable] = useState(false)
+    const [cardsOfCourseAndTutor, setcardsOfCourseAndTutor] = useState([])
 
     const googleAdds = () => {
         return(
@@ -169,7 +187,8 @@ function AdminCardsBlock(){
 
         axios.get(`${globals.productionServerDomain}/courses`).then(res => { setCourses(res.data) })
 
-        axios.get(`${globals.productionServerDomain}/tutors`).then(res => { setTutors(res.data) })
+        axios.get(`${globals.productionServerDomain}/tutors`).then(res => { setTutors(res.data) 
+        setAllTutorsList(res.data)})
 
         await axios({
             method: 'post',
@@ -271,6 +290,139 @@ function AdminCardsBlock(){
             if (item.name == tcc.name){item.t_count = tcc.count}
         });
     });
+
+
+
+    // Отчет по карточкам центров и репетиторов
+    useEffect(async () => {
+      await loadCourseCards();
+      await loadTutorCourseCards();
+    }, []);
+    const loadCourseCards = async () => {
+      let result = await axios
+        .get(`${globals.productionServerDomain}/courseCards/`)
+        .then((result) => {
+          setAllCardsList(result.data);
+        });
+    };
+    const loadTutorCourseCards = async () => {
+        let result = await axios
+          .get(`${globals.productionServerDomain}/tutorCourseCards/`)
+          .then((result) => {
+            setTutorAllCardsList(result.data);
+          });
+      };
+
+    const cardsOfTutor = () => {
+        const cardsOfTutor = tutorAllCardsList?.map(el => el.tutorsId)
+        let container = {}
+        const tutorAllCardsListOnlyCategory = tutorAllCardsList?.map(el => [['courseCategoryName', el.courseCategory], ['id', el.tutorsId]]).map(Object.fromEntries)
+        let hash = Object.create(null);
+        let AllCardsListOnlyCategorySorted = tutorAllCardsListOnlyCategory?.reduce(function (r, o) {
+            if (!hash[o.id]) {
+                hash[o.id] = { id: o.id, categories: [] };
+                r.push(hash[o.id]);
+            }
+            hash[o.id].categories.push({ courseCategoryName: o.courseCategoryName });
+            return r;
+        }, []);
+        let uniqueCategoriesOfCards = AllCardsListOnlyCategorySorted.map(el => {
+            let AllCardsListOnlyCategorySortedToString = el.categories.map(el => {
+                return el['courseCategoryName']
+            })
+            let uniqueCategories = AllCardsListOnlyCategorySortedToString.filter((element, index) => {
+                return AllCardsListOnlyCategorySortedToString.indexOf(element) === index;
+            });
+            // console.log("uniqueCategories", uniqueCategories)
+            let uniqueCategoriesPlacing = el.categories = uniqueCategories
+            let uniqueCategoriesPlacingId = el.id = el.id
+            let uniqueCategoriesPlacingWrapper = [uniqueCategoriesPlacing, uniqueCategoriesPlacingId]
+            
+            let uniqueCategoriesPlacingFinal = {'categories': uniqueCategoriesPlacing.join(', '), 'id': uniqueCategoriesPlacingId}
+           
+            return uniqueCategoriesPlacingFinal
+        })
+
+        const cardsOfTutorCounting = cardsOfTutor.reduce((acc, el) => {
+          acc[el] = (acc[el] || 0) + 1;
+        //   container[acc]
+          return acc;
+        }, {});
+        // let containerId = Object.keys(cardsOfTutorCounting)
+        // let containerCount = cardsOfTutorCounting
+        // let test = containerId.map(el => container[{"id": el[0]}])
+        const array2 = Object.entries(cardsOfTutorCounting).map(([k,v]) => [['id', k], ['countOfCards', v]]).map(Object.fromEntries); 
+
+        const arr3 = allTutorsList?.map((y) => Object.assign(y, array2?.find((x) => x.id == y.id)));
+        const arr4 = arr3?.map((y) => Object.assign(y, tutorAllCardsListOnlyCategory?.find((x) => x.id == y.id)))
+        const arr5 = arr3?.map((y) => Object.assign(y, uniqueCategoriesOfCards?.find((x) => x.id == y.id)))
+        console.log("cardsOfCourse", arr5)
+
+        console.log("allCardsList", allCardsList)
+        console.log("tutorAllCardsList", tutorAllCardsList)
+        console.log("tutorAllCardsListOnlyCategory", tutorAllCardsListOnlyCategory)
+        setTutorCardsStatistics(arr5)
+    }
+
+    const cardsOfCourse = () => {
+        const cardsOfCenter = allCardsList?.map(el => el.course_id)
+        let container = {}
+        const AllCardsListOnlyCategory = allCardsList?.map(el => [['courseCategoryName', el.category], ['id', el.course_id]]).map(Object.fromEntries)
+        let hash = Object.create(null);
+        let AllCardsListOnlyCategorySorted = AllCardsListOnlyCategory?.reduce(function (r, o) {
+            if (!hash[o.id]) {
+                hash[o.id] = { id: o.id, categories: [] };
+                r.push(hash[o.id]);
+            }
+            hash[o.id].categories.push({ courseCategoryName: o.courseCategoryName });
+            return r;
+        }, []);
+        console.log("AllCardsListOnlyCategorySorted", AllCardsListOnlyCategorySorted);
+        let uniqueCategoriesOfCards = AllCardsListOnlyCategorySorted.map(el => {
+            let AllCardsListOnlyCategorySortedToString = el.categories.map(el => {
+                return el['courseCategoryName']
+            })
+            let uniqueCategories = AllCardsListOnlyCategorySortedToString.filter((element, index) => {
+                return AllCardsListOnlyCategorySortedToString.indexOf(element) === index;
+            });
+            // console.log("uniqueCategories", uniqueCategories)
+            let uniqueCategoriesPlacing = el.categories = uniqueCategories
+            let uniqueCategoriesPlacingId = el.id = el.id
+            let uniqueCategoriesPlacingWrapper = [uniqueCategoriesPlacing, uniqueCategoriesPlacingId]
+            // let uniqueCategoriesPlacingFinal = Object.entries(uniqueCategoriesPlacingWrapper).map(([k, v]) => [['categoriesUnique', k], ['id', v]]).map(Object.fromEntries)
+            // let uniqueCategoriesPlacingFinal = [['categories', uniqueCategoriesPlacing], ['id', uniqueCategoriesPlacingId]].map(Object.fromEntries)
+            let uniqueCategoriesPlacingFinal = {'categories': uniqueCategoriesPlacing.join(', '), 'id': uniqueCategoriesPlacingId}
+            // .map(Object.fromEntries)
+            return uniqueCategoriesPlacingFinal
+        })
+        console.log("uniqueCategoriesOfCards", uniqueCategoriesOfCards)
+        
+        const cardsOfCourseCounting = cardsOfCenter.reduce((acc, el) => {
+          acc[el] = (acc[el] || 0) + 1;
+
+          return acc;
+        }, {});
+        const array2 = Object.entries(cardsOfCourseCounting).map(([k,v]) => [['id', k], ['countOfCards', v]]).map(Object.fromEntries); 
+        const arr3 = courses?.map((y) => Object.assign(y, array2?.find((x) => x.id == y.id)));
+        const arr4 = arr3?.map((y) => Object.assign(y, AllCardsListOnlyCategory?.find((x) => x.id == y.id)))
+        const arr5 = arr3?.map((y) => Object.assign(y, uniqueCategoriesOfCards?.find((x) => x.id == y.id)))
+        console.log("cardsOfCourse", arr5)
+        setCourseCardsStatistics(arr5)
+    }
+
+
+    const cardsOfCourseAndTutorFunction = () => {
+        const courseCards = allCardsList?.map(el => [['id', el.course_id], ['isCenter', true], ['teachingLanguage', ''], ['city', el.city], ['departure', ''], ['cardId',  el.id], ['name', el.course_title], ['title', el.title], ['price', el.price], ['unit_of_time', el.unit_of_time], ['description', el.description], ['schedule', el.schedule], ['duration', el.duration], ['ages', el.ages], ['min_age', '' ], ['max_age', ''], ['format', el.format], ['category', el.category], ['expected_result', el.expected_result], ['start_requirements', el.start_requirements], ['type', el.type]]).map(Object.fromEntries)
+        const tutorCards = tutorAllCardsList?.map(el => [['id', el.tutorsId], ['isCenter', false], ['teachingLanguage', el.teaching_language], ['city', el.city], ['departure', el.canWorkOnDeparture], ['cardId',  el.id], ['name', el.tutorsName], ['title', el.title], ['price', el.price], ['unit_of_time', el.unit_of_time], ['description', ''], ['schedule', el.schedule], ['duration_value', el.duration_value], ['duration_word', el.duration_word], ['ages', ''], ['min_age', el.min_age ], ['max_age', el.max_age], ['format', el.is_online], ['category', el.courseCategory], ['expected_result', el.expecting_results], ['start_requirements', el.start_requirements], ['type', '']]).map(Object.fromEntries)
+        // console.log('tutorCards', tutorCards);
+        // console.log("tutorAllCardsList", tutorAllCardsList);
+        const cardsOfCourseAndTutorWrapping = [...courseCards, ...tutorCards].sort((a, b) => a.id > b.id ? 1 : -1);
+        console.log("cardsOfCourseAndTutorWrapping", cardsOfCourseAndTutorWrapping);
+        setcardsOfCourseAndTutor(cardsOfCourseAndTutorWrapping)
+        return cardsOfCourseAndTutorWrapping
+        // console.log('tutors', tutors)
+    } 
+
     return(
         <div className={styles.body}>
             <Head>
@@ -284,6 +436,180 @@ function AdminCardsBlock(){
 
             {loading ? null : (
                 <div>
+                    <div className={styles.container}>
+                            <div className={styles.title_block}>
+                                <img src="/two-books.png" style={{height: '18px'}} alt=""/>
+                                <span style={{
+                                    fontSize: 24,
+                                    fontFamily: 'sans-serif',
+                                    fontWeight: 'bold',
+                                    marginLeft: 10
+                                }}>Глобальный отчет по карточкам</span>
+                                <button onClick={() =>{
+                                    setCardsOfCourseAndTutorCardsTable(!cardsOfCourseAndTutorCardsTable)
+                                    cardsOfCourseAndTutorFunction()
+                                }}>{tutorCardsTable?'Скрыть':'Раскрыть'}</button>
+                            </div>
+                            <div 
+                            className={styles.coursesBlock} 
+                            style={{display: cardsOfCourseAndTutorCardsTable?'block':'none'}}>
+                            <table className={styles.applicationsTable} border={2}>
+                            <tr>
+                                <th>ID центра/репа</th>
+                                <th>Категория</th>
+                                <th>Язык преподавания</th>
+                                <th>Правильное название</th>
+                                <th>Город</th>
+                                <th>Может работать на выезд</th>
+                                <th>ID карточки</th>
+                                <th>Название курса</th>
+                                <th>Цена</th>
+                                <th>Период</th>
+                                <th>Описание</th>
+                                <th>Расписание</th>
+                                <th>Длительность курса</th>
+                                <th>Возрастная категория</th>
+                                <th>Формат (Offline/Online)</th>
+                                <th>Категория</th>
+                                <th>Результат обучения</th>
+                                <th>Входной уровень</th>
+                                <th>Тип занятий</th>
+                            </tr>
+
+                                {cardsOfCourseAndTutor?.map(item => (
+  
+
+                                <tbody>
+
+                                    <tr className={styles.table_row}>
+                                            <td>{item.id}</td>
+                                            <td>{item.isCenter ? 'Центр' : 'Репетитор'}</td>
+                                            <td>{item.teachingLanguage}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.city}</td>
+                                            <td>{item.departure}</td>
+                                            <td>{item.cardId}</td>
+                                            <td>{item.title}</td>
+                                            <td>{item.price}</td>
+                                            <td>{item.unit_of_time}</td>                            
+                                            <td>{item.description}</td>
+                                            <td>{item.schedule}</td>
+                                            <td>{item.duration ? item.duration : item.duration_value + item.duration_word}</td>
+                                            <td>{item.ages ? item.ages : item.min_age + '-' + item.max_age }</td>
+                                            <td>{item.isCenter ? item.format : (item.format ? 'Online' : 'Offline')}</td>
+                                            <td>{item.category}</td>
+                                            <td>{item.expected_result}</td>
+                                            <td>{item.start_requirements}</td>
+                                            <td>{item.type}</td>
+                                    </tr>
+
+                                </tbody>
+
+                                ))}
+
+                            </table>
+                            </div>
+                        </div>
+                    <div className={styles.container}>
+                        <div className={styles.title_block} >
+                            <img src="/two-books.png" style={{height: '18px'}} alt=""/>
+                            <span style={{
+                                fontSize: 24,
+                                fontFamily: 'sans-serif',
+                                fontWeight: 'bold',
+                                marginLeft: 10
+                            }}>Глобальный отчет по карточкам репетиторов</span>
+                            <button onClick={() =>{
+                                setTutorCardsTable(!tutorCardsTable)
+                                console.log("allCardsList", tutorAllCardsList)
+                                console.log("tutors", tutors)
+                                
+                                cardsOfTutor()
+                                console.log("cardsOfTutor", cardsOfTutor)
+                            }}>{tutorCardsTable?'Скрыть':'Раскрыть'}</button>
+                        </div>
+                        <div 
+                            className={styles.coursesBlock} 
+                            style={{display: tutorCardsTable?'block':'none'}}>
+                            <table className={styles.applicationsTable} border={2}>
+                            <tr>
+                                <th>Id</th>
+                                <th>Репетитор</th>
+                                <th>Телефон</th>
+                                <th>Дата регистрации</th>
+                                <th>Направления</th>
+                                <th>Количество карточек</th>
+                                <th>Количество заявок</th>
+                            </tr>
+
+                                {tutorCardsStatistics?.map(item => (
+  
+
+                                <tbody>
+
+                                    <tr className={styles.table_row}>
+                                            <td>{item.id}</td>
+                                            <td>{item.fullname}</td>
+                                            <td>{item.phone_number}</td>
+                                            <td>{item.last_payment_date}</td>
+                                            <td>{item.categories}</td>
+                                            <td>{item.countOfCards}</td>
+                                            <td>{item.count}</td>
+                                    </tr>
+
+                                </tbody>
+
+                                ))}
+
+                            </table>
+                        </div>
+                    </div>
+                    <div className={styles.container}>
+                        <div className={styles.title_block} >
+                            <img src="/two-books.png" style={{height: '18px'}} alt=""/>
+                            <span style={{
+                                fontSize: 24,
+                                fontFamily: 'sans-serif',
+                                fontWeight: 'bold',
+                                marginLeft: 10
+                            }}>Глобальный отчет по карточкам центров</span>
+                            <button onClick={() =>{
+                                setCourseCardsTable(!courseCardsTable)
+                                cardsOfCourse()
+                                console.log("allCardsList", allCardsList)
+                            }}>{courseCardsTable?'Скрыть':'Раскрыть'}</button>
+                        </div>
+                        <div 
+                            className={styles.coursesBlock} 
+                            style={{display: courseCardsTable?'block':'none'}}>
+                            <table className={styles.applicationsTable} border={2}>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Центр</th>
+                                    <th>Телефон</th>
+                                    <th>Дата регистрации</th>
+                                    <th>Направления</th>
+                                    <th>Количество карточек</th>
+                                    <th>Количество заявок</th>
+                                </tr>
+                                <tbody>
+                                {
+                                    courseCardsStatistics.map(item => (
+                                        <tr className={styles.table_row}>
+                                            <td>{item.id}</td>
+                                            <td>{item.title}</td>
+                                            <td>{item.phones}</td>
+                                            <td>{item.last_payment_date}</td>
+                                            <td>{item.categories}</td>
+                                            <td>{item.countOfCards}</td>
+                                            <td>{item.count}</td>
+                                        </tr>
+                                    ))
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div className={styles.container}>
                         <div className={styles.title_block} >
                             <img src="/two-books.png" style={{height: '18px'}} alt=""/>
@@ -320,7 +646,7 @@ function AdminCardsBlock(){
                             </table>
                         </div>
                     </div>
-                    <div className={styles.container}>
+                    {/* <div className={styles.container}>
                         <div className={styles.title_block} >
                             <img src="/two-books.png" style={{height: '18px'}} alt=""/>
                             <span style={{
@@ -354,8 +680,8 @@ function AdminCardsBlock(){
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div className={styles.container}>
+                    </div> */}
+                    {/* <div className={styles.container}>
                         <div className={styles.title_block} >
                             <img src="/two-books.png" style={{height: '18px'}} alt=""/>
                             <span style={{
@@ -389,7 +715,9 @@ function AdminCardsBlock(){
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> */}
+
+                    {/* Количество заявок по репетиторам и центрам */}
 
                     <div className={styles.container}>
                         <div className={styles.title_block} >
@@ -474,27 +802,83 @@ function AdminCardsBlock(){
                             </select>
 
                             <button onClick={async () => {
+                                let selectedCourse = courses.find(el => el.title == selectedCourseTitle); 
+                                let selectedCourseId = selectedCourse.id
                                 let token = JSON.parse(localStorage.getItem(globals.localStorageKeys.authToken)).token;
                                 await axios({
                                     method: 'post',
                                     data:{
-                                        centerName: selectedCourseTitle
+                                        centerId: selectedCourseId
                                     },
                                     url: `${globals.productionServerDomain}/getClickStatistics`,
                                     headers: {
                                         'Authorization': `Bearer ${token}`
                                     }
-                                }).then(function(result){
-                                    setOKurse(result.data[0].o_kurse);
-                                    setOtpravitZayavku(result.data[0].otpravit_zayavku);
-                                    setPokazatBolshe(result.data[0].pokazat_bolshe);
-                                    setNomerTelefona(result.data[0].nomer_telefona);
-                                    setWebsite(result.data[0].website);
-                                    setInstagram(result.data[0].instagram);
-                                });
+                                }).then(function(result) {
+                                    let cardClicks = [];
+                                    result.data.map((item) => {
+                                      cardClicks.push(item.card_id);
+                                    })
+                            
+                                    let uniqueCards = [...new Set(cardClicks)];
+                            
+                                    for(let i = 0; i < uniqueCards.length; i++){
+                                      let count = 0;
+                                      let cardTitle = null;
+                                      let cardCategoryName = null;
+                                      let cardId = uniqueCards[i];
+                                      let cardPrice = null;
+                                      let cardCurrency = null;
+                                      let cardUnitOfTime = null;
+                                      let cardIsOnline = null;
+                            
+                                      for(let click of result.data){
+                                        if(click.card_id === cardId){
+                                          count++;
+                                          cardTitle = click.title;
+                                          cardCategoryName = click.name;
+                                          cardPrice = click.price;
+                                          cardCurrency = click.currency;
+                                          cardUnitOfTime = click.unit_of_time;
+                                          cardIsOnline = click.isonline;
+                                        }
+                                      }
+                            
+                                      uniqueCards[i] = {
+                                        id: cardId,
+                                        title: cardTitle,
+                                        categoryName: cardCategoryName,
+                                        clicksCount: count,
+                                        price: cardPrice,
+                                        currency: cardCurrency,
+                                        unitOfTime: cardUnitOfTime,
+                                        isOnline: cardIsOnline
+                                      }
+                                    }
+                            
+                                    uniqueCards = uniqueCards.sort((a, b) => {
+                                      if (a.clicksCount > b.clicksCount) {
+                                        return -1;
+                                      }else {
+                                        return 1;
+                                      }
+                                    });
+                                    setUniqueCards(uniqueCards)
+                                    console.log("uniqueCards", uniqueCards);
+                                    console.log("result.data", result.data)
+                                    console.log("courses", courses)
+                                    console.log("selectedCourseId", selectedCourseId)
+                                  });
                             }}>Посмотреть</button>
 
                         </div>
+                        <select style={{display: clicker?'block':'none'}} value={selectedSubCourseTitle} 
+                            onChange={e => {setSelectedSubCourseTitle(e.target.value)
+                                let selectedSubCourseClicksCount = (uniqueCards?.find(el => el.title == selectedSubCourseTitle))
+                                setSelectedSubCourseClicksCount(selectedSubCourseClicksCount.clicksCount)
+                            console.log("selectedSubCourseTitle", selectedSubCourseClicksCount)}}>
+                                {uniqueCards.map(item => <option value={item.title}>{item.title}</option>)}
+                        </select>
 
                         <br style={{display: clicker?'block':'none'}}/>
 
@@ -509,7 +893,7 @@ function AdminCardsBlock(){
                                 <td>Инстаграм</td>
                             </tr>
                             <tr>
-                                <td>{oKurse}</td>
+                                <td>{selectedSubCourseClicksCount}</td>
                                 <td>{otpravitZayavku}</td>
                                 <td>{pokazatBolshe}</td>
                                 <td>{nomerTelefona}</td>

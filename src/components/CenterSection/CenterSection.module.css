@@ -1,0 +1,66 @@
+.wrapper{
+    margin-top: 30px;
+    width: 100%;
+}
+.wrapperItem{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.wrapperItemTitle{
+    color: #474747;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+.wrapperItemInput{
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #a4a4a4;
+}
+.wrapperItemInput:focus{
+    outline: none;
+}
+.buttonBody{
+    display: flex;
+}
+.addButton{
+    background: #7794F8FF;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-bottom: 2rem;
+}
+.addButton:disabled{
+    background: #59607a;
+}
+.buttonBody:active{
+    outline: none;
+}
+.loadingImage{
+    height: 14px;
+    width: 14px;
+    margin-left: 5px;
+    animation-name: rotation;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+.loadingMessage{
+    margin-left: 10px;
+    color: black;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+@keyframes rotation {
+    0% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(-360deg);
+    }
+}

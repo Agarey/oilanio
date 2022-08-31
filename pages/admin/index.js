@@ -12,15 +12,15 @@ import AdminCardsBlock from "../../src/components/AdminCardsBlock/AdminCardsBloc
 import Head from "next/head";
 import AdministrateTutors from "../../src/components/AdministrateTutors/AdministrateTutors";
 import {useRouter} from "next/router";
+import AdministrateBlock from "../../src/components/AdministrateBlock/AdministrateBlock";
 import style from "../direction/direction.module.css";
 
 function Admin(){
     const menuItems = [
         {title: 'Операции', index: 0},
-        {title: 'Курсы', index: 1},
-        {title: 'Репетиторы', index: 2},
-        {title: 'Модерация', index: 3},
-        {title: 'Статистика', index: 4}
+        {title: 'Создание', index: 1},
+        {title: 'Модерация', index: 2},
+        {title: 'Статистика', index: 3}
     ];
     const router = useRouter();
     const [activeMenuIndex, setActiveMenuIndex] = useState(0);
@@ -39,12 +39,10 @@ function Admin(){
             case 0:
                 return(<AdminStatisticsBlock/>)
             case 1:
-                return(<AdministrateCourses/>);
+                return(<AdministrateBlock/>);
             case 2:
-                return(<AdministrateTutors/>);
-            case 3:
                 return(<ModeratorBlock/>);
-            case 4:
+            case 3:
                 return(<AdminCardsBlock/>);
             default:
                 return(<></>);
