@@ -1,15 +1,15 @@
 @font-face {
     font-family: "Montserrat Regular";
     src: url("../../public/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
-  }
-  @font-face {
+}
+@font-face {
     font-family: "Montserrat Medium";
     src: url("../../public/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
-  }
-  @font-face {
+}
+@font-face {
     font-family: "Montserrat Bold";
     src: url("../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
-  }
+}
 
 @font-face {
     font-family: "Century Gothic Regular";
@@ -50,8 +50,10 @@
     box-sizing: border-box;
     width: 100%;
     display: grid;
+    /* background-color: #E9EDF1; */
     justify-content: center;
-    grid-template-columns: [card] 20% [card] 20% [card] 20% [card] 20%;
+    /* grid-template-columns: [card] 20% [card] 20% [card] 20% [card] 20%; */
+    grid-template-columns: [card] 30% [card] 30% [card] 30%;
     grid-gap: 1%;
 }
 .link{
@@ -83,14 +85,14 @@
     /* background: url(https://realibi.kz/file/890922.png);
     background: #4331AF; */
     position: relative;
-    height: 845px;
+    height: 1200px;
     /* z-index: 999; */
 }
 
 .pageBackground {
     position: absolute;
     width: 60%;
-    height: 845px;
+    height: 1200px;
 }
 .pageBackground img {
     display: block;
@@ -101,7 +103,7 @@
 
 .mainImageTitleBlock{
     width: 50%;
-    margin-left: 43px;
+    margin-left: 95px;
     padding-top: 10%;
     color: white;
 }
@@ -109,12 +111,14 @@
 .mainImageTitleBlock h1{
     font-family: "Century Gothic Regular";
     padding-right: 82px;
+    font-size: 64px;
+    margin: 32px 0 40px;
 }
   
   
 .selectContainer {
     position: relative;
-    margin: 5px 0;
+    margin-bottom: 20px;
 }
 
 .button {
@@ -126,10 +130,11 @@
     border: none;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    padding: 10px;
+    padding: 12px;
     transition: 0.8s;
-    font-size: 16px;
-    margin-top: 22px;
+    font-size: 22px;
+    margin-top: 15px;
+    margin-bottom: 28px;
     z-index: 5;
     width: 100%;
 }
@@ -146,9 +151,9 @@
     width: max-content;
     border: 1px solid #fff;
     border-radius: 10px;
-    padding: 10px;
-    transition: 0.3s;
-    font-size: 16px;
+    padding: 12px;
+    transition: 0.8s;
+    font-size: 22px;
     margin-top: 22px;
     z-index: 5;
     width: 100%;
@@ -160,10 +165,11 @@
     -webkit-appearance: none;
     cursor: pointer;
     border-radius: 5px;
-    padding: 10px;
+    padding: 11px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     background: white;
+    font-size: 22px;
     color: black;
     margin-bottom: 10px;
     font-family: "Montserrat Regular";
@@ -179,11 +185,11 @@
 .rounds{
     display: flex;
     flex-direction: column;
-    margin-left: 18px;
+    margin-left: 214px;
     justify-content: space-between;
 }
 .applicationBlock {
-    width: 50%;
+    width: 43%;
 }
 .counter{
     width: 65%;
@@ -209,7 +215,13 @@
 }
 
 .forRC p{
-    font-size: 1.1vw;
+    font-size: 20px;
+    font-family: "Montserrat Medium";
+}
+
+.forRC h2{
+    display: flex;
+    font-size: 40px;
     font-family: "Montserrat Medium";
 }
 /* .hole{
@@ -261,7 +273,7 @@
     height: auto;
     justify-content: space-between;
     align-items: center;
-    
+    margin: 20px 0;
 }
 .menuButtonBody{
     display: none;
@@ -397,6 +409,9 @@
     font-family: 'Montserrat Medium';
     cursor: pointer;
 }
+.link > a:hover{
+    background: #8E8E93;
+}
 .mobileMenu{
     display: none;
 }
@@ -434,6 +449,7 @@
 }
 .exitBtn{
     font-size: 14px;
+    padding: 10px;
     font-family: "Montserrat Medium";
 }
 .exitBtn:hover{
@@ -577,7 +593,7 @@
 }
 
 .choiseCourse {
-    font-size: 26px;
+    font-size: 32px;
     margin: 0;
     margin-top: 20px;
 } 
@@ -588,45 +604,94 @@
 
 .sendAppText {
     font-family: "Montserrat Bold";
-    font-size: 26px;
+    font-size: 32px;
+    margin-bottom: 40px;
 }
 
 .modal {
-    position: fixed;
+    position: absolute;
     z-index: 500;
     background-color: #7F8BA3;
-    width: 330px;
+    width: 480px;
     padding: 18px;
-    left: 41%;
+    /* left: 41%; */
     text-align: center;
-    top: 20%;
+    /* top: 20%; */
     box-sizing: border-box;
     transition: all 0.3s ease-out;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
     color: #fff;
     border-radius: 20px;
 }
 
 .modal h3 {
     font-family: "Montserrat Bold";
-    font-size: 20px;
-    margin: 50px 0 40px;
+    font-size: 28px;
+    margin: 40px 0 32px;
+    line-height: 110%;
+}
+
+.titleBlock {
+    padding: 20px 5%;
+    /* background-color: #E9EDF1; */
 }
 
 .modal p {
     font-family: "Montserrat Regular";
+    text-align: start;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 110%;
     padding: 0 25px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
+}
+
+.info_select {
+    display: block;
+    width: 90%;
+    background-image: url('data:image/svg+xml,\ <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">\<path d="M1 1.46387L7 8.5353L13 1.46387" stroke="black" stroke-width="2" stroke-linecap="round"/>\</svg>');
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    -webkit-appearance: none;
+    font-family: "Montserrat Regular";
+}
+
+.modal_info {
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal textarea {
+    border: 2px solid #A2A7B2;
+    border-radius: 8px;
+    height: 120px;
+    padding: 10px 12px;
+    margin-bottom: 32px;
+    background-image: none;
+}
+
+.modal select {
+    border-bottom: 1px solid #A2A7B2;
+    border-radius: 4px 4px 0px 0px;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 16px 0 16px 20px;
+    margin-bottom: 24px;
 }
 
 .peopleBackground {
     position: absolute;
-    right: -16px;
-    top: 100px;
+    right: 0px;
+    top: 200px;
     width: 50%;
     background: url(https://realibi.kz/file/128413.png);
     /* width: 490px; */
     background-position: 94% 50%;
-    height: 601px;
+    height: 900px;
     background-size: cover;
 }
 
@@ -638,10 +703,10 @@
     display: block;
     font-family: "Montserrat Regular";
     margin-top: 30px;
-    padding: 20px 0;
+    font-size: 24px;
     background: url("https://realibi.kz/file/934620.png") no-repeat;
-    background-size: 39px;
-    background-position: 184px;
+    background-size: 59px;
+    background-position: 281px;
 }
 
 .buttonSingin {
@@ -660,12 +725,48 @@
     width: 100%;
 }
 
+@media screen and (max-width: 1444px) {
+    .mainImageTitleBlock h1  {
+        font-size: 48px;
+    }
+    .mainImageTitleBlock {
+        margin-left: 76px;
+    }
+    .logo{
+        margin: 10px 0px;
+    }
+    .applicationBlock {
+        width: 55%;
+    }
+    .rounds {
+        margin-left: 52px;
+    }
+    .forRC h2 {
+        font-size: 48px;
+    }
+    .forRC p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .mainImageTitleBlock {
+        margin-left: 64px;
+    }
+    .mainImageTitleBlock h1 {
+        font-size: 44px;
+    }
+    .applicationBlock {
+        width: 55%;
+    }
+    .rounds {
+        margin-left: 20px;
+    }
+}
+
 @media screen and (max-width: 1210px) {
     .menu_ul li a{
         margin: 7px;
-    }
-    .modal {
-        left: 36%;
     }
 }
 
@@ -677,7 +778,10 @@
 
 @media screen and (max-width: 1024px) {
     .mainImageTitleBlock h1  {
-        font-size: 2.1rem;
+        font-size: 32px;
+    }
+    .mainImageTitleBlock p  {
+        font-size: 24px;
     }
     .menu_ul {
         background-color: rgb(255, 255, 255);
@@ -714,7 +818,7 @@
     .mobileMenu{
         transition: 0.5s;
         display: block;
-        width: 180px;
+        width: 200px;
     }
     .menu_ul{
         padding: 0;
@@ -739,12 +843,14 @@
     .menu_ul li:hover {
         background: #E2E2E2;
     }
-    .svg{
-        height: 40px;
-        width: 85px;
+    .applicationBlock {
+        width: 55%;
     }
-    .modal {
-        left: 31%;
+    .forRC h2 {
+        font-size: 48px;
+    }
+    .forRC p {
+        font-size: 16px;
     }
 }
 
@@ -752,20 +858,10 @@
 @media screen and (max-width: 992px){
     .rounds {
         color: white;
-        margin-top: 23px;
-        /* width: 105%;
-        margin-left: 0px; */
-        width: 100%;
-    }
-    .applicationBlock {
         width: 100%;
     }
     .clickMore {
-        margin-top: 30px;
-    }
-    .mainImageTitleBlock p {
-        font-size: 15px;
-        margin-top: 30px;
+        margin-top: 100px;
     }
     .mainImageTitleBlock h1 {
         font-size: 1.5rem;
@@ -774,10 +870,6 @@
     .howItWorksWrapper {
         padding-top: 0px;
     }
-    /* .howItWorks {
-        border: 2px solid black;
-        color: black;
-    } */
     
     .courses_block{
         width: 100%;
@@ -785,6 +877,7 @@
         grid-template-columns: [card] 50% [card] 50%;
     }
 }
+
 @media screen and (max-width: 871px) {
     .howItWorksWrapper {
         padding-top: 0px;
@@ -794,9 +887,30 @@
         color: black;
     } */
 }
-@media screen and (max-width: 761px) {
+@media screen and (max-width: 912px) {
+    .applicationBlock {
+        width: 72%;
+    }
+    .infoContainer {
+        flex-direction: column;
+        margin-left: 0;
+        justify-content: center;
+        width: 100%;
+    }
+    .rounds {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        flex-direction: row;
+        width: 72%;
+        margin-top: 33px;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
     .mainImageTitleBlock {
         width: 60%;
+        margin-left: 38px;
     }
 
     .header {
@@ -810,7 +924,6 @@
         z-index: 7
     }
     .logo{
-        /* order: 3; */
         width: auto;
         margin: 10px 0px;
     }
@@ -831,7 +944,10 @@
     .mobileMenu{
         transition: 0.5s;
         display: block;
-        width: 150px;
+        width: 200px;
+    }
+    .peopleBackground {
+        background-position: 83% 50%;
     }
     .menu_ul{
         padding: 0;
@@ -843,25 +959,6 @@
     .menu_ul li a{
         font-size: 16px;
         margin: 0;
-        margin-bottom: 10px;
-    }
-    .svg{
-        height: 40px;
-        width: 85px;
-    }
-    .infoContainer {
-        flex-direction: column;
-        margin-left: 0;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .rounds {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        flex-direction: row;
-        width: 72%;
-        margin-left: 0;
     }
     .forRC {
         margin-right: 5px;
@@ -869,26 +966,9 @@
     .forRC p {
         margin-top: 10px;
     }
-    .applicationBlock {
-        width: 60%;
-    }
-    .pageBody {
-        background-size: 157%;
-        background-position: center;
-        height: 880px;
-    }
-    .pageBackground {
-        height: 880px;
-    }
-    .modal {
-        left: 25%;
-    }
+
 }
 @media screen and (max-width: 600px){
-    /* .mainImageTitleBlock {
-        width: auto;
-        margin-left: auto;
-    } */
     .courses_block{
         grid-area: cards;
         width: 100%;
@@ -962,25 +1042,19 @@
         color: white;
     }
     .mobileBlock{
-        /*border: 2px solid black;*/
         display: flex;
         flex-direction: column;
         padding-top: 5%;
         width: 90%;
     }
     .title{
-        /*font-size: 20px;*/
         text-align: left;
-/*        padding-right: 50%;
-        margin-left: 4%;*/
     }
     .subtitleBottom{
         text-align: left;
-        /*padding-right: 50%;*/
         font-size: 20px !important;
     }
     .img{
-
         width: 40%;
         position: absolute;
         right: -5px;
@@ -1001,18 +1075,6 @@
     }
     .displayNoneOnMobile{
         display: none;
-    }
-    .forRC h2 {
-        font-size: 22px;
-    }
-    .forRC p {
-        margin-top: 10px;
-    }
-    .pageBackground {
-        height: 930px;
-    }
-    .pageBody {
-        height: 930px;
     }
     .downImg{
         width: 50%;
@@ -1042,9 +1104,7 @@
     .downRowsRight{
         margin-bottom: 5%;
     }
-    .modal {
-        left: 23%;
-    }
+
 }
 
 @media (max-width: 540px){
@@ -1067,13 +1127,7 @@
     .mobileButton2{
         font-size: 0.8em;
     }
-
-    /* .mainImageTitleBlock {
-        width: auto;
-        margin-left: auto;
-    } */
     .mainImageTitleBlock h1 {
-        /* font-size: 2rem; */
         padding-top: 20px;
     }
     .pageBackground {
@@ -1085,21 +1139,6 @@
     .priorityCategories {
         display: none;
     }
-    .howItWorksWrapper {
-        /* padding-top: 40px; */
-    }
-    /* .howItWorks {
-        border: 2px solid black !important;
-        color: black !important;
-    } */
-    .modal {
-        left: 20%;
-    }
-}
-@media (max-width: 475px){
-    .modal {
-        left: 16%;
-    }
 }
 @media (max-width: 415px){
     .title{
@@ -1110,22 +1149,7 @@
     }
     .img{
         top: 5%;
-    }
-    .backImg{
-        height: 28%;
-    }
-    .forRC {
-        align-items: center;
-    }
-    .forRC p{
-        font-size: 13px;
-        margin-top: 0;
-    }
-    /* .button{
-        width: 40%;
-        font-size: 12px;
-        font-family: "Montserrat Bold";
-    } */
+    }  
     .button2{
         font-family: "Montserrat Bold";
         padding: 10px;
@@ -1187,9 +1211,6 @@
         margin-right: 2%;
         padding-left: 2px;
         padding-right: 2px;
-    }
-    .modal {
-        left: 9%;
     }
 }
 @media (max-width: 365px){
@@ -1255,52 +1276,129 @@
     }
 } */
 
+@media screen and (max-width: 540px){
+    .mainImageTitleBlock h1 {
+        font-size: 21px;
+        padding-right: 0;
+    }
+    .clickMore {
+        font-size: 20px;
+        background-position: 251px;
+    }
+    .mainImageTitleBlock p {
+        font-size: 19px;
+    }
+}
+
 @media screen and (max-width: 480px){
     .peopleBackground {
         position: absolute;
         right: -16px;
         left: 0px;
-        top: 73%;
+        top: 100%;
         width: 100%;
-        height: 426px;
+        /* height: 426px; */
         background-size: cover;
     }
-    .pageBody {
-        height: 1260px;
-        margin-bottom: 105px;
+    .titleBlock {
+        margin-top: 910px;
+    }
+    .mainImageTitleBlock h1 {
+        font-size: 32px;
+        padding-right: 0;
     }
     .pageBackground{
         width: 100%;
+        height: 1250px;
     }
-    .mainImageTitleBlock {
-        width: 89%;
+    .pageBody {
+        height: 1250px;
     }
-    .applicationBlock {
-        width: 80%;
+    .svg {
+        width: 248px;
     }
     .rounds {
-        width: 80%;
+        margin-top: 50px;
+    }
+    .mainImageTitleBlock {
+        width: 100%;
+        margin-left: 0;
+        padding-left: 25px;
+    }
+    .applicationBlock {
+        width: 94%;
     }
     .forRC {
         display: flex;
         flex-direction: column;
-        font-size: 15px;
     }
-    .forRC p {
-        margin-top: 10px;
+    .clickMore {
+        margin-top: 144px;
     }
 }
 
-@media screen and (max-width: 420px) {
-    .modal {
-      left: 15%;
-      width: 300px;
+@media screen and (max-width: 415px) {
+    .mainImageTitleBlock h1 {
+        font-size: 27px;
+    }
+    .rounds {
+        margin-top: 27px;
     }
 }
 
 @media screen and (max-width: 360px) {
+    .svg {
+        width: 183px;
+    }
+    .clickMore {
+        font-size: 20px;
+        background-size: 52px;
+        background-position: 223px;
+    }
+    .mainImageTitleBlock h1 {
+        font-size: 24px;
+    }
+    .mainImageTitleBlock p {
+        font-size: 20px;
+    }
+    .selectBlock, .techSupportInput {
+        font-size: 20px;
+    }
+    .button {
+        font-size: 20px;
+    }
+    .searchBtn {
+        font-size: 20px;
+    }
+    .rounds {
+        width: 100%;
+    }
+    .forRC {
+        margin-top: 32px;
+    }
+    .forRC p {
+        font-size: 16px;
+    }
+    .peopleBackground {
+        background-position: 81% 50%;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .mainImageTitleBlock {
+        padding-left: 12px;
+    }
+    .clickMore {
+        font-size: 18px;
+        background-position: 204px;
+    }
+    .mainImageTitleBlock h1 {
+        font-size: 21px;
+    }
+    .mainImageTitleBlock p {
+        font-size: 18px;
+    }
     .modal {
-      left: 9%;
-      width: 270px;
+        width: 241px;
     }
 }

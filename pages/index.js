@@ -54,6 +54,7 @@ const Catalog = () => {
   const [connection, setConnection] = useState(3);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [firstStepValidationState, setFirstStepValidationState] = useState(false);
 
   const addCards = () => {
     setCardsToShow(cardsToShow+8)
@@ -84,6 +85,21 @@ const Catalog = () => {
     const redirectUrl = `/courses?centerName=${centerName}&direction=${direction}&city=${city}&price=${price}&isOnline=${isOnline}&searchingCenter=${searchingCenter}`
 
     await router.push(redirectUrl);
+  };
+
+  function firstStepValidation() {
+    if (name.length < 3) {
+      alert("Заполните все поля!");
+      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+      return false;
+    } else if (phone.length < 16) {
+      alert("Заполните все поля!");
+      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+      return false;
+    } else {
+      setFirstStepValidationState(true);
+      return true;
+    }
   }
     
   const [imagesBase, setImagesBase] = useState([]);
@@ -152,7 +168,18 @@ const Catalog = () => {
   const [isTutors, setIsTutors] = useState(false);
   const [searchFilterCourses, setSearchFilterCourses] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [showSend, setShowSend] = useState(false)
+  const [showSend, setShowSend] = useState(false);
+  const [nextInfo, setNextInfo] = useState(false);
+
+  const [ticketId, setTicketId] = useState(null);
+  const [goal, setGoal] = useState("");
+  const [price, setPrice] = useState("");
+  const [connectionLanguage, setConnectionLanguage] = useState("");
+  const [infoVar, setInfoVar] = useState("");
+  const [language, setLanguage] = useState("");
+  const [online, setOnline] = useState(true);
+  const [offline, setOffline] = useState(false);
+  const [typeClass, setTypeClass] = useState("");
 
   const loadUserInfo = async () => {
     if(localStorage.getItem(globals.localStorageKeys.currentStudent) !== null){
@@ -467,8 +494,10 @@ const Catalog = () => {
       headers: {
         Authorization: `Bearer ${globals.localStorageKeys.authToken}`,
       },
-    })
-      .then(function (res) {})
+    }).then((res) => {
+        console.log(res);
+        setTicketId(res.data)
+      })
       .catch(() => {
         alert("Что-то пошло нетак!");
       });  
@@ -484,17 +513,166 @@ const Catalog = () => {
     cutout: "80%",
   };
 
+  const getTicketId = async () => {
+    const data = {
+      name: name,
+      phone: phone
+    }
+
+    await axios.get(`${globals.productionServerDomain}/getTicketId/`, {params: data})
+    .then(res => {
+      setTicketId(res.data[0].id)
+    }) 
+    .catch(() => {
+      alert("Что-то пошло нетак!");
+    });
+  }
+
+  const sendDetailTicketInfo = async () => {
+    const data = {
+      id: ticketId,
+      name: name,
+      phone: phone,
+      connection: connection,
+      goal: goal,
+      price: price,
+      connectionLanguage: connectionLanguage,
+      infoVar: infoVar,
+      language: language,
+      online: online,
+      offline: offline,
+      typeClass: typeClass
+    }
+
+    axios({
+      method: "post",
+      url: `${globals.productionServerDomain}/createDetailTickets`,
+      data: data,
+      headers: {
+        Authorization: `Bearer ${globals.localStorageKeys.authToken}`,
+      },
+    })
+      .then(function (res) {})
+      .catch(() => {
+        alert("Что-то пошло нетак!");
+      });  
+  };
+
+  console.log(ticketId);
   return (
     <div>
       <div style={{
-        transform: `translateY(${showSend ? 0 : "-100vh"})`,
+        transform: `translateY(${showSend ? "-50%, -50%" : "-50%, -100%"})`,
+        top: showSend ? "60%" : "0%",
         opacity: showSend ? 1 : 0
       }}
         className={styles.modal}
       >
-        <h3>Ваша заявка успешно отправлена!</h3>
-        <p>Мы Свяжемся с Вами в течении 24 часов.</p>
-        <button className={styles.button}>Отлично!</button>
+        <div className={styles.modal_info} style={{display: nextInfo ? "none" : "flex"}}>
+          <h3>Ваша заявка принята!</h3>
+          <p>Для точного подбора курса/репетитора нужна более подробная информация. </p>
+          <select
+            onChange={(e) => {
+              setConnectionLanguage(e.target.value)
+            }}
+            className={styles.info_select}
+          >
+            <option value="">Язык общения</option>
+            <option value="Казахский">Казахский</option>
+            <option value="Русский">Русский</option>
+          </select>
+
+          <select
+            onChange={(e) => {
+              setInfoVar(e.target.value)
+            }}
+            value={infoVar}
+            className={styles.info_select}
+          >
+            <option value="">Как удобней оставить информацию?</option>
+            <option value={1}>Свяжитесь со мной по телефону</option>
+            <option value={2}>Я заполню информацию самостоятельно</option>
+          </select>
+        </div>
+        <div className={styles.modal_info} style={{display: nextInfo ? "flex" : "none"}}>
+          <h3 style={{padding: "0 40px"}}>Оставить информацию для заявки</h3>
+          <textarea 
+            className={styles.info_select}
+            value={goal}
+            onChange={e => setGoal(e.target.value)}
+            placeholder="Для чего мне нужен курс:"
+          />
+          <select 
+            value={price} 
+            className={styles.info_select}
+            onChange={e => setPrice(e.target.value)}
+          >
+            <option value="0">Сколько хочу платить за час</option>
+            <option value={'0-2000'}>0 - 2 000KZT</option>
+            <option value={'2000-5000'}>2 000 - 5 000KZT</option>
+            <option value={'5000'}>5 000 +</option>
+          </select>
+          <select
+            className={styles.info_select}
+            value={language}
+            onChange={e => setLanguage(e.target.value)}
+          >
+            <option value="">Язык преподавания</option>
+            <option value="Казахский">Казахский</option>
+            <option value="Русский">Русский</option>
+          </select>
+          <select
+            className={styles.info_select}
+            onChange={e => {
+              if (e.target.value === "1" || e.target.value === "") {
+                setOnline(true)
+                setOffline(false)
+              } else {
+                setOnline(false)
+                setOffline(true)
+              }
+            }}
+          >
+            <option value="">Формат преподавания</option>
+            <option value="1">Онлайн</option>
+            <option value="2">Офлайн</option>
+          </select>
+          <select
+            className={styles.info_select}
+            value={typeClass}
+            onChange={e => setTypeClass(e.target.value)}
+          >
+            <option value="">Тип занятий</option>
+            <option value="Индивидуальные">Индивидуальные</option>
+            <option value="Групповые">Групповые</option>
+          </select>
+        </div>
+        <button 
+          className={styles.button} 
+          style={{display: nextInfo ? "none" : "block"}}
+          onClick={() => {
+            if (infoVar === 1 || infoVar === "1") {
+              setShowSend(false);
+              setNextInfo(false);
+            } else {
+              setNextInfo(true);
+              getTicketId();
+            }
+          }}
+        >
+          Продолжить
+        </button>
+        <button 
+          className={styles.button} 
+          style={{display: nextInfo ? "block" : "none"}}
+          onClick={() => {
+            setNextInfo(false);
+            setShowSend(false);
+            sendDetailTicketInfo()
+          }}
+        >
+          Отправить информацию
+        </button>
       </div>
       <Backdrop show={showSend} click={handleShowSend} />
       {/* { showNoizyWindow 
@@ -538,7 +716,7 @@ const Catalog = () => {
                     className={styles.svg}
                     // viewBox="-30 30 640 389"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="100"
+                    width="250"
                     viewBox="0 0 181 55"
                     fill="none"
                     xmls="http://www.w3.org/2000/svg"
@@ -587,7 +765,7 @@ const Catalog = () => {
                     <a
                       className={styles.link}
                       onClick={() => {
-                        router.push('/');
+                        router.push('/сatalog');
                       }}
                     >
                       Каталог
@@ -700,24 +878,24 @@ const Catalog = () => {
                                 </a>
                             </li>
                             <li>
-                                <a
-                                    className={styles.link}
-                                    style={{color: 'black'}}
-                                    onClick={() => {
-                                        router.push('/');
-                                    }}
-                                >
-                                    Каталог
-                                </a>
+                              <a
+                                className={styles.link}
+                                style={{color: 'black'}}
+                                onClick={() => {
+                                  router.push('/catalog');
+                                }}
+                              >
+                                Каталог
+                              </a>
                             </li>
                             <li onClick={handleShow}>
                                 <a className={styles.link} style={{color: 'black'}}>Стать партнером</a>
                             </li>
                             {
-                                isLogged ?
-                                    (<li style={{color: 'black'}}>
-                                        <Link href={cabinetRoute}>
-                                            <a style={{color: 'black'}}>Личный кабинет</a>
+                              isLogged ?
+                                (<li style={{color: 'black'}}>
+                                  <Link href={cabinetRoute}>
+                                    <a style={{color: 'black'}}>Личный кабинет</a>
                                         </Link>
                                         <span className={styles.exitBtn} onClick={()=>{
                                             setExitingOut(true)
@@ -799,6 +977,7 @@ const Catalog = () => {
                     className={styles.button}
                     onClick={() => {
                       if (name !== "" && phone !== "" && connection !== "" && connection !== "3" && connection !== 3) {
+                        if (firstStepValidation ()) {
                           sendApplication(0, {
                             fullName: name,
                             phone: phone,
@@ -808,10 +987,8 @@ const Catalog = () => {
                             "reachGoal",
                             "go-to-second-step-while-searching-button-pressed"
                           );
-                          setShowSend(true)
-                          setName("");
-                          setPhone("");
-                          setConnection(3)
+                          setShowSend(true);
+                        }
                       } else {
                         alert("Заполните пожалуйста все поля.")
                       }
@@ -825,16 +1002,40 @@ const Catalog = () => {
                   </div>
                   <div className={styles.rounds}>
                       <div className={styles.forRC}>
-                        <h2>{roundFilters[2].length} +</h2>  
+                        <h2>
+                          <Odometer 
+                            value={roundFilters[2].length} 
+                            format='(,ddd).dd' 
+                            theme="default" 
+                            animation="count"
+                          /> 
+                          <span style={{marginLeft: "5px"}}>+</span>
+                        </h2> 
                         <p>Учебных центров</p>
                       </div>
                       <div className={styles.forRC}>
-                          <h2>{tutors.length} +</h2>  
-                          <p>Репетиторов</p>
+                        <h2>
+                          <Odometer 
+                            value={tutors.length} 
+                            format='(,ddd).dd' 
+                            theme="default" 
+                            animation="count"
+                          />
+                          <span style={{marginLeft: "5px"}}>+</span>
+                        </h2>  
+                        <p>Репетиторов</p>
                       </div>
                       <div className={styles.forRC}>
-                        <h2>{roundFilters[1].length} +</h2>    
-                          <p>Направлений</p>
+                        <h2>
+                          <Odometer 
+                            value={roundFilters[1].length} 
+                            format='(,ddd).dd' 
+                            theme="default" 
+                            animation="count"
+                          />
+                          <span style={{marginLeft: "5px"}}>+</span>
+                        </h2>    
+                        <p>Направлений</p>
                       </div>
                   </div>
                 </div>
@@ -847,7 +1048,7 @@ const Catalog = () => {
             {
                 filtersLoading ? <LoadingBlock/> : <TopTutorsSlider course={tutorsWithPhoto} categories={tutorsWithPhoto}/>
             } */}
-            <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
+            <div className={styles.titleBlock}>
                 <Image src={'/notebook-dynamic-color.png'} className={styles.titleImg}/>
                 <span className={styles.title}>Популярные курсы</span>
                 <div className={styles.course_btn_container}>
