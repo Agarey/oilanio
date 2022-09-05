@@ -562,7 +562,7 @@ const Catalog = () => {
   return (
     <div>
       <div style={{
-        transform: `translateY(${showSend ? "-50%, -50%" : "-50%, -100%"})`,
+        transform: `translate(${showSend ? "-50%, -50%" : "-100%, -100%"})`,
         top: showSend ? "60%" : "0%",
         opacity: showSend ? 1 : 0
       }}
@@ -882,7 +882,7 @@ const Catalog = () => {
                                 className={styles.link}
                                 style={{color: 'black'}}
                                 onClick={() => {
-                                  router.push('/catalog');
+                                  router.push('/');
                                 }}
                               >
                                 Каталог

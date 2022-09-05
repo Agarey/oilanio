@@ -612,7 +612,7 @@
     position: absolute;
     z-index: 500;
     background-color: #7F8BA3;
-    width: 480px;
+    max-width: 480px;
     padding: 18px;
     /* left: 41%; */
     text-align: center;
@@ -621,7 +621,7 @@
     transition: all 0.3s ease-out;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
     top: 50%;
     color: #fff;
     border-radius: 20px;
