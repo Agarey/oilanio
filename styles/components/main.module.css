@@ -185,7 +185,7 @@
 .rounds{
     display: flex;
     flex-direction: column;
-    margin-left: 214px;
+    margin-left: 114px;
     justify-content: space-between;
 }
 .applicationBlock {

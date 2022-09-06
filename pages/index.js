@@ -674,7 +674,7 @@ const Catalog = () => {
           Отправить информацию
         </button>
       </div>
-      <Backdrop show={showSend} click={handleShowSend} />
+      <Backdrop show={showSend} />
       {/* { showNoizyWindow 
         ? (
           <NoizyWindow 
@@ -765,7 +765,7 @@ const Catalog = () => {
                     <a
                       className={styles.link}
                       onClick={() => {
-                        router.push('/сatalog');
+                        router.push('/');
                       }}
                     >
                       Каталог
@@ -796,69 +796,103 @@ const Catalog = () => {
                       >
                         {student.name !== undefined 
                           ? (
+                            <div className={styles.studentCard}>
+                              <Image src={'https://realibi.kz/file/624128.png'} className={styles.studentAvatar}/>
+                              <div className={styles.studentInfo}>
+                                <span 
+                                  className={styles.studentName}
+                                  onClick={()=>router.push('/cabinet/student')}
+                                >
+                                  {student.name}
+                                </span>
+                                <span 
+                                  className={styles.exitBtn}        
+                                  onClick={()=>{
+                                    setExitingOut(true)
+                                    router.push('/login');
+                                  }}
+                                >
+                                  {exitingOut ? 'Выход...' : 'Выйти'}
+                                </span>
+                              </div>
+                            </div>
+                          ) : (center !== undefined && center.title !== undefined 
+                            ? (
                               <div className={styles.studentCard}>
-                                <Image src={'https://realibi.kz/file/624128.png'} className={styles.studentAvatar}/>
-                                            <div className={styles.studentInfo}>
-                                                <span className={styles.studentName} onClick={()=>router.push('/cabinet/student')}>{student.name}</span>
-                                                <span className={styles.exitBtn} onClick={()=>{
-                                                    setExitingOut(true)
-                                                    router.push('/login');
-                                                }}>{exitingOut ? 'Выход...' : 'Выйти'}</span>
-                                            </div>
-                                        </div>
-                                    ) : (center !== undefined && center.title !== undefined ? (
-                                        <div className={styles.studentCard}>
-                                            <Image src={center.img_src} className={styles.studentAvatar}/>
-                                            <div className={styles.studentInfo}>
-                                                <span className={styles.studentName} onClick={()=>router.push('/cabinet')}>{center.title || center.fullname}</span>
-                                                <span className={styles.exitBtn} onClick={()=>{
-                                                    setExitingOut(true)
+                                <Image src={center.img_src} className={styles.studentAvatar}/>
+                                <div className={styles.studentInfo}>
+                                  <span 
+                                    className={styles.studentName} 
+                                    onClick={()=>router.push('/cabinet')}
+                                  >
+                                    {center.title || center.fullname}
+                                  </span>
+                                  <span 
+                                    className={styles.exitBtn} 
+                                    onClick={()=>{
+                                      setExitingOut(true)
+                                      localStorage.removeItem(globals.localStorageKeys.currentStudent)
+                                      localStorage.removeItem(globals.localStorageKeys.authToken);
+                                      localStorage.removeItem(globals.localStorageKeys.centerId);
+                                      localStorage.removeItem(globals.localStorageKeys.currentUserId);
+                                      localStorage.removeItem(globals.localStorageKeys.roleId);
+                                      encodeURIComponent(router.push('/login'))
+                                    }}>
+                                      {exitingOut ? 'Выход...' : 'Выйти'}
+                                    </span>
+                                  </div>
+                                </div>
+                              ) : (center !== undefined && center.fullname !== undefined 
+                                ? (
+                                  <div className={styles.studentCard}>
+                                    <Image src={center.img_src || 'https://realibi.kz/file/624128.png'} className={styles.studentAvatar}/>
+                                    <div className={styles.studentInfo}>
+                                      <span 
+                                        className={styles.studentName} 
+                                        onClick={()=>router.push('/cabinet')}
+                                      >
+                                        {center.title || center.fullname}
+                                      </span>
+                                      <span 
+                                        className={styles.exitBtn} 
+                                        onClick={()=>{
+                                          setExitingOut(true)
+                                          encodeURIComponent(router.push('/login'))
+                                        }}
+                                      >
+                                        {exitingOut ? 'Выход...' : 'Выйти'}
+                                      </span>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <span onClick={() => router.push('/login')}>
+                                    Войти
+                                  </span>
+                                )
+                              )
+                          )
+                        }
+                      </button>
+                    </li>
+                  )}
+                </ul>
+              </div>
 
-                                                    localStorage.removeItem(globals.localStorageKeys.currentStudent)
-
-                                                    localStorage.removeItem(globals.localStorageKeys.authToken);
-                                                    localStorage.removeItem(globals.localStorageKeys.centerId);
-                                                    localStorage.removeItem(globals.localStorageKeys.currentUserId);
-                                                    localStorage.removeItem(globals.localStorageKeys.roleId);
-
-                                                    encodeURIComponent(router.push('/login'))
-                                                }}>{exitingOut ? 'Выход...' : 'Выйти'}</span>
-                                            </div>
-                                        </div>
-                                    ) : (center !== undefined && center.fullname !== undefined ? (
-                                        <div className={styles.studentCard}>
-                                            <Image src={center.img_src || 'https://realibi.kz/file/624128.png'} className={styles.studentAvatar}/>
-                                            <div className={styles.studentInfo}>
-                                                <span className={styles.studentName} onClick={()=>router.push('/cabinet')}>{center.title || center.fullname}</span>
-                                                <span className={styles.exitBtn} onClick={()=>{
-                                                    setExitingOut(true)
-                                                    encodeURIComponent(router.push('/login'))
-                                                }}>{exitingOut ? 'Выход...' : 'Выйти'}</span>
-                                            </div>
-                                        </div>
-                                    ) : (<span onClick={() => router.push('/login')}>
-                                        Войти
-                                    </span>)))
-                                }</button>
-                            </li>
-                        )}
-                    </ul>
-                </div>
-
-                <div onClick={() => { setShowMobileMenu(!showMobileMenu) }} className={styles.menuButtonBody}>
-                    <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M1 17H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M9 9H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <span style={{
-                        fontFamily: 'Rubik Medium',
-                        fontSize: '18px',
-                        marginLeft: '10px',
-                        color: 'black'
-                    }}>Меню</span>
-                </div>
-
+              <div onClick={() => { setShowMobileMenu(!showMobileMenu) }} className={styles.menuButtonBody}>
+                <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M1 17H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M9 9H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span style={{
+                  fontFamily: 'Rubik Medium',
+                  fontSize: '18px',
+                  marginLeft: '10px',
+                  color: 'black'
+                }}>
+                  Меню
+                </span>
+              </div>
             </div>
             
 
