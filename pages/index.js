@@ -175,7 +175,7 @@ const Catalog = (props) => {
   const [goal, setGoal] = useState("");
   const [price, setPrice] = useState("");
   const [connectionLanguage, setConnectionLanguage] = useState("");
-  const [infoVar, setInfoVar] = useState("");
+  const [infoVar, setInfoVar] = useState(2);
   const [language, setLanguage] = useState("");
   const [online, setOnline] = useState(true);
   const [offline, setOffline] = useState(false);
@@ -563,11 +563,12 @@ const Catalog = (props) => {
     <div>
       <div style={{
         transform: `translate(${showSend ? "-50%, -50%" : "-100%, -100%"})`,
-        top: showSend ? "60%" : "0%",
+        top: showSend ? "50%" : "0%",
         opacity: showSend ? 1 : 0
       }}
         className={styles.modal}
       >
+        <span className={styles.close_modal} onClick={handleShowSend}></span>
         <div className={styles.modal_info} style={{display: nextInfo ? "none" : "flex"}}>
           <h3>Ваша заявка принята!</h3>
           <p>Для точного подбора курса/репетитора нужна более подробная информация. </p>
@@ -578,8 +579,8 @@ const Catalog = (props) => {
             className={styles.info_select}
           >
             <option value="">Язык общения</option>
-            <option value="Казахский">Казахский</option>
             <option value="Русский">Русский</option>
+            <option value="Казахский">Казахский</option>
           </select>
 
           <select
@@ -590,17 +591,18 @@ const Catalog = (props) => {
             className={styles.info_select}
           >
             <option value="">Как удобней оставить информацию?</option>
-            <option value={1}>Свяжитесь со мной по телефону</option>
             <option value={2}>Я заполню информацию самостоятельно</option>
+            <option value={1}>Свяжитесь со мной по телефону</option>
           </select>
         </div>
         <div className={styles.modal_info} style={{display: nextInfo ? "flex" : "none"}}>
-          <h3 style={{padding: "0 40px"}}>Оставить информацию для заявки</h3>
+          <h3>Оставить информацию для заявки</h3>
+          <label className={styles.goal_title}>Для чего мне нужен курс ?</label>
           <textarea 
             className={styles.info_select}
             value={goal}
             onChange={e => setGoal(e.target.value)}
-            placeholder="Для чего мне нужен курс:"
+            placeholder="Хочу обучится английскому языку, чтобы успешно сдать ILSE"
           />
           <select 
             value={price} 
@@ -618,8 +620,8 @@ const Catalog = (props) => {
             onChange={e => setLanguage(e.target.value)}
           >
             <option value="">Язык преподавания</option>
-            <option value="Казахский">Казахский</option>
             <option value="Русский">Русский</option>
+            <option value="Казахский">Казахский</option>
           </select>
           <select
             className={styles.info_select}
@@ -648,7 +650,7 @@ const Catalog = (props) => {
           </select>
         </div>
         <button 
-          className={styles.button} 
+          className={styles.modal_button} 
           style={{display: nextInfo ? "none" : "block"}}
           onClick={() => {
             if (infoVar === 1 || infoVar === "1") {
@@ -663,7 +665,7 @@ const Catalog = (props) => {
           Продолжить
         </button>
         <button 
-          className={styles.button} 
+          className={styles.modal_button} 
           style={{display: nextInfo ? "block" : "none"}}
           onClick={() => {
             setNextInfo(false);

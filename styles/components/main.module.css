@@ -134,7 +134,23 @@
     transition: 0.8s;
     font-size: 22px;
     margin-top: 15px;
-    margin-bottom: 28px;
+    z-index: 5;
+    width: 100%;
+}
+
+.modal_button {
+    font-family: "Montserrat Medium";
+    cursor: pointer;
+    background-color: #007AFF;
+    color: white;
+    width: max-content;
+    border: none;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 12px;
+    transition: 0.8s;
+    font-size: 22px;
+    margin-bottom: 6px;
     z-index: 5;
     width: 100%;
 }
@@ -609,11 +625,11 @@
 }
 
 .modal {
-    position: absolute;
+    position: fixed;
     z-index: 500;
     background-color: #7F8BA3;
     max-width: 480px;
-    padding: 18px;
+    padding: 40px;
     /* left: 41%; */
     text-align: center;
     /* top: 20%; */
@@ -627,11 +643,28 @@
     border-radius: 20px;
 }
 
+.close_modal {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url('https://realibi.kz/file/503779.png');
+    background-size: cover;
+}
+
 .modal h3 {
     font-family: "Montserrat Bold";
     font-size: 28px;
-    margin: 40px 0 32px;
+    margin: 0px 0 20px;
     line-height: 110%;
+}
+
+.goal_title {
+    font-size: 20px;
+    font-family: "Montserrat Regular";
 }
 
 .titleBlock {
@@ -645,24 +678,24 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 110%;
-    padding: 0 25px;
     margin-bottom: 32px;
 }
 
 .info_select {
     display: block;
-    width: 90%;
+    width: 100%;
     background-image: url('data:image/svg+xml,\ <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">\<path d="M1 1.46387L7 8.5353L13 1.46387" stroke="black" stroke-width="2" stroke-linecap="round"/>\</svg>');
     background-repeat: no-repeat, repeat;
     background-position: right 0.7em top 50%, 0 0;
     background-size: 0.65em auto, 100%;
     -webkit-appearance: none;
     font-family: "Montserrat Regular";
+    font-size: 16px;
 }
 
 .modal_info {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .modal textarea {
@@ -670,7 +703,7 @@
     border-radius: 8px;
     height: 120px;
     padding: 10px 12px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     background-image: none;
 }
 
@@ -1335,6 +1368,10 @@
     .clickMore {
         margin-top: 144px;
     }
+    .modal {
+        max-width: 440px;
+        padding: 20px;
+    }
 }
 
 @media screen and (max-width: 415px) {
@@ -1343,6 +1380,21 @@
     }
     .rounds {
         margin-top: 27px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .modal {
+        max-width: 360px;
+    }
+    .modal h3 {
+        font-size: 22px;
+    }
+    .goal_title {
+        font-size: 16px;
+    }
+    .modal textarea, .modal  select {
+        margin-bottom: 20px;
     }
 }
 
