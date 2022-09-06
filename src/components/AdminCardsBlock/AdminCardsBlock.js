@@ -75,6 +75,12 @@ function AdminCardsBlock(){
     const [cardsOfCourseAndTutorCardsTable, setCardsOfCourseAndTutorCardsTable] = useState(false)
     const [cardsOfCourseAndTutor, setcardsOfCourseAndTutor] = useState([])
 
+    const [tutorSertificates, setTutorSertificates] = useState([])
+    const [courseTeachers, setCourseTeachers] = useState([])
+    const [allCardsListWithArchivedCards, setAllCardsListWithArchivedCards] = useState([])
+    const [tutorAllCardsListWithArchivedCards, setTutorAllCardsListWithArchivedCards] = useState([])
+    const [citiesList, setCitiesList] = useState([])
+
     const googleAdds = () => {
         return(
             "<!-- Global site tag (gtag.js) - Google Analytics -->\n" +
@@ -296,7 +302,12 @@ function AdminCardsBlock(){
     // Отчет по карточкам центров и репетиторов
     useEffect(async () => {
       await loadCourseCards();
+      await loadCourseCardsWithArchivedCards();
       await loadTutorCourseCards();
+      await loadTutorCoursecardsWithArchivedCards();
+      await loadTutorSertificates();
+      await loadTeachersResult();
+      await loadCitiesList();
     }, []);
     const loadCourseCards = async () => {
       let result = await axios
@@ -305,6 +316,13 @@ function AdminCardsBlock(){
           setAllCardsList(result.data);
         });
     };
+    const loadCourseCardsWithArchivedCards = async () => {
+        let result = await axios
+          .get(`${globals.productionServerDomain}/getCourseCardsWithArchivedCards/`)
+          .then((result) => {
+            setAllCardsListWithArchivedCards(result.data);
+          });
+      };
     const loadTutorCourseCards = async () => {
         let result = await axios
           .get(`${globals.productionServerDomain}/tutorCourseCards/`)
@@ -312,11 +330,37 @@ function AdminCardsBlock(){
             setTutorAllCardsList(result.data);
           });
       };
+    const loadTutorCoursecardsWithArchivedCards = async () => {
+        let result = await axios
+          .get(`${globals.productionServerDomain}/getTutorCoursecardsWithArchivedCards/`)
+          .then((result) => {
+            setTutorAllCardsListWithArchivedCards(result.data);
+          });
+      };
+      const loadTutorSertificates = async () => {
+        axios.get(`${globals.productionServerDomain}/getSertificates`).then(res => {
+            setTutorSertificates(res.data);
+            console.log(res);
+        });
+    };
+    const loadTeachersResult = async () => {
+        axios.get(`${globals.productionServerDomain}/teachers`).then(res => {
+            setCourseTeachers(res.data)
+        })
+    }
+    const loadCitiesList = async () => {
+        axios.get(`${globals.productionServerDomain}/getCities`).then(res => {
+            setCitiesList(res.data)
+        })
+    }
 
     const cardsOfTutor = () => {
-        const cardsOfTutor = tutorAllCardsList?.map(el => el.tutorsId)
+        const cardsOfTutor = tutorAllCardsListWithArchivedCards?.map(el => el.tutorsId)
+        const citiesListFormated = citiesList?.map(el => [['cityName', el.name], ['city_id', el.id]]).map(Object.fromEntries)
+        const TutorAllCardsListInfo = tutorAllCardsListWithArchivedCards?.map(el => [['id', el.tutorsId]]).map(Object.fromEntries) //дополнительная инфа с таблицы tutorAllCardsList
+        const tutorSertificatesOnlyId = tutorSertificates?.map(el => el.tutor_id)
         let container = {}
-        const tutorAllCardsListOnlyCategory = tutorAllCardsList?.map(el => [['courseCategoryName', el.courseCategory], ['id', el.tutorsId]]).map(Object.fromEntries)
+        const tutorAllCardsListOnlyCategory = tutorAllCardsListWithArchivedCards?.map(el => [['courseCategoryName', el.courseCategory], ['id', el.tutorsId]]).map(Object.fromEntries)
         let hash = Object.create(null);
         let AllCardsListOnlyCategorySorted = tutorAllCardsListOnlyCategory?.reduce(function (r, o) {
             if (!hash[o.id]) {
@@ -343,31 +387,47 @@ function AdminCardsBlock(){
             return uniqueCategoriesPlacingFinal
         })
 
-        const cardsOfTutorCounting = cardsOfTutor.reduce((acc, el) => {
+        const cardsOfTutorCounting1 = cardsOfTutor.reduce((acc, el) => {
           acc[el] = (acc[el] || 0) + 1;
         //   container[acc]
           return acc;
         }, {});
-        // let containerId = Object.keys(cardsOfTutorCounting)
-        // let containerCount = cardsOfTutorCounting
-        // let test = containerId.map(el => container[{"id": el[0]}])
-        const array2 = Object.entries(cardsOfTutorCounting).map(([k,v]) => [['id', k], ['countOfCards', v]]).map(Object.fromEntries); 
+        const tuorSertificatesCounting1 = tutorSertificatesOnlyId.reduce((acc, el) => {
+            acc[el] = (acc[el] || 0) + 1;
+            return acc
+        }, {});
+        const cardsOfTutorCounting2 = Object.entries(cardsOfTutorCounting1).map(([k,v]) => [['id', k], ['countOfCards', v]]).map(Object.fromEntries); 
+        const tuorSertificatesCounting2 = Object.entries(tuorSertificatesCounting1).map(([k,v]) => [['id', k], ['countOfSertificates', v]]).map(Object.fromEntries); 
 
-        const arr3 = allTutorsList?.map((y) => Object.assign(y, array2?.find((x) => x.id == y.id)));
+        const arr3 = allTutorsList?.map((y) => Object.assign(y, cardsOfTutorCounting2?.find((x) => x.id == y.id)));
         const arr4 = arr3?.map((y) => Object.assign(y, tutorAllCardsListOnlyCategory?.find((x) => x.id == y.id)))
         const arr5 = arr3?.map((y) => Object.assign(y, uniqueCategoriesOfCards?.find((x) => x.id == y.id)))
+        const arr6 = arr5?.map((y) => Object.assign(y, TutorAllCardsListInfo?.find((x) => x.id == y.id)))
+        const arr7 = arr6?.map((y) => Object.assign(y, tuorSertificatesCounting2?.find((x) => x.id == y.id)))
+        const arr8 = arr7?.map((y) => Object.assign(y, citiesListFormated?.find((x) => x.city_id == y.city_id)))
         console.log("cardsOfCourse", arr5)
 
         console.log("allCardsList", allCardsList)
         console.log("tutorAllCardsList", tutorAllCardsList)
         console.log("tutorAllCardsListOnlyCategory", tutorAllCardsListOnlyCategory)
-        setTutorCardsStatistics(arr5)
+        console.log("tutorSertificates", tutorSertificates)
+        console.log("tuorSertificatesCounting2", tuorSertificatesCounting2)
+        console.log("arr8", arr8)
+        setTutorCardsStatistics(arr8)
     }
 
     const cardsOfCourse = () => {
-        const cardsOfCenter = allCardsList?.map(el => el.course_id)
+        const cardsOfCenter = allCardsListWithArchivedCards?.map(el => el.course_id)
+        const citiesListFormated = citiesList?.map(el => [['cityName', el.name], ['city_id', el.id]]).map(Object.fromEntries)
+        const allCardsListInfo = allCardsListWithArchivedCards?.map(el => [['id', el.course_id], ['email', el.email]]).map(Object.fromEntries)
+        const courseTeachersOnlyId = courseTeachers?.map(el => el.course_id)
+        const courseTeachersOnlyIdCounting1 = courseTeachersOnlyId.reduce((acc, el) => {
+            acc[el] = (acc[el] || 0) + 1;
+            return acc;
+          }, {});
+        const courseTeachersOnlyIdCounting2 = Object.entries(courseTeachersOnlyIdCounting1).map(([k,v]) => [['id', k], ['countOfTeachers', v]]).map(Object.fromEntries); 
         let container = {}
-        const AllCardsListOnlyCategory = allCardsList?.map(el => [['courseCategoryName', el.category], ['id', el.course_id]]).map(Object.fromEntries)
+        const AllCardsListOnlyCategory = allCardsListWithArchivedCards?.map(el => [['courseCategoryName', el.category], ['id', el.course_id]]).map(Object.fromEntries)
         let hash = Object.create(null);
         let AllCardsListOnlyCategorySorted = AllCardsListOnlyCategory?.reduce(function (r, o) {
             if (!hash[o.id]) {
@@ -406,16 +466,23 @@ function AdminCardsBlock(){
         const arr3 = courses?.map((y) => Object.assign(y, array2?.find((x) => x.id == y.id)));
         const arr4 = arr3?.map((y) => Object.assign(y, AllCardsListOnlyCategory?.find((x) => x.id == y.id)))
         const arr5 = arr3?.map((y) => Object.assign(y, uniqueCategoriesOfCards?.find((x) => x.id == y.id)))
-        console.log("cardsOfCourse", arr5)
-        setCourseCardsStatistics(arr5)
+        const arr6 = arr5?.map((y) => Object.assign(y, courseTeachersOnlyIdCounting2?.find((x) => x.id == y.id)))
+        const arr7 = arr6?.map((y) => Object.assign(y, allCardsListInfo?.find((x) => x.id == y.id)))
+        const arr8 = arr7?.map((y) => Object.assign(y, citiesListFormated?.find((x) => x.city_id == y.city_id)))
+        console.log("arr8", arr8)
+        console.log("courses", courses)
+        console.log("courseTeachers", courseTeachers)
+        console.log("allCardsListWithArchivedCards", allCardsListWithArchivedCards)
+        setCourseCardsStatistics(arr8)
     }
 
 
     const cardsOfCourseAndTutorFunction = () => {
-        const courseCards = allCardsList?.map(el => [['id', el.course_id], ['isCenter', true], ['teachingLanguage', ''], ['city', el.city], ['departure', ''], ['cardId',  el.id], ['name', el.course_title], ['title', el.title], ['price', el.price], ['unit_of_time', el.unit_of_time], ['description', el.description], ['schedule', el.schedule], ['duration', el.duration], ['ages', el.ages], ['min_age', '' ], ['max_age', ''], ['format', el.format], ['category', el.category], ['expected_result', el.expected_result], ['start_requirements', el.start_requirements], ['type', el.type]]).map(Object.fromEntries)
-        const tutorCards = tutorAllCardsList?.map(el => [['id', el.tutorsId], ['isCenter', false], ['teachingLanguage', el.teaching_language], ['city', el.city], ['departure', el.canWorkOnDeparture], ['cardId',  el.id], ['name', el.tutorsName], ['title', el.title], ['price', el.price], ['unit_of_time', el.unit_of_time], ['description', ''], ['schedule', el.schedule], ['duration_value', el.duration_value], ['duration_word', el.duration_word], ['ages', ''], ['min_age', el.min_age ], ['max_age', el.max_age], ['format', el.is_online], ['category', el.courseCategory], ['expected_result', el.expecting_results], ['start_requirements', el.start_requirements], ['type', '']]).map(Object.fromEntries)
+        const courseCards = allCardsListWithArchivedCards?.map(el => [['id', el.course_id], ['isCenter', true], ['teachingLanguage', ''], ['city', el.city], ['departure', ''], ['cardId',  el.id], ['name', el.course_title], ['title', el.title], ['price', el.price], ['unit_of_time', el.unit_of_time], ['description', el.description], ['schedule', el.schedule], ['duration', el.duration], ['ages', el.ages], ['min_age', '' ], ['max_age', ''], ['format', el.format], ['category', el.category], ['expected_result', el.expected_result], ['start_requirements', el.start_requirements], ['type', el.type], ['is_archived', el.is_archived? true : false]]).map(Object.fromEntries)
+        const tutorCards = tutorAllCardsListWithArchivedCards?.map(el => [['id', el.tutorsId], ['isCenter', false], ['teachingLanguage', el.teaching_language], ['city', el.city], ['departure', el.canWorkOnDeparture], ['cardId',  el.id], ['name', el.tutorsName], ['title', el.title], ['price', el.price], ['unit_of_time', el.unit_of_time], ['description', ''], ['schedule', el.schedule], ['duration_value', el.duration_value], ['duration_word', el.duration_word], ['ages', ''], ['min_age', el.min_age ], ['max_age', el.max_age], ['format', el.is_online], ['category', el.courseCategory], ['expected_result', el.expecting_results], ['start_requirements', el.start_requirements], ['type', ''], ['is_archived', el.is_archived? true : false]]).map(Object.fromEntries)
         // console.log('tutorCards', tutorCards);
-        // console.log("tutorAllCardsList", tutorAllCardsList);
+        console.log("tutorAllCardsListWithArchivedCards", tutorAllCardsListWithArchivedCards);
+        console.log("allCardsListWithArchivedCards", allCardsListWithArchivedCards);
         const cardsOfCourseAndTutorWrapping = [...courseCards, ...tutorCards].sort((a, b) => a.id > b.id ? 1 : -1);
         console.log("cardsOfCourseAndTutorWrapping", cardsOfCourseAndTutorWrapping);
         setcardsOfCourseAndTutor(cardsOfCourseAndTutorWrapping)
@@ -474,6 +541,7 @@ function AdminCardsBlock(){
                                 <th>Результат обучения</th>
                                 <th>Входной уровень</th>
                                 <th>Тип занятий</th>
+                                <th>Архивная</th>
                             </tr>
 
                                 {cardsOfCourseAndTutor?.map(item => (
@@ -487,20 +555,21 @@ function AdminCardsBlock(){
                                             <td>{item.teachingLanguage}</td>
                                             <td>{item.name}</td>
                                             <td>{item.city}</td>
-                                            <td>{item.departure}</td>
+                                            <td>{item.departure ? 'true' : 'false'}</td>
                                             <td>{item.cardId}</td>
                                             <td>{item.title}</td>
                                             <td>{item.price}</td>
                                             <td>{item.unit_of_time}</td>                            
                                             <td>{item.description}</td>
                                             <td>{item.schedule}</td>
-                                            <td>{item.duration ? item.duration : item.duration_value + item.duration_word}</td>
+                                            <td>{item.duration ? item.duration : item.duration_value + ' ' + item.duration_word}</td>
                                             <td>{item.ages ? item.ages : item.min_age + '-' + item.max_age }</td>
                                             <td>{item.isCenter ? item.format : (item.format ? 'Online' : 'Offline')}</td>
                                             <td>{item.category}</td>
                                             <td>{item.expected_result}</td>
                                             <td>{item.start_requirements}</td>
                                             <td>{item.type}</td>
+                                            <td>{item.is_archived ? 'true' : 'false'}</td>
                                     </tr>
 
                                 </tbody>
@@ -518,7 +587,7 @@ function AdminCardsBlock(){
                                 fontFamily: 'sans-serif',
                                 fontWeight: 'bold',
                                 marginLeft: 10
-                            }}>Глобальный отчет по карточкам репетиторов</span>
+                            }}>Глобальный отчет по репетиторам</span>
                             <button onClick={() =>{
                                 setTutorCardsTable(!tutorCardsTable)
                                 console.log("allCardsList", tutorAllCardsList)
@@ -540,6 +609,9 @@ function AdminCardsBlock(){
                                 <th>Направления</th>
                                 <th>Количество карточек</th>
                                 <th>Количество заявок</th>
+                                <th>Количество сертификатов</th>
+                                <th>Город</th>
+                                <th>Адрес</th>
                             </tr>
 
                                 {tutorCardsStatistics?.map(item => (
@@ -551,10 +623,13 @@ function AdminCardsBlock(){
                                             <td>{item.id}</td>
                                             <td>{item.fullname}</td>
                                             <td>{item.phone_number}</td>
-                                            <td>{item.last_payment_date}</td>
+                                            <td>{item.registration_date ? item.registration_date : item.last_payment_date}</td>
                                             <td>{item.categories}</td>
-                                            <td>{item.countOfCards}</td>
+                                            <td>{item.countOfCards ? item.countOfCards : '0'}</td>
                                             <td>{item.count}</td>
+                                            <td>{item.countOfSertificates? item.countOfSertificates : '0'}</td>
+                                            <td>{item.cityName}</td>
+                                            <td>{item.address}</td>
                                     </tr>
 
                                 </tbody>
@@ -572,7 +647,7 @@ function AdminCardsBlock(){
                                 fontFamily: 'sans-serif',
                                 fontWeight: 'bold',
                                 marginLeft: 10
-                            }}>Глобальный отчет по карточкам центров</span>
+                            }}>Глобальный отчет по центрам</span>
                             <button onClick={() =>{
                                 setCourseCardsTable(!courseCardsTable)
                                 cardsOfCourse()
@@ -591,6 +666,12 @@ function AdminCardsBlock(){
                                     <th>Направления</th>
                                     <th>Количество карточек</th>
                                     <th>Количество заявок</th>
+                                    <th>Количество учителей</th>
+                                    <th>Город</th>
+                                    <th>Адрес</th>
+                                    <th>почта</th>
+                                    <th>Инстаграм</th>
+                                    <th>Сайт</th>
                                 </tr>
                                 <tbody>
                                 {
@@ -599,10 +680,16 @@ function AdminCardsBlock(){
                                             <td>{item.id}</td>
                                             <td>{item.title}</td>
                                             <td>{item.phones}</td>
-                                            <td>{item.last_payment_date}</td>
+                                            <td>{item.registration_date ? item.registration_date : item.last_payment_date}</td>
                                             <td>{item.categories}</td>
-                                            <td>{item.countOfCards}</td>
+                                            <td>{item.countOfCards ? item.countOfCards : '0' }</td>
                                             <td>{item.count}</td>
+                                            <td>{item.countOfTeachers? item.countOfTeachers : "0"}</td>
+                                            <td>{item.cityName}</td>
+                                            <td>{item.addresses}</td>
+                                            <td>{item.email}</td>
+                                            <td>{item.instagram}</td>
+                                            <td>{item.website_url}</td>
                                         </tr>
                                     ))
                                 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./CenterSection.module.css";
-// import globals from "../../globals";
+import globals from "../../globals";
 
 const axios = require("axios").default;
 
@@ -79,7 +79,7 @@ const CenterSection = () => {
 
         await axios({
             method: 'post',
-            url: `https://realibi.kz/createCenter`,
+            url: `${globals.productionServerDomain}/createCenter`,
             data: data
         }).then(function(res){
             // console.log(`data from server: ${res.data}`)

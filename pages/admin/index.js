@@ -20,7 +20,7 @@ function Admin(){
         {title: 'Операции', index: 0},
         {title: 'Создание', index: 1},
         {title: 'Модерация', index: 2},
-        {title: 'Статистика', index: 3}
+        {title: 'Отчеты', index: 3}
     ];
     const router = useRouter();
     const [activeMenuIndex, setActiveMenuIndex] = useState(0);
