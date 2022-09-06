@@ -1173,7 +1173,7 @@ const Catalog = (props) => {
                                     if(course.title !== 'test'){
                                         return (
                                             <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                                <CourseCard coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
+                                                <CourseCard coverImage={imagesBase.length > 0 ? imagesBase[Math.floor(Math.random() * imagesBase.length)].src : 'https://realibi.kz/file/633967.jpg'} setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
                                             </div>
                                         )
                                     }
