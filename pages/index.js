@@ -46,7 +46,7 @@ ChartJS.register(
   Legend
 );
 
-const Catalog = () => {
+const Catalog = (props) => {
   const router = useRouter();
 
   const [cardsToShow, setCardsToShow] = useState(8);
@@ -958,7 +958,7 @@ const Catalog = () => {
 
         </div>
             <Head>
-                <title>Oilan - Каталог</title>
+                <title>Oilan</title>
                 <link rel="icon" href="/atom-icon.png" />
                 <div dangerouslySetInnerHTML={{__html: ym()}}/>
             </Head>
