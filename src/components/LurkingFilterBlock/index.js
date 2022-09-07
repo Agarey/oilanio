@@ -13,7 +13,7 @@ const LurkingFilterBlock = ({
   setTutorCards,
   ...props
 }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const [isOnline, setIsOnline] = useState(0);
   const [priceFrom, setPriceFrom] = useState("0");
@@ -98,7 +98,7 @@ const LurkingFilterBlock = ({
             setShow(!show);
           }}
         >
-          Фильтр{" "}
+          Фильтр
           <Image
             src={"/Vector-4.png"}
             style={{ height: 8 }}

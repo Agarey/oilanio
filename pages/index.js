@@ -766,9 +766,7 @@ const Catalog = (props) => {
                   <li>
                     <a
                       className={styles.link}
-                      onClick={() => {
-                        router.push('/');
-                      }}
+                      onClick={() =>  window.scrollTo(0, 1200)}
                     >
                       Каталог
                     </a>
@@ -917,9 +915,7 @@ const Catalog = (props) => {
                               <a
                                 className={styles.link}
                                 style={{color: 'black'}}
-                                onClick={() => {
-                                  router.push('/');
-                                }}
+                                onClick={() =>  window.scrollTo(0, 1200)}
                               >
                                 Каталог
                               </a>
