@@ -963,7 +963,7 @@ const Catalog = (props) => {
 
             <div className={styles.mainImageTitleBlock}>
                 <span className={styles.clickMore}>В несколько кликов</span>
-                <h1>Найди Образовательный Центр или Репетитора</h1>
+                <h1 className={styles.headerOne}>Найди Образовательный Центр или Репетитора</h1>
                 <p className={styles.choiseCourse}>Подберём вам лучший курс </p>
                 <p className={styles.sendAppText}>Оставив заявку!</p>
                 <div className={styles.infoContainer}>
