@@ -668,9 +668,14 @@ const Catalog = (props) => {
           className={styles.modal_button} 
           style={{display: nextInfo ? "block" : "none"}}
           onClick={() => {
-            setNextInfo(false);
-            setShowSend(false);
-            sendDetailTicketInfo()
+            if (goal.length > 0 && price != '' && language != '' && typeClass != '') {
+              setNextInfo(false);
+              setShowSend(false);
+              sendDetailTicketInfo();
+            } else {
+              alert('Заполните все поля!');
+            }
+            
           }}
         >
           Отправить информацию
