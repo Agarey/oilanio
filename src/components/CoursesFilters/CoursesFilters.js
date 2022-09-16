@@ -171,9 +171,10 @@ function CoursesFilters (props) {
         }
         console.log("searching tutors", searchingTutors);
       });
-    } else {
-      loadCourseCards().then(()=>setLoading(false));
     }
+    //  else {
+    //   loadCourseCards().then(()=>setLoading(false));
+    // }
 
     await axios.get(`${globals.productionServerDomain}/filters`).then(res => {
       setFilters(res.data);
@@ -251,11 +252,11 @@ function CoursesFilters (props) {
     await reloadCourseCards();
   }, [priceTo]);
 
-  // useEffect(() => {
-  //   compareDirectrion(searchInput);
-  //   compareCourseName(searchInput);
-  //   compareIsTutor(searchInput);
-  // }, [searchInput]);
+  useEffect(() => {
+    compareDirectrion(searchInput);
+    compareCourseName(searchInput);
+    compareIsTutor(searchInput);
+  }, [searchInput]);
 
   useEffect(async () => {
     axios.get(`${globals.productionServerDomain}/getCities`).then(res => {
