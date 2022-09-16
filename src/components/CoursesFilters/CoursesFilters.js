@@ -47,7 +47,7 @@ function CoursesFilters (props) {
   const [isOnline, setIsOnline] = useState(0);
   const [showNoizyWindow, setShowNoizyWindow] = useState(false);
   const [searchingTutors, setSearchingTutors] = useState(false);
-  const [courseCards, setCourseCards] = useState(props.courseCards);
+  const [courseCards, setCourseCards] = useState(null);
   const [filters, setFilters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingModal, setLoadingModal] = useState(false);
@@ -278,7 +278,6 @@ function CoursesFilters (props) {
       behavior: 'smooth'
     });
     setLoading(false);
-    await reloadCourseCards();
   }, []);
 
   const longPressHandler = useLongPress(() => {
