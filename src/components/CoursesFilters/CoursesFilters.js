@@ -95,7 +95,7 @@ function CoursesFilters (props) {
     let result = await axios.get(`${globals.productionServerDomain}/courseCards/`)
       .then((res) => {
         setCourseCards(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
         .then(() => {
           setLoading(false);
@@ -126,7 +126,7 @@ function CoursesFilters (props) {
     searchingCenterValue = Boolean(Number(searchingCenterValue));
     let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
     setImagesBase(imagesBaseResponse.data);
-    console.log('images', imagesBase)
+    // console.log('images', imagesBase)
     const data = {
       centerName: centerName,
       city: city.toString(),
@@ -134,15 +134,15 @@ function CoursesFilters (props) {
       priceFrom: priceFrom.toString(),
       priceTo: priceTo.toString(),
       center: center.toString(),
-      isOnline: onOff.toString(),
+      isOnline: isOnline.toString(),
       sortType: sortType.toString()
     };
 
     let query = await `${globals.productionServerDomain}/${(searchingCenterValue) ? 'courseCardsFilter' : 'tutorCourseCardsFilter'}/`;
-    console.log('query', query);
+    // console.log('query', query);
     let postResult = await axios.post(query, data);
-    console.log('course cards');
-    console.log(postResult.data);
+    // console.log('course cards');
+    // console.log(postResult.data);
     setCourseCards(postResult.data);
     setLoading(false);
     setOpenMoreSort(true);
@@ -153,32 +153,32 @@ function CoursesFilters (props) {
     const redirectUrl = `/courses?centerName=${centerName}&direction=${direction}&city=${city}&price=${price}&isOnline=${isOnline}&searchingCenter=${searchingCenter}`
 
     await router.push(redirectUrl);
-}
+  }
 
   const reloadCourseCards = async () => {
     await setFiltersLoading(true);
     await loadCategories(true);
     await setLoading(true);
     await setSearchingCenterState(Boolean(searchingCenter));
-    if (directionId !== null || city !== null || priceFrom !== null || onOff !== null || center !== null) {
+    // if (directionId !== null || city !== null || priceFrom !== null || onOff !== null || center !== null) {
       filterBtnHandler(centerName, city === null ? 0 : Number(city), directionId === null ? 0 : Number(directionId), priceFrom === null ? 0 : priceFrom, priceTo === null ? 0 : priceTo, center === null ? 0 : center, onOff === null ? 0 : onOff, 'price asc', searchingCenter)
       .then(() => {
-        console.log('searching center', searchingCenter);
+        // console.log('searching center', searchingCenter);
         if(searchingCenter === 0) {
           setSearchingTutors(true);
         } else {
           setSearchingTutors(false);
         }
-        console.log("searching tutors", searchingTutors);
+        // console.log("searching tutors", searchingTutors);
       });
-    }
+    // }
     //  else {
     //   loadCourseCards().then(()=>setLoading(false));
     // }
 
     await axios.get(`${globals.productionServerDomain}/filters`).then(res => {
       setFilters(res.data);
-      console.log(res);
+      // console.log(res);
     });
 
     document.querySelector('#page_top').scrollIntoView({
@@ -187,18 +187,20 @@ function CoursesFilters (props) {
     setLoading(false);
   };
 
+  console.log(courseCards);
+
   const compareDirectrion =  (value) => {
     let direction_Id =  (courseCategories.find(el => el.name.toLowerCase() == value.toLowerCase()));
     if (!direction_Id) {direction_Id = 0};
     (direction_Id == 0)? {} : direction_Id = direction_Id.id;
     setDirectionId(direction_Id);
-    console.log(direction_Id);
-    console.log("directionId", directionId);
+    // console.log(direction_Id);
+    // console.log("directionId", directionId);
     
     const filterDirections = courseCategories.filter(category => {
       return category.name.toLowerCase().includes(value.toLowerCase());
     });
-    console.log("filterDirections", filterDirections);
+    // console.log("filterDirections", filterDirections);
     setSearchFilter(filterDirections);
   };
 
@@ -207,11 +209,11 @@ function CoursesFilters (props) {
     if (!course_name) {course_name = ''};
     (course_name == '')? {} : course_name = course_name.title;
     setCourseId(course_name);
-    console.log("COOURSE IDDDD", courseId);
+    // console.log("COOURSE IDDDD", courseId);
     const filterCourses = courses.filter(course => {
       return course.title.toLowerCase().includes(value.toLowerCase());
     });
-    console.log("filterCourses", filterCourses);
+    // console.log("filterCourses", filterCourses);
     setSearchFilterCourses(filterCourses);
   };
 
@@ -220,7 +222,7 @@ function CoursesFilters (props) {
     if (!tutor_name) {tutor_name = ''};
     (tutor_name == '')? {} : tutor_name = tutor_name.fullname;
     setTutorName(tutor_name);
-    console.log("tutorName", tutorName);
+    // console.log("tutorName", tutorName);
 
     const filterTutors = tutors.filter(tutors => {
       return tutors.fullname.toLowerCase().includes(value.toLowerCase());
@@ -261,11 +263,11 @@ function CoursesFilters (props) {
   useEffect(async () => {
     axios.get(`${globals.productionServerDomain}/getCities`).then(res => {
       setCities(res.data);
-      console.log(res);
+      // console.log(res);
     });
     axios.get(`${globals.productionServerDomain}/getCourseCategories`).then(res => {
       setCourseCategories(res.data);
-      console.log(res);
+      // console.log(res);
     });
     setFiltersLoading(true);
     loadCategories(true);
@@ -273,7 +275,7 @@ function CoursesFilters (props) {
     loadCourseCards().then(()=>setLoading(false));
     axios.get(`${globals.productionServerDomain}/filters`).then(res => {
       setFilters(res.data);
-      console.log(res);
+      // console.log(res);
     });
     document.querySelector('#page_top').scrollIntoView({
       behavior: 'smooth'
@@ -333,7 +335,7 @@ function CoursesFilters (props) {
       searchingCenter: searchCenter,
     })
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setDirections(res.data)
       })
   };
@@ -669,8 +671,7 @@ function CoursesFilters (props) {
                         })
                       }
                     </div>) 
-                  : null
-                  // <CourseSearchResultIsNotDefind catalog={true}/>
+                  : <CourseSearchResultIsNotDefind catalog={true}/>
                 )) 
                 : (
                   <div className={styles.loader}>
