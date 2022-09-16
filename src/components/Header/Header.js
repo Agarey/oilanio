@@ -192,7 +192,7 @@ export default function Header(props) {
                 className={styles.link}
                 style={{ color: "black" }}
                 onClick={() => {
-                  router.push("/catalog");
+                  router.push("/");
                 }}
               >
                 Каталог
@@ -388,7 +388,7 @@ export default function Header(props) {
                 className={styles.link}
                 style={{ color: "black" }}
                 onClick={() => {
-                  router.push("/catalog");
+                  router.push("/");
                 }}
               >
                 Каталог

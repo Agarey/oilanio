@@ -15,7 +15,8 @@
     width: 100%;
     padding: 0 9%;
     box-sizing: border-box;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
+    background-color: #E9EDF1;
 }
 .header{
     width: 100%;
@@ -47,7 +48,7 @@
     flex-wrap: wrap;
 }
 .listShow{
-    height: 100px;
+    height: 140px;
     transition: 0.3s;
 }
 .select{

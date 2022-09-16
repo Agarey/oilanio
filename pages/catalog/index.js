@@ -15,7 +15,7 @@ import CourseCard from "../../src/components/CourseCard/CourseCard";
 import ContactBlock from "../../src/components/ContactBlock";
 import Footer from "../../src/components/Footer/Footer";
 import LurkingFilterBlock from "../../src/components/LurkingFilterBlock";
-import CourseSearchResultIsNotDefind from "../../src/components/CourseSearchResultIsNotDefind";
+import CourseResultIsNotDefind from "../../src/components/CourseSearchResultIsNotDefind";
 import Link from 'next/link'
 import {BecomeAPartner} from "../../src/components/Forms/BecomeAPartnerForm/BecomeAPartner";
 import ModalWindow from "../../src/components/Modal/ModalWindow";

@@ -83,6 +83,8 @@ function Courses() {
   const [directionParentId, setDirectionParentId] = useState(0);
   const [directionChildrenId, setDirectionChildrenId] = useState(0);
   const [directionChildren2Id, setDirectionChildren2Id] = useState(0);
+  const [filterHide, setFilterHide] = useState(false);
+  const [filterShow, setFilterShow] = useState(false);
 
 
   const addCards = () => {
@@ -208,7 +210,7 @@ function Courses() {
       setCities(res.data);
       console.log(res);
     });
-    axios.get(`${globals.productionServerDomain}/courseCategories`).then(res => {
+    axios.get(`${globals.productionServerDomain}/getCourseCategories`).then(res => {
       setCourseCategories(res.data);
       console.log(res);
     });
@@ -369,24 +371,24 @@ function Courses() {
         : (<></>)
       }
       <Header white={true}/>
-        <div id={'coursesBlock'}
-          className={classnames(styles.container, styles.topBlock)}
-        >
-          <div className={styles.filtersSection}>
-            <h1>Фильтры </h1>
-            <div className={styles.filter_container}>
-              <div className={styles.filterChapter}>
-                <h3>Преподаватель</h3>
-                <div>
-                  <span
-                    className={isTutors ? styles.filterActive : styles.filter}
-                    onClick={() => {
-                    setIsTutors(true)
-                    setSearchingTutors(true)
-                    setSearchingCenterState(false)
-                    setSearchingCenter(0)
+      <div id={'coursesBlock'}
+        className={classnames(styles.container, styles.topBlock)}
+      >
+        <div style={filterHide ? {display: filterShow ? "block" : "none"} : undefined} className={styles.filtersSection}>
+          <h1>Фильтры </h1>
+          <div className={styles.filter_container}>
+            <div className={styles.filterChapter}>
+              <h3>Преподаватель</h3>
+              <div>
+                <span
+                  className={isTutors ? styles.filterActive : styles.filter}
+                  onClick={() => {
+                  setIsTutors(true)
+                  setSearchingTutors(true)
+                  setSearchingCenterState(false)
+                  setSearchingCenter(0)
                   }}
-                  >
+                >
                     Репетиторы
                   </span>
                   <span 
@@ -516,6 +518,13 @@ function Courses() {
             </div>
           </div>
           <div className={styles.cardsSection}>
+            <div 
+              className={styles.filter_btn} 
+              onClick={() => {
+                setFilterHide(!filterHide);
+                setFilterShow(!filterShow);
+              }}
+            ></div>
             {
               (
                 <>
@@ -538,14 +547,14 @@ function Courses() {
                                 courseCards.slice(0, cardsToShow).map((course, idx) => {
                                   if (course.title !== 'test') {
                                     return (
-                                      <div className={styles.courseCard_item}>
+                                      <>
                                         {searchingCenterState===false && (
                                           <TutorCourseCard key={idx} coverImage={course.img_src} sendApplicationCallback={sendApplication} setLoadingModal={setLoadingModal} course={course}/>
                                         )}
                                         {searchingCenterState===true && (
                                           <CourseCard key={idx} coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} sendApplicationCallback={sendApplication} setLoadingModal={setLoadingModal} course={course}/>
                                         )}
-                                      </div>
+                                      </>
                                     )
                                   }
                                 })

@@ -18,14 +18,14 @@
     margin: 0 auto;
     margin-top: 10px;
     box-sizing: border-box;
-    border-radius: 30px;
     height: auto;
     display: flex;
     flex-direction: row;
+    background: #f3f3f3;
 }
 .filtersSection{
     width: 25%;
-    margin-left: 20px;
+    /* margin-left: 20px; */
 }
 .filterChapter{
     display: flex;
@@ -179,11 +179,12 @@
 }
 
 .courses_block{
-   box-sizing: border-box;
+    box-sizing: border-box;
     width: 100%;
     display: grid;
     justify-content: center;
-    grid-template-columns: [card] 30% [card] 30% [card] 30%;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
 }
 
 .courseCard_item{
@@ -568,6 +569,15 @@
     border-right: none;
 }
 
+.filter_btn {
+    display: none;
+    width: 60px;
+    height: 60px;
+    background: url("https://realibi.kz/file/45387.png") no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 992px){
     .courses_block{
         width: 100%;
@@ -577,6 +587,20 @@
 }
 
 @media screen and (max-width: 600px) {
+    .search_block {
+        text-align: center;
+    }
+    .filtersSection {
+        top: 180px; 
+    }
+    .search_block_btn {
+        margin: 10px;
+    }
+
+    .search_block_content {
+        align-items: center;
+        flex-direction: column;
+    }
     .search_btnDIV{
         display: flex;
         flex-direction: column;
@@ -728,5 +752,235 @@
     .ConeBlue{
         top: 0;
         height: 128px;
+    }
+}
+
+@media screen and (max-width: 1600px){
+    /* .filtersSection {
+        width: 25%;
+    } */
+    .courses_block{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media screen and (max-width: 1070px){
+    .course_filters_container {
+        padding: 0;
+    }
+    
+    .filtersSection {
+        display: none;
+        position: absolute;
+        top: 130px;
+        padding: 20px;
+        background-color: #F3F3F3;
+        width: 100%;
+        z-index: 9;
+    }
+    .filter_btn {
+        display: block;
+    }
+    .cardsSection {
+        width: 100%;
+    }
+    .search_block {
+        display: none;
+        position: absolute;
+        top: 110px;
+        padding: 20px;
+        z-index: 10;
+        background: #f3f3f3;
+        width: 100%;
+    }
+    .priorityCategories {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .search_block_input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .search_block {
+        text-align: center;
+    }
+    .filtersSection {
+        top: 180px; 
+    }
+    .search_block_btn {
+        margin: 10px;
+    }
+
+    .search_block_content {
+        align-items: center;
+        flex-direction: column;
+    }
+    .search_btnDIV{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        height: auto;
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0.4);
+        animation: pulse 2s infinite;
+        margin-top: 10px;
+    }
+
+    .search_btn{
+        margin-top: 10px;
+    }
+
+    .title{
+        font-size: 32px;
+        margin-bottom: 3%;
+    }
+
+    .message{
+        font-size: 20px;
+        margin-top: 3%;
+    }
+
+    .subtitle{
+        font-size: 18px;
+        font-weight: 550;
+        text-align: center;
+        line-height: 1.2;
+        padding: 1em;
+    }
+    .containerItems{
+        flex-direction: column;
+    }
+/* 
+    .courses_block{
+        grid-area: cards;
+        width: 100%;
+        display: grid;
+        grid-template-columns: [card] 49% [card] 49%;
+        grid-column-gap: 2%;
+    } */
+
+    .courses_block > *{
+        margin-bottom: 30px;
+    }
+
+    .img_title{
+        margin-top: 0;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+    }
+    .selectBlock{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .img_title > p{
+        font-size: 24px;
+        font-weight: 700;
+        margin-left: 2%;
+        margin-right: 2%;
+        text-transform: uppercase;
+    }
+
+    .img_title > img{
+        width: 24px;
+    }
+
+    .img_title > div{
+        display: none;
+    }
+
+    .filterBlock{
+        flex-direction: column;
+        width: 80%;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .topHeader{
+        width: 100%;
+    }
+    .topHeaderBody{
+        border-radius: 30px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        padding-bottom: 20px;
+    }
+    .search_btnBody{
+        margin-bottom: 10px;
+    }
+    .RoundCube{
+        display: none;
+    }
+    .ConeBlue{
+        display: none;
+    }
+
+    .whyUsCard{
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .whyUsCardDescBody{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .sortBlock{
+        width: 90%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        top: 60px;
+    }
+    .sortItems{
+        flex-direction: column;
+    }
+    .sortItem{
+        flex-direction: column;
+    }
+    .sortBtn{
+        margin-top: 10px;
+    }
+    .sortHideBtn{
+        display: block;
+    }
+    .disable{
+        display: none;
+    }
+    .disableOnDesktop{
+        display: block;
+    }
+    .bottomBlock{
+        margin-top: 0;
+        padding-top: 20px;
+    }
+    .topBlock{
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 540px){
+    .courses_block{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .courseCard_item {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 300px){
+    .search_block {
+        top: 150px;
+    }
+    .filtersSection {
+        top: 210px;
     }
 }

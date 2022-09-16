@@ -30,6 +30,7 @@ import { Doughnut } from 'react-chartjs-2';
 import dynamic from 'next/dynamic'
 import TutorCourseCard from '../src/components/TutorCourseCard';
 import Backdrop from '../src/components/Backdrop/Backdrop';
+import CoursesFilters from '../src/components/CoursesFilters/CoursesFilters';
 
 const Odometer = dynamic(import('react-odometerjs'), {
   ssr: false,
@@ -372,6 +373,7 @@ const Catalog = (props) => {
     window.scrollTo(0, 0);
   };
 
+  
   const compareDirectrion =  (value) => {
     let direction_Id =  (courseCategories.find(el => el.name.toLowerCase() == value.toLowerCase()));
     if (!direction_Id) direction_Id = 0;
@@ -558,7 +560,7 @@ const Catalog = (props) => {
       });  
   };
 
-  console.log(ticketId);
+  console.log(courseCards);
   return (
     <div>
       <div style={{
@@ -707,21 +709,20 @@ const Catalog = (props) => {
               <Link href={'/'}>
                 <a 
                   onClick={async(ctx) => {
-                    if(props.reload){
-                      props.close(false);
-                      props.setStep(1);
-                    } else {
+                    // if(props.reload){
+                    //   props.close(false);
+                    //   props.setStep(1);
+                    // } else {
                       if(window.location.pathname === '/') {
                         router.reload();
                       } else {
                         await router.push("/");
                       }
-                    }
+                    // }
                   }} style={{color: 'white',alignContent: 'center', alignItems: 'center', display: 'flex'}}
                 >
                   <svg
                     className={styles.svg}
-                    // viewBox="-30 30 640 389"
                     xmlns="http://www.w3.org/2000/svg"
                     width="250"
                     viewBox="0 0 181 55"
@@ -756,75 +757,116 @@ const Catalog = (props) => {
             </div>
             <div className={styles.searchBlock}>
             </div>
-              <div className={styles.menu}>
-                <ul className={styles.menu_ul}>
-                  <li>
+            <div className={styles.menu}>
+              <ul className={styles.menu_ul}>
+                <li>
+                  <a
+                    className={styles.link}
+                    onClick={() => {
+                      router.push('/about');
+                    }}
+                  >
+                    О нас
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className={styles.link}
+                    // onClick={() =>  window.scrollTo(0, 1200)}
+                    onClick={() => {
+                      router.push('/');
+                    }}
+                  >
+                    Каталог
+                  </a>
+                </li>
+                {!isLogged && (
+                  <li onClick={handleShow}>
                     <a
                       className={styles.link}
                       onClick={() => {
-                        router.push('/about');
+                        ym("reachGoal", "partnership-button-pressed");
                       }}
                     >
-                      О нас
+                      Стать партнером
                     </a>
                   </li>
+                )}
+                {loadingData===false && (
                   <li>
-                    <a
-                      className={styles.link}
-                      onClick={() =>  window.scrollTo(0, 1200)}
+                    <button
+                      className={styles.buttonSingin}
+                      onClick={() => {
+                        if(!isLogged){
+                          ym('reachGoal','log-in-button-pressed')
+                          router.push('/login')
+                        }
+                      }}
                     >
-                      Каталог
-                    </a>
-                  </li>
-                  {!isLogged && (
-                    <li onClick={handleShow}>
-                      <a
-                        className={styles.link}
-                        onClick={() => {
-                          ym("reachGoal", "partnership-button-pressed");
-                        }}
-                      >
-                        Стать партнером
-                      </a>
-                    </li>
-                  )}
-                  {loadingData===false && (
-                    <li>
-                      <button
-                        className={styles.buttonSingin}
-                        onClick={() => {
-                          if(!isLogged){
-                            ym('reachGoal','log-in-button-pressed')
-                            router.push('/login')
-                          }
-                        }}
-                      >
-                        {student.name !== undefined 
+                      {student.name !== undefined 
+                        ? (
+                          <div className={styles.studentCard}>
+                            <Image 
+                              src={'https://realibi.kz/file/624128.png'} 
+                              className={styles.studentAvatar}
+                            />
+                            <div className={styles.studentInfo}>
+                              <span 
+                                className={styles.studentName}
+                                onClick={()=>router.push('/cabinet/student')}
+                              >
+                                {student.name}
+                              </span>
+                              <span 
+                                className={styles.exitBtn}        
+                                onClick={() => {
+                                  setExitingOut(true)
+                                  router.push('/login');
+                                }}
+                              >
+                                {exitingOut ? 'Выход...' : 'Выйти'}
+                              </span>
+                            </div>
+                          </div>
+                        ) 
+                        : (center !== undefined && center.title !== undefined 
                           ? (
                             <div className={styles.studentCard}>
-                              <Image src={'https://realibi.kz/file/624128.png'} className={styles.studentAvatar}/>
+                              <Image 
+                                src={center.img_src} 
+                                className={styles.studentAvatar}
+                              />
                               <div className={styles.studentInfo}>
                                 <span 
-                                  className={styles.studentName}
-                                  onClick={()=>router.push('/cabinet/student')}
+                                  className={styles.studentName} 
+                                  onClick={()=>router.push('/cabinet')}
                                 >
-                                  {student.name}
+                                  {center.title || center.fullname}
                                 </span>
                                 <span 
-                                  className={styles.exitBtn}        
+                                  className={styles.exitBtn} 
                                   onClick={()=>{
                                     setExitingOut(true)
-                                    router.push('/login');
+                                    localStorage.removeItem(globals.localStorageKeys.currentStudent)
+                                    localStorage.removeItem(globals.localStorageKeys.authToken);
+                                    localStorage.removeItem(globals.localStorageKeys.centerId);
+                                    localStorage.removeItem(globals.localStorageKeys.currentUserId);
+                                    localStorage.removeItem(globals.localStorageKeys.roleId);
+                                    encodeURIComponent(router.push('/login'))
                                   }}
                                 >
                                   {exitingOut ? 'Выход...' : 'Выйти'}
                                 </span>
                               </div>
                             </div>
-                          ) : (center !== undefined && center.title !== undefined 
+                          ) 
+                          : (center !== undefined && center.fullname !== undefined 
                             ? (
                               <div className={styles.studentCard}>
-                                <Image src={center.img_src} className={styles.studentAvatar}/>
+                                <Image 
+                                  src={center.img_src || 'https://realibi.kz/file/624128.png'} 
+                                  className={styles.studentAvatar}
+                                />
                                 <div className={styles.studentInfo}>
                                   <span 
                                     className={styles.studentName} 
@@ -836,54 +878,29 @@ const Catalog = (props) => {
                                     className={styles.exitBtn} 
                                     onClick={()=>{
                                       setExitingOut(true)
-                                      localStorage.removeItem(globals.localStorageKeys.currentStudent)
-                                      localStorage.removeItem(globals.localStorageKeys.authToken);
-                                      localStorage.removeItem(globals.localStorageKeys.centerId);
-                                      localStorage.removeItem(globals.localStorageKeys.currentUserId);
-                                      localStorage.removeItem(globals.localStorageKeys.roleId);
                                       encodeURIComponent(router.push('/login'))
-                                    }}>
-                                      {exitingOut ? 'Выход...' : 'Выйти'}
-                                    </span>
-                                  </div>
-                                </div>
-                              ) : (center !== undefined && center.fullname !== undefined 
-                                ? (
-                                  <div className={styles.studentCard}>
-                                    <Image src={center.img_src || 'https://realibi.kz/file/624128.png'} className={styles.studentAvatar}/>
-                                    <div className={styles.studentInfo}>
-                                      <span 
-                                        className={styles.studentName} 
-                                        onClick={()=>router.push('/cabinet')}
-                                      >
-                                        {center.title || center.fullname}
-                                      </span>
-                                      <span 
-                                        className={styles.exitBtn} 
-                                        onClick={()=>{
-                                          setExitingOut(true)
-                                          encodeURIComponent(router.push('/login'))
-                                        }}
-                                      >
-                                        {exitingOut ? 'Выход...' : 'Выйти'}
-                                      </span>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <span onClick={() => router.push('/login')}>
-                                    Войти
+                                    }}
+                                  >
+                                    {exitingOut ? 'Выход...' : 'Выйти'}
                                   </span>
-                                )
-                              )
+                                </div>
+                              </div>
+                            ) 
+                            : (
+                              <span onClick={() => router.push('/login')}>
+                                Войти
+                              </span>
+                            )
                           )
-                        }
-                      </button>
-                    </li>
-                  )}
-                </ul>
-              </div>
+                        )
+                      }
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </div>
 
-              <div onClick={() => { setShowMobileMenu(!showMobileMenu) }} className={styles.menuButtonBody}>
+            <div onClick={() => { setShowMobileMenu(!showMobileMenu) }} className={styles.menuButtonBody}>
                 <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 1H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
                   <path d="M1 17H29" stroke="black" stroke-width="2" stroke-linecap="round"/>
@@ -897,310 +914,211 @@ const Catalog = (props) => {
                 }}>
                   Меню
                 </span>
-              </div>
             </div>
+          </div>
             
 
-            {showMobileMenu ?
-                (
-                    <div style={{display: 'block'}} className={styles.mobileMenu}>
-                        <ul className={styles.menu_ul}>
-                            <li>
-                                <a
-                                    className={styles.link}
-                                    style={{color: 'black'}}
-                                    onClick={() => {
-                                        router.push('/about');
-                                    }}
-                                >
-                                    О нас
-                                </a>
-                            </li>
-                            <li>
-                              <a
-                                className={styles.link}
-                                style={{color: 'black'}}
-                                onClick={() =>  window.scrollTo(0, 1200)}
-                              >
-                                Каталог
-                              </a>
-                            </li>
-                            <li onClick={handleShow}>
-                                <a className={styles.link} style={{color: 'black'}}>Стать партнером</a>
-                            </li>
-                            {
-                              isLogged ?
-                                (<li style={{color: 'black'}}>
-                                  <Link href={cabinetRoute}>
-                                    <a style={{color: 'black'}}>Личный кабинет</a>
-                                        </Link>
-                                        <span className={styles.exitBtn} onClick={()=>{
-                                            setExitingOut(true)
-
-                                            localStorage.removeItem(globals.localStorageKeys.currentStudent)
-
-                                            localStorage.removeItem(globals.localStorageKeys.authToken);
-                                            localStorage.removeItem(globals.localStorageKeys.centerId);
-                                            localStorage.removeItem(globals.localStorageKeys.currentUserId);
-                                            localStorage.removeItem(globals.localStorageKeys.roleId);
-
-                                            encodeURIComponent(router.push('/login'))
-                                        }}>{exitingOut ? 'Выход...' : 'Выйти'}</span>
-                                    </li>)
-                                    :
-                                    (<li>
-                                        <Link href={cabinetRoute} className={styles.link}>
-                                            <a style={{color: 'black'}}>Войти</a>
-                                        </Link>
-                                    </li>)
-                            }
-                        </ul>
-                    </div>
-                ) : null
-            }
-
+          {showMobileMenu 
+            ? (
+              <div className={styles.mobileMenu}>
+                <ul className={styles.menu_ul}>
+                  <li>
+                    <a
+                      className={styles.link}
+                      style={{color: 'black'}}
+                      onClick={() => {
+                        router.push('/about');
+                      }}
+                    >
+                      О нас
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className={styles.link}
+                      style={{color: 'black'}}
+                      // onClick={() =>  window.scrollTo(0, 1200)}
+                      onClick={() => {
+                        router.push('/');
+                      }}
+                    >
+                      Каталог
+                    </a>
+                  </li>
+                  <li onClick={handleShow}>
+                    <a className={styles.link} style={{color: 'black'}}>
+                      Стать партнером
+                    </a>
+                  </li>
+                  { isLogged 
+                    ? (
+                      <li style={{color: 'black'}}>
+                        <Link href={cabinetRoute}>
+                          <a style={{color: 'black'}}>Личный кабинет</a>
+                        </Link>
+                        <span 
+                          className={styles.exitBtn} 
+                          onClick={() => {
+                            setExitingOut(true);
+                            localStorage.removeItem(globals.localStorageKeys.currentStudent);
+                            localStorage.removeItem(globals.localStorageKeys.authToken);
+                            localStorage.removeItem(globals.localStorageKeys.centerId);
+                            localStorage.removeItem(globals.localStorageKeys.currentUserId);
+                            localStorage.removeItem(globals.localStorageKeys.roleId);
+                            encodeURIComponent(router.push('/login'));
+                          }}
+                        >
+                          {exitingOut ? 'Выход...' : 'Выйти'}
+                        </span>
+                      </li>
+                    )
+                    : (
+                      <li>
+                        <Link 
+                          href={cabinetRoute} 
+                          className={styles.link}
+                        >
+                          <a style={{color: 'black'}}>Войти</a>
+                        </Link>
+                      </li>
+                    )
+                  }
+                </ul>
+              </div>
+            ) 
+            : null
+          }
         </div>
-            <Head>
-                <title>Oilan</title>
-                <link rel="icon" href="/atom-icon.png" />
-                <div dangerouslySetInnerHTML={{__html: ym()}}/>
-            </Head>
-
-            <div className={styles.mainImageTitleBlock}>
-                <span className={styles.clickMore}>В несколько кликов</span>
-                <h1 className={styles.headerOne}>Найди Образовательный Центр или Репетитора</h1>
-                <p className={styles.choiseCourse}>Подберём вам лучший курс </p>
-                <p className={styles.sendAppText}>Оставив заявку!</p>
-                <div className={styles.infoContainer}>
-                  
-                  <div className={styles.applicationBlock}>
-                    <div className={styles.selectContainer}>
-                      <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className={styles.techSupportInput}
-                        style={{ cursor: "text", color: "black" }}
-                        placeholder="Имя"
-                      />
-                    </div>
-                    <div className={styles.selectContainer}>
-                      <input
-                        type="text"
-                        className={styles.techSupportInput}
-                        style={{ cursor: "text" }}
-                        onKeyDown={(e) => {
-                          if (e.keyCode === 8) {
-                            setPhone(phone.slice(0, -1));
-                          }
-                        }}
-                        onChange={(e) => globals.checkPhoneMask(e.target.value, setPhone)}
-                        placeholder="Телефон"
-                        value={phone}
-                      />
-                    </div>
-                    <div className={styles.selectContainer}>
-                      <select 
-                        className={styles.selectBlock} 
-                        value={connection} 
-                        onChange={e => setConnection(e.target.value)}
-                      >
-                        <option value="3">Способ связи</option>
-                        <option value="0">Звонок</option>
-                        <option value="1">Whatsapp</option>
-                      </select>
-                    </div> 
-                    <button
-                    className={styles.button}
-                    onClick={() => {
-                      if (name !== "" && phone !== "" && connection !== "" && connection !== "3" && connection !== 3) {
-                        if (firstStepValidation ()) {
-                          sendApplication(0, {
-                            fullName: name,
-                            phone: phone,
-                            connection: connection,
-                          });
-                          ym(
-                            "reachGoal",
-                            "go-to-second-step-while-searching-button-pressed"
-                          );
-                          setShowSend(true);
-                        }
-                      } else {
-                        alert("Заполните пожалуйста все поля.")
-                      }
-                    }}
-                  >
-                    Оставить заявку
-                  </button>
-                {/* <div className={styles.searchBtn} style={{display:'block', textAlign:'center'}}> */}
-                  <button  onClick={() => window.scrollTo(0, 1200)} className={styles.searchBtn}>Найди курс</button>
-                {/* </div> */}
-                  </div>
-                  <div className={styles.rounds}>
-                      <div className={styles.forRC}>
-                        <h2>
-                          <Odometer 
-                            value={roundFilters[2].length} 
-                            format='(,ddd).dd' 
-                            theme="default" 
-                            animation="count"
-                          /> 
-                          <span style={{marginLeft: "5px"}}>+</span>
-                        </h2> 
-                        <p>Учебных центров</p>
-                      </div>
-                      <div className={styles.forRC}>
-                        <h2>
-                          <Odometer 
-                            value={tutors.length} 
-                            format='(,ddd).dd' 
-                            theme="default" 
-                            animation="count"
-                          />
-                          <span style={{marginLeft: "5px"}}>+</span>
-                        </h2>  
-                        <p>Репетиторов</p>
-                      </div>
-                      <div className={styles.forRC}>
-                        <h2>
-                          <Odometer 
-                            value={roundFilters[1].length} 
-                            format='(,ddd).dd' 
-                            theme="default" 
-                            animation="count"
-                          />
-                          <span style={{marginLeft: "5px"}}>+</span>
-                        </h2>    
-                        <p>Направлений</p>
-                      </div>
-                  </div>
-                </div>
+        <Head>
+          <title>Oilan</title>
+          <link rel="icon" href="/atom-icon.png" />
+          <div dangerouslySetInnerHTML={{__html: ym()}}/>
+        </Head>
+        <div className={styles.mainImageTitleBlock}>
+          <span className={styles.clickMore}>В несколько кликов</span>
+          <h1>Найди Образовательный Центр или Репетитора</h1>
+          <p className={styles.choiseCourse}>Подберём вам лучший курс </p>
+          <p className={styles.sendAppText}>Оставив заявку!</p>
+          <div className={styles.infoContainer}>              
+            <div className={styles.applicationBlock}>
+              <div className={styles.selectContainer}>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={styles.techSupportInput}
+                  style={{ cursor: "text", color: "black" }}
+                  placeholder="Имя"
+                />
+              </div>
+              <div className={styles.selectContainer}>
+                <input
+                  type="text"
+                  className={styles.techSupportInput}
+                  style={{ cursor: "text" }}
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 8) {
+                      setPhone(phone.slice(0, -1));
+                    }
+                  }}
+                  onChange={(e) => globals.checkPhoneMask(e.target.value, setPhone)}
+                  placeholder="Телефон"
+                  value={phone}
+                />
+              </div>
+              <div className={styles.selectContainer}>
+                <select 
+                  className={styles.selectBlock} 
+                  value={connection} 
+                  onChange={e => setConnection(e.target.value)}
+                >
+                  <option value="3">Способ связи</option>
+                  <option value="0">Звонок</option>
+                  <option value="1">Whatsapp</option>
+                </select>
+              </div> 
+              <button
+                className={styles.button}
+                onClick={() => {
+                  if (name !== "" && phone !== "" && connection !== "" && connection !== "3" && connection !== 3) {
+                    if (firstStepValidation ()) {
+                      sendApplication(0, {
+                        fullName: name,
+                        phone: phone,
+                        connection: connection,
+                      });
+                      ym(
+                        "reachGoal",
+                        "go-to-second-step-while-searching-button-pressed"
+                      );
+                      setShowSend(true);
+                    }
+                  } else {
+                    alert("Заполните пожалуйста все поля.")
+                  }
+                }}
+              >
+                Оставить заявку
+              </button>
+              <button  
+                onClick={() => window.scrollTo(0, 1200)} 
+                className={styles.searchBtn}  
+              >
+                Найди курс
+              </button>
             </div>
+            <div className={styles.rounds}>
+              <div className={styles.forRC}>
+                <h2>
+                  <Odometer 
+                    value={roundFilters[2].length} 
+                    format='(,ddd).dd' 
+                    theme="default" 
+                    animation="count"
+                  /> 
+                  <span style={{marginLeft: "5px"}}>+</span>
+                </h2> 
+                <p>Учебных центров</p>
+              </div>
+              <div className={styles.forRC}>
+                <h2>
+                  <Odometer 
+                    value={tutors.length} 
+                    format='(,ddd).dd' 
+                    theme="default" 
+                    animation="count"
+                  />
+                  <span style={{marginLeft: "5px"}}>+</span>
+                </h2>  
+                <p>Репетиторов</p>
+              </div>
+              <div className={styles.forRC}>
+                <h2>
+                  <Odometer 
+                    value={roundFilters[1].length} 
+                    format='(,ddd).dd' 
+                    theme="default" 
+                    animation="count"
+                  />
+                  <span style={{marginLeft: "5px"}}>+</span>
+                </h2>    
+                <p>Направлений</p>
+              </div>
             </div>
-
-            {/* <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
+          </div>
+        </div>
+      </div>
+      {/* <div className={styles.titleBlock} style={{marginTop: 20, marginBottom: 20}}>
                 <span className={styles.title}>Топ репетиторов</span>
             </div>
             {
                 filtersLoading ? <LoadingBlock/> : <TopTutorsSlider course={tutorsWithPhoto} categories={tutorsWithPhoto}/>
             } */}
-            <div className={styles.titleBlock}>
-                <Image src={'/notebook-dynamic-color.png'} className={styles.titleImg}/>
-                <span className={styles.title}>Популярные курсы</span>
-                <div className={styles.course_btn_container}>
-                    <span
-                        className={styles.course_btn}
-                        style={!isTutors ? {color: "black"} : {color: "#767676"}}
-                        onClick={() => {
-                            setIsTutors(false);
-                        }}
-                    >Центры / </span>
-                    <span
-                        className={styles.course_btn}
-                        style={isTutors ? {color: "black"} : {color: "#767676"}}
-                        onClick={() => {
-                            setIsTutors(true);
-                        }}
-                    >Репетиторы</span>
-                </div>
-            </div>
-            {isTutors 
-                ? <>
-                    {
-                        filters[0] != undefined && (
-                            <LurkingFilterBlock 
-                                setCardsToShow={setCardsToShow} 
-                                cities={filters[0]} 
-                                directions={filters[1]} 
-                                setCourseCards={setCourseCards}
-                                setTutorCards={setTutorCards}
-                                setCoursesLoading={setCoursesLoading}
-                                isTutors={isTutors}
-                            />)
-                    }
-
-                    {
-                        tutorCards.length > 0 && (
-                            <div className={styles.courses_block}>
-                                {
-                                    tutorCards.slice(0, cardsToShow).map((course, i)=> {
-                                        if(course.title !== 'test'){
-                                            // return (
-                                            //     <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                            if (course.title !== 'test') {
-                                                return (
-                                                    <div className={styles.courseCard_item}>
-                                                        <TutorCourseCard 
-                                                            key={i} 
-                                                            coverImage={course.img_src} 
-                                                            setLoadingModal={setLoadingModal} 
-                                                            course={course}
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        }
-                                    })
-                                }
-                            </div>
-                        )
-                    }
-                    {
-                    coursesLoading ? (<LoadingBlock/> ) : (
-                        showUps && (tutorCards.length < 1 ? <CourseSearchResultIsNotDefind catalog={true}/> : null)
-                    )
-                }
-                </>
-
-                : <>
-                {
-                    filters[0] != undefined && (
-                        <LurkingFilterBlock 
-                            setCardsToShow={setCardsToShow} 
-                            cities={filters[0]} 
-                            directions={filters[1]} 
-                            setCourseCards={setCourseCards} 
-                            setTutorCards={setTutorCards}
-                            setCoursesLoading={setCoursesLoading}
-                        />)
-                }
-
-                {
-                    courseCards.length > 0 && (
-                        <div className={styles.courses_block}>
-                            {
-                                courseCards.slice(0, cardsToShow).map(course => {
-                                    if(course.title !== 'test'){
-                                        return (
-                                            <div style={{marginLeft: '5%', marginRight: '5%'}}>
-                                                <CourseCard coverImage={imagesBase.length > 0 ? imagesBase[Math.floor(Math.random() * imagesBase.length)].src : 'https://realibi.kz/file/633967.jpg'} setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
-                                            </div>
-                                        )
-                                    }
-                                })
-                            }
-                        </div>
-                    )
-                }
-                {
-                    coursesLoading ? (<LoadingBlock/> ) : (
-                        showUps && (courseCards.length < 1 ? <CourseSearchResultIsNotDefind catalog={true}/> : null)
-                    )
-                }
-                </>
-            }
-
-
-            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
-                <a className={styles.link} onClick={()=> {
-                    addCards()
-                }}>Смотреть еще</a>
-            </div>
-            <ContactBlock/>
-            <Footer/>
-        </div>
-    )
+      <CoursesFilters courseCards={courseCards} />
+      <ContactBlock/>
+      <Footer/>
+    </div>
+  )
 }
 
 export default Catalog;

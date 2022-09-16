@@ -11,23 +11,36 @@
     src: url("../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Montserrat Regular";
+    src: url("../../public/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat Medium";
+    src: url("../../public/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat Bold";
+    src: url("../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+
 .container {
-    position: relative;
-    width: 100%;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: #5274fc;
-    /*box-shadow: 0 2px 7px 0 rgba(10,10,10, 0.05), 3px 27px 54px -34px rgba(0, 0, 0, 0.4);*/
     margin-bottom: 45px;
+    display: grid;
+    grid-template-areas: "image info" "fullname info" "linkButton linkButton";
+    background: #fff;
+    border-radius: 16px;
+    height: 365px;
+    padding: 20px;
+    max-width: 405px;
     transition: 0.5s;
 }
 .fullname{
-    font-size: 18px;
-    font-family: "Rubik Medium";
-    margin: 5px 0 5px 0;
+    font-size: 16px;
+    font-family: "Montserrat Medium";
+    margin: 5px 0 0 0;
     color: black;
+    grid-area: fullname;
 }
 .noHover:hover{
     text-decoration: none;
@@ -54,8 +67,23 @@
     box-sizing: border-box;
     position: relative;
 }
+
+.wapp_logo {
+    height: 100%;
+    display: block;
+    width: 45px;
+    margin-left: 10px;
+    border-radius: 8px;
+    background-image: url("/whatsapp_logo.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 1px grey;
+    background-color: #23d366;
+}
 .titleImageWrapper{
     width: 100%;
+    grid-area: image;
     overflow: hidden;
     position: relative;
 }
@@ -121,9 +149,13 @@
     border-radius: 5px;
     height: 325px;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     position: relative;
     box-sizing: border-box;
     transition: 0.5s ease;
+    height: 180px;
+    width: 180px;
 }
 /*.container:hover .titleImageBody{*/
 /*    border: 3px solid #6d8bfa;*/
@@ -132,7 +164,8 @@
 .info_block{
     width: 100%;
     height: auto;
-    /* padding: 0 5px; */
+    margin-left: 10px;
+    grid-area: info;
     display: flex;
     flex-direction: column;
     align-content: space-between;
@@ -241,11 +274,35 @@
 .flex{
     display: flex;
 }
-.course_title{
-    font-size: 22px;
-    font-family: "Rubik Bold";
-    margin: 0;
-    color: black;
+.course_title, .course_category, .info_value, .info_price{
+    font-size: 15px;
+    font-family: "Montserrat Medium";
+    margin: 0 0 0 0;
+    color: #000;
+    padding: 10px 0;
+    padding-left: 26px;
+}
+.course_title {
+    background: url('https://realibi.kz/file/267901.png') no-repeat;
+    background-size: 21px;
+    background-position: 0 27%;
+}
+.course_category{
+    background: url('https://realibi.kz/file/524387.png') no-repeat;
+    background-size: 16px;
+    background-position: 2px 50%;
+    max-height: 60px;
+    overflow: scroll;
+}
+.info_value{
+    background: url('https://realibi.kz/file/205075.png') no-repeat;
+    background-size: 16px;
+    background-position: 2px 50%;
+}
+.info_price{
+    background: url('https://realibi.kz/file/474729.png') no-repeat;
+    background-size: 19px;
+    background-position: 2px 50%;
 }
 .subtitle{
     font-size: 16px;
@@ -278,18 +335,41 @@
     width: 16px;
 }
 .linkButton{
-    /*animation: animate_grow 2s infinite;*/
+    /* animation: animate_grow 2s infinite; */
     font-family: sans-serif;
+    line-height: 20px;
     font-size: 16px;
     color: white;
-    padding: 10px 20px;
+    padding: 14px 30px;
+    max-height: 48px;
     border: none;
     border-radius: 5px;
-    background: #412FAE;
+    background: #007AFF;
     transition: 0.5s;
     margin: 0;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-    font-family: "Rubik Regular";
+    font-family: "Montserrat Regular";
+}
+.white_link_button {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #007AFF;
+    padding: 14px 24px;
+    max-height: 48px;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    border: 1px solid #007AFF;
+    transition: 0.5s;
+    margin: 0;
+    font-family: "Montserrat Regular";
+}
+
+.button_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    grid-area: linkButton;
 }
 .applicationButton{
     /*animation: animate_grow 2s infinite;*/
@@ -416,7 +496,7 @@
     width: 100%;
     margin-top: 5px;
 }
-.image_block{
+/* .image_block{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -424,10 +504,11 @@
     width: 72px;
     border-radius: 50%;
     position: absolute;
+    grid-area: image;
     left: 15px;
     right: 0;
     bottom: 15px;
-}
+} */
 .verification_block{
     background-size: 70% 90%;
     background-position: center;
@@ -455,7 +536,58 @@
     font-size: 24px;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 850px){
+    .container {
+        width: 320px;
+        height: 545px;
+        grid-template-areas: "image" "fullname" "info" "linkButton";
+    }
+    .white_link_button, .linkButton {
+        padding: 4px 12px;
+        font-size: 14px;
+        height: 48px;
+    }
+    .titleImageBody {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 540px){
+    .container {
+        grid-template-areas: "image info" "fullname info" "linkButton linkButton";
+        background: #fff;
+        border-radius: 16px;
+        height: 365px;
+        padding: 20px;
+        width: 405px;
+    }
+    .white_link_button, .linkButton {
+        font-size: 16px;
+        padding: 14px 24px;
+    }
+    .titleImageBody{
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 410px){
+    .container {
+        max-width: 320px;
+        width: 100%;
+        height: 545px;
+        grid-template-areas: "image" "fullname" "info" "linkButton";
+    }
+    .white_link_button, .linkButton {
+        padding: 4px 12px;
+        font-size: 14px;
+        height: 48px;
+    }
+    .titleImageBody {
+        width: 100%;
+    }
+}
+
+/* @media screen and (max-width: 600px){
     .promotionStar{
         left: -12px;
         top: -12px;
@@ -484,4 +616,4 @@
         font-size: 13px;
         padding: 8px 10px;
     }
-}
+} */

@@ -12,16 +12,35 @@
 }
 
 .container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: grid;
+    /* flex-direction: row;
+    justify-content: space-around; */
+    grid-template-areas: 'logo instagram phone email partner privacy';
     padding: 50px 5%;
     background: white;
     width: 100%;
+    background: #f3f3f3;
 }
 .logo{
     display: flex;
+    grid-area: logo;
 }
+.instagram_container {
+    grid-area: instagram;
+}
+.phone_container {
+    grid-area: phone;
+}
+.email_container {
+    grid-area: email;
+}
+.partner_container {
+    grid-area: partner;
+}
+.privacy_policy_container {
+    grid-area: privacy;
+}
+
 .svg > *{
     transition: 0.3s;
 }
@@ -37,11 +56,59 @@
     transition: 0.3s;
     fill: rgba(246,137,57,1) ;
 }
-.svg:hover{
+
+.instagram {
+    background: url("https://realibi.kz/file/6629.png") no-repeat;
+    background-size: 32px 32px;
+    background-position: 0 50%;
+    padding: 3px;
+    padding-left: 40px;
 }
 
-.column{
+.phone {
+    background: url("https://realibi.kz/file/749812.png") no-repeat;
+    background-size: 24px 24px;
+    background-position: 0 50%;
+    padding: 3px;
+    padding-left: 30px;
 }
+
+.email {
+    background: url("https://realibi.kz/file/824743.png") no-repeat;
+    background-size: 24px 24px;
+    background-position: 0 50%;
+    padding: 3px;
+    padding-left: 30px;
+}
+
+.partner {
+    background: url("https://realibi.kz/file/701068.png") no-repeat;
+    background-size: 22px 21px;
+    background-position: 0 50%;
+    padding: 3px;
+    padding-left: 30px;
+}
+
+.privacy_policy {
+    background: url("https://realibi.kz/file/3514.png") no-repeat;
+    background-size: 23px 18px;
+    background-position: 0 50%;
+    padding: 3px;
+    padding-left: 30px;
+}
+
+.public_offer {
+    background: url("https://realibi.kz/file/106449.png") no-repeat;
+    background-size: 21px 21px;
+    background-position: 0 50%;
+    padding: 3px;
+    padding-left: 30px;
+}
+
+.column {
+    margin: 16px 0px;
+}
+
 .columnTitle{
     font-family: "Rubik Bold";
     font-size: 18px;
@@ -57,7 +124,6 @@
     font-size: 16px;
     cursor: pointer;
     display: block;
-    margin-bottom: 5px;
 }
 .link:hover{
     text-decoration: none;
@@ -69,25 +135,46 @@
     align-items: flex-start;
     justify-content: space-between;
 }
-@media screen and (max-width: 820px){
+
+@media screen and (max-width: 1380px){
     .container{
-        display: block;
-        padding: 15px;
-    }
-    .wrapper{
-        margin-top: 10px;
-        flex-wrap: wrap;
-        padding: 0 5%;
-        box-sizing: border-box;
-    }
-    .column{
-        width: 50%;
-        margin-bottom: 15px;
+        grid-template-areas: 'logo instagram phone partner privacy' 'logo email phone partner privacy';
     }
 }
 
-@media screen and (max-width: 300px){
-    .wrapper{
-        flex-direction: column;
+@media screen and (max-width: 1280px) {
+    .container{
+        grid-template-areas: 'logo instagram phone partner' 'logo instagram email privacy';
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .container{
+        grid-template-areas: 'logo phone partner' 'instagram email privacy';
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .container{
+        grid-template-areas: 'logo phone partner' 'instagram email privacy';
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .container{
+        grid-template-areas: 'logo phone' 'instagram email' 'partner email'
+        'privacy email';
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 415px){
+    .container{
+        grid-template-areas: 'logo' 'instagram' 'partner' 'phone' 'email'
+        'privacy';
+        grid-template-columns: 1fr;
     }
 }

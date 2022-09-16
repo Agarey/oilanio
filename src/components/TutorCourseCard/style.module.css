@@ -11,15 +11,28 @@
     src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Montserrat Regular";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat Medium";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Montserrat Bold";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+
 .container {
-    width: 100%;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: #5274fc;
-    /*box-shadow: 0 2px 7px 0 rgba(10,10,10, 0.05), 3px 27px 54px -34px rgba(0, 0, 0, 0.4);*/
     margin-bottom: 45px;
+    display: grid;
+    grid-template-areas: "image info" "fullname info" "linkButton linkButton";
+    background: #fff;
+    border-radius: 16px;
+    height: 365px;
+    padding: 20px;
+    max-width: 405px;
     transition: 0.5s;
 }
 
@@ -95,14 +108,18 @@
     fill: white;
 }
 .titleImageBody{
+    grid-area: image;
     border-radius: 5px;
     /*border: 3px solid white;*/
     height: 325px;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     position: relative;
     box-sizing: border-box;
     transition: 0.5s ease;
+    height: 180px;
+    width: 180px;
 }
 /*.container:hover .titleImageBody{*/
 /*    border: 3px solid #6d8bfa;*/
@@ -111,9 +128,11 @@
 .info_block{
     width: 100%;
     height: auto;
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
+    margin-left: 10px;
+    /* display: flex; */
+    grid-area: info;
+    /* flex-direction: column;
+    align-content: space-between; */
 }
 .stats{
     width: 100%;
@@ -148,12 +167,12 @@
     margin: 0;
     text-decoration: underline;
 }
-.info_value{
+/* .info_value{
     font-family: "Rubik Regular";
     font-size: 12px;
     color: #6a6a6a;
     margin: 0;
-}
+} */
 .showHideBtn{
     font-family: sans-serif;
     font-weight: bold;
@@ -198,7 +217,7 @@
     padding: 1%;
 }
 
-.info_price{
+/* .info_price{
     font-family: "Rubik Medium";
     margin: 0;
     display: block;
@@ -208,7 +227,7 @@
     word-wrap: break-word;
     overflow: hidden;
     width: 100%;
-}
+} */
 .container:hover .showHideBtn{
     color: white;
     text-decoration-color: white;
@@ -221,21 +240,46 @@
 .flex{
     display: flex;
 }
-.course_title{
-    font-size: 14px;
-    font-family: "Rubik Regular";
+.course_title, .course_category, .info_value, .info_price{
+    font-size: 16px;
+    font-family: "Montserrat Medium";
     margin: 0 0 0 0;
     color: #000;
+    padding: 10px 0;
+    padding-left: 26px;
+}
+.course_title {
+    background: url('https://realibi.kz/file/267901.png') no-repeat;
+    background-size: 21px;
+    background-position: 0 50%;
+}
+.course_category{
+    background: url('https://realibi.kz/file/524387.png') no-repeat;
+    background-size: 16px;
+    background-position: 2px 50%;
+}
+.info_value{
+    background: url('https://realibi.kz/file/205075.png') no-repeat;
+    background-size: 16px;
+    background-position: 2px 50%;
+}
+.info_price{
+    background: url('https://realibi.kz/file/474729.png') no-repeat;
+    background-size: 19px;
+    background-position: 2px 50%;
+}
+.fullname_container {
+    grid-area: fullname;
 }
 .fullname{
     font-size: 16px;
-    font-family: "Rubik Bold";
+    font-family: "Montserrat Medium";
     margin: 5px 0 0 0;
     color: black;
 }
 .subtitle{
     font-size: 16px;
-    font-family: "Rubik Regular";
+    font-family: "Montserrat Regular";
     margin: 0;
     color: rgba(0, 0, 0, 0.7);
 }
@@ -266,16 +310,33 @@
 .linkButton{
     /*animation: animate_grow 2s infinite;*/
     font-family: sans-serif;
+    line-height: 20px;
     font-size: 16px;
     color: white;
-    padding: 10px 20px;
+    padding: 14px 30px;
     border: none;
     border-radius: 5px;
-    background: #412FAE;
+    background: #007AFF;
+    max-height: 48px;
     transition: 0.5s;
     margin: 0;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-    font-family: "Rubik Regular";
+    font-family: "Montserrat Regular";
+}
+
+.white_link_button {
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    max-height: 48px;
+    color: #007AFF;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    border: 1px solid #007AFF;
+    transition: 0.5s;
+    margin: 0;
+    font-family: "Montserrat Regular";
 }
 .applicationButton{
     /*animation: animate_grow 2s infinite;*/
@@ -355,9 +416,12 @@
     outline: none;
     cursor: pointer;
 }
-.linkButtonBody{
+.linkButtonBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
-    margin-top: 10px;
+    grid-area: linkButton;
 }
 .image_block{
     background-size: cover;
@@ -392,8 +456,60 @@
     font-size: 24px;
 }
 
-@media screen and (max-width: 761px){
+@media screen and (max-width: 850px){
     .container {
+        width: 320px;
+        height: 545px;
+        grid-template-areas: "image" "fullname" "info" "linkButton";
+    }
+    .white_link_button, .linkButton {
+        padding: 15px 12px;
+        font-size: 14px;
+    }
+    .titleImageBody {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 540px){
+    .container {
+        grid-template-areas: "image info" "fullname info" "linkButton linkButton";
+        background: #fff;
+        border-radius: 16px;
+        height: 365px;
+        padding: 20px;
+        width: 405px;
+    }
+    .white_link_button, .linkButton {
+        font-size: 16px;
+        padding: 14px 24px;
+    }
+    .titleImageBody{
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 410px){
+    .container {
+        max-width: 320px;
+        width: 100%;
+        height: 545px;
+        grid-template-areas: "image" "fullname" "info" "linkButton";
+    }
+    .white_link_button, .linkButton {
+        padding: 4px 12px;
+        font-size: 14px;
+        height: 48px;
+    }
+    .titleImageBody {
+        width: 100%;
+    }
+}
+
+
+
+@media screen and (max-width: 761px){
+    /* .container {
         margin: 0;
         margin-bottom: 30px;
     }
@@ -402,12 +518,12 @@
     }
     .course_title{
         text-decoration: underline;
-    }
-    .linkButtonBody{
+    } */
+    /* .linkButtonBody{
         margin-top: 15px;
     }
     .linkButton{
         font-size: 14px;
         padding: 8px 10px;
-    }
+    } */
 }

@@ -73,47 +73,47 @@ const TopTutorsSlider2 = (props) => {
   const sendApplication = (courseId, userInfo) => {
 
     let data = {
-        city_id: cityId,
-        direction_id: directionId,
-        name: userInfo.fullName,
-        phone: userInfo.phone,
-        email: userInfo.email,
-        age: age,
-        isOnline: isOnline,
-        course_id: courseId,
-        role_id: Boolean(searchCenter) ? 4 : 6,
-        message: comment,
+      city_id: cityId,
+      direction_id: directionId,
+      name: userInfo.fullName,
+      phone: userInfo.phone,
+      email: userInfo.email,
+      age: age,
+      isOnline: isOnline,
+      course_id: courseId,
+      role_id: Boolean(searchCenter) ? 4 : 6,
+      message: comment,
     };
     console.log(props.searchCenter)
     axios({
-        method: 'post',
-        url: `${globals.productionServerDomain}/createCourseSearchTicket`,
-        data: data,
-        headers: {
-            'Authorization': `Bearer ${globals.localStorageKeys.authToken}`
-        }
-    }).then(function(res){
-
-    }).catch(() => {
+      method: 'post',
+      url: `${globals.productionServerDomain}/createCourseSearchTicket`,
+      data: data,
+      headers: {
+        'Authorization': `Bearer ${globals.localStorageKeys.authToken}`
+      }
+    })
+    .then(function(res){})
+    .catch(() => {
         alert('Что-то пошло нетак!');
     });
-}
+  }
 
-const getTutorCourseCards = async () => {
-  const cards = await axios.get(`${globals.productionServerDomain}/tutorCoursecards`);
-  setTutorCourseCards(cards.data);
-};
+  const getTutorCourseCards = async () => {
+    const cards = await axios.get(`${globals.productionServerDomain}/tutorCoursecards`);
+    setTutorCourseCards(cards.data);
+  };
 
-useEffect(async () => {
-  await getCards();
-  await getTutorCourseCards();
-}, []);
+  useEffect(async () => {
+    await getCards();
+    await getTutorCourseCards();
+  }, []);
 
-const [courseCards, setCourseCards] = useState([])
-const searchCenter = 0
+  const [courseCards, setCourseCards] = useState([])
+  const searchCenter = 0
 
-const getCards = async () => {
-  const data = {
+  const getCards = async () => {
+    const data = {
       centerName: '',
       city: "0",
       direction: "0",
@@ -123,17 +123,19 @@ const getCards = async () => {
       isOnline: "1",
       //individualLesson: individualLesson,
       sortType: '0'
-  }
+    }
 
-  let postResult = await axios.post(`${globals.productionServerDomain}/${searchCenter ? 'courseCardsFilter' : 'tutorCourseCardsFilter'}/`, data);
-  console.log("RESULT CARDS", postResult);
-  setCourseCards(postResult.data);
+    let postResult = await axios.post(`${globals.productionServerDomain}/${searchCenter ? 'courseCardsFilter' : 'tutorCourseCardsFilter'}/`, data);
+    console.log("RESULT CARDS", postResult);
+    setCourseCards(postResult.data);
 
-  console.log("courseCards", courseCards)
- 
-  // setLoading(false)
-}
+    console.log("courseCards", courseCards)
   
+    // setLoading(false)
+  }
+  
+  console.log(tutorCourseCards);
+
   return(
     <div className={styles.container}>
       <Slider {...settings}
