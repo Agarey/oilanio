@@ -59,7 +59,7 @@ function CoursesFilters (props) {
   const [imagesBase, setImagesBase] = useState([]);
   const [centerName, setCenterName] = useState('');
   const [direction, setDirection] = useState('0');
-  const [searchingCenter, setSearchingCenter] = useState(1)
+  const [searchingCenter, setSearchingCenter] = useState(true)
   const [city, setCity] = useState('0')
   const [onOff, setOnOff] = useState('0')
   const [center, setCenter] = useState(0)
