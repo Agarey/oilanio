@@ -59,7 +59,7 @@ function CoursesFilters (props) {
   const [imagesBase, setImagesBase] = useState([]);
   const [centerName, setCenterName] = useState('');
   const [direction, setDirection] = useState('0');
-  const [searchingCenter, setSearchingCenter] = useState(true)
+  const [searchingCenter, setSearchingCenter] = useState(1)
   const [city, setCity] = useState('0')
   const [onOff, setOnOff] = useState('0')
   const [center, setCenter] = useState(0)
@@ -251,11 +251,11 @@ function CoursesFilters (props) {
     await reloadCourseCards();
   }, [priceTo]);
 
-  useEffect(() => {
-    compareDirectrion(searchInput);
-    compareCourseName(searchInput);
-    compareIsTutor(searchInput);
-  }, [searchInput]);
+  // useEffect(() => {
+  //   compareDirectrion(searchInput);
+  //   compareCourseName(searchInput);
+  //   compareIsTutor(searchInput);
+  // }, [searchInput]);
 
   useEffect(async () => {
     axios.get(`${globals.productionServerDomain}/getCities`).then(res => {
@@ -278,6 +278,7 @@ function CoursesFilters (props) {
       behavior: 'smooth'
     });
     setLoading(false);
+    // await reloadCourseCards();
   }, []);
 
   const longPressHandler = useLongPress(() => {
