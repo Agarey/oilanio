@@ -669,7 +669,8 @@ function CoursesFilters (props) {
                         })
                       }
                     </div>) 
-                  : <CourseSearchResultIsNotDefind catalog={true}/>
+                  : null
+                  // <CourseSearchResultIsNotDefind catalog={true}/>
                 )) 
                 : (
                   <div className={styles.loader}>
