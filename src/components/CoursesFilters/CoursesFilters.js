@@ -278,6 +278,7 @@ function CoursesFilters (props) {
       behavior: 'smooth'
     });
     setLoading(false);
+    await reloadCourseCards();
   }, []);
 
   const longPressHandler = useLongPress(() => {
