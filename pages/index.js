@@ -106,7 +106,7 @@ const Catalog = (props) => {
   const [imagesBase, setImagesBase] = useState([]);
   const loadCourseCards = async (directionId) => {
     setCoursesLoading(true);
-    let result = await axios.get(`${globals.productionServerDomain}/courseCards/`);
+    const result = await axios.get(`${globals.productionServerDomain}/courseCards/`);
     setCourseCards(result.data);
     console.log('courseCards', result.data);
     setShowUps(true);
@@ -271,11 +271,15 @@ const Catalog = (props) => {
   }, []);
 
   useEffect(async () => {
+    await loadCourseCards().then(() => setCoursesLoading(false));
+  }, []);
+
+  useEffect(async () => {
     let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
     setImagesBase(imagesBaseResponse.data);
     setCoursesLoading(true);
     loadFilters();
-    loadCourseCards().then(() => setCoursesLoading(false));
+    await loadCourseCards().then(() => setCoursesLoading(false));
     loadTutorCourseCards().then(() => setCoursesLoading(false));
     loadStocks().then(() => setStocksLoading(false));
     compareDirectrion(searchInput);
@@ -461,6 +465,7 @@ const Catalog = (props) => {
       let postResult = await axios.post(`${globals.productionServerDomain}/courseCardsFilter/`, data);
       console.log("postResult равно", postResult.data);
       setCourseCards(postResult.data);
+      console.log('new Courses', postResult.data)
       setCoursesLoading(false);
     }
   };
@@ -560,7 +565,6 @@ const Catalog = (props) => {
       });  
   };
 
-  console.log(courseCards);
   return (
     <div>
       <div style={{
