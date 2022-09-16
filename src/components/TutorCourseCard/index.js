@@ -103,9 +103,9 @@ export default function TutorCourseCard(props) {
       </div>
       <div className={styles.linkButtonBody}>
         {/* <div style={{display: 'flex', justifyContent: "space-between"}}> */}
-        <button className={styles.white_link_button}>
+        {/* <button className={styles.white_link_button}>
           Подробнее
-        </button>
+        </button> */}
         {applicationSent 
           ? (
             <p className={styles.applicationSentText}>Заявка отправлена!</p>
