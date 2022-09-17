@@ -56,7 +56,7 @@ function CoursesFilters (props) {
   const [searchCenter, setSearchCenter] = useState(true);
   const [filtersLoading, setFiltersLoading] = useState(false);
   // const [currentCourseCategory, setCurrentCourseCategory] = useState("Найденные курсы");
-  const [imagesBase, setImagesBase] = useState([]);
+  // const [imagesBase, setImagesBase] = useState(['test']);
   const [centerName, setCenterName] = useState('');
   const [direction, setDirection] = useState('0');
   const [searchingCenter, setSearchingCenter] = useState(1)
@@ -90,8 +90,8 @@ function CoursesFilters (props) {
 
   const loadCourseCards = async () => {
     setLoading(true);
-    let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
-    setImagesBase(imagesBaseResponse.data);
+    // let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
+    // setImagesBase(imagesBaseResponse.data);
     let result = await axios.get(`${globals.productionServerDomain}/courseCards/`)
       .then((res) => {
         setCourseCards(res.data);
@@ -124,8 +124,8 @@ function CoursesFilters (props) {
     
     setLoading(true);
     searchingCenterValue = Boolean(Number(searchingCenterValue));
-    let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
-    setImagesBase(imagesBaseResponse.data);
+    // let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
+    // setImagesBase(imagesBaseResponse.data);
     // console.log('images', imagesBase)
     const data = {
       centerName: centerName,
@@ -638,8 +638,7 @@ function CoursesFilters (props) {
           {(
             <>
               { courseCards !== null 
-                ? (imagesBase.length !== 0 && (
-                  courseCards.length > 0 
+                ? courseCards.length > 0 
                   ? (
                     <div className={classnames(styles.courses_block)}>
                       {
@@ -658,8 +657,7 @@ function CoursesFilters (props) {
                                 )}
                                 {searchingCenterState===true && (
                                   <CourseCard 
-                                    key={idx} 
-                                    coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} 
+                                    key={idx}  
                                     sendApplicationCallback={sendApplication} 
                                     setLoadingModal={setLoadingModal} 
                                     course={course}
@@ -671,8 +669,7 @@ function CoursesFilters (props) {
                         })
                       }
                     </div>) 
-                  : <CourseSearchResultIsNotDefind catalog={true}/>
-                )) 
+                  : <CourseSearchResultIsNotDefind catalog={true}/> 
                 : (
                   <div className={styles.loader}>
                     <img src="/loader.gif" alt=""></img>
