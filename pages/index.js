@@ -106,7 +106,7 @@ const Catalog = (props) => {
   const [imagesBase, setImagesBase] = useState([]);
   const loadCourseCards = async (directionId) => {
     setCoursesLoading(true);
-    const result = await axios.get(`${globals.productionServerDomain}/courseCards/`);
+    const result = await axios.get(`${globals.productionServerDomain}/courseCards`);
     setCourseCards(result.data);
     console.log('courseCards', result.data);
     setShowUps(true);
