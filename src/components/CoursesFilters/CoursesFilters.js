@@ -92,7 +92,7 @@ function CoursesFilters (props) {
     setLoading(true);
     // let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
     // setImagesBase(imagesBaseResponse.data);
-    let result = await axios.get(`${globals.productionServerDomain}/courseCards/`)
+    let result = await axios.get(`${globals.productionServerDomain}/courseCards`)
       .then((res) => {
         setCourseCards(res.data);
         // console.log(res.data);
@@ -100,6 +100,7 @@ function CoursesFilters (props) {
         .then(() => {
           setLoading(false);
         });
+    // console.log('карточки в loadCourseCards', courseCards)
   };
     
   const filterBtnHandler = async (centerName, city, direction, priceFrom, priceTo, center, isOnline, sortType, searchingCenterValue) => {
@@ -185,9 +186,10 @@ function CoursesFilters (props) {
       behavior: 'smooth'
     });
     setLoading(false);
+    // console.log('карточки в reloadCourseCards', courseCards)
   };
 
-  console.log(courseCards);
+  // console.log('консоль вне эффектов и переменных', courseCards)
 
   const compareDirectrion =  (value) => {
     let direction_Id =  (courseCategories.find(el => el.name.toLowerCase() == value.toLowerCase()));
@@ -261,6 +263,7 @@ function CoursesFilters (props) {
   }, [searchInput]);
 
   useEffect(async () => {
+    // console.log('карточки в useEffect', courseCards)
     axios.get(`${globals.productionServerDomain}/getCities`).then(res => {
       setCities(res.data);
       // console.log(res);
