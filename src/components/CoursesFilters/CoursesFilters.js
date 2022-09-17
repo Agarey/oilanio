@@ -83,6 +83,7 @@ function CoursesFilters (props) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterHide, setFilterHide] = useState(false);
   const [filterShow, setFilterShow] = useState(false);
+  const [firstCheck, setFirstCheck] = useState(false)
 
   const addCards = () => {
     setCardsToShow(cardsToShow+9);
@@ -233,27 +234,33 @@ function CoursesFilters (props) {
   }
     
   useEffect(async () => {
-    await reloadCourseCards();
+    firstCheck?
+    await reloadCourseCards():null
   }, [isTutors]);
 
   useEffect(async () => {
-    await reloadCourseCards();
+    firstCheck?
+    await reloadCourseCards():null
   }, [directionId]);
 
   useEffect(async () => {
-    await reloadCourseCards();
+    firstCheck?
+    await reloadCourseCards():null
   }, [onOff]);
 
   useEffect(async () => {
-    await reloadCourseCards();
+    firstCheck?
+    await reloadCourseCards():null
   }, [city]);
 
   useEffect(async () => {
-    await reloadCourseCards();
+    firstCheck?
+    await reloadCourseCards():null
   }, [priceFrom]);
 
   useEffect(async () => {
-    await reloadCourseCards();
+    firstCheck?
+    await reloadCourseCards():null
   }, [priceTo]);
 
   useEffect(() => {
@@ -504,6 +511,7 @@ function CoursesFilters (props) {
                     setSearchingTutors(true)
                     setSearchingCenterState(false)
                     setSearchingCenter(0)
+                    setFirstCheck(true)
                   }}
                 >
                   Репетиторы
@@ -515,6 +523,7 @@ function CoursesFilters (props) {
                     setSearchingTutors(false)
                     setSearchingCenterState(true)
                     setSearchingCenter(1)
+                    setFirstCheck(true)
                   }}
                 >
                   Центры
@@ -525,13 +534,19 @@ function CoursesFilters (props) {
               <h3>Формат занятий</h3>
               <div
                 className={onOff === 2 ? styles.filterActive : styles.filter}
-                onClick={() => setOnOff(2)}
+                onClick={() => {
+                  setOnOff(2)
+                  setFirstCheck(true)
+                }}
               >
                 Оффлайн (очный)
               </div>
               <div
                 className={onOff === 1 ? styles.filterActive : styles.filter}
-                onClick={() => setOnOff(1)}
+                onClick={() => {
+                  setOnOff(1)
+                  setFirstCheck(true)
+                }}
               >
                 Онлайн (заочный)
               </div>
@@ -545,7 +560,10 @@ function CoursesFilters (props) {
                       ? styles.filterActive 
                       : styles.filter
                     }
-                    onClick={async () => await setCity(item.id)}
+                    onClick={async () => {
+                      await setCity(item.id)
+                      setFirstCheck(true)
+                    }}
                   >
                     {item.name}
                   </div>
@@ -568,6 +586,7 @@ function CoursesFilters (props) {
                           setDirectionChildrenId(0)
                           setDirectionChildren2Id(0)
                           setDirectionId(item.id)
+                          setFirstCheck(true)
                         }}
                       >
                         {item.name}
@@ -590,6 +609,7 @@ function CoursesFilters (props) {
                                   setDirectionChildrenId(item2.id)
                                   setDirectionChildren2Id(0)
                                   setDirectionId(item2.id)
+                                  setFirstCheck(true)
                                 }}
                               >
                                 {item2.name}
@@ -611,6 +631,7 @@ function CoursesFilters (props) {
                                         onClick={() => {
                                           setDirectionChildren2Id(item3.id)
                                           setDirectionId(item3.id)
+                                          setFirstCheck(true)
                                         }}
                                       >
                                         {item3.name}
@@ -635,12 +656,18 @@ function CoursesFilters (props) {
               <input 
                 type="number" 
                 value={priceFrom}
-                onChange={(e) => setPriceFrom(e.target.value)}
+                onChange={(e) => {
+                  setPriceFrom(e.target.value)
+                  setFirstCheck(true)
+                }}
               />
               <input 
                 type="number" 
                 value={priceTo}
-                onChange={(e) => setPriceTo(e.target.value)}
+                onChange={(e) => {
+                  setPriceTo(e.target.value)
+                  setFirstCheck(true)
+                }}
               />
             </div>
           </div>
