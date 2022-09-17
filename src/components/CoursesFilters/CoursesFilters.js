@@ -283,6 +283,14 @@ function CoursesFilters (props) {
     document.querySelector('#page_top').scrollIntoView({
       behavior: 'smooth'
     });
+    axios.get(`${globals.productionServerDomain}/courseCards`)
+      .then((res) => {
+        setCourseCards(res.data);
+        // console.log(res.data);
+      })
+        .then(() => {
+          setLoading(false);
+    });
     setLoading(false);
     // await reloadCourseCards();
   }, []);
