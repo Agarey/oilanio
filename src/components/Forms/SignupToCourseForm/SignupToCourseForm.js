@@ -282,7 +282,7 @@ export function SignupToCourseForm(props) {
                                     className={styles.formSubmit}
                                 />
 
-                                <a
+                                {/* <a
                                     onClick={() => {
                                         ym(78186067,'reachGoal','whatsapp_click_tutor');
                                         axios.post(globals.productionServerDomain + '/logUserClick',{
@@ -308,7 +308,7 @@ export function SignupToCourseForm(props) {
                                         }}
                                     >
                                     </div>
-                                </a>
+                                </a> */}
                             </div>
                         </form>
 
