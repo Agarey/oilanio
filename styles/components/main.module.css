@@ -50,7 +50,7 @@
     box-sizing: border-box;
     width: 100%;
     display: grid;
-    background-color: #E9EDF1;
+    background-color: #F3F3F3;
     justify-content: center;
     /* grid-template-columns: [card] 20% [card] 20% [card] 20% [card] 20%; */
     grid-template-columns: [card] 30% [card] 30% [card] 30%;

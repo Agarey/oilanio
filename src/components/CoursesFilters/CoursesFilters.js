@@ -91,17 +91,13 @@ function CoursesFilters (props) {
 
   const loadCourseCards = async () => {
     setLoading(true);
-    // let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
-    // setImagesBase(imagesBaseResponse.data);
     let result = await axios.get(`${globals.productionServerDomain}/courseCards`)
       .then((res) => {
         setCourseCards(res.data);
-        // console.log(res.data);
       })
         .then(() => {
           setLoading(false);
         });
-    // console.log('карточки в loadCourseCards', courseCards)
   };
     
   const filterBtnHandler = async (centerName, city, direction, priceFrom, priceTo, center, isOnline, sortType, searchingCenterValue) => {
@@ -141,10 +137,7 @@ function CoursesFilters (props) {
     };
 
     let query = await `${globals.productionServerDomain}/${(searchingCenterValue) ? 'courseCardsFilter' : 'tutorCourseCardsFilter'}/`;
-    // console.log('query', query);
     let postResult = await axios.post(query, data);
-    // console.log('course cards');
-    // console.log(postResult.data);
     setCourseCards(postResult.data);
     setLoading(false);
     setOpenMoreSort(true);
@@ -180,30 +173,18 @@ function CoursesFilters (props) {
 
     await axios.get(`${globals.productionServerDomain}/filters`).then(res => {
       setFilters(res.data);
-      // console.log(res);
-    });
-
-    document.querySelector('#page_top').scrollIntoView({
-      behavior: 'smooth'
     });
     setLoading(false);
-    // console.log('карточки в reloadCourseCards', courseCards)
   };
-
-  // console.log('консоль вне эффектов и переменных', courseCards)
 
   const compareDirectrion =  (value) => {
     let direction_Id =  (courseCategories.find(el => el.name.toLowerCase() == value.toLowerCase()));
     if (!direction_Id) {direction_Id = 0};
     (direction_Id == 0)? {} : direction_Id = direction_Id.id;
     setDirectionId(direction_Id);
-    // console.log(direction_Id);
-    // console.log("directionId", directionId);
-    
     const filterDirections = courseCategories.filter(category => {
       return category.name.toLowerCase().includes(value.toLowerCase());
     });
-    // console.log("filterDirections", filterDirections);
     setSearchFilter(filterDirections);
   };
 
@@ -212,11 +193,9 @@ function CoursesFilters (props) {
     if (!course_name) {course_name = ''};
     (course_name == '')? {} : course_name = course_name.title;
     setCourseId(course_name);
-    // console.log("COOURSE IDDDD", courseId);
     const filterCourses = courses.filter(course => {
       return course.title.toLowerCase().includes(value.toLowerCase());
     });
-    // console.log("filterCourses", filterCourses);
     setSearchFilterCourses(filterCourses);
   };
 
@@ -225,8 +204,6 @@ function CoursesFilters (props) {
     if (!tutor_name) {tutor_name = ''};
     (tutor_name == '')? {} : tutor_name = tutor_name.fullname;
     setTutorName(tutor_name);
-    // console.log("tutorName", tutorName);
-
     const filterTutors = tutors.filter(tutors => {
       return tutors.fullname.toLowerCase().includes(value.toLowerCase());
     });
@@ -270,14 +247,11 @@ function CoursesFilters (props) {
   }, [searchInput]);
 
   useEffect(async () => {
-    // console.log('карточки в useEffect', courseCards)
     axios.get(`${globals.productionServerDomain}/getCities`).then(res => {
       setCities(res.data);
-      // console.log(res);
     });
     axios.get(`${globals.productionServerDomain}/getCourseCategories`).then(res => {
       setCourseCategories(res.data);
-      // console.log(res);
     });
     setFiltersLoading(true);
     loadCategories(true);
@@ -285,21 +259,15 @@ function CoursesFilters (props) {
     loadCourseCards().then(()=>setLoading(false));
     axios.get(`${globals.productionServerDomain}/filters`).then(res => {
       setFilters(res.data);
-      // console.log(res);
-    });
-    document.querySelector('#page_top').scrollIntoView({
-      behavior: 'smooth'
     });
     axios.get(`${globals.productionServerDomain}/courseCards`)
       .then((res) => {
         setCourseCards(res.data);
-        // console.log(res.data);
       })
-        .then(() => {
-          setLoading(false);
-    });
+      .then(() => {
+        setLoading(false);
+      });
     setLoading(false);
-    // await reloadCourseCards();
   }, []);
 
   const longPressHandler = useLongPress(() => {
@@ -353,7 +321,6 @@ function CoursesFilters (props) {
       searchingCenter: searchCenter,
     })
       .then(res => {
-        // console.log(res.data);
         setDirections(res.data)
       })
   };

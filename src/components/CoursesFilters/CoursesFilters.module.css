@@ -30,10 +30,6 @@
     padding: 20px;
 }
 
-/* .filters {
-    width: 23%;
-} */
-
 .container {
     padding: 0px;
     box-sizing: border-box;
@@ -64,7 +60,7 @@
 .filterChapter{
     display: flex;
     flex-direction: column;
-    font-family: "Rubik Regular";
+    font-family: "Montserrat Regular";
 }
 
 .search_block {
@@ -137,7 +133,7 @@
 .subtitle{
     color: white;
     font-size: 18px;
-    font-family: "Rubik Bold";
+    font-family: "Montserrat Bold";
     text-align: center;
     text-transform: uppercase;
     margin-top: 0;
@@ -152,7 +148,7 @@
 }
 .link{
     color: black;
-    font-family: "Rubik Medium";
+    font-family: "Montserrat Medium";
     text-decoration: none;
     cursor: pointer;
 }
@@ -193,7 +189,7 @@
     cursor: pointer;
     min-width: 200px;
     padding: 10px 15px;
-    font-family: "Rubik Medium";
+    font-family: "Montserrat Medium";
     border: 1px solid transparent;
     margin: 0 5px;
     margin-bottom: 10px ;
@@ -215,7 +211,7 @@
 }
 
 .message{
-    font-family: "Rubik Bold";
+    font-family: "Montserrat Bold";
     font-size: 24px;
     margin-top: 1%;
     width: 100%;
@@ -232,7 +228,7 @@
 }
 
 .img_title{
-    font-family: "Rubik Bold";
+    font-family: "Montserrat Bold";
     margin-top: 1%;
     margin-bottom: 2%;
     display: flex;
@@ -335,7 +331,7 @@
 
 .search_btn{
     background: #412FAE;
-    font-family: "Rubik Regular";
+    font-family: "Montserrat Regular";
     color: white;
     padding: 10px 15px;
     border-radius: 10px;
