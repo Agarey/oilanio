@@ -5,14 +5,15 @@ import feedbackStyles from '../../../styles/components/Feedback.module.css'
 import Header from '../../../src/components/Header/Header'
 import Footer from "../../../src/components/Footer/Footer";
 import HorizontalLine from "../../../src/components/HorizontalLine/HorizaontalLine";
-import CourseCard from "../../../src/components/CourseCard/CourseCard";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from "react";
+import LurkingFilterBlock from "../../../src/components/LurkingFilterBlock";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SimpleSlider from "../../../src/components/SimpleSlider/SimpleSlider";
 import CourseTeacherCard from "../../../src/components/CourseTeacherCard/CourseTeacherCard";
 import Link from "next/link";
+import CourseCardOnPage from "../../../src/components/CourseCardOnPage/CourseCardOnPage";
 import ContactButton from "../../../src/components/ContactButton/ContactButton";
 import { SignupToCourseForm } from "../../../src/components/Forms/SignupToCourseForm/SignupToCourseForm";
 import ModalWindow from "../../../src/components/Modal/ModalWindow";
@@ -35,35 +36,41 @@ function coursePage(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [loadingModal, setLoadingModal] = useState(true);
-
+    const [filters, setFilters] = useState([]);
     const [course, setCourse] = useState(null);
-    const [showCourseDesc, setShowCourseDesc] = useState(true)
-
+    const [directionName, setDirectionName] = useState([]);
+    const [directionLogo, setDirectionLogo] = useState([]);
+    const [promotion, setPromotion] = useState([]);
     const [courseDetails, setCourseDetails] = useState({});
     const [subcourses, setSubcourses] = useState(props.subcourses);
     const [similarCourses, setSimilarCourses] = useState([]);
     const [teachers, setTeachers] = useState([]);
     const [coursesFeedback, setCoursesFeedback] = useState([]);
-
+    const [cardsToShow, setCardsToShow] = useState(4);
     const [imagesBase, setImagesBase] = useState([]);
-
+    const [courseCards, setCourseCards] = useState([]);
     const [feedbackStars, setFeedbackStars] = useState(1);
     const [fullname, setFullname] = useState('')
     const [feedbackMessage, setFeedbackMessage] = useState('')
     const [feedbackStarsOldState, setFeedbackStarsOldState] = useState(1);
     const [feedbackStarsComment, setFeedbackStarsComment] = useState('Ужасный курс')
-
+    const [isTutors, setIsTutors] = useState(false);
     let [phones, setPhones] = useState(props.course.phones.split('  '));
     const [courseDescription, setCourseDecription] = useState(props.course.description!=null ? props.course.description.split('|') : [])
     const [subcourseDescription, setSubcourseDecription] = useState(props.courseDetails.description!=null ? props.courseDetails.description.split('|') : []);
- 
+    const [tutorCards, setTutorCards] = useState([]);
     const [hideMap, setHideMap] = useState( true)
-
+    const [coursesLoading, setCoursesLoading] = useState(false);
     const [subcourseCardsToShow, setSubcourseCardsToShow] = useState(4)
-
+    const [showUps, setShowUps] = useState(false);
     const [promotions, setPromotions] = useState([])
     const [stocks, setStocks] = useState([]);
     const [promotionsLoaded, setPromotionsLoaded] = useState(false)
+    const [showDesc, setShowDesc] = useState(true)
+
+    const addCards = () => {
+        setCardsToShow(cardsToShow+4)
+    };
     const loadStocks = async () => {
         let result = await axios.post(`${globals.productionServerDomain}/loadDirectionPromotions`, {direction_id: 0});
         setStocks(result.data);
@@ -214,9 +221,18 @@ function coursePage(props) {
     }
 
     useEffect(async ()=> {
-        // let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
-        // setImagesBase(imagesBaseResponse.data);
-
+        let imagesBaseResponse = await axios.get(`${globals.productionServerDomain}/imagesBase`);
+        setImagesBase(imagesBaseResponse.data);
+        console.log('PROPS', props)
+        axios.post(`${globals.productionServerDomain}/courseCategory`, {id: props.courseDetails.direction_id}).then(res => {
+          setDirectionName(res.data.name);
+          setDirectionLogo(res.data.img_src);
+        });
+        axios.get(`${globals.productionServerDomain}/getPromotionBySubcourse/` + props.courseDetails.id, {subcourseId: props.courseDetails.id}).then(res => {
+          setPromotion(res.data);
+        });
+        console.log('category',directionName)
+        console.log('ACTION',props.courseDetails.id,promotion)
         loadStocks();
         loadData();
     }, imagesBase)
@@ -249,11 +265,40 @@ function coursePage(props) {
             alert('Что-то пошло нетак!');
         });
     }
+    const getCards = async () => {
+        console.log("Функция getCards");
+        if (isTutors) {
+          const data = {
+            centerName: "",
+            city: 1,
+            direction: "1",
+            priceFrom: "0",
+            priceTo: "0",
+            center: "0",
+            isOnline: false,
+          };
+        
+          let postResult = await axios.post(`${globals.productionServerDomain}/tutorCourseCardsFilter`, data);
+          console.log("postResult равно", postResult.data);
+          setTutorCards(postResult.data);
+          setCoursesLoading(false);
+        } else {
+          const data = {
+            direction: props.courseDetails.direction_id
+          };
+          let postResult = await axios.post(`${globals.productionServerDomain}/courseCardsFilterByCategory/`, data);
+          console.log("postResult равно", postResult.data);
+          setCourseCards(postResult.data);
+          setCoursesLoading(false);
+        }
+      };
 
+      useEffect(() => {
+        getCards();
+      }, [isTutors]);
     return (
-        <div style={{ background: 'white' }}>
+        <div style={{ background: '#F3F3F3' }}>
             <ModalWindow show={show} handleClose={handleClose} heading={'Оставить центру заявку'} body={<SignupToCourseForm sendApplicationCallback={sendApplication} course={courseDetails} handleClose={handleClose} />} />
-
             <Head>
                 <title>Oilan - {props.course.title}</title>
                 <link rel="icon" href="/atom-icon.png" />
@@ -261,209 +306,241 @@ function coursePage(props) {
             </Head>
 
             <Header white={true}/>
-            {/*<ContactButton />*/}
-
-            {/*<div className={styles.headerImage}*/}
-            {/*     style={{*/}
-            {/*         backgroundImage: `url(${props.course.background_image_url})`*/}
-            {/*     }}*/}
-            {/*>*/}
-
-            {/*</div>*/}
-
-
-
 
             <div className={newStyles.container} >
 
                 <div className={styles.headerBlock}>
-                    <div className={newStyles.image} style={props.course.img_src?{ backgroundImage: `url(${props.course.img_src})` }:{backgroundImage: `url('https://realibi.kz/file/510188.jpg')`}}>
-                        {
-                            promotionsLoaded && promotions.length>0 && (
-                                <>
-                                    <div className={classnames(styles.promotionStar, showPromotions ? styles.whiteStar : styles.violetStar)}
-                                        onClick={()=>setShowPromotions(!showPromotions)}
-                                    >
+                    <div className={newStyles.floatBlock}>
+                        <div className={newStyles.image} style={props.course.img_src?{ backgroundImage: `url(${props.course.img_src})` }:{backgroundImage: `url('https://realibi.kz/file/510188.jpg')`}}>
+                            <div className={newStyles.image_block} style={directionLogo?
+                                {
+                                    backgroundImage: `url(${directionLogo})`,
+                                    backgroundPosition: 'center',
+                                    backgroundSize: 'cover',
+                                    backgroundColor: 'white',
+                                    border: '1px solid white'
+                                }:{
+                                    backgroundImage: `url('https://realibi.kz/file/510188.jpg')`,
+                                    backgroundPosition: 'center',
+                                    backgroundSize: 'cover',
+                                    backgroundColor: 'white',
+                                    border: '1px solid white'
+                                }}>
+                            </div>
+                            <div className={newStyles.verificatedSheild} 
+                                style={props.courseDetails.verificated?
+                                    {
+                                        backgroundImage: 'url(https://realibi.kz/file/890265.png)',
+                                    }:
+                                    {}
+                                }
+                            >
+                            </div>
+                            {
+                                promotionsLoaded && promotion.length>0 && (
+                                    <>
+                                        <div className={classnames(newStyles.promotionStar, showPromotions ? styles.whiteStar : styles.violetStar)}
+                                            onClick={()=>setShowPromotions(!showPromotions)}
+                                        >
+                                            {
+                                                showPromotions ? (
+                                                    <span className={newStyles.starTitle} style={{color: 'black', fontSize: 24}}>X</span>
+                                                ) : (
+                                                    <>
+                                                        <span className={newStyles.starTitle}>АКЦИЯ</span>
+                                                        <span className={newStyles.starSubtitle}>(нажми)</span>
+                                                        <span className={newStyles.starPercent}>%</span>
+                                                    </>
+                                                )
+                                            }
+
+                                        </div>
                                         {
-                                            showPromotions ? (
-                                                <span className={styles.starTitle} style={{color: 'black', fontSize: 24}}>X</span>
-                                            ) : (
-                                                <>
-                                                    <span className={styles.starTitle}>АКЦИЯ</span>
-                                                    <span className={styles.starSubtitle}>(нажми)</span>
-                                                </>
+                                            showPromotions && (
+                                                <div className={styles.promotionBlock}>
+                                                    <div style={{width: '100%'}}>
+                                                        <div className={styles.promotionItem}>
+                                                            <span className={styles.promotionTitle}>Акция</span>
+                                                            <span className={styles.promotionSubtitle}>{promotion.text}</span>
+                                                        </div> <br/>
+                                                        <div className={styles.promotionItem}>
+                                                            <span className={styles.promotionTitle}>Что нужно сделать?</span>
+                                                            <span className={styles.promotionSubtitle}>Введите промокод <b>“{props.course.title}”</b>, в поле <b>“Промокод”</b>, когда будете оставлять заявку этому центру</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {
+                                                        promotion.length>1 && (
+                                                            <div className={styles.nextPromotionBtnBody}>
+                                                                <span className={styles.nextPromotionBtn}
+                                                                    onClick={()=>{
+                                                                        if(promotionIndex===promotion.length-1){
+                                                                            setPromotionIndex(0)
+                                                                        } else {
+                                                                            setPromotionIndex(promotionIndex+1)
+                                                                        }
+                                                                    }}
+                                                                >Следующая акция</span>
+                                                            </div>
+                                                        )
+                                                    }
+                                                </div>
                                             )
                                         }
-
-                                    </div>
-                                    {
-                                        showPromotions && (
-                                            <div className={styles.promotionBlock}>
-                                                <div style={{width: '100%'}}>
-                                                    <div className={styles.promotionItem}>
-                                                        <span className={styles.promotionTitle}>Акция</span>
-                                                        <span className={styles.promotionSubtitle}>{promotions[promotionIndex].text}</span>
-                                                    </div> <br/>
-                                                    <div className={styles.promotionItem}>
-                                                        <span className={styles.promotionTitle}>Что нужно сделать?</span>
-                                                        <span className={styles.promotionSubtitle}>Введите промокод <b>“{promotions[promotionIndex].promocode}”</b>, в поле <b>“Промокод”</b>, когда будете оставлять заявку этому центру</span>
-                                                    </div>
-                                                </div>
-
-                                                {
-                                                    promotions.length>1 && (
-                                                        <div className={styles.nextPromotionBtnBody}>
-                                                            <span className={styles.nextPromotionBtn}
-                                                                onClick={()=>{
-                                                                    if(promotionIndex===promotions.length-1){
-                                                                        setPromotionIndex(0)
-                                                                    } else {
-                                                                        setPromotionIndex(promotionIndex+1)
-                                                                    }
-                                                                }}
-                                                            >Следующая акция</span>
-                                                        </div>
-                                                    )
-                                                }
-                                            </div>
-                                        )
-                                    }
-                                </>
-                            )
-                        }
-                    </div>
-                    <div className={classnames(newStyles.headerItemThird)}>
-                        <div className={newStyles.infoList}>
-                            <span className={newStyles.fullname}>{courseDetails.title ==='test' ? '' : courseDetails.title}</span> <br/> <br/>
+                                    </>
+                                )
+                            }
+                        </div>
+                        <div className={newStyles.aboutBlock}>
+                            <span className={newStyles.leftSubTitle}>О курсе</span>
+                            <div className={newStyles.infoList}>
+                                <span className={newStyles.leftValue}>
+                                    {courseDetails.description?courseDetails.description:'Центр '+props.course.title+' ещё не добавил информацию о данном курсе'}
+                                </span>
+                            </div> 
+                            <br/>
+                        </div>
+                        <div className={newStyles.underImgInfo}>
                             <div className={newStyles.infoItem}>
-                                <span className={newStyles.leftSubTitle}>Центр</span>
-                                <span className={newStyles.leftValue}>{props.course.title}</span>
-                            </div>
-                            <div className={newStyles.infoItem}>
-                                <span className={newStyles.leftSubTitle}>Адрес</span>
-                                <span className={newStyles.leftValue}>{props.course.addresses}</span>
-                            </div>
-                            <div className={newStyles.infoItem}>
-                                <span className={newStyles.leftSubTitle}>Возрастная категория</span>
-                                <span className={newStyles.leftValue}>{courseDetails.ages}</span>
-                            </div>
-                            <div className={newStyles.infoItem}>
-                                <span className={newStyles.leftSubTitle}>Расписание</span>
-                                <span className={newStyles.leftValue}>{courseDetails.schedule}</span>
-                            </div>
-                            <div className={newStyles.infoItem}>
-                                <span className={newStyles.leftSubTitle}>Формат занятий:</span>
+                                <span className={newStyles.leftSubTitle}>Формат занятий</span>
                                 <span className={newStyles.leftValue}>{courseDetails.format}</span>
                             </div>
                             <div className={newStyles.infoItem}>
-                                <span className={newStyles.leftSubTitle}>Тип занятий:</span>
-                                <span className={newStyles.leftValue}>{courseDetails.type}</span>
+                                <span className={newStyles.leftSubTitle}>Тип занятий</span>
+                                <span className={newStyles.leftValue}>{courseDetails.type?courseDetails.type:'не указан'}</span>
                             </div>
-                            <br/>
                             <div className={newStyles.infoItem}>
-                                <span
-                                    className={newStyles.leftSubTitle}
-                                    style={{
-                                        fontSize: 20
-                                    }}
-                                >Цена</span>
-                                <span
-                                    className={newStyles.leftValue}
-                                    style={{
-                                        fontSize: 20,
-                                        fontWeight: 1000
-                                    }}
-                                >{prettify(+courseDetails.price)} {courseDetails.currency}/{courseDetails.unit_of_time}</span>
-                            </div>
-
-                            <div style={{
-                                display: 'flex',
-                                width: '100%',
-                                marginTop: 10
-                            }}>
-                                <div className={styles.enableOnMobile}>
-                                    <button className={styles.button} onClick={async () => {
-                                        handleShow();
-                                    }}>Оставить заявку</button>
-                                </div>
-                                <div className={styles.disableOnMobile}>
-                                    <button className={styles.button} onClick={async () => {
-                                        handleShow();
-                                    }}>Оставить заявку</button>
-                                </div>
-                                <a
-                                    onClick={() => {
-                                        ym(78186067,'reachGoal','whatsapp_click_center');
-                                        axios.post(globals.productionServerDomain + '/logUserClick',{
-                                            course_id: courseDetails.course_id,
-                                            card_id: courseDetails.id,
-                                            event_name: 'whatsapp'
-                                        })
-                                    }}
-                                    href={`https://api.whatsapp.com/send?phone=${props.course.phones}&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BF%D0%B8%D1%88%D1%83%20%D0%92%D0%B0%D0%BC%20%D1%81%20%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D1%8B%20Oilan, `}>
-                                    <div
-                                        style={{
-                                            height: '100%',
-                                            width: 45,
-                                            marginLeft: 10,
-                                            borderRadius: 8,
-                                            backgroundImage: `url('/whatsapp_logo.png')`,
-                                            backgroundPosition: 'center',
-                                            backgroundRepeat: 'no-repeat',
-                                            backgroundSize: 'contain',
-                                            boxShadow: '0 0 1px grey',
-                                            backgroundColor: '#23d366'
-                                        }}
-                                    >
-                                    </div>
-                                </a>
+                                <span className={newStyles.leftSubTitle}>Цена</span>
+                                <span className={newStyles.leftValue}>{prettify(+courseDetails.price)} {courseDetails.currency?courseDetails.currency:'KZT'}/{courseDetails.unit_of_time}</span>
                             </div>
                         </div>
                     </div>
-
-                    <div className={newStyles.headerItemSecond}>
-                        <button className={styles.showBtn} onClick={()=>setShowCourseDesc(!showCourseDesc)}>
-                            {showCourseDesc ? 'Скрыть подробную информацию' : 'Показать подробную информацию'}
-                            <Image src={'/Vector-4.png'} style={{height: 6, marginLeft: 5}} className={showCourseDesc ? styles.rotateBtn : null}/>
-                        </button>
-
-                        <div style={{width: '100%'}} className={classnames(styles.opacityZero, showCourseDesc && styles.opacityFull)}>
-                            <span className={newStyles.subTitle} style={{fontSize: 18}}>О курсе:</span>
-                            <div className={newStyles.infoList}>
-                                <span className={newStyles.value}>
-                                    {
-                                        subcourseDescription.map(item => {
-                                            return(
-                                                <>
-                                                    {item}
-                                                    <br/>
-                                                </>
-                                            )
-                                        })
-                                    }
-                                </span>
-                            </div> <br/>
-                            <span className={newStyles.subTitle} style={{fontSize: 18}}>О центре:</span>
-                            <div className={newStyles.infoList}>
-                                <span className={newStyles.value}>
-                                    {
-                                        courseDescription.map(item => {
-                                            return(
-                                                <>
-                                                    {item}
-                                                    <br/>
-                                                </>
-                                            )
-                                        })
-                                }</span>
+                    <div className={newStyles.primaryInfoRows}>
+                        <div className={newStyles.categoryRow}>
+                            {directionName}
+                        </div>
+                        <div className={newStyles.titleRow}>
+                            {props.courseDetails.title?props.courseDetails.title:directionName}
+                        </div>
+                        <div className={newStyles.roleRow}>
+                            Образовательный центр
+                        </div>
+                        <div className={newStyles.centerNameRow}>
+                            {props.course.title}
+                        </div>
+                        <div className={newStyles.detailInfoRow}>
+                            <div className={newStyles.twoColumnsAndTwoRows}>
+                                <div className={newStyles.twoColumns}>
+                                    <div className={newStyles.theFirstInfoColumn}>
+                                        <div className={newStyles.infoItem}>
+                                            <span className={newStyles.leftSubTitle}>Адрес</span>
+                                            <span className={newStyles.leftValue}>г. {props.courseDetails.city_name}{props.course.addresses?', '+props.course.addresses:''}</span>
+                                        </div>
+                                        <div className={newStyles.infoItem}>
+                                            <span className={newStyles.leftSubTitle}>Возрастная категория</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.ages?props.courseDetails.ages:'не указана'}</span>
+                                        </div>
+                                        <div className={newStyles.infoItem}>
+                                            <span className={newStyles.leftSubTitle}>Расписание</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.schedule?props.courseDetails.schedule:'не указано'}</span>
+                                        </div>
+                                    </div>
+                                    <div className={newStyles.theSecondInfoColumn}>
+                                        <div className={newStyles.infoItem}>
+                                            <span className={newStyles.leftSubTitle}>Формат занятий</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.format}</span>
+                                        </div>
+                                        <div className={newStyles.infoItem}>
+                                            <span className={newStyles.leftSubTitle}>Тип занятий</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.type?props.courseDetails.type:'не указан'}</span>
+                                        </div>
+                                        <div className={newStyles.infoItem}>
+                                            <span className={newStyles.leftSubTitle}>Цена</span>
+                                            <span className={newStyles.leftValue}>{prettify(+props.courseDetails.price)} {props.courseDetails.currency?props.courseDetails.currency:'KZT'}/{props.courseDetails.unit_of_time}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={newStyles.twoRows}>
+                                    <div className={newStyles.firstButtonsRow}>
+                                        <div style={{
+                                            display: 'flex',
+                                            width: '100%',
+                                            marginTop: 10
+                                        }}>
+                                            <div className={styles.enableOnMobile}>
+                                                <button className={newStyles.button} onClick={async () => {
+                                                    handleShow();
+                                                }}>Оставить заявку</button>
+                                            </div>
+                                            <div className={styles.disableOnMobile}>
+                                                <button className={newStyles.button} onClick={async () => {
+                                                    handleShow();
+                                                }}>Оставить заявку</button>
+                                            </div>
+                                            {/*<a
+                                                onClick={() => {
+                                                    // ym(78186067,'reachGoal','whatsapp_click_center');
+                                                    axios.post(globals.productionServerDomain + '/logUserClick',{
+                                                        course_id: props.courseDetails.course_id,
+                                                        card_id: props.courseDetails.id,
+                                                        event_name: 'whatsapp'
+                                                    })
+                                                }}
+                                                href={`https://api.whatsapp.com/send?phone=${props.course.phones}&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BF%D0%B8%D1%88%D1%83%20%D0%92%D0%B0%D0%BC%20%D1%81%20%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D1%8B%20Oilan, `}>
+                                                <div
+                                                    style={{
+                                                        height: '100%',
+                                                        width: 45,
+                                                        marginLeft: 10,
+                                                        borderRadius: 8,
+                                                        backgroundImage: `url('/whatsapp_logo.png')`,
+                                                        backgroundPosition: 'center',
+                                                        backgroundRepeat: 'no-repeat',
+                                                        backgroundSize: 'contain',
+                                                        boxShadow: '0 0 1px grey',
+                                                        backgroundColor: '#23d366'
+                                                    }}
+                                                >
+                                                </div>
+                                            </a>*/}
+                                        </div>
+                                    </div>
+                                    {/*<div className={newStyles.secondButtonsRow}>
+                                        <div style={{
+                                            display: 'flex',
+                                            width: '100%',
+                                            marginTop: 10
+                                        }}>
+                                            <div className={styles.enableOnMobile}>
+                                                <button className={newStyles.button} onClick={async () => {
+                                                    handleShow();
+                                                }}>Перейти к центру</button>
+                                            </div>
+                                            <div className={styles.disableOnMobile}>
+                                                <button className={newStyles.button} onClick={async () => {
+                                                    handleShow();
+                                                }}>Перейти к центру</button>
+                                            </div>
+                                        </div>
+                                    </div>*/}
+                                </div>
+                            </div>
+                            <div className={newStyles.theThirdInfoColumn}>
+                                <div style={{width: '100%'}} className={classnames(styles.opacityFull)}>
+                                    <span className={newStyles.leftSubTitle}>О курсе</span>
+                                    <div className={newStyles.infoList}>
+                                        <span className={newStyles.leftValue}>
+                                            {props.courseDetails.description?props.courseDetails.description:'Центр '+props.course.title+' ещё не добавил информацию о данном курсе'}
+                                        </span>
+                                    </div> <br/>
+                                </div>
                             </div>
                         </div>
-                        <br/>
                     </div>
                 </div>
             </div>
 
-            <div style={{ width: '100%', marginTop: '20px' }}>
+            {/*<div style={{ width: '100%', marginTop: '20px' }}>
                 {
                     props.teachers.length!=0 ?
                         (
@@ -482,33 +559,139 @@ function coursePage(props) {
                         ) :
                         null
                 }
+            </div>*/}
+            <div className={newStyles.twoColumnsAndTwoRowsMobile}>
+                <div className={newStyles.twoColumnsMobile}>
+                    <div className={newStyles.theFirstInfoColumnMobile}>
+                        <div className={newStyles.infoItem}>
+                            <span className={newStyles.leftSubTitle}>Адрес</span>
+                            <span className={newStyles.leftValue}>г. {props.courseDetails.city_name}{props.course.addresses?', '+props.course.addresses:''}</span>
+                        </div>
+                        <div className={newStyles.infoItem}>
+                            <span className={newStyles.leftSubTitle}>Возрастная категория</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.ages?props.courseDetails.ages:'не указана'}</span>
+                        </div>
+                        <div className={newStyles.infoItem}>
+                            <span className={newStyles.leftSubTitle}>Расписание</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.schedule?props.courseDetails.schedule:'не указано'}</span>
+                        </div>
+                    </div>
+                    <div className={newStyles.theSecondInfoColumnMobile}>
+                        <div className={newStyles.infoItem}>
+                            <span className={newStyles.leftSubTitle}>Формат занятий</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.format}</span>
+                        </div>
+                        <div className={newStyles.infoItem}>
+                            <span className={newStyles.leftSubTitle}>Тип занятий</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.type?props.courseDetails.type:'не указан'}</span>
+                        </div>
+                        <div className={newStyles.infoItem}>
+                            <span className={newStyles.leftSubTitle}>Цена</span>
+                            <span className={newStyles.leftValue}>{prettify(+props.courseDetails.price)} {props.courseDetails.currency?props.courseDetails.currency:'KZT'}/{props.courseDetails.unit_of_time}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className={newStyles.twoRowsMobile}>
+                    <div className={newStyles.firstButtonsRow}>
+                        <div style={{
+                            display: 'flex',
+                            width: '100%',
+                            marginTop: 10
+                        }}>
+                            <div className={styles.enableOnMobile}>
+                                <button className={newStyles.button} onClick={async () => {
+                                    handleShow();
+                                }}>Оставить заявку</button>
+                            </div>
+                            <div className={styles.disableOnMobile}>
+                                <button className={newStyles.button} onClick={async () => {
+                                    handleShow();
+                                }}>Оставить заявку</button>
+                            </div>
+                            {/*<a
+                                onClick={() => {
+                                    // ym(78186067,'reachGoal','whatsapp_click_center');
+                                    axios.post(globals.productionServerDomain + '/logUserClick',{
+                                        course_id: props.courseDetails.course_id,
+                                        card_id: props.courseDetails.id,
+                                        event_name: 'whatsapp'
+                                    })
+                                }}
+                                href={`https://api.whatsapp.com/send?phone=${props.course.phones}&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BF%D0%B8%D1%88%D1%83%20%D0%92%D0%B0%D0%BC%20%D1%81%20%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D1%8B%20Oilan, `}>
+                                <div
+                                    style={{
+                                        height: '100%',
+                                        width: 45,
+                                        marginLeft: 10,
+                                        borderRadius: 8,
+                                        backgroundImage: `url('/whatsapp_logo.png')`,
+                                        backgroundPosition: 'center',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundSize: 'contain',
+                                        boxShadow: '0 0 1px grey',
+                                        backgroundColor: '#23d366'
+                                    }}
+                                >
+                                </div>
+                            </a>*/}
+                        </div>
+                    </div>
+                    {/*<div className={newStyles.secondButtonsRow}>
+                        <div style={{
+                            display: 'flex',
+                            width: '100%',
+                            marginTop: 10
+                        }}>
+                            <div className={styles.enableOnMobile}>
+                                <button className={newStyles.button} onClick={async () => {
+                                    handleShow();
+                                }}>Перейти к центру</button>
+                            </div>
+                            <div className={styles.disableOnMobile}>
+                                <button className={newStyles.button} onClick={async () => {
+                                    handleShow();
+                                }}>Перейти к центру</button>
+                            </div>
+                        </div>
+                    </div>*/}
+                </div>
             </div>
-
-            {courseDetails.isonline ? null : (
-                courseDetails.longitude!=0 && (
+            <div className={newStyles.aboutBlockMobile}>
+                <div className={newStyles.aboutButton}
+                    onClick={()=>setShowDesc(!showDesc)}
+                ><span>О курсе</span><span>{showDesc?<span>&#708;</span>:<span>&#709;</span>}</span></div>
+                <span style={showDesc?{display:'block'}:{display:'none'}} className={newStyles.leftSubTitle}>О курсе</span>
+                <div style={showDesc?{display:'block'}:{display:'none'}} className={newStyles.infoList}>
+                <span className={newStyles.leftValue}>
+                    {props.courseDetails.description?props.courseDetails.description:'Центр '+props.course.title+' ещё не добавил информацию о данном курсе'}
+                </span>
+                </div> 
+                <br/>
+            </div>
+            {props.courseDetails.isonline ? null : (
+                props.courseDetails.longitude!=0 && (
                     <>
                         <div className={styles.titleBlock} style={{margin: '20px 0'}}>
-                            <Image src={'/Location.png'} className={styles.titleImg}/>
-                            <span className={styles.titleTitle}>Местоположение</span>
+                            <span className={newStyles.locationTitle}>Местоположение</span>
                         </div>
 
-                        <div className={newStyles.container} style={{height: hideMap ? '100px' : '65vh'}}>
+                        <div className={newStyles.container} style={{height: hideMap ? '600px' : '65vh'}}>
                             <YMaps className={styles.ymaps}>
-                                <Map width={'100%'} height={hideMap ? '100px' : '65vh'} defaultState={{ center: [props.courseDetails.latitude, props.courseDetails.longitude], zoom: 16 }} >
+                                <Map width={'100%'} height={hideMap ? '600px' : '65vh'} defaultState={{ center: [props.courseDetails.latitude, props.courseDetails.longitude], zoom: 16 }} >
                                     <Placemark geometry={[props.courseDetails.latitude, props.courseDetails.longitude]} />
                                 </Map>
                             </YMaps>
                         </div>
 
-                        <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10}}>
+                        {/*<div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10}}>
                         <span className={styles.spanButton} onClick={()=>{
                             setHideMap(!hideMap)
                         }}>{hideMap ? 'Раскрыть карту' : 'Скрыть карту'}</span>
-                        </div>
+                        </div>*/}
                     </>
                 )
             )}
-
+            {/*
             {
                 imagesBase.length!=0 && (
                     subcourses.length!=0 && (
@@ -524,7 +707,7 @@ function coursePage(props) {
                                         {
                                             props.subcourses.slice(0, subcourseCardsToShow).map(course => (
                                                 <div className={styles.card_item}>
-                                                    <CourseCard coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
+                                                    <CourseCardOnPage coverImage={imagesBase[Math.floor(Math.random() * imagesBase.length)].src} setLoadingModal={setLoadingModal} course={course} showApplicationModal={true}/>
                                                 </div>
                                             ))
                                         }
@@ -556,8 +739,54 @@ function coursePage(props) {
                             props.courseFeedbacks.map( item => <NewFeedback feedback={item}/>) : null
                     }
                 </div>
+            </div>*/}
+            <div className={styles.titleBlock} style={{margin: '20px 0'}}>
+                <span className={newStyles.locationTitle}>Похожие варианты</span>
             </div>
+            <>
+            {
+                    filters[0] != undefined && (
+                        <LurkingFilterBlock 
+                            setCardsToShow={setCardsToShow} 
+                            cities={filters[0]} 
+                            directions={filters[1]} 
+                            setCourseCards={setCourseCards} 
+                            setTutorCards={setTutorCards}
+                            setCoursesLoading={setCoursesLoading}
+                        />)
+                }
 
+                {
+                    courseCards.length > 0 && (
+                        <div className={newStyles.courses_block}>
+                            {
+                                courseCards.slice(0, cardsToShow).map(course => {
+                                    if(course.title !== 'test'){
+                                        return (
+                                            <div style={{marginLeft: '5%', marginRight: '5%'}}>
+                                                <CourseCardOnPage coverImage={imagesBase.length > 0 ? imagesBase[Math.floor(Math.random() * imagesBase.length)].src : 'https://realibi.kz/file/633967.jpg'} setLoadingModal={setLoadingModal} course={course} courseDetails={courseDetails} showApplicationModal={true}/>
+                                            </div>
+                                        )
+                                    }
+                                })
+                            }
+                        </div>
+                    )
+                }
+                {
+                    coursesLoading ? (<LoadingBlock/> ) : (
+                        showUps && (courseCards.length < 1 ? <CourseSearchResultIsNotDefind catalog={true}/> : null)
+                    )
+                }
+                </>
+            
+
+
+            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
+                <a className={styles.link} onClick={()=> {
+                    addCards()
+                }}>Смотреть еще</a>
+            </div>
             <ContactBlock/>
 
             <br /><br /><br /><br />

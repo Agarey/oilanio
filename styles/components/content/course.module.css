@@ -862,3 +862,8 @@
         padding: 0;
     }
 }
+@media (max-width: 480px){
+    .headerBlock{
+        flex-direction: row;
+    }
+}

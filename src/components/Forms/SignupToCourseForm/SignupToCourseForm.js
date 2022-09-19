@@ -71,7 +71,7 @@ export function SignupToCourseForm(props) {
                         <div style={{marginTop: '10px'}}>
                             <span className={styles.courseInfoTitle}>Город :</span>
                         </div>
-                        <span className={styles.courseDescription}>{props.tutorCity} {props.tutor.can_work_online && 'Онлайн. '}{props.tutor.can_work_offline && 'Офлайн. '}</span>
+                        <span className={styles.courseDescription}>{props.tutorCity?props.tutorCity:props.course.city_name} {props.tutor.can_work_online && 'Онлайн. '}{props.tutor.can_work_offline && 'Офлайн. '}</span>
                         <div style={{marginTop: '10px'}}>
                             <span className={styles.courseInfoTitle}>Язык преподавания:</span>
                         </div>

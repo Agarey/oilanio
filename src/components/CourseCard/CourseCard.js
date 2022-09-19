@@ -293,7 +293,7 @@ export default function CourseCard(props) {
           }
         </p>
         <p className={styles.info_value}>
-          {props.course.city_name ? props.course.city_name : props.course.city}
+          {props.course.city_name ? props.course.city_name : props.course.city ? props.course.city : props.courseDetails.city_name}
         </p>
         <div>
           { props.course.currency === '$' 
