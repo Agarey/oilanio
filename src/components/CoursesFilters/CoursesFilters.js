@@ -480,7 +480,7 @@ function CoursesFilters (props) {
           >
             <h1>Фильтры </h1>
             <Image
-              src={"/24.png"}
+              src={"https://realibi.kz/file/293228.png"}
               style={{ height: 24 }}
               className={show ? styles.rotateBtn : styles.rotateBtn_bt}
             />
@@ -493,7 +493,7 @@ function CoursesFilters (props) {
               >
                 <h3>Преподаватель</h3>
                 <Image
-                  src={"/24.png"}
+                  src={"https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showCenter ? styles.rotateBtn : styles.rotateBtn_bt}
                 />
@@ -535,7 +535,7 @@ function CoursesFilters (props) {
               >
                 <h3>Формат занятий</h3>
                 <Image
-                  src={"/24.png"}
+                  src={"https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showFormat ? styles.rotateBtn : styles.rotateBtn_bt}
                 />
@@ -571,7 +571,7 @@ function CoursesFilters (props) {
               >
                 <h3>Город</h3>
                 <Image
-                  src={"/24.png"}
+                  src={"https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showCity ? styles.rotateBtn : styles.rotateBtn_bt}
                 />
@@ -606,7 +606,7 @@ function CoursesFilters (props) {
               >
                 <h3>Направления</h3>
                 <Image
-                  src={"/24.png"}
+                  src={"https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showDirection ? styles.rotateBtn : styles.rotateBtn_bt}
                 />
@@ -647,7 +647,7 @@ function CoursesFilters (props) {
               >
                 <h3>Категория</h3>
                 <Image
-                  src={"/24.png"}
+                  src={"https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showCategory ? styles.rotateBtn : styles.rotateBtn_bt}
                 />
@@ -698,7 +698,7 @@ function CoursesFilters (props) {
               >
                 <h3>Вид</h3>
                 <Image
-                  src={"/24.png"}
+                  src={"https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showPlans ? styles.rotateBtn : styles.rotateBtn_bt}
                 />
@@ -761,7 +761,7 @@ function CoursesFilters (props) {
               >
                 <h3>Цена, ₸</h3>
                 <Image
-                  src={"/24.png"}
+                  src={"/https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showPrice ? styles.rotateBtn : null}
                 />
