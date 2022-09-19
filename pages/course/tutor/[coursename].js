@@ -204,7 +204,7 @@ function coursePage(props) {
           setDirectionLogo(res.data.img_src);
         });
         console.log('PROPSESIS', props)
-        axios.post(`${globals.productionServerDomain}/courseCards/` + 10).then(res => setCourseCards(res.data))
+        // axios.post(`${globals.productionServerDomain}/courseCards/` + 10).then(res => setCourseCards(res.data))
         loadData();
         searchCityValue()
         const data = {

@@ -103,9 +103,14 @@ export default function TutorCourseCard(props) {
       </div>
       <div className={styles.linkButtonBody}>
         {/* <div style={{display: 'flex', justifyContent: "space-between"}}> */}
-        {/* <button className={styles.white_link_button}>
-          Подробнее
-        </button> */}
+        <Link
+            href={`/course/tutor/${encodeURIComponent(props.course.url)}?id=${encodeURIComponent(props.course.id)}`}
+            target="_blank" className={styles.noHover}
+        >
+          <button className={styles.white_link_button}>
+            Подробнее
+          </button>
+        </Link>
         {applicationSent 
           ? (
             <p className={styles.applicationSentText}>Заявка отправлена!</p>
