@@ -761,7 +761,7 @@ function CoursesFilters (props) {
               >
                 <h3>Цена, ₸</h3>
                 <Image
-                  src={"/https://realibi.kz/file/293228.png"}
+                  src={"https://realibi.kz/file/293228.png"}
                   style={{ height: 24 }}
                   className={showPrice ? styles.rotateBtn : null}
                 />
