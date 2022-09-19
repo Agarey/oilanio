@@ -165,7 +165,7 @@
 
 @media screen and (max-width: 600px){
     .container{
-        grid-template-areas: 'logo phone' 'instagram email' 'partner email'
+        grid-template-areas: 'logo logo' 'instagram phone' 'partner email'
         'privacy email';
         grid-template-columns: 1fr 1fr;
     }

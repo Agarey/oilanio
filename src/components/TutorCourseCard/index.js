@@ -95,7 +95,7 @@ export default function TutorCourseCard(props) {
             )
             : (
               <p className={styles.info_price}>
-                {coursePrice} {props.course.currency} за <span style={{textTransform: "lowercase"}}>{props.course.unit_of_time}</span>
+                {coursePrice} {props.course.currency === 'KZT' ? "₸" : props.course.currency} / <span style={{textTransform: "lowercase"}}>{props.course.unit_of_time}</span>
               </p>
             )
           }

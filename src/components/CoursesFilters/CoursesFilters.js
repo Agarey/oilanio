@@ -13,6 +13,7 @@ import ModalWindow from "../Modal/ModalWindow";
 import TutorCourseCard from "../TutorCourseCard";
 import CourseSearchResultIsNotDefind from "../CourseSearchResultIsNotDefind/index";
 import { useRouter } from 'next/router';
+import { Image } from "react-bootstrap";
 
 const ym = () => {
   return (
@@ -55,8 +56,6 @@ function CoursesFilters (props) {
   const [directions, setDirections] = useState([]);
   const [searchCenter, setSearchCenter] = useState(true);
   const [filtersLoading, setFiltersLoading] = useState(false);
-  // const [currentCourseCategory, setCurrentCourseCategory] = useState("Найденные курсы");
-  // const [imagesBase, setImagesBase] = useState(['test']);
   const [centerName, setCenterName] = useState('');
   const [direction, setDirection] = useState('0');
   const [searchingCenter, setSearchingCenter] = useState(1)
@@ -83,7 +82,15 @@ function CoursesFilters (props) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterHide, setFilterHide] = useState(false);
   const [filterShow, setFilterShow] = useState(false);
-  const [firstCheck, setFirstCheck] = useState(false)
+  const [firstCheck, setFirstCheck] = useState(false);
+  const [show, setShow] = useState(false);
+  const [showCenter, setShowCenter] = useState(false);
+  const [showFormat, setShowFormat] = useState(false);
+  const [showCity, setShowCity] = useState(false);
+  const [showDirection, setShowDirection] = useState(false);
+  const [showCategory, setShowCategory] = useState(false);
+  const [showPlans, setShowPlans] = useState(false);
+  const [showPrice, setShowPrice] = useState(false);
 
   const addCards = () => {
     setCardsToShow(cardsToShow+9);
@@ -95,9 +102,9 @@ function CoursesFilters (props) {
       .then((res) => {
         setCourseCards(res.data);
       })
-        .then(() => {
-          setLoading(false);
-        });
+      .then(() => {
+        setLoading(false);
+      });
   };
     
   const filterBtnHandler = async (centerName, city, direction, priceFrom, priceTo, center, isOnline, sortType, searchingCenterValue) => {
@@ -325,7 +332,6 @@ function CoursesFilters (props) {
       })
   };
 
-
     // function openNoize(){
     //     // loadCategories(true);
     //     setShowNoizyWindow(true);
@@ -466,11 +472,36 @@ function CoursesFilters (props) {
         className={classnames(styles.container, styles.topBlock)}
       >
         <div style={filterHide ? {display: filterShow ? "block" : "none"} : undefined} className={styles.filtersSection}>
-          <h1>Фильтры </h1>
-          <div className={styles.filter_container}>
+          <div 
+            style={{"display": "flex", "justifyContent": "space-between"}}
+            onClick={() => {
+              setShow(!show);
+            }}
+          >
+            <h1>Фильтры </h1>
+            <Image
+              src={"/24.png"}
+              style={{ height: 24 }}
+              className={show ? styles.rotateBtn : styles.rotateBtn_bt}
+            />
+          </div>
+          <div className={styles.filter_container} style={{"display": !show ? 'block' : 'none'}}>
             <div className={styles.filterChapter}>
-              <h3>Преподаватель</h3>
-              <div>
+              <div 
+                style={{"display": "flex", "justifyContent": "space-between"}}
+                onClick={() => setShowCenter(!showCenter)}
+              >
+                <h3>Преподаватель</h3>
+                <Image
+                  src={"/24.png"}
+                  style={{ height: 24 }}
+                  className={showCenter ? styles.rotateBtn : styles.rotateBtn_bt}
+                />
+              </div>
+              <div 
+                className={styles.filter_blocks} 
+                style={{"display": !showCenter ? 'block' : 'none'}}
+              >
                 <span
                   className={isTutors ? styles.filterActive : styles.filter}
                   onClick={() => {
@@ -498,72 +529,142 @@ function CoursesFilters (props) {
               </div>
             </div>
             <div className={styles.filterChapter}>
-              <h3>Формат занятий</h3>
-              <div
-                className={onOff === 2 ? styles.filterActive : styles.filter}
-                onClick={() => {
-                  setOnOff(2)
-                  setFirstCheck(true)
-                }}
+              <div 
+                style={{"display": "flex", "justifyContent": "space-between"}}
+                onClick={() => setShowFormat(!showFormat)}
               >
-                Оффлайн (очный)
+                <h3>Формат занятий</h3>
+                <Image
+                  src={"/24.png"}
+                  style={{ height: 24 }}
+                  className={showFormat ? styles.rotateBtn : styles.rotateBtn_bt}
+                />
               </div>
-              <div
-                className={onOff === 1 ? styles.filterActive : styles.filter}
-                onClick={() => {
-                  setOnOff(1)
-                  setFirstCheck(true)
-                }}
+              <div 
+                className={styles.filter_blocks} 
+                style={{"display": !showFormat ? 'block' : 'none'}}
               >
-                Онлайн (заочный)
+                <div
+                  className={onOff === 2 ? styles.filterActive : styles.filter}
+                  onClick={() => {
+                    setOnOff(2)
+                    setFirstCheck(true)
+                  }}
+                >
+                  Оффлайн (очный)
+                </div>
+                <div
+                  className={onOff === 1 ? styles.filterActive : styles.filter}
+                  onClick={() => {
+                    setOnOff(1)
+                    setFirstCheck(true)
+                  }}
+                >
+                  Онлайн (заочный)
+                </div>
               </div>
             </div>
             <div className={styles.filterChapter}>
-              <h3>Город</h3>
-              <div className={styles.filterChapterContent}>
-                {cities.map((item) => {
-                  return <div
-                    className={city === item.id 
-                      ? styles.filterActive 
-                      : styles.filter
+              <div 
+                style={{"display": "flex", "justifyContent": "space-between"}}
+                onClick={() => setShowCity(!showCity)}
+              >
+                <h3>Город</h3>
+                <Image
+                  src={"/24.png"}
+                  style={{ height: 24 }}
+                  className={showCity ? styles.rotateBtn : styles.rotateBtn_bt}
+                />
+              </div>
+              <div 
+                className={styles.filter_blocks}
+                style={{"display": !showCity ? 'block' : 'none'}}
+              >
+                <div className={styles.filterChapterContent}>
+                  {cities.map((item) => {
+                    return <div
+                      className={city === item.id 
+                        ? styles.filterActive 
+                        : styles.filter
+                      }
+                      onClick={async () => {
+                        await setCity(item.id)
+                        setFirstCheck(true)
+                      }}
+                    >
+                      {item.name}
+                    </div>
+                  })}
+                </div>
+              </div>
+              
+            </div>
+            <div className={styles.filterChapter}>
+              <div 
+                style={{"display": "flex", "justifyContent": "space-between"}}
+                onClick={() => setShowDirection(!showDirection)}
+              >
+                <h3>Направления</h3>
+                <Image
+                  src={"/24.png"}
+                  style={{ height: 24 }}
+                  className={showDirection ? styles.rotateBtn : styles.rotateBtn_bt}
+                />
+              </div>
+              <div 
+                className={styles.filter_blocks}
+                style={{"display": !showDirection ? 'block' : 'none'}}
+              >
+                <div className={styles.filterChapterContent}>
+                  {courseCategories.map((item) => {
+                    if (item.parent === 0) {
+                      return <div>
+                        <span
+                          className={directionParentId === item.id 
+                            ? styles.filterActive 
+                            : styles.filter
+                          }
+                          onClick={() => {
+                            setDirectionParentId(item.id)
+                            setDirectionChildrenId(0)
+                            setDirectionChildren2Id(0)
+                            setDirectionId(item.id)
+                            setFirstCheck(true)
+                          }}
+                        >
+                          {item.name}
+                        </span>
+                      </div>
                     }
-                    onClick={async () => {
-                      await setCity(item.id)
-                      setFirstCheck(true)
-                    }}
-                  >
-                    {item.name}
-                  </div>
-                })}
+                  })}
+                </div>
               </div>
             </div>
             <div className={styles.filterChapter}>
-              <h3>Направления</h3>
-              <div className={styles.filterChapterContent}>
-                {courseCategories.map((item) => {
-                  if (item.parent === 0) {
-                    return <div>
-                      <span
-                        className={directionParentId === item.id 
-                          ? styles.filterActive 
-                          : styles.filter
-                        }
-                        onClick={() => {
-                          setDirectionParentId(item.id)
-                          setDirectionChildrenId(0)
-                          setDirectionChildren2Id(0)
-                          setDirectionId(item.id)
-                          setFirstCheck(true)
-                        }}
-                      >
-                        {item.name}
-                      </span>
-                      <div>
+              <div 
+                style={{"display": "flex", "justifyContent": "space-between"}}
+                onClick={() => setShowCategory(!showCategory)}
+              >
+                <h3>Категория</h3>
+                <Image
+                  src={"/24.png"}
+                  style={{ height: 24 }}
+                  className={showCategory ? styles.rotateBtn : styles.rotateBtn_bt}
+                />
+              </div>
+              <div 
+                className={styles.filter_blocks}
+                style={directionId === 0 ? {"display": "none"} : {"display": !showCategory ? 'block' : 'none'}}
+              >
+                <div className={styles.filterChapterContent}>
+                  {courseCategories.map((item) => {
+                    if (item.parent === 0) {
+                      return <div>
                         {courseCategories.map((item2) => {
                           if (item2.parent === item.id) {
                             return <div
                               style={directionParentId === item2.parent 
-                                ? {display: "block", marginLeft: "10px"} 
+                                ? {display: "block"} 
                                 : {display: "none"}
                               }
                             >
@@ -581,12 +682,49 @@ function CoursesFilters (props) {
                               >
                                 {item2.name}
                               </span>
+                            </div>
+                          }
+                        })}
+                      </div>
+                    }
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className={styles.filterChapter}>
+              <div 
+                style={{"display": "flex", "justifyContent": "space-between"}}
+                onClick={() => setShowPlans(!showPlans)}
+              >
+                <h3>Вид</h3>
+                <Image
+                  src={"/24.png"}
+                  style={{ height: 24 }}
+                  className={showPlans ? styles.rotateBtn : styles.rotateBtn_bt}
+                />
+              </div>
+              <div 
+                style={directionChildrenId === 0 ? {"display": "none"} :{"display": !showPlans ? 'block' : 'none'}}  
+                className={styles.filter_blocks}
+              >
+                <div className={styles.filterChapterContent}>
+                  {courseCategories.map((item) => {
+                    if (item.parent === 0) {
+                      return <div>
+                        {courseCategories.map((item2) => {
+                          if (item2.parent === item.id) {
+                            return <div
+                              style={directionParentId === item2.parent 
+                                ? {display: "block"} 
+                                : {display: "none"}
+                              }
+                            >
                               <div>
                                 {courseCategories.map((item3) => {
                                   if (item3.parent === item2.id) {
                                     return <div
                                       style={directionChildrenId === item3.parent 
-                                        ? {display: "block", marginLeft: "20px"} 
+                                        ? {display: "block"} 
                                         : {display: "none"}
                                       }
                                     >
@@ -611,33 +749,54 @@ function CoursesFilters (props) {
                           }
                         })}
                       </div>
-                    </div>
-                  }
-                })}
+                    }
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className={styles.filterChapter}>
+              <div 
+                style={{"display": "flex", "justifyContent": "space-between"}}
+                onClick={() => setShowPrice(!showPrice)}
+              >
+                <h3>Цена, ₸</h3>
+                <Image
+                  src={"/24.png"}
+                  style={{ height: 24 }}
+                  className={showPrice ? styles.rotateBtn : null}
+                />
+              </div>
+              <div 
+                className={styles.price_content}
+                style={{"display": !showPrice ? 'flex' : 'none'}}  
+              >
+                <div className={styles.input_container_from}>
+                  <span>От</span>
+                  <input 
+                    type="number" 
+                    value={priceFrom}
+                    onChange={(e) => {
+                      setPriceFrom(e.target.value)
+                      setFirstCheck(true)
+                    }}
+                  />
+                </div>
+                <div className={styles.input_container}>
+                  <span>До</span>
+                  <input 
+                    type="number" 
+                    value={priceTo}
+                    onChange={(e) => {
+                      setPriceTo(e.target.value)
+                      setFirstCheck(true)
+                    }}
+                  />
+                </div>
+                
+                
               </div>
             </div>
           </div>          
-          <div className={styles.filterChapter}>
-            <h3>Цена</h3>
-            <div className={styles.price_content}>
-              <input 
-                type="number" 
-                value={priceFrom}
-                onChange={(e) => {
-                  setPriceFrom(e.target.value)
-                  setFirstCheck(true)
-                }}
-              />
-              <input 
-                type="number" 
-                value={priceTo}
-                onChange={(e) => {
-                  setPriceTo(e.target.value)
-                  setFirstCheck(true)
-                }}
-              />
-            </div>
-          </div>
         </div>
         <div className={styles.cardsSection}>
           {(

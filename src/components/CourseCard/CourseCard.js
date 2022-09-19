@@ -325,7 +325,7 @@ export default function CourseCard(props) {
                   style={{marginLeft: '3px'}} 
                   className={styles.info_price}
                 >
-                  Цена: {coursePrice} {props.course.currency}/{props.course.unit_of_time}
+                  {coursePrice} {props.course.currency === 'KZT' ? "₸" : props.course.currency} / {props.course.unit_of_time}
                 </p>
               </div>
             )
