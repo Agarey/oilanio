@@ -96,14 +96,14 @@ function coursePage(props) {
 
         let data = {
             city_id: props.course.city_id,
-            direction_id: courseDetails.direction_id,
+            direction_id: props.courseDetails.direction_id,
             name: userInfo.fullName,
             phone: userInfo.phone,
             email: userInfo.email,
             promocode: userInfo.promocode,
             age: 0,
             isOnline: props.course.format !== 'Offline',
-            course_id: courseDetails.course_id,
+            course_id: props.courseDetails.course_id,
             role_id: 4
         };
 
@@ -165,7 +165,7 @@ function coursePage(props) {
             console.log('courseDetails')
             console.log(courseDetails);
 
-            let courseResult = await axios.get(`${globals.productionServerDomain}/tutorCourses/` + courseDetails.id);
+            let courseResult = await axios.get(`${globals.productionServerDomain}/tutorCourses/` + props.courseDetails.id);
 
             let courseInfo = courseResult['data'][0];
 
@@ -261,7 +261,7 @@ function coursePage(props) {
                             <span className={newStyles.leftSubTitle}>О репетиторе</span>
                             <div className={newStyles.infoList}>
                                 <span className={newStyles.leftValue}>
-                                    {courseDetails.tutor_description?courseDetails.tutor_description:'Репетитор '+props.courseDetails.tutor_fullname+' ещё не добавил информацию о себе'}
+                                    {props.courseDetails.tutor_description?props.courseDetails.tutor_description:'Репетитор '+props.courseDetails.tutor_fullname+' ещё не добавил информацию о себе'}
                                 </span>
                             </div> 
                             <br/>
@@ -270,7 +270,7 @@ function coursePage(props) {
                                     <>
                                         <span className={newStyles.leftSubTitle}>Сертификаты и дипломы</span>
                                         <div className={newStyles.sertificatesList}>
-                                                {tutorSerfs.map(item => (courseDetails.tutor_id == item.tutor_id)
+                                                {tutorSerfs.map(item => (props.courseDetails.tutor_id == item.tutor_id)
                                                     ?(
                                                     <div className={newStyles.sertificate}>
                                                         <div style={{
@@ -296,15 +296,15 @@ function coursePage(props) {
                         <div className={newStyles.underImgInfo}>
                             <div className={newStyles.infoItem}>
                                 <span className={newStyles.leftSubTitle}>Формат занятий</span>
-                                <span className={newStyles.leftValue}>{courseDetails.is_online?'Online':'Offline'}</span>
+                                <span className={newStyles.leftValue}>{props.courseDetails.is_online?'Online':'Offline'}</span>
                             </div>
                             <div className={newStyles.infoItem}>
                                 <span className={newStyles.leftSubTitle}>Выезд</span>
-                                <span className={newStyles.leftValue}>{courseDetails.can_work_on_departure?'С выездом до дома':'Без выезда до дома'}</span>
+                                <span className={newStyles.leftValue}>{props.courseDetails.can_work_on_departure?'С выездом до дома':'Без выезда до дома'}</span>
                             </div>
                             <div className={newStyles.infoItem}>
                                 <span className={newStyles.leftSubTitle}>Цена</span>
-                                <span className={newStyles.leftValue}>{courseDetails.price} {courseDetails.currency?courseDetails.currency:'KZT'}/{courseDetails.unit_of_time}</span>
+                                <span className={newStyles.leftValue}>{props.courseDetails.price} {props.courseDetails.currency?props.courseDetails.currency:'KZT'}/{props.courseDetails.unit_of_time}</span>
                             </div>
                         </div>
                     </div>
@@ -332,33 +332,33 @@ function coursePage(props) {
                                         <div className={newStyles.infoItem}>
                                             <span className={newStyles.leftSubTitle}>Возрастная категория</span>
                                             <span className={newStyles.leftValue}>
-                                                {(courseDetails.min_age && courseDetails.max_age)?
-                                                    courseDetails.min_age+'-'+courseDetails.max_age:
-                                                        (courseDetails.min_age && !courseDetails.max_age)?
-                                                            'от'+courseDetails.min_age:
-                                                                (!courseDetails.min_age && courseDetails.max_age)?
-                                                                    'до'+courseDetails.max_age:
+                                                {(props.courseDetails.min_age && props.courseDetails.max_age)?
+                                                    props.courseDetails.min_age+'-'+props.courseDetails.max_age:
+                                                        (props.courseDetails.min_age && !props.courseDetails.max_age)?
+                                                            'от'+props.courseDetails.min_age:
+                                                                (!props.courseDetails.min_age && props.courseDetails.max_age)?
+                                                                    'до'+props.courseDetails.max_age:
                                                                     'не указана'
                                                 }
                                             </span>
                                         </div>
                                         <div className={newStyles.infoItem}>
                                             <span className={newStyles.leftSubTitle}>Расписание</span>
-                                            <span className={newStyles.leftValue}>{courseDetails.schedule?courseDetails.schedule:'расписание отсутствует'}</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.schedule?props.courseDetails.schedule:'расписание отсутствует'}</span>
                                         </div>
                                     </div>
                                     <div className={newStyles.theSecondInfoColumn}>
                                         <div className={newStyles.infoItem}>
                                             <span className={newStyles.leftSubTitle}>Формат занятий</span>
-                                            <span className={newStyles.leftValue}>{courseDetails.is_online?'Online':'Offline'}</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.is_online?'Online':'Offline'}</span>
                                         </div>
                                         <div className={newStyles.infoItem}>
                                             <span className={newStyles.leftSubTitle}>Выезд</span>
-                                            <span className={newStyles.leftValue}>{courseDetails.can_work_on_departure?'С выездом до дома':'Без выезда до дома'}</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.can_work_on_departure?'С выездом до дома':'Без выезда до дома'}</span>
                                         </div>
                                         <div className={newStyles.infoItem}>
                                             <span className={newStyles.leftSubTitle}>Цена</span>
-                                            <span className={newStyles.leftValue}>{courseDetails.price} {courseDetails.currency?courseDetails.currency:'KZT'}/{courseDetails.unit_of_time}</span>
+                                            <span className={newStyles.leftValue}>{props.courseDetails.price} {props.courseDetails.currency?props.courseDetails.currency:'KZT'}/{props.courseDetails.unit_of_time}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -432,7 +432,7 @@ function coursePage(props) {
                                     <span className={newStyles.leftSubTitle}>О репетиторе</span>
                                     <div className={newStyles.infoList}>
                                         <span className={newStyles.leftValue}>
-                                            {courseDetails.tutor_description}
+                                            {props.courseDetails.tutor_description}
                                         </span>
                                     </div> <br/>
                                     {props.sertificates.length!=0 ?
@@ -441,7 +441,7 @@ function coursePage(props) {
                                                 <span className={newStyles.leftSubTitle}>Сертификаты и дипломы</span>
                                                 <div className={newStyles.sertificatesList}>
                                                     
-                                                        {tutorSerfs.map(item => (courseDetails.tutor_id == item.tutor_id)
+                                                        {tutorSerfs.map(item => (props.courseDetails.tutor_id == item.tutor_id)
                                                           ?(
                                                             <div className={newStyles.sertificate}>
                                                                 <div style={{
@@ -482,33 +482,33 @@ function coursePage(props) {
                         <div className={newStyles.infoItem}>
                             <span className={newStyles.leftSubTitle}>Возрастная категория</span>
                             <span className={newStyles.leftValue}>
-                                {(courseDetails.min_age && courseDetails.max_age)?
-                                    courseDetails.min_age+'-'+courseDetails.max_age:
-                                        (courseDetails.min_age && !courseDetails.max_age)?
-                                            'от'+courseDetails.min_age:
-                                                (!courseDetails.min_age && courseDetails.max_age)?
-                                                    'до'+courseDetails.max_age:
+                                {(props.courseDetails.min_age && props.courseDetails.max_age)?
+                                    props.courseDetails.min_age+'-'+props.courseDetails.max_age:
+                                        (props.courseDetails.min_age && !props.courseDetails.max_age)?
+                                            'от'+props.courseDetails.min_age:
+                                                (!props.courseDetails.min_age && props.courseDetails.max_age)?
+                                                    'до'+props.courseDetails.max_age:
                                                     'не указана'
                                 }
                             </span>
                         </div>
                         <div className={newStyles.infoItem}>
                             <span className={newStyles.leftSubTitle}>Расписание</span>
-                            <span className={newStyles.leftValue}>{courseDetails.schedule?courseDetails.schedule:'расписание отсутствует'}</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.schedule?props.courseDetails.schedule:'расписание отсутствует'}</span>
                         </div>
                     </div>
                     <div className={newStyles.theSecondInfoColumnMobile}>
                         <div className={newStyles.infoItem}>
                             <span className={newStyles.leftSubTitle}>Формат занятий</span>
-                            <span className={newStyles.leftValue}>{courseDetails.is_online?'Online':'Offline'}</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.is_online?'Online':'Offline'}</span>
                         </div>
                         <div className={newStyles.infoItem}>
                             <span className={newStyles.leftSubTitle}>Выезд</span>
-                            <span className={newStyles.leftValue}>{courseDetails.can_work_on_departure?'С выездом до дома':'Без выезда до дома'}</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.can_work_on_departure?'С выездом до дома':'Без выезда до дома'}</span>
                         </div>
                         <div className={newStyles.infoItem}>
                             <span className={newStyles.leftSubTitle}>Цена</span>
-                            <span className={newStyles.leftValue}>{courseDetails.price} {courseDetails.currency?courseDetails.currency:'KZT'}/{courseDetails.unit_of_time}</span>
+                            <span className={newStyles.leftValue}>{props.courseDetails.price} {props.courseDetails.currency?props.courseDetails.currency:'KZT'}/{props.courseDetails.unit_of_time}</span>
                         </div>
                     </div>
                 </div>
@@ -584,7 +584,7 @@ function coursePage(props) {
                 <span style={showDesc?{display:'block'}:{display:'none'}} className={newStyles.leftSubTitle}>О репетиторе</span>
                 <div style={showDesc?{display:'block'}:{display:'none'}} className={newStyles.infoList}>
                     <span className={newStyles.leftValue}>
-                        {courseDetails.tutor_description?courseDetails.tutor_description:'Репетитор '+props.courseDetails.tutor_fullname+' ещё не добавил информацию о себе'}
+                        {props.courseDetails.tutor_description?props.courseDetails.tutor_description:'Репетитор '+props.courseDetails.tutor_fullname+' ещё не добавил информацию о себе'}
                     </span>
                 </div> 
                 <br/>
@@ -594,7 +594,7 @@ function coursePage(props) {
                             <span className={newStyles.leftSubTitle}>Сертификаты и дипломы</span>
                             <div className={newStyles.sertificatesList}>
                                                     
-                                    {tutorSerfs.map(item => (courseDetails.tutor_id == item.tutor_id)
+                                    {tutorSerfs.map(item => (props.courseDetails.tutor_id == item.tutor_id)
                                         ?(
                                         <div className={newStyles.sertificate}>
                                             <div style={{
