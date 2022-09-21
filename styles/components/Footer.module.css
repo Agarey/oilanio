@@ -16,7 +16,7 @@
     /* flex-direction: row;
     justify-content: space-around; */
     grid-template-areas: 'logo instagram phone email partner privacy';
-    padding: 50px 5%;
+    padding: 50px 5% 0;
     background: white;
     width: 100%;
     background: #f3f3f3;
@@ -136,6 +136,17 @@
     justify-content: space-between;
 }
 
+.primary_logo {
+    display: none;
+}
+
+.copy_abaz {
+    font-family: 'Montserrat Regular';
+    font-size: 16px;
+    line-height: 20px;
+    color: #000;
+    opacity: 0.5;
+}
 @media screen and (max-width: 1380px){
     .container{
         grid-template-areas: 'logo instagram phone partner privacy' 'logo email phone partner privacy';
@@ -176,5 +187,49 @@
         grid-template-areas: 'logo' 'instagram' 'partner' 'phone' 'email'
         'privacy';
         grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .instagram {
+        background: url("https://realibi.kz/file/51690.png") no-repeat;
+        background-size: 32px 32px;
+        background-position: 0 50%;
+    }
+    
+    .phone {
+        background: url("https://realibi.kz/file/520994.png") no-repeat;
+        background-size: 24px 24px;
+        background-position: 0 50%;
+    }
+    
+    .email {
+        background: url("https://realibi.kz/file/404627.png") no-repeat;
+        background-size: 24px 24px;
+        background-position: 0 50%;
+    }
+    
+    .partner {
+        background: url("https://realibi.kz/file/783396.png") no-repeat;
+        background-size: 22px 21px;
+        background-position: 0 50%;
+    }
+    
+    .privacy_policy {
+        background: url("https://realibi.kz/file/250110.png") no-repeat;
+        background-size: 23px 18px;
+        background-position: 0 50%;
+    }
+    
+    .public_offer {
+        background: url("https://realibi.kz/file/861081.png") no-repeat;
+        background-size: 21px 21px;
+        background-position: 0 50%;
+    }
+    .primary_logo {
+        display: block;
+    }
+    .fiolet_logo {
+        display: none;
     }
 }

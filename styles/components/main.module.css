@@ -16,6 +16,10 @@
     src: url("../../public/fonts/CenturyGothic2/centurygothic.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Century Gothic Bold";
+    src: url("../../public/fonts/CenturyGothic2/centurygothic_bold.ttf") format("truetype");
+}
 
 .filterBlockWrapper{
     width: 100%;
@@ -988,6 +992,7 @@
         flex-direction: column;
         align-items: flex-start;
         background-color: white;
+        margin-bottom: 15px;
     }
     .menu_ul li a{
         font-size: 16px;
@@ -1173,6 +1178,16 @@
         display: none;
     }
 }
+
+@media screen and (max-width: 480px){
+    .pageBody {
+        display: none;
+    }
+    .pageBackground {
+        display: none;
+    }
+}
+
 @media (max-width: 415px){
     .title{
         font-size: 21px !important;
@@ -1453,5 +1468,1550 @@
     }
     .modal {
         width: 241px;
+    }
+}
+
+
+
+
+.filterBlockWrapper_mobile{
+    width: 100%;
+    padding: 3% 5%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+.titleBlock_mobile{
+    width: 100%;
+    padding: 0 5%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.titleImg_mobile{
+    height: 48px;
+    width: 48px;
+    margin-right: 10px;
+}
+.title_mobile{
+    font-size: 32px;
+    font-family: "Montserrat Bold";
+    box-sizing: border-box;
+}
+.message_mobile{
+    font-family: "Montserrat Bold";
+}
+.courses_block_mobile{
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    background-color: #F3F3F3;
+    justify-content: center;
+    /* grid-template-columns: [card] 20% [card] 20% [card] 20% [card] 20%; */
+    grid-template-columns: [card] 30% [card] 30% [card] 30%;
+    grid-gap: 1%;
+}
+.link_mobile{
+    color: black;
+    font-family: "Montserrat Medium";
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 79px;
+}
+.link_mobile:hover{
+    color: #412FAE;
+    text-decoration: none;
+}
+.howItWorks_mobile{
+    padding: 10px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    font-family: "Montserrat Medium";
+}
+.howItWorks_mobile:hover {
+    opacity: 0.8;
+    transition: 0.3s;
+}
+.pageBody_mobile{
+    /* background-image: url(https://realibi.kz/file/620863.png); */
+    /* background: url(https://realibi.kz/file/890922.png);
+    background: #4331AF; */
+    /* position: relative;
+    height: 1200px; */
+    /* z-index: 999; */
+    display: none;
+}
+
+.pageBackground_mobile{
+    position: absolute;
+    width: 60%;
+    height: 1200px;
+}
+.pageBackground_mobile img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+.mainImageTitleBlock_mobile{
+    padding: 223px 20px 4%;
+    color: white;
+    background: url('https://realibi.kz/file/669360.png') no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 2px 9px grey;
+}
+
+.info_about_us_mobile {
+    display: flex;
+    background: #192435;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0 56px;
+}
+
+.info_about_us_mobile h2 {
+    font-family: "Century Gothic Regular";
+    font-size: 48px;
+    color: #f3f3f3;
+}
+
+.mainImageTitleBlock_mobile h1{
+    font-family: "Century Gothic Bold";
+    /* padding-right: 82px; */
+    font-size: 48px;
+    margin: 32px 0 40px;
+}
+  
+  
+.selectContainer_mobile {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.button_mobile {
+    font-family: "Montserrat Medium";
+    cursor: pointer;
+    background-color: #19A85C;
+    color: white;
+    width: max-content;
+    border: none;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 12px;
+    transition: 0.8s;
+    font-size: 22px;
+    margin-top: 15px;
+    z-index: 5;
+    width: 100%;
+}
+
+.modal_button_mobile {
+    font-family: "Montserrat Medium";
+    cursor: pointer;
+    background-color: #19A85C;
+    color: white;
+    width: max-content;
+    border: none;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 12px;
+    transition: 0.8s;
+    font-size: 22px;
+    margin-bottom: 6px;
+    z-index: 5;
+    width: 100%;
+}
+
+.button_mobile:hover {
+    background: #0FAB41;
+}
+
+
+.buttonSingin_mobile:hover, .searchBtn_mobile:hover {  
+    background-color: #0250EE;
+}
+
+.searchBtn_mobile {
+    font-family: "Montserrat Medium";
+    cursor: pointer;
+    background: none;
+    color: white;
+    width: max-content;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 12px;
+    transition: 0.8s;
+    font-size: 22px;
+    margin-top: 22px;
+    z-index: 5;
+    width: 100%;
+    
+}
+.selectBlock_mobile,
+.techSupportInput_mobile {
+    width: 100%;
+    -webkit-appearance: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 11px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    background: white;
+    font-size: 22px;
+    color: black;
+    margin-bottom: 10px;
+    font-family: "Montserrat Regular";
+  }
+
+.selectBlock_mobile {
+    background-image: url('data:image/svg+xml,\ <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">\<path d="M1 1.46387L7 8.5353L13 1.46387" stroke="black" stroke-width="2" stroke-linecap="round"/>\</svg>');
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+}
+
+.rounds_mobile{
+    display: flex;
+    margin-top: 30px;
+    color: #F3F3F3;
+}
+
+.round_tutor_mobile {
+    background: url(https://realibi.kz/file/698315.png);
+    background-repeat: no-repeat;
+    background-size: 86px;
+    padding-left: 100px;
+    margin-right: 60px;
+}
+
+.round_center_mobile {
+    background: url(https://realibi.kz/file/642611.png);
+    background-repeat: no-repeat;
+    background-size: 96px;
+    padding-left: 100px;
+    margin-right: 60px;
+}
+
+.round_direction_mobile {
+    background: url(https://realibi.kz/file/266353.png);
+    background-repeat: no-repeat;
+    background-size: 86px;
+    padding-left: 100px;
+}
+
+.round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
+    font-size: 20px;
+    font-family: "Montserrat Regular";
+}
+
+.round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
+    display: flex;
+    font-size: 40px;
+    font-family: "Montserrat Medium";
+}
+/* .applicationBlock {
+    width: 43%; */
+/* } */
+.counter_mobile {
+    width: 65%;
+    height: 65%;
+    position: absolute;
+    top: 22%;
+    left: 17.5%;
+    align-items: center;
+/*    border: 2px solid black;*/
+    z-index: 2;
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    font-size: 2.5vw;
+    font-family: "Montserrat Medium";
+}
+.doughnut_mobile {
+    width: 100%;
+    aspect-ratio: 1/1;
+    position: relative;
+    padding: 0px;
+    align-items: center;
+}
+
+.forRC_mobile p{
+    font-size: 20px;
+    font-family: "Montserrat Medium";
+}
+
+.forRC_mobile h2{
+    display: flex;
+    font-size: 40px;
+    font-family: "Montserrat Medium";
+}
+/* .hole{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: center;
+} */
+.priorityCategories_mobile{
+    margin-top: 10px;
+    width: 90%;
+    margin-left: 5%;
+}
+.priorityCategories_mobile span{
+    margin-right: 15px;
+    cursor: pointer;
+}
+.priorityCategories_mobile span:hover{
+    opacity: 0.7;
+    transition: 0.1s;
+}
+.findCourseBlock_mobile{
+    margin-top: 40px;
+    width: 90%;
+    margin-left: 5%;
+}
+.findCourseBlock_mobile input{
+    padding: 10px;
+    border-radius: 10px 0px 0px 10px;
+    border: 2px solid #6657BF;
+}
+.findCourseBlock_mobile input::placeholder{
+    color: black;
+    font-family: 'Montserrat Medium';
+}
+.findCourseBlock_mobile button{
+    padding: 10px;
+    border-radius: 0px 10px 10px 0px;
+    border: 2px solid #6657BF;
+    background-color: #6657BF;
+    color: white;
+    font-family: 'Montserrat Medium';
+}
+.desktopHeader_mobile{
+    width: 100%;
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+.menuButtonBody_mobile{
+    display: none;
+}
+.header_mobile{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    color: white;
+   /* background: linear-gradient(90deg, #7365C6 1.99%, #6657BF 46.33%, #412FAE 98.22%);*/
+    z-index: 7;
+    padding-left: 5%;
+    padding-right: 5%;
+    /*position: sticky;*/
+    top: 0;
+}
+.whiteHeader_mobile{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background: #192435;
+    opacity: 0.9;
+    z-index: 7;
+    padding-left: 5%;
+    padding-right: 5%;
+    position: absolute;
+    top: 0;
+    align-items: flex-end;
+}
+
+.logo_mobile{
+    order: 1;
+    height: auto;
+    width: auto;
+    display: flex;
+}
+.searchBlock_mobile{
+    order: 2;
+    display: flex;
+}
+.searchInput_mobile{
+    border-radius: 10px 0 0 10px;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    width: 300px;
+}
+.searchInput_mobile:focus{
+    outline: none;
+}
+.searchIconBody_mobile{
+    padding: 5px;
+    border-radius: 0 10px 10px 0;
+    background-color: #6d8bfa;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+.searchIcon_mobile{
+    height: 24px;
+}
+.searchFilterWrapper_mobile {
+    width: 90%;
+    position: relative;
+}
+.searchFilter_mobile {
+    background-color: white;
+    position: absolute;
+    color: black;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+    max-height: 240px;
+    height: auto;
+    overflow: auto;
+}
+.searchFilterItem_mobile {
+    padding: 10px;
+}
+.searchFilterItem_mobile:hover {
+    background-color: rgb(140, 140, 140);
+    cursor: pointer;
+    transition: 0.1s;
+}
+.menu_mobile{
+    display: flex;
+    z-index: 3;
+    order: 2;
+    height: auto;
+    align-content: center;
+    align-items: center;
+}
+
+.menu_ul_mobile{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: auto;
+    order: 2;
+    list-style: none;
+    font-size: 18px;
+    margin: 0;
+}
+
+.menu_ul_mobile li a{
+    font-family: 'Montserrat Medium';
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: auto;
+    margin: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu_ul_mobile li a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.link_mobile > a{
+    color: black;
+    font-family: 'Montserrat Medium';
+    cursor: pointer;
+}
+.link_mobile > a:hover{
+    background: #8E8E93;
+}
+.mobileMenu_mobile{
+    display: none;
+}
+.svg_mobile > *{
+    transition: 0.3s;
+}
+.svg_mobile:hover path{
+    transition: 0.3s;
+    fill: rgba(246,137,57,1) ;
+}
+.svg_mobile:hover rect{
+    transition: 0.3s;
+    fill: rgba(246,137,57,1) ;
+}
+.svg_mobile:hover circle{
+    transition: 0.3s;
+    fill: rgba(246,137,57,1) ;
+}
+.svg_mobile:hover{
+}
+
+.studentCard_mobile{
+    display: flex;
+    align-items: center;
+}
+.studentAvatar_mobile{
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.studentInfo_mobile{
+    display: flex;
+    flex-direction: column;
+}
+.exitBtn_mobile{
+    font-size: 14px;
+    padding: 10px;
+    font-family: "Montserrat Medium";
+}
+.exitBtn_mobile:hover{
+    text-decoration: underline;
+}
+
+.aboutUsBack_mobile {
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    cursor: pointer;
+    background: transparent;
+    padding: 5px;
+    border-radius: 10px;
+    margin-right: 30px;
+    width: 32px;
+    height: 40px;
+    background-image: url(https://realibi.kz/file/419456.svg);
+    background-repeat: no-repeat, repeat;
+}
+.aboutUsBack_mobile:hover {
+    opacity: 0.5;
+    transition: 0.1s;
+}
+.slide_mobile{
+    z-index: 8;
+    position: absolute;
+    width: 100%;
+    margin-bottom: 0px;
+    transition: 0.5s;
+    transform: translateX(0%);
+    background: linear-gradient(92.65deg, #7365C6 1.99%, #6657BF 46.33%, #412FAE 98.22%);
+}
+.slideHide_mobile{
+    z-index: 8;
+    background: linear-gradient(92.65deg, #7365C6 1.99%, #6657BF 46.33%, #412FAE 98.22%);
+    position: absolute;
+    width: 100%;
+    transition: 0.5s;
+    transform: translateX(-100%);
+}
+
+.downblock_mobile {
+    /*display: flex;*/
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+    margin: 0;
+    min-height: 100vh;
+}
+.downtitleBlock_mobile{
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3%;
+    text-align: center;
+}
+.downtitle_mobile{
+    font-size: 40px;
+    font-family: "Montserrat Bold";
+    color: black;
+}
+.downRowsLeft_mobile{
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.downRowsRight_mobile{
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.rowTextRight_mobile{
+    display: flex;
+    justify-content: center;
+    text-align: right;
+    align-items: flex-end;
+    flex-direction: column;
+    width: 30%;
+    margin-right: 10px;
+}
+.downRowTitle_mobile{
+    font-size: 25px;
+    font-family: "Montserrat Bold";
+    color: black;
+}
+.downRowText_mobile{
+    font-size: 16px;
+    font-family: "Montserrat Medium";
+}
+.downImg_mobile{
+    width: 24%;
+    height: 20%;
+}
+.rowTextLeft_mobile{
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    width: 30%;
+    margin-left: 10px;
+}
+.downlink_mobile{
+    font-family: "Montserrat Medium";
+    color: black;
+    font-weight: bolder;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.downButton_mobile{
+    font-family: "Montserrat Medium";
+    background-color: #422FAF;
+    color: white;
+    border: none;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    font-size: 18px;
+    margin-bottom: 20px;
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 3%;
+}
+.downButton_mobile:hover{
+    background: #FFF973;
+    color: black;
+}
+
+.course_btn_container_mobile {
+    margin-bottom: 30px;
+}
+
+.course_btn_mobile {
+    cursor: pointer;
+}
+
+.choiseCourse_mobile {
+    font-size: 32px;
+    margin: 0;
+    margin-top: 20px;
+} 
+
+/* .infoContainer {
+    display: flex;
+} */
+
+.sendAppText_mobile {
+    font-family: "Montserrat Bold";
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.modal_mobile {
+    position: fixed;
+    z-index: 500;
+    background-color: #F3F3F3;
+    max-width: 480px;
+    padding: 40px;
+    /* left: 41%; */
+    text-align: center;
+    /* top: 20%; */
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+    left: 50%;
+    margin-right: -50%;
+    /* transform: translate(-50%, -50%); */
+    top: 50%;
+    color: rgb(0, 0, 0);
+    border-radius: 20px;
+}
+
+.application_mobile {
+    /* position: fixed;
+    z-index: 500; */
+    background-color: #7F8BA3;
+    max-width: 480px;
+    padding: 40px;
+    background-color: rgba(243, 243, 243, 0.8);
+    /* left: 41%; */
+    text-align: center;
+    /* top: 20%; */
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+    /* left: 50%;
+    margin-right: -50%; */
+    /* transform: translate(-50%, -50%); */
+    /* top: 50%; */
+    color: #000;
+    border-radius: 20px;
+}
+
+.application_mobile p {
+    font-size: 20px;
+    font-family: "Century Gothic Regular";
+    line-height: 130%;
+    text-align: start;
+}
+
+.close_modal_mobile {
+    display: block;
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url('https://realibi.kz/file/503779.png');
+    background-size: cover;
+}
+
+.modal_mobile h3 {
+    font-family: "Montserrat Bold";
+    font-size: 28px;
+    margin: 0px 0 20px;
+    line-height: 110%;
+}
+
+.goal_title_mobile {
+    font-size: 20px;
+    font-family: "Montserrat Regular";
+}
+
+.titleBlock_mobile {
+    padding: 20px 5%;
+    /* background-color: #E9EDF1; */
+}
+
+.modal_mobile p {
+    font-family: "Montserrat Regular";
+    text-align: start;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 110%;
+    margin-bottom: 32px;
+}
+
+.info_select_mobile {
+    display: block;
+    width: 100%;
+    background-image: url('data:image/svg+xml,\ <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">\<path d="M1 1.46387L7 8.5353L13 1.46387" stroke="black" stroke-width="2" stroke-linecap="round"/>\</svg>');
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    -webkit-appearance: none;
+    font-family: "Montserrat Regular";
+    font-size: 16px;
+}
+
+.modal_info_mobile {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modal_mobile textarea {
+    border: 2px solid #A2A7B2;
+    border-radius: 8px;
+    height: 120px;
+    padding: 10px 12px;
+    margin-bottom: 24px;
+    background-image: none;
+}
+
+.modal_mobile select {
+    border-bottom: 1px solid #A2A7B2;
+    border-radius: 4px 4px 0px 0px;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 16px 0 16px 20px;
+    margin-bottom: 24px;
+}
+
+.peopleBackground_mobile{
+    position: absolute;
+    right: 0px;
+    top: 200px;
+    width: 50%;
+    background: url(https://realibi.kz/file/128413.png);
+    /* width: 490px; */
+    background-position: 94% 50%;
+    height: 900px;
+    background-size: cover;
+}
+
+.peopleBackground_mobile img {
+    display: block;
+    width: 100%;
+}
+.clickMore_mobile {
+    display: block;
+    font-family: "Montserrat Regular";
+    margin-top: 30px;
+    font-size: 24px;
+    background: url("https://realibi.kz/file/934620.png") no-repeat;
+    background-size: 59px;
+    background-position: 281px;
+}
+
+.buttonSingin_mobile {
+    font-family: "Montserrat Medium";
+    cursor: pointer;
+    background-color: #007AFF;
+    color: white;
+    width: max-content;
+    border: none;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.8s;
+    font-size: 16px;
+    z-index: 5;
+    width: 100%;
+}
+
+@media screen and (max-width: 1444px) {
+    /* .mainImageTitleBlock h1  {
+        font-size: 48px;
+    } */
+    /* .mainImageTitleBlock {
+        margin-left: 76px;
+    } */
+    .logo_mobile{
+        margin: 10px 0px;
+    }
+    /* .applicationBlock {
+        width: 55%;
+    } */
+    /* .rounds {
+        margin-left: 52px;
+    } */
+    /* .forRC h2 {
+        font-size: 48px;
+    }
+    .forRC p {
+        font-size: 16px;
+    } */
+}
+
+@media screen and (max-width: 1280px) {
+    /* .mainImageTitleBlock {
+        margin-left: 64px;
+    }
+    .mainImageTitleBlock h1 {
+        font-size: 44px;
+    }
+    .applicationBlock {
+        width: 55%;
+    }
+    .rounds {
+        margin-left: 20px;
+    } */
+}
+
+@media screen and (max-width: 1210px) {
+    .menu_ul_mobile li a{
+        margin: 7px;
+    }
+}
+
+@media (max-width: 600px){
+    .hideButton_mobile{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    /* .mainImageTitleBlock h1  {
+        font-size: 32px;
+    }
+    .mainImageTitleBlock p  {
+        font-size: 24px;
+    } */
+    .menu_ul_mobile {
+        background-color: rgb(255, 255, 255);
+    }
+    .header_mobile {
+        width: 100%;
+        display: flex;
+        z-index: 7;
+    }
+    .whiteHeader_mobile{
+        width: 100%;
+        display: flex;
+        z-index: 7;
+    }
+    .logo_mobile{
+        order: 1;
+        width: auto;
+        margin: 10px 0px;
+    }
+    .menu_mobile{
+        display: none;
+    }
+    .searchBlock_mobile{
+        order: 2;
+    }
+    .menuButtonBody_mobile{
+        order: 3;
+        display: flex;
+        align-items: center;
+    }
+    .menuButtonBody_mobile span{
+        display: none;
+    }
+    .mobileMenu_mobile{
+        transition: 0.5s;
+        display: block;
+        width: 200px;
+    }
+    .menu_ul_mobile{
+        padding: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 0;
+    }
+    .menu_ul_mobile li a{
+        font-size: 16px;
+        margin: 0;
+        padding: 10px;
+    }
+    .menu_ul_mobile li {
+        width: 100%;
+        border-bottom: 1px solid #8E8E93;
+        transition: 0.6s;
+    }
+    .menu_ul_mobile li:active {
+        background: #007AFF;
+    }
+    .menu_ul_mobile li:hover {
+        background: #E2E2E2;
+    }
+    /* .applicationBlock {
+        width: 55%;
+    }
+    .forRC h2 {
+        font-size: 48px;
+    }
+    .forRC p {
+        font-size: 16px;
+    } */
+}
+
+
+@media screen and (max-width: 992px){
+    /* .rounds {
+        color: white;
+        width: 100%;
+    } */
+    .clickMore_mobile {
+        margin-top: 100px;
+    }
+    /* .mainImageTitleBlock h1 {
+        font-size: 1.5rem;
+    } */
+
+    .howItWorksWrappe_mobile {
+        padding-top: 0px;
+    }
+    
+    .courses_block_mobile{
+        width: 100%;
+        display: grid;
+        grid-template-columns: [card] 50% [card] 50%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .round_tutor_mobile, .round_center_mobile, .round_direction_mobile {
+        padding: 70px 0 20px;
+        background-position: 13% 0%;
+        background-size: 64px;
+    }
+    .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
+       font-size: 28px;
+    }
+    .round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
+        font-size: 16px;
+     }
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 40px;
+    }
+    .info_about_us_mobile h2 {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header_mobile {
+        width: 100%;
+        display: flex;
+        z-index: 7
+    }
+    .whiteHeader_mobile{
+        width: 100%;
+        display: flex;
+        z-index: 7
+    }
+    .logo_mobile{
+        width: auto;
+        margin: 10px 0px;
+    }
+    .menu_mobile{
+        display: none;
+    }
+    .searchBlock_mobile{
+        order: 2;
+    }
+    .searchInput_mobile{
+        width: 100px;
+    }
+    .menuButtonBody_mobile{
+        order: 3;
+        display: flex;
+        align-items: center;
+    }
+    .mobileMenu_mobile{
+        transition: 0.5s;
+        display: block;
+        width: 200px;
+    }
+    .peopleBackground_mobile {
+        background-position: 83% 50%;
+    }
+    .menu_ul_mobile{
+        padding: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: white;
+        margin-bottom: 15px;
+    }
+    .menu_ul_mobile li a{
+        font-size: 16px;
+        margin: 0;
+    }
+    .forRC_mobile {
+        margin-right: 5px;
+    }
+    .forRC_mobile p {
+        margin-top: 10px;
+    }
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 40px;
+    }
+    .info_about_us_mobile {
+        padding-bottom: 0px;
+    }
+}
+@media screen and (max-width: 600px){
+    .courses_block_mobile{
+        grid-area: cards;
+        width: 100%;
+        display: grid;
+        grid-template-columns: [card] 49% [card] 49%;
+        grid-column-gap: 2%;
+    }
+    .message_mobile{
+        padding: 50px 5%;
+        box-sizing: border-box;
+    }
+
+    .courses_block_mobile > *{
+        margin-bottom: 30px;
+    }
+    .hideButton_mobile{
+        display: none;
+    }
+    .downblock_mobile{
+        display: flex !important;
+    }
+    .buttons_block_mobile{
+        display: none !important;
+    }
+    .corner_mobile{
+        display: none;
+    }
+    .counter_mobile{
+        font-size: 4vw;
+    }
+    .buttons_block2_mobile{
+        text-align: center;
+    }
+    .mobileButton1_mobile{
+        font-family: "Montserrat Medium";
+        background-color: #422FAF;
+        color: white;
+        border: none;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        padding: 10px 10px;
+        transition: 0.3s;
+        font-size: 1em;
+        margin-bottom: 20px;
+        margin-right: 5%;
+        border: 2px solid #422FAF;
+        width: 40%;
+    }
+    .mobileButton1_mobile:hover{
+        background-color: white;
+        color: black;
+        border: 2px solid #422FAF;
+    }
+    .mobileButton2_mobile{
+        font-family: "Montserrat Medium";
+        background-color: white;
+        color: black;
+        border: none;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        padding: 10px 10px;
+        transition: 0.3s;
+        font-size: 1em;
+        margin-bottom: 20px;
+        margin-right: 5%;
+        border: 2px solid #422FAF;
+        width: 40%;
+    }
+    .mobileButton2_mobile:hover{
+        background: #422FAF;
+        color: white;
+    }
+    .mobileBlock_mobile{
+        display: flex;
+        flex-direction: column;
+        padding-top: 5%;
+        width: 90%;
+    }
+    .title_mobile{
+        text-align: left;
+    }
+    .subtitleBottom_mobile{
+        text-align: left;
+        font-size: 20px !important;
+    }
+    .img_mobile{
+        width: 40%;
+        position: absolute;
+        right: -5px;
+        display: flex !important
+    }
+    .backImg_mobile{
+        width: 30%;
+        height: 45%;
+    }
+    .subtitle_mobile{
+        text-align: center;
+    }
+    .buttons_block_mobile{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin-top: 15%;
+    }
+    .displayNoneOnMobile_mobile{
+        display: none;
+    }
+    .downImg_mobile {
+        width: 50%;
+    }
+    .rowTextRight_mobile{
+        width: 50%;
+    }
+    .rowTextLeft_mobile{
+        width: 50%;
+    }
+    .downRowText_mobile{
+        font-size: 0.7em;
+    }
+    .downRowTitle_mobile{
+        font-size: 1.1em;
+    }
+    .downButton_mobile{
+        width: 50%;
+        margin-left: 25%;
+    }
+    .downtitle_mobile{
+        font-size: 1.5em;
+    }
+    .downRowsLeft_mobile{
+        margin-bottom: 5%;
+    }
+    .downRowsRight_mobile{
+        margin-bottom: 5%;
+    }
+
+}
+
+@media (max-width: 540px){
+    .img_mobile{
+        width: 40%;
+        top: 5%;
+    }
+    .title_mobile{
+        font-size: 28px;
+    }
+    .subtitleBottom_mobile{
+        font-size: 20px !important;
+    }
+    .backImg_mobile{
+        height: 33%;
+    }
+    .mobileButton1_mobile{
+        font-size: 0.8em;
+    }
+    .mobileButton2_mobile{
+        font-size: 0.8em;
+    }
+    .mainImageTitleBlock_mobile h1 {
+        padding-top: 32px;
+    }
+    .pageBackground_mobile {
+        width: 72%;
+    }
+    .peopleBackground_mobile {
+        width: 40%;
+    }
+    .priorityCategories_mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .round_tutor_mobile, .round_center_mobile {
+        margin-right: 30px;
+    }
+    .round_center_mobile {
+        padding: 55px 0 20px;
+        background-position: 13% 0%;
+        background-size: 61px;
+    }
+    .round_tutor_mobile, .round_direction_mobile {
+        padding: 55px 0 20px;
+        background-position: 13% 0%;
+        background-size: 53px;
+    }
+    .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
+       font-size: 24px;
+    }
+    .round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
+        font-size: 14px;
+    }
+    .info_about_us_mobile h2 {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .pageBody_mobile {
+        display: block;
+    }
+}
+
+@media (max-width: 415px){
+    .title_mobile{
+        font-size: 21px !important;
+    }
+    .subtitleBottom_mobile{
+        font-size: 16px !important;
+    }
+    .img_mobile{
+        top: 5%;
+    }  
+    .button2_mobile{
+        font-family: "Montserrat Bold";
+        padding: 10px;
+        font-size: 12px;
+    }
+    .mobileButton1_mobile{
+        font-family: "Montserrat Bold";
+        padding: 8px;
+        font-size: 12px;
+        margin-left: 5%;
+    }
+    .mobileButton2_mobile{
+        font-family: "Montserrat Bold";
+        padding: 8px;
+        font-size: 12px;
+        margin-left: 5%;
+    }
+    .buttons_block2_mobile{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+@media (max-width: 395px){
+    .title_mobile{
+        font-size: 20px !important;
+    }
+    .mobileButton1_mobile{
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    .mobileButton2_mobile{
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+}
+@media (max-width: 380px){
+    .backImg_mobile{
+        top: 6% !important;
+        height: 20%;
+    }
+    .img_mobile{
+        top: 7%;
+    }
+    .title_mobile{
+        font-size: 19px !important;
+    }
+    .subtitleBottom_mobile{
+        font-size: 15px !important;
+    }
+    .mobileButton1_mobile{
+        margin-left: 2%;
+        margin-right: 2%;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    .mobileButton2_mobile{
+        margin-left: 2%;
+        margin-right: 2%;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+}
+@media (max-width: 365px){
+    .backImg_mobile{
+        height: 18%;
+    }
+    .img_mobile{
+        top: 7%;
+    }
+    .title_mobile{
+        font-size: 18px !important;
+    }
+    .subtitleBottom_mobile{
+        font-size: 16px !important;
+    }
+}
+@media (max-width: 290px){
+    .backImg_mobile{
+        height: 15%;
+    }
+    .img_mobile{
+        top: 7%;
+    }
+    .title_mobile{
+        font-size: 14px !important;
+    }
+    .subtitleBottom_mobile{
+        font-size: 11px !important;
+    }
+    .button_mobile{
+        font-size: 10px;
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+    .button2_mobile{
+        font-size: 10px;
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+}
+
+/* @media screen and (max-width: 380px) {
+    .pageBody {
+        background-size: 217% !important;
+        background-position: center;
+    }
+}
+@media screen and (max-width: 600px) {
+    .howItWorks {
+        border: 2px solid white;
+        color: white;
+    }
+} */
+@media screen and (max-width: 680px){
+    .priorityCategories_mobile {
+        display: none;
+    }
+}
+/* @media screen and (max-width: 470px){
+    .pageBody {
+        background-size: 179%;
+        background-position: center;
+    }
+} */
+
+@media screen and (max-width: 540px){
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 32px;
+        padding-right: 0;
+    }
+    .clickMore_mobile {
+        font-size: 20px;
+        background-position: 251px;
+    }
+    .mainImageTitleBlock_mobile p {
+        font-size: 19px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .peopleBackground_mobile {
+        /* position: absolute;
+        right: -16px;
+        left: 0px;
+        top: 100%;
+        width: 100%; */
+        /* height: 426px; */
+        /* background-size: cover; */
+        display: none;
+    }
+    .titleBlock_mobile {
+        margin-top: 910px;
+    }
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 32px;
+        padding-right: 0;
+    }
+    .svg_mobile {
+        width: 248px;
+    }
+    .mainImageTitleBlock_mobile {
+        width: 100%;
+        margin-left: 0;
+        /* padding-left: 25px; */
+        background-position: 50% 0%;
+        padding: 195px 20px 100px; 
+    }
+    .forRC_mobile {
+        display: flex;
+        flex-direction: column;
+    }
+    .clickMore_mobile {
+        margin-top: 144px;
+    }
+    .modal_mobile {
+        max-width: 440px;
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 27px;
+    }
+    /* .rounds {
+        margin-top: 27px;
+    } */
+}
+
+@media screen and (max-width: 420px) {
+    .modal_mobile {
+        max-width: 360px;
+    }
+    .modal_mobile h3 {
+        font-size: 22px;
+    }
+    .goal_title_mobile {
+        font-size: 16px;
+    }
+    .modal_mobile textarea, .modal_mobile  select {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .svg_mobile {
+        width: 183px;
+    }
+    .clickMore_mobile{
+        font-size: 20px;
+        background-size: 52px;
+        background-position: 223px;
+    }
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 24px;
+    }
+    .mainImageTitleBlock_mobile p {
+        font-size: 20px;
+    }
+    .selectBlock_mobile, .techSupportInput_mobile {
+        font-size: 20px;
+    }
+    .button_mobile {
+        font-size: 20px;
+    }
+    .searchBtn_mobile {
+        font-size: 20px;
+    }
+    /* .rounds {
+        width: 100%;
+    } */
+    .forRC_mobile {
+        margin-top: 32px;
+    }
+    .forRC_mobile p {
+        font-size: 16px;
+    }
+    .peopleBackground_mobile {
+        background-position: 81% 50%;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .mainImageTitleBlock_mobile {
+        padding-left: 12px;
+    }
+    .clickMore_mobile {
+        font-size: 18px;
+        background-position: 204px;
+    }
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 21px;
+    }
+    .mainImageTitleBlock_mobile p {
+        font-size: 18px;
+    }
+    .modal_mobile {
+        width: 241px;
+    }
+    .round_tutor_mobile, .round_center_mobile {
+        margin-right: 17px;
+    }
+    .round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
+        font-size: 10px;
     }
 }

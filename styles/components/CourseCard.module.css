@@ -33,6 +33,7 @@
     height: 365px;
     padding: 20px;
     max-width: 405px;
+    justify-content: center;
     transition: 0.5s;
 }
 .fullname{
@@ -361,6 +362,7 @@
     border: 1px solid #007AFF;
     transition: 0.5s;
     margin: 0;
+    margin-right: 10px;
     font-family: "Montserrat Regular";
 }
 
@@ -393,6 +395,7 @@
 .linkButton:hover{
     text-decoration: none;
     animation: none;
+    background-color: #0250EE;
     transition: 0.3s;
 }
 .container:hover .applicationButton{
@@ -527,6 +530,19 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.verificated_icon {
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    background-image: url(https://realibi.kz/file/890265.png);
+    top: 10px;
+    left: 10px;
+}
+
 .phone{
     cursor: pointer;
 }
@@ -554,66 +570,106 @@
 
 @media screen and (max-width: 540px){
     .container {
-        grid-template-areas: "image info" "fullname info" "linkButton linkButton";
+        /* grid-template-areas: "image info" "fullname info" "linkButton linkButton";
         background: #fff;
         border-radius: 16px;
         height: 365px;
-        padding: 20px;
-        width: 405px;
+        padding: 20px; */
+        padding: 10px;
+        width: 250px;
     }
-    .white_link_button, .linkButton {
+    .titleImageBody {
+        border-radius: 24px;
+    }
+    .info_block {
+        margin-left: 0;
+    }
+    .button_container {
+        display: grid;
+        justify-content: space-evenly;
+        justify-items: end;
+        grid-template-areas: 'green_btn' 'white_btn';
+    }
+    .white_link_button {
+        grid-area: white_btn;
         font-size: 16px;
-        padding: 14px 24px;
+        border: none;
+        background: none;
     }
-    .titleImageBody{
-        width: 180px;
+    .white_link_button:hover {
+        transition: 0.5;
+        text-decoration: underline;
+    }
+    .linkButton {
+        font-size: 16px;
+        padding: 14px 18px;
+        grid-area: green_btn;
+        width: 100%;
     }
 }
 
-@media screen and (max-width: 410px){
+@media screen and (max-width: 480px){
     .container {
         max-width: 320px;
         width: 100%;
         height: 545px;
         grid-template-areas: "image" "fullname" "info" "linkButton";
     }
+    .linkButton {
+        background: #19A85C;
+    }
+    .linkButton:hover {
+        background-color: #0FAB41;
+    }
     .white_link_button, .linkButton {
         padding: 4px 12px;
         font-size: 14px;
         height: 48px;
+        margin: 0;
     }
     .titleImageBody {
         width: 100%;
     }
+    .fullname {
+        font-size: 14px;
+    }
+    .course_title, .course_category, .info_value, .info_price { 
+        font-size: 13px;
+    }
+    .course_title {
+        background: url(https://realibi.kz/file/541751.png) no-repeat;
+        background-size: 21px;
+        background-position: 0 27%;
+    }
+    .info_price{
+        background: url(https://realibi.kz/file/404173.png) no-repeat;
+        background-size: 21px;
+        background-position: -2px 50%;
+    }
+    .info_value {
+        background: url(https://realibi.kz/file/812322.png) no-repeat;
+        background-size: 22px;
+        background-position: 0px 50%;
+    }
+    .course_category {
+        background: url(https://realibi.kz/file/475217.png) no-repeat;
+        background-size: 22px;
+        background-position: 0px 50%;
+        height: auto;
+        overflow: inherit;
+    }
+    .verificated_icon {
+        background: url(https://realibi.kz/file/160275.png);
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 40px;
+        width: 40px;
+    }
 }
 
-/* @media screen and (max-width: 600px){
-    .promotionStar{
-        left: -12px;
-        top: -12px;
-    }
+@media screen and (max-width: 280px){
     .container {
-        margin: 0;
-        margin-bottom: 30px;
+        margin-bottom: 0;
     }
-    .titleImage__Body{
-        height: 250px;
-    }
-    .titleImageBody{
-        height: 250px;
-    }
-    .titleLinkButtonBody{
-        opacity: 0;
-    }
-    .course_title{
-        text-decoration: underline;
-    }
-    .image_block{
-        left: 5px;
-        bottom: 5px;
-    }
-    .linkButton{
-        font-size: 13px;
-        padding: 8px 10px;
-    }
-} */
+}

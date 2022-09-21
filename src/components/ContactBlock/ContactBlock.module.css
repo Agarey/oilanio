@@ -104,6 +104,10 @@
     width: 100%;
 }
 
+.button:hover {
+   background: #0250EE;
+}
+
 .footer{
     width: 59%;
     box-sizing: border-box;
@@ -209,6 +213,19 @@
         align-items: center;
         justify-content: center;
     }
+}
+
+@media screen and (max-width: 480px){
+    .container {
+        background: linear-gradient(164.83deg, #25354E 0%, #153E7E 97.3%);
+    }
+    .button {
+        background-color: #19A85C;
+    }
+    .button:hover {
+        background: #0FAB41;
+     }
+
 }
 
 @media screen and (max-width: 360px){

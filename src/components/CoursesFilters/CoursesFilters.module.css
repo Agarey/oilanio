@@ -702,7 +702,7 @@
 
 @media screen and (max-width: 1070px){
     .course_filters_container {
-        padding: 0;
+        padding: 10px;
     }
     
     .filtersSection {
@@ -727,7 +727,7 @@
         padding: 20px;
         z-index: 10;
         background: #f3f3f3;
-        width: 100%;
+        /* width: 100%; */
     }
     .priorityCategories {
         display: flex;
@@ -800,13 +800,13 @@
         grid-area: cards;
         width: 100%;
         display: grid;
-        grid-template-columns: [card] 49% [card] 49%;
+        grid-template-columns: 1fr 1fr;
         grid-column-gap: 2%;
     }
 
-    .courses_block > *{
+    /* .courses_block > *{
         margin-bottom: 30px;
-    }
+    } */
 
     .img_title{
         margin-top: 0;
@@ -915,12 +915,27 @@
 
 @media screen and (max-width: 540px){
     .courses_block{
-        width: 100%;
+        /* width: 100%;
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; */
+        margin-bottom: 0;
     }
     .courseCard_item {
         justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .filter_btn {
+       background: url(https://realibi.kz/file/201274.png);
+
+        width: 60px;
+        height: 60px;
+        background-size: cover;
+        cursor: pointer;
+    }
+    .search_block_btn {
+        background: #19A85C;
     }
 }
 
@@ -930,5 +945,15 @@
     }
     .filtersSection {
         top: 210px;
+    }
+}
+
+@media screen and (max-width: 280px){
+    .courses_block{
+        /* grid-area: cards;
+        width: 100%;
+        display: grid; */
+        grid-template-columns: 1fr;
+        /* grid-column-gap: 2%; */
     }
 }

@@ -253,20 +253,21 @@ export default function CourseCard(props) {
             <div className={styles.titleLinkButtonBody}></div>
           }
           <div 
-            style={props.course.verificated
-              ? {
-                backgroundSize: '100% 100%',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                height: '40px',
-                width: '40px',
-                position: 'absolute',
-                backgroundImage: 'url(https://realibi.kz/file/890265.png)',
-                top: '10px',
-                left: '10px',
-              } 
-              : {}
-            }
+            // style={props.course.verificated
+            //   ? {
+            //     backgroundSize: '100% 100%',
+            //     backgroundPosition: 'center',
+            //     backgroundRepeat: 'no-repeat',
+            //     height: '40px',
+            //     width: '40px',
+            //     position: 'absolute',
+            //     backgroundImage: 'url(https://realibi.kz/file/890265.png)',
+            //     top: '10px',
+            //     left: '10px',
+            //   } 
+            //   : {}
+            // }
+            className={props.course.verificated ? styles.verificated_icon : null}
           >
           </div>
         </div>
