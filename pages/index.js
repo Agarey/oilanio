@@ -181,6 +181,7 @@ const Catalog = (props) => {
   const [online, setOnline] = useState(true);
   const [offline, setOffline] = useState(false);
   const [typeClass, setTypeClass] = useState("");
+  const [ofertaCheck, setOfertaCheck] = useState(false);
 
   const loadUserInfo = async () => {
     if(localStorage.getItem(globals.localStorageKeys.currentStudent) !== null){
@@ -1003,17 +1004,24 @@ const Catalog = (props) => {
                 className={styles.button}
                 onClick={() => {
                   if (name !== "" && phone !== "" && connection !== "" && connection !== "3" && connection !== 3) {
-                    if (firstStepValidation ()) {
-                      sendApplication(0, {
-                        fullName: name,
-                        phone: phone,
-                        connection: connection,
-                      });
-                      ym(
-                        "reachGoal",
-                        "go-to-second-step-while-searching-button-pressed"
+                    if (ofertaCheck === false) {
+                      alert(
+                        "Прочтите публичную оферту и дайте свое согласие!"
                       );
-                      setShowSend(true);
+                      ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+                    } else {
+                      if (firstStepValidation ()) {
+                        sendApplication(0, {
+                          fullName: name,
+                          phone: phone,
+                          connection: connection,
+                        });
+                        ym(
+                          "reachGoal",
+                          "go-to-second-step-while-searching-button-pressed"
+                        );
+                        setShowSend(true);
+                      }
                     }
                   } else {
                     alert("Заполните пожалуйста все поля.")
@@ -1022,6 +1030,29 @@ const Catalog = (props) => {
               >
                 Оставить заявку
               </button>
+              <label
+                style={{
+                  fontFamily: "Rubik Medium",
+                  color: "white",
+                  marginTop: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  onClick={() => {
+                    setOfertaCheck(!ofertaCheck);
+                  }}
+                  checked={ofertaCheck ? true : false}
+                />{" "}
+                Я принимаю условия{" "}
+                <a
+                  href="/offer/student"
+                  style={{ color: "white", textDecoration: "underline" }}
+                >
+                  публичной оферты.
+                </a>
+              </label>
               <button
                 onClick={() => {
                   window.scrollBy(0, 1200)
@@ -1382,17 +1413,24 @@ const Catalog = (props) => {
                     className={styles.button_mobile}
                     onClick={() => {
                       if (name !== "" && phone !== "" && connection !== "" && connection !== "3" && connection !== 3) {
-                        if (firstStepValidation ()) {
-                          sendApplication(0, {
-                            fullName: name,
-                            phone: phone,
-                            connection: connection,
-                          });
-                          ym(
-                            "reachGoal",
-                            "go-to-second-step-while-searching-button-pressed"
+                        if (ofertaCheck === false) {
+                          alert(
+                            "Прочтите публичную оферту и дайте свое согласие!"
                           );
-                          setShowSend(true);
+                          ym("reachGoal", "send_application_button_pressed_unsuccessfully");
+                        } else {
+                          if (firstStepValidation ()) {
+                            sendApplication(0, {
+                              fullName: name,
+                              phone: phone,
+                              connection: connection,
+                            });
+                            ym(
+                              "reachGoal",
+                              "go-to-second-step-while-searching-button-pressed"
+                            );
+                            setShowSend(true);
+                          }
                         }
                       } else {
                         alert("Заполните пожалуйста все поля.")
@@ -1401,6 +1439,29 @@ const Catalog = (props) => {
                   >
                     Оставить заявку
                   </button>
+                  <label
+                    style={{
+                      fontFamily: "Rubik Medium",
+                      color: "#4D4D4D",
+                      marginTop: "5px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      onClick={() => {
+                        setOfertaCheck(!ofertaCheck);
+                      }}
+                      checked={ofertaCheck ? true : false}
+                    />{" "}
+                    Я принимаю условия{" "}
+                    <a
+                      href="/offer/student"
+                      style={{ color: "#4D4D4D", textDecoration: "underline" }}
+                    >
+                      публичной оферты.
+                    </a>
+                  </label>
                 </div>
               </div>
             </div>
