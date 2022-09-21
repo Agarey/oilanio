@@ -1562,7 +1562,7 @@
 .mainImageTitleBlock_mobile{
     padding: 223px 20px 4%;
     color: white;
-    background: url('https://realibi.kz/file/669360.png') no-repeat;
+    background: url('/Foto.png') no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
