@@ -1,0 +1,62 @@
+@font-face {
+  font-family: "Montserrat Regular";
+  src: url("../../../public/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat Medium";
+  src: url("../../../public/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat Bold";
+  src: url("../../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+
+.pagination_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rgba(216, 73, 73, 0.2); */
+  width: 100%;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.pagination_container a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  height: 40px;
+  width: 40px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color .2s;
+  cursor: pointer;
+  font-family: "Montserrat Regular";
+}
+
+.prev_btn {
+  background: url(https://realibi.kz/file/585589.png) no-repeat;
+  background-size: 6px 12px;
+  background-position: 50%;
+  margin-right: 30px;
+}
+
+.next_btn {
+  background: url(https://realibi.kz/file/585589.png) no-repeat;
+  transform: rotate(180deg);
+  background-size: 6px 12px;
+  background-position: 50%;
+  margin-left: 30px;
+}
+
+.pagination_container a.active {
+  background-color: #007AFF;
+  color: white;
+  border-radius: 8px;
+}
+
+.pagination_container a.disabled { 
+  opacity: 0.2;
+}
+.pagination_container a:hover:not(.active) {background-color: rgb(238, 238, 238);}
