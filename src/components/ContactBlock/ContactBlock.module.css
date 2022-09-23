@@ -25,7 +25,7 @@
 }
 
 .container{
-    background: linear-gradient(90deg, #958BF0 0.57%, #5052D3 100%);
+    background: linear-gradient(164.83deg, #25354E 0%, #153E7E 97.3%);
     width: 100%;
     padding: 75px 5%;
     box-sizing: border-box;
@@ -90,7 +90,7 @@
 .button {
     font-family: "Montserrat Medium";
     cursor: pointer;
-    background-color: #007AFF;
+    background-color: #19A85C;
     color: white;
     width: max-content;
     border: none;
@@ -105,7 +105,7 @@
 }
 
 .button:hover {
-   background: #0250EE;
+    background: #0FAB41;
 }
 
 .footer{
@@ -216,15 +216,15 @@
 }
 
 @media screen and (max-width: 480px){
-    .container {
+    /* .container {
         background: linear-gradient(164.83deg, #25354E 0%, #153E7E 97.3%);
-    }
-    .button {
+    } */
+    /* .button {
         background-color: #19A85C;
     }
     .button:hover {
         background: #0FAB41;
-     }
+     } */
 
 }
 

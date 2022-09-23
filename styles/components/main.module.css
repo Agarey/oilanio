@@ -292,7 +292,13 @@
     height: auto;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 0;
+    margin: 40px 0;
+}
+.desktop_logo {
+    display: block;
+}
+.mobile_logo {
+    display: none;
 }
 .menuButtonBody{
     display: none;
@@ -1536,9 +1542,9 @@
     opacity: 0.8;
     transition: 0.3s;
 }
-.pageBody_mobile {
+/* .pageBody_mobile {
     display: none;
-}
+} */
 
 .pageBackground_mobile {
     position: absolute;
@@ -1823,6 +1829,7 @@
     background: #192435;
     opacity: 0.9;
     z-index: 7;
+    padding: 15px 0;
     padding-left: 5%;
     padding-right: 5%;
     position: absolute;
@@ -2154,7 +2161,7 @@
     z-index: 500; */
     background-color: #7F8BA3;
     max-width: 480px;
-    padding: 20px;
+    padding: 38px;
     background-color: rgba(243, 243, 243, 0.8);
     /* left: 41%; */
     text-align: center;
@@ -2525,6 +2532,9 @@
     .info_about_us_mobile {
         padding-bottom: 0px;
     }
+    .application_mobile {
+        padding: 20px;
+    }
 }
 @media screen and (max-width: 600px){
     .courses_block_mobile{
@@ -2696,6 +2706,17 @@
     }
     .priorityCategories_mobile {
         display: none;
+    }
+    .whiteHeader_mobile {
+        padding: 0;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .desktop_logo {
+        display: none;
+    }
+    .mobile_logo {
+        display: block;
     }
 }
 

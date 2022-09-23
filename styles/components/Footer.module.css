@@ -58,7 +58,7 @@
 }
 
 .instagram {
-    background: url("https://realibi.kz/file/6629.png") no-repeat;
+    background: url("https://realibi.kz/file/51690.png") no-repeat;
     background-size: 32px 32px;
     background-position: 0 50%;
     padding: 3px;
@@ -66,7 +66,7 @@
 }
 
 .phone {
-    background: url("https://realibi.kz/file/749812.png") no-repeat;
+    background: url("https://realibi.kz/file/520994.png") no-repeat;
     background-size: 24px 24px;
     background-position: 0 50%;
     padding: 3px;
@@ -74,7 +74,7 @@
 }
 
 .email {
-    background: url("https://realibi.kz/file/824743.png") no-repeat;
+    background: url("https://realibi.kz/file/404627.png") no-repeat;
     background-size: 24px 24px;
     background-position: 0 50%;
     padding: 3px;
@@ -82,7 +82,7 @@
 }
 
 .partner {
-    background: url("https://realibi.kz/file/701068.png") no-repeat;
+    background: url("https://realibi.kz/file/783396.png") no-repeat;
     background-size: 22px 21px;
     background-position: 0 50%;
     padding: 3px;
@@ -90,7 +90,7 @@
 }
 
 .privacy_policy {
-    background: url("https://realibi.kz/file/3514.png") no-repeat;
+    background: url("https://realibi.kz/file/250110.png") no-repeat;
     background-size: 23px 18px;
     background-position: 0 50%;
     padding: 3px;
@@ -98,7 +98,7 @@
 }
 
 .public_offer {
-    background: url("https://realibi.kz/file/106449.png") no-repeat;
+    background: url("https://realibi.kz/file/861081.png") no-repeat;
     background-size: 21px 21px;
     background-position: 0 50%;
     padding: 3px;
@@ -135,10 +135,10 @@
     align-items: flex-start;
     justify-content: space-between;
 }
-
+/* 
 .primary_logo {
     display: none;
-}
+} */
 
 .copy_abaz {
     font-family: 'Montserrat Regular';
@@ -187,49 +187,5 @@
         grid-template-areas: 'logo' 'instagram' 'partner' 'phone' 'email'
         'privacy';
         grid-template-columns: 1fr;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .instagram {
-        background: url("https://realibi.kz/file/51690.png") no-repeat;
-        background-size: 32px 32px;
-        background-position: 0 50%;
-    }
-    
-    .phone {
-        background: url("https://realibi.kz/file/520994.png") no-repeat;
-        background-size: 24px 24px;
-        background-position: 0 50%;
-    }
-    
-    .email {
-        background: url("https://realibi.kz/file/404627.png") no-repeat;
-        background-size: 24px 24px;
-        background-position: 0 50%;
-    }
-    
-    .partner {
-        background: url("https://realibi.kz/file/783396.png") no-repeat;
-        background-size: 22px 21px;
-        background-position: 0 50%;
-    }
-    
-    .privacy_policy {
-        background: url("https://realibi.kz/file/250110.png") no-repeat;
-        background-size: 23px 18px;
-        background-position: 0 50%;
-    }
-    
-    .public_offer {
-        background: url("https://realibi.kz/file/861081.png") no-repeat;
-        background-size: 21px 21px;
-        background-position: 0 50%;
-    }
-    .primary_logo {
-        display: block;
-    }
-    .fiolet_logo {
-        display: none;
     }
 }

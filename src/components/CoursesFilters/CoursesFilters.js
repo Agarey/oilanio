@@ -14,6 +14,7 @@ import TutorCourseCard from "../TutorCourseCard";
 import CourseSearchResultIsNotDefind from "../CourseSearchResultIsNotDefind/index";
 import { useRouter } from 'next/router';
 import { Image } from "react-bootstrap";
+import Pagination from '../Pagination/Pagination';
 
 const ym = () => {
   return (
@@ -91,10 +92,18 @@ function CoursesFilters (props) {
   const [showCategory, setShowCategory] = useState(false);
   const [showPlans, setShowPlans] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage] = useState(10);
+  const [hashtags, setHashtags] = useState([]);
 
   const addCards = () => {
     setCardsToShow(cardsToShow+9);
   };
+
+  const indexOfLastPost = currentPage * cardsPerPage;
+  const indexOfFirstPost = indexOfLastPost - cardsPerPage;
+  const currentPosts = courseCards?.slice(indexOfFirstPost, indexOfLastPost)
+  const howManyPages = Math.ceil(courseCards?.length/cardsPerPage)
 
   const loadCourseCards = async () => {
     setLoading(true);
@@ -150,6 +159,11 @@ function CoursesFilters (props) {
     setOpenMoreSort(true);
   };
 
+  const searchItemClickHandler = (e) => {
+    setSearchInput(e.target.textContent);
+    setIsFilterOpen(false);
+  }
+
   const searchPageHandler = async (centerName, city, direction, price, isOnline, searchingCenter) => {
 
     const redirectUrl = `/courses?centerName=${centerName}&direction=${direction}&city=${city}&price=${price}&isOnline=${isOnline}&searchingCenter=${searchingCenter}`
@@ -162,21 +176,14 @@ function CoursesFilters (props) {
     await loadCategories(true);
     await setLoading(true);
     await setSearchingCenterState(Boolean(searchingCenter));
-    // if (directionId !== null || city !== null || priceFrom !== null || onOff !== null || center !== null) {
-      filterBtnHandler(centerName, city === null ? 0 : Number(city), directionId === null ? 0 : Number(directionId), priceFrom === null ? 0 : priceFrom, priceTo === null ? 0 : priceTo, center === null ? 0 : center, onOff === null ? 0 : onOff, 'price asc', searchingCenter)
-      .then(() => {
-        // console.log('searching center', searchingCenter);
-        if(searchingCenter === 0) {
-          setSearchingTutors(true);
-        } else {
-          setSearchingTutors(false);
-        }
-        // console.log("searching tutors", searchingTutors);
-      });
-    // }
-    //  else {
-    //   loadCourseCards().then(()=>setLoading(false));
-    // }
+    filterBtnHandler(centerName, city === null ? 0 : Number(city), directionId === null ? 0 : Number(directionId), priceFrom === null ? 0 : priceFrom, priceTo === null ? 0 : priceTo, center === null ? 0 : center, onOff === null ? 0 : onOff, 'price asc', searchingCenter)
+    .then(() => {
+      if(searchingCenter === 0) {
+        setSearchingTutors(true);
+      } else {
+        setSearchingTutors(false);
+      }
+    });
 
     await axios.get(`${globals.productionServerDomain}/filters`).then(res => {
       setFilters(res.data);
@@ -332,6 +339,22 @@ function CoursesFilters (props) {
       })
   };
 
+  const resetFilter = () => {
+    setIsTutors(false);
+    setSearchingTutors(false);
+    setSearchingCenterState(true);
+    setSearchingCenter(1);
+    setOnOff('0');
+    setCity("0");
+    setDirectionParentId(0);
+    setDirectionChildrenId(0);
+    setDirectionChildren2Id(0);
+    setPriceFrom(null);
+    setPriceTo(null);
+  };
+
+  console.log(courseCards);
+
     // function openNoize(){
     //     // loadCategories(true);
     //     setShowNoizyWindow(true);
@@ -371,6 +394,35 @@ function CoursesFilters (props) {
           >
             Найти курс
           </button>
+          {/* <span onClick={() => resetFilter()}>Сбросить</span> */}
+          <div className={styles.searchFilterWrapper}>
+                <ul className={styles.searchFilter}>
+                    {searchInput && isFilterOpen
+                        ? searchFilter.map(items => {
+                        return (
+                            <li className={styles.searchFilterItem} onClick={searchItemClickHandler}>
+                                {items.name}
+                            </li>
+                        )
+                    }) : null}
+                     {searchInput && isFilterOpen
+                        ? searchFilterCourses.map(items => {
+                        return (
+                            <li className={styles.searchFilterItem} onClick={searchItemClickHandler}>
+                                {items.title}
+                            </li>
+                        )
+                    }) : null}
+                    {searchInput && isFilterOpen
+                        ? searchFilterTutors.map(items => {
+                            return (
+                                <li className={styles.searchFilterItem} onClick={searchItemClickHandler}>
+                                    {items.fullname}
+                                </li>
+                            )
+                        }) : null}
+                </ul>
+                </div>
         </div>
         
         <div className={styles.priorityCategories}>
@@ -597,7 +649,6 @@ function CoursesFilters (props) {
                   })}
                 </div>
               </div>
-              
             </div>
             <div className={styles.filterChapter}>
               <div 
@@ -792,8 +843,6 @@ function CoursesFilters (props) {
                     }}
                   />
                 </div>
-                
-                
               </div>
             </div>
           </div>          
@@ -806,7 +855,7 @@ function CoursesFilters (props) {
                   ? (
                     <div className={classnames(styles.courses_block)}>
                       {
-                        courseCards.slice(0, cardsToShow).map((course, idx) => {
+                        currentPosts?.map((course, idx) => {
                           if (course.title !== 'test') {
                             return (
                               <div className={styles.courseCard_item}>
@@ -840,7 +889,7 @@ function CoursesFilters (props) {
                   </div>
                 )
               }
-              <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
+              {/* <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
                 <a 
                   className={styles.link} 
                   onClick={() => {
@@ -849,7 +898,8 @@ function CoursesFilters (props) {
                 >
                   Смотреть еще
                 </a>
-              </div>
+              </div> */}
+              <Pagination pages = {howManyPages} setCurrentPage={setCurrentPage}/>
             </>
           )}
         </div>

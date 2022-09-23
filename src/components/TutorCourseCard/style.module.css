@@ -320,7 +320,7 @@
     max-height: 48px;
     border: none;
     border-radius: 5px;
-    background: #007AFF;
+    background: #19A85C;
     transition: 0.5s;
     margin: 0;
     font-family: "Montserrat Regular";
@@ -363,7 +363,7 @@
 .linkButton:hover{
     text-decoration: none;
     animation: none;
-    background-color: #0250EE;
+    background-color: #0FAB41;
     transition: 0.3s;
 }
 .container:hover .applicationButton{
