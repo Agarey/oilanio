@@ -767,6 +767,10 @@
     width: 100%;
 }
 
+.svgLogo{
+        display: none;
+}
+
 @media screen and (max-width: 1444px) {
     .mainImageTitleBlock h1  {
         font-size: 48px;
@@ -2705,8 +2709,17 @@
         margin-top: 2px;
         padding-top: 2px;
     }
+    .whiteHeader_mobile{
+        height: 7vh;
+    }
     .button_mobile{
         padding: 5px;
+    }
+    .pngLogo{
+        display: flex;
+    }
+    .svgLogo{
+        display: none;
     }
     .round_center_mobile {
         padding: 55px 0 20px;
