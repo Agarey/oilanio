@@ -2702,8 +2702,11 @@
         margin-right: 30px;
     }
     .mainImageTitleBlock_mobile h1 {
-        margin-top: 5px;
-        padding-top: 5px;
+        margin-top: 2px;
+        padding-top: 2px;
+    }
+    .button_mobile{
+        padding: 5px;
     }
     .round_center_mobile {
         padding: 55px 0 20px;
