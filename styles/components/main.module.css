@@ -2385,8 +2385,13 @@
 @media screen and (max-width: 800px) {
     .round_tutor_mobile, .round_center_mobile, .round_direction_mobile {
         padding: 70px 0 20px;
-        background-position: 13% 0%;
+        /*background-position: 13% 0%;*/
+        background-position: 50% 0%;
         background-size: 64px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
        font-size: 28px;
@@ -2723,12 +2728,12 @@
     }
     .round_center_mobile {
         padding: 55px 0 20px;
-        background-position: 13% 0%;
+        background-position: 50% 0%;
         background-size: 42px;
     }
     .round_tutor_mobile, .round_direction_mobile {
         padding: 55px 0 20px;
-        background-position: 13% 0%;
+        background-position: 50% 0%;
         background-size: 42px;
     }
     .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
