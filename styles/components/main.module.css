@@ -2728,6 +2728,7 @@
     }
     .pageBody_mobile {
         display: block;
+        background-color: #F3F3F3;
     }
     .mainImageTitleBlock_mobile h1 {
         padding-top: 24px;
@@ -2750,7 +2751,7 @@
         margin-left: 0;
         background-position: 50% 0%;
         /*padding: 86px 20px 39px;*/
-        height: 75vh;
+        height: 70vh !important;
     }
     .forRC_mobile {
         display: flex;
