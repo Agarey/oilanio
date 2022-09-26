@@ -2729,6 +2729,7 @@
     .pageBody_mobile {
         display: block;
         background-color: #F3F3F3;
+        height: 100vh !important;
     }
     .mainImageTitleBlock_mobile h1 {
         padding-top: 24px;
@@ -2886,6 +2887,14 @@
 }
 
 @media (max-width: 380px){
+    .mainImageTitleBlock_mobile h1{
+        margin-top: 5px;
+        padding-top: 5px;
+    }
+    .info_about_us_mobile h2{
+        margin-top: 5px;
+        margin-bottom: 0px;
+    }
     .backImg_mobile{
         top: 6% !important;
         height: 20%;
