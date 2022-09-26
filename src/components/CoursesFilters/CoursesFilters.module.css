@@ -28,6 +28,8 @@
     background-color: #F3F3F3;
     position: relative;
     padding: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .container {

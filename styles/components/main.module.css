@@ -292,7 +292,7 @@
     height: auto;
     justify-content: space-between;
     align-items: center;
-    margin: 40px 0;
+    /*margin: 40px 0;*/
 }
 .desktop_logo {
     display: block;
@@ -305,7 +305,7 @@
 }
 .header{
     width: 100%;
-    height: auto;
+    height: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -320,7 +320,7 @@
 }
 .whiteHeader{
     width: 100%;
-    height: auto;
+    height: 10vh;
     display: flex;
     flex-direction: column;
     /*background: white;*/
@@ -1193,39 +1193,7 @@
     }
 }
 
-@media (max-width: 415px){
-    .title{
-        font-size: 21px !important;
-    }
-    .subtitleBottom{
-        font-size: 16px !important;
-    }
-    .img{
-        top: 5%;
-    }  
-    .button2{
-        font-family: "Montserrat Bold";
-        padding: 10px;
-        font-size: 12px;
-    }
-    .mobileButton1{
-        font-family: "Montserrat Bold";
-        padding: 8px;
-        font-size: 12px;
-        margin-left: 5%;
-    }
-    .mobileButton2{
-        font-family: "Montserrat Bold";
-        padding: 8px;
-        font-size: 12px;
-        margin-left: 5%;
-    }
-    .buttons_block2{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-}
+
 @media (max-width: 395px){
     .title{
         font-size: 20px !important;
@@ -1395,15 +1363,6 @@
     }
 }
 
-@media screen and (max-width: 415px) {
-    .mainImageTitleBlock h1 {
-        font-size: 27px;
-    }
-    .rounds {
-        margin-top: 27px;
-    }
-}
-
 @media screen and (max-width: 420px) {
     .modal {
         max-width: 360px;
@@ -1416,44 +1375,6 @@
     }
     .modal textarea, .modal  select {
         margin-bottom: 20px;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    .svg {
-        width: 183px;
-    }
-    .clickMore {
-        font-size: 20px;
-        background-size: 52px;
-        background-position: 223px;
-    }
-    .mainImageTitleBlock h1 {
-        font-size: 24px;
-    }
-    .mainImageTitleBlock p {
-        font-size: 20px;
-    }
-    .selectBlock, .techSupportInput {
-        font-size: 20px;
-    }
-    .button {
-        font-size: 20px;
-    }
-    .searchBtn {
-        font-size: 20px;
-    }
-    .rounds {
-        width: 100%;
-    }
-    .forRC {
-        margin-top: 32px;
-    }
-    .forRC p {
-        font-size: 16px;
-    }
-    .peopleBackground {
-        background-position: 81% 50%;
     }
 }
 
@@ -1542,9 +1463,9 @@
     opacity: 0.8;
     transition: 0.3s;
 }
-/* .pageBody_mobile {
-    display: none;
-} */
+.pageBody_mobile {
+    height: 100vh;
+} 
 
 .pageBackground_mobile {
     position: absolute;
@@ -1559,7 +1480,9 @@
 }
 
 .mainImageTitleBlock_mobile {
-    padding: 223px 20px 4%;
+    /*padding: 223px 20px 4%;*/
+    height: 80vh;
+    padding-top: 10vh;
     color: white;
     background: url('/Foto.png') no-repeat;
     background-size: cover;
@@ -1574,20 +1497,21 @@
     background: #192435;
     flex-direction: column;
     align-items: center;
-    padding: 20px 0 56px;
+    height: 20vh;
+    /*padding: 20px 0 56px;*/
 }
 
 .info_about_us_mobile h2 {
-    font-family: "Century Gothic Regular";
-    font-size: 48px;
+    font-family: "Century Gothic Bold";
+    font-size: 32px;
     color: #f3f3f3;
 }
 
 .mainImageTitleBlock_mobile h1{
     font-family: "Century Gothic Bold";
     /* padding-right: 82px; */
-    font-size: 48px;
-    margin: 32px 0 40px;
+    font-size: 32px;
+    margin: 25px 0 25px;
 }
   
   
@@ -1679,14 +1603,14 @@
 
 .rounds_mobile{
     display: flex;
-    margin-top: 30px;
+    margin-top: 10px;
     color: #F3F3F3;
 }
 
 .round_tutor_mobile {
     background: url(https://realibi.kz/file/698315.png);
     background-repeat: no-repeat;
-    background-size: 86px;
+    background-size: 65px;
     padding-left: 100px;
     margin-right: 60px;
 }
@@ -1694,7 +1618,7 @@
 .round_center_mobile {
     background: url(https://realibi.kz/file/642611.png);
     background-repeat: no-repeat;
-    background-size: 96px;
+    background-size: 65px;
     padding-left: 100px;
     margin-right: 60px;
 }
@@ -1702,18 +1626,18 @@
 .round_direction_mobile {
     background: url(https://realibi.kz/file/266353.png);
     background-repeat: no-repeat;
-    background-size: 86px;
+    background-size: 65px;
     padding-left: 100px;
 }
 
 .round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
-    font-size: 20px;
+    font-size: 16px;
     font-family: "Montserrat Regular";
 }
 
 .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
     display: flex;
-    font-size: 40px;
+    font-size: 32px;
     font-family: "Montserrat Medium";
 }
 /* .applicationBlock {
@@ -1798,10 +1722,10 @@
 .desktopHeader_mobile{
     width: 100%;
     display: flex;
-    height: auto;
+    /*height: auto;*/
     justify-content: space-between;
     align-items: center;
-    margin: 13px 0;
+    /*margin: 13px 0;*/
 }
 .menuButtonBody_mobile{
     display: none;
@@ -1823,13 +1747,13 @@
 }
 .whiteHeader_mobile{
     width: 100%;
-    height: auto;
+    height: 10vh;
     display: flex;
     flex-direction: column;
     background: #192435;
     opacity: 0.9;
     z-index: 7;
-    padding: 15px 0;
+    /*padding: 15px 0;*/
     padding-left: 5%;
     padding-right: 5%;
     position: absolute;
@@ -2161,7 +2085,7 @@
     z-index: 500; */
     background-color: #7F8BA3;
     max-width: 480px;
-    padding: 38px;
+    padding: 30px;
     background-color: rgba(243, 243, 243, 0.8);
     /* left: 41%; */
     text-align: center;
@@ -2335,17 +2259,20 @@
     .rounds {
         margin-left: 20px;
     } */
+    .techSupportInput_mobile{
+        font-size: 16px;
+    }
+    .selectBlock_mobile{
+        font-size: 16px;
+    }
+    .button_mobile{
+        font-size: 16px;
+    }
 }
 
 @media screen and (max-width: 1210px) {
     .menu_ul_mobile li a{
         margin: 7px;
-    }
-}
-
-@media (max-width: 600px){
-    .hideButton_mobile{
-        display: none;
     }
 }
 
@@ -2463,11 +2390,32 @@
     .round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
         font-size: 16px;
      }
+    .mainImageTitleBlock_mobile {
+        height: 70vh;
+    }
     .mainImageTitleBlock_mobile h1 {
-        font-size: 40px;
+        font-size: 28px;
+        margin-top: 24px;
+        margin-bottom: 20px;
+    }
+    .info_about_us_mobile {
+        height: 30vh;
+
     }
     .info_about_us_mobile h2 {
-        font-size: 40px;
+        font-size: 24px;
+        margin-top: 10px;
+    }
+    .techSupportInput_mobile{
+        padding: 5px;
+        font-size: 16px;
+    }
+    .selectBlock_mobile{
+        padding: 5px;
+        font-size: 16px;
+    }
+    .button_mobile{
+        font-size: 16px;
     }
 }
 
@@ -2527,16 +2475,34 @@
         margin-top: 10px;
     }
     .mainImageTitleBlock_mobile h1 {
-        font-size: 40px;
+        font-size: 28px;
     }
     .info_about_us_mobile {
         padding-bottom: 0px;
     }
     .application_mobile {
         padding: 20px;
+        max-width: 480px
+    }
+    .round_tutor_mobile, .round_center_mobile, .round_direction_mobile {
+        background-size: 53px;
     }
 }
+
+@media screen and (max-width: 680px){
+    .priorityCategories_mobile {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 600px){
+    .hideButton_mobile{
+        display: none;
+    }
+    /*.howItWorks {
+        border: 2px solid white;
+        color: white;
+    }*/
     .courses_block_mobile{
         grid-area: cards;
         width: 100%;
@@ -2675,7 +2641,18 @@
 
 }
 
-@media (max-width: 540px){
+@media screen and (max-width: 540px){
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 28px;
+        padding-right: 0;
+    }
+    .clickMore_mobile {
+        font-size: 20px;
+        background-position: 251px;
+    }
+    .mainImageTitleBlock_mobile p {
+        font-size: 19px;
+    }
     .img_mobile{
         width: 40%;
         top: 5%;
@@ -2696,7 +2673,7 @@
         font-size: 0.8em;
     }
     .mainImageTitleBlock_mobile h1 {
-        padding-top: 32px;
+        padding-top: 28px;
     }
     .pageBackground_mobile {
         width: 72%;
@@ -2724,15 +2701,18 @@
     .round_tutor_mobile, .round_center_mobile {
         margin-right: 30px;
     }
+    .mainImageTitleBlock_mobile h1 {
+        padding-top: 24px;
+    }
     .round_center_mobile {
         padding: 55px 0 20px;
         background-position: 13% 0%;
-        background-size: 61px;
+        background-size: 42px;
     }
     .round_tutor_mobile, .round_direction_mobile {
         padding: 55px 0 20px;
         background-position: 13% 0%;
-        background-size: 53px;
+        background-size: 42px;
     }
     .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
        font-size: 24px;
@@ -2741,17 +2721,82 @@
         font-size: 14px;
     }
     .info_about_us_mobile h2 {
-        font-size: 32px;
+        font-size: 24px;
     }
-}
-
-@media screen and (max-width: 480px){
+    .info_about_us_mobile{
+        height: 25vh;
+    }
     .pageBody_mobile {
         display: block;
     }
+    .mainImageTitleBlock_mobile h1 {
+        padding-top: 24px;
+    }
+    .peopleBackground_mobile {
+        display: none;
+    }
+    .titleBlock_mobile {
+        margin-top: 910px;
+    }
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 24px;
+        padding-right: 0;
+    }
+    .svg_mobile {
+        width: 248px;
+    }
+    .mainImageTitleBlock_mobile {
+        width: 100%;
+        margin-left: 0;
+        background-position: 50% 0%;
+        /*padding: 86px 20px 39px;*/
+        height: 75vh;
+    }
+    .forRC_mobile {
+        display: flex;
+        flex-direction: column;
+    }
+    .clickMore_mobile {
+        margin-top: 144px;
+    }
+    .modal_mobile {
+        max-width: 440px;
+        padding: 20px;
+    }
+    .application_mobile{
+        width: 80%;
+        margin-left: 10%;
+    }
 }
 
-@media (max-width: 415px){
+/* @media screen and (max-width: 470px){
+    .pageBody {
+        background-size: 179%;
+        background-position: center;
+    }
+} */
+
+@media screen and (max-width: 420px) {
+    .modal_mobile {
+        max-width: 360px;
+    }
+    .modal_mobile h3 {
+        font-size: 22px;
+    }
+    .goal_title_mobile {
+        font-size: 16px;
+    }
+    .modal_mobile textarea, .modal_mobile  select {
+        margin-bottom: 20px;
+    }
+}
+@media screen and (max-width: 415px) {
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 20px;
+    }
+    .mainImageTitleBlock_mobile p {
+        font-size: 16px;
+    }
     .title_mobile{
         font-size: 21px !important;
     }
@@ -2783,7 +2828,48 @@
         flex-direction: row;
         justify-content: center;
     }
+    .title{
+        font-size: 21px !important;
+    }
+    .subtitleBottom{
+        font-size: 16px !important;
+    }
+    .img{
+        top: 5%;
+    }  
+    .button2{
+        font-family: "Montserrat Bold";
+        padding: 10px;
+        font-size: 12px;
+    }
+    .mobileButton1{
+        font-family: "Montserrat Bold";
+        padding: 8px;
+        font-size: 12px;
+        margin-left: 5%;
+    }
+    .mobileButton2{
+        font-family: "Montserrat Bold";
+        padding: 8px;
+        font-size: 12px;
+        margin-left: 5%;
+    }
+    .buttons_block2{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .mainImageTitleBlock h1 {
+        font-size: 27px;
+    }
+    .rounds {
+        margin-top: 27px;
+    }
+    /* .rounds {
+        margin-top: 27px;
+    } */
 }
+
 @media (max-width: 395px){
     .title_mobile{
         font-size: 20px !important;
@@ -2797,6 +2883,7 @@
         padding-right: 3px;
     }
 }
+
 @media (max-width: 380px){
     .backImg_mobile{
         top: 6% !important;
@@ -2823,7 +2910,12 @@
         padding-left: 2px;
         padding-right: 2px;
     }
+    /*.pageBody {
+        background-size: 217% !important;
+        background-position: center;
+    }*/
 }
+
 @media (max-width: 365px){
     .backImg_mobile{
         height: 18%;
@@ -2838,6 +2930,99 @@
         font-size: 16px !important;
     }
 }
+
+@media screen and (max-width: 360px) {
+    .svg {
+        width: 183px;
+    }
+    .clickMore {
+        font-size: 20px;
+        background-size: 52px;
+        background-position: 223px;
+    }
+    .mainImageTitleBlock h1 {
+        font-size: 24px;
+    }
+    .mainImageTitleBlock p {
+        font-size: 20px;
+    }
+    .selectBlock, .techSupportInput {
+        font-size: 20px;
+    }
+    .button {
+        font-size: 20px;
+    }
+    .searchBtn {
+        font-size: 20px;
+    }
+    .rounds {
+        width: 100%;
+    }
+    .forRC {
+        margin-top: 32px;
+    }
+    .forRC p {
+        font-size: 16px;
+    }
+    .peopleBackground {
+        background-position: 81% 50%;
+    }
+    .svg_mobile {
+        width: 183px;
+    }
+    .clickMore_mobile{
+        font-size: 20px;
+        background-size: 52px;
+        background-position: 223px;
+    }
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 20px;
+    }
+    .mainImageTitleBlock_mobile p {
+        font-size: 16px;
+    }
+    .selectBlock_mobile, .techSupportInput_mobile {
+        font-size: 20px;
+    }
+    .button_mobile {
+        font-size: 20px;
+    }
+    .searchBtn_mobile {
+        font-size: 20px;
+    }
+    /* .rounds {
+        width: 100%;
+    } */
+    .forRC_mobile {
+        margin-top: 32px;
+    }
+    .forRC_mobile p {
+        font-size: 16px;
+    }
+    .peopleBackground_mobile {
+        background-position: 81% 50%;
+    }
+    .application_mobile{
+        width: 90%;
+        margin-left: 5%;
+    }
+    .techSupportInput_mobile{
+        font-size: 16px;
+    }
+    .selectBlock_mobile{
+        font-size: 16px;
+    }
+    .button_mobile{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 340px){
+    .mainImageTitleBlock_mobile h1 {
+        font-size: 16px !important;
+    }
+}
+
 @media (max-width: 290px){
     .backImg_mobile{
         height: 15%;
@@ -2863,139 +3048,6 @@
     }
 }
 
-/* @media screen and (max-width: 380px) {
-    .pageBody {
-        background-size: 217% !important;
-        background-position: center;
-    }
-}
-@media screen and (max-width: 600px) {
-    .howItWorks {
-        border: 2px solid white;
-        color: white;
-    }
-} */
-@media screen and (max-width: 680px){
-    .priorityCategories_mobile {
-        display: none;
-    }
-}
-/* @media screen and (max-width: 470px){
-    .pageBody {
-        background-size: 179%;
-        background-position: center;
-    }
-} */
-
-@media screen and (max-width: 540px){
-    .mainImageTitleBlock_mobile h1 {
-        font-size: 32px;
-        padding-right: 0;
-    }
-    .clickMore_mobile {
-        font-size: 20px;
-        background-position: 251px;
-    }
-    .mainImageTitleBlock_mobile p {
-        font-size: 19px;
-    }
-}
-
-@media screen and (max-width: 480px){
-    .peopleBackground_mobile {
-        display: none;
-    }
-    .titleBlock_mobile {
-        margin-top: 910px;
-    }
-    .mainImageTitleBlock_mobile h1 {
-        font-size: 32px;
-        padding-right: 0;
-    }
-    .svg_mobile {
-        width: 248px;
-    }
-    .mainImageTitleBlock_mobile {
-        width: 100%;
-        margin-left: 0;
-        background-position: 50% 0%;
-        padding: 86px 20px 39px;
-    }
-    .forRC_mobile {
-        display: flex;
-        flex-direction: column;
-    }
-    .clickMore_mobile {
-        margin-top: 144px;
-    }
-    .modal_mobile {
-        max-width: 440px;
-        padding: 20px;
-    }
-}
-
-@media screen and (max-width: 415px) {
-    .mainImageTitleBlock_mobile h1 {
-        font-size: 27px;
-    }
-    /* .rounds {
-        margin-top: 27px;
-    } */
-}
-
-@media screen and (max-width: 420px) {
-    .modal_mobile {
-        max-width: 360px;
-    }
-    .modal_mobile h3 {
-        font-size: 22px;
-    }
-    .goal_title_mobile {
-        font-size: 16px;
-    }
-    .modal_mobile textarea, .modal_mobile  select {
-        margin-bottom: 20px;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    .svg_mobile {
-        width: 183px;
-    }
-    .clickMore_mobile{
-        font-size: 20px;
-        background-size: 52px;
-        background-position: 223px;
-    }
-    .mainImageTitleBlock_mobile h1 {
-        font-size: 24px;
-    }
-    .mainImageTitleBlock_mobile p {
-        font-size: 20px;
-    }
-    .selectBlock_mobile, .techSupportInput_mobile {
-        font-size: 20px;
-    }
-    .button_mobile {
-        font-size: 20px;
-    }
-    .searchBtn_mobile {
-        font-size: 20px;
-    }
-    /* .rounds {
-        width: 100%;
-    } */
-    .forRC_mobile {
-        margin-top: 32px;
-    }
-    .forRC_mobile p {
-        font-size: 16px;
-    }
-    .peopleBackground_mobile {
-        background-position: 81% 50%;
-    }
-}
-
 @media screen and (max-width: 280px) {
     .mainImageTitleBlock_mobile {
         padding-left: 12px;
@@ -3005,10 +3057,10 @@
         background-position: 204px;
     }
     .mainImageTitleBlock_mobile h1 {
-        font-size: 21px;
+        font-size: 15px !important;
     }
     .mainImageTitleBlock_mobile p {
-        font-size: 18px;
+        font-size: 15px;
     }
     .modal_mobile {
         width: 241px;
@@ -3017,6 +3069,12 @@
         margin-right: 17px;
     }
     .round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
-        font-size: 10px;
+        font-size: 12px;
+    }
+    .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
+        font-size: 20px;
+    }
+    .info_about_us_mobile h2{
+        font-size: 20px;
     }
 }
