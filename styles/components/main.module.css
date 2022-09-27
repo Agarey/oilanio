@@ -21,6 +21,21 @@
     src: url("../../public/fonts/CenturyGothic2/centurygothic_bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Tilda Sans Regular";
+    src: url("../../public/fonts/TildaSans/TildaSansRegular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Tilda Sans Bold";
+    src: url("../../public/fonts/TildaSans/TildaSansBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Tilda Sans Medium";
+    src: url("../../public/fonts/TildaSans/TildaSansMedium.ttf") format("truetype");
+}
+
 .filterBlockWrapper{
     width: 100%;
     padding: 3% 5%;
@@ -44,11 +59,11 @@
 }
 .title{
     font-size: 32px;
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     box-sizing: border-box;
 }
 .message{
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
 }
 .courses_block{
     box-sizing: border-box;
@@ -62,7 +77,7 @@
 }
 .link{
     color: black;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     text-decoration: none;
     cursor: pointer;
     margin-top: 79px;
@@ -78,7 +93,7 @@
     background: none;
     border: 2px solid white;
     color: white;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .howItWorks:hover {
     opacity: 0.8;
@@ -113,7 +128,7 @@
 }
 
 .mainImageTitleBlock h1{
-    font-family: "Century Gothic Regular";
+    font-family: "Tilda Sans Regular";
     padding-right: 82px;
     font-size: 64px;
     margin: 32px 0 40px;
@@ -126,7 +141,7 @@
 }
 
 .button {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background-color: #007AFF;
     color: white;
@@ -142,7 +157,7 @@
 }
 
 .modal_button {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background-color: #007AFF;
     color: white;
@@ -163,7 +178,7 @@
 }
 
 .searchBtn {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background: none;
     color: white;
@@ -191,7 +206,7 @@
     font-size: 22px;
     color: black;
     margin-bottom: 10px;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
   }
 
 .selectBlock {
@@ -223,7 +238,7 @@
     display: flex; 
     justify-content: center;
     font-size: 2.5vw;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .doughnut{
     width: 100%;
@@ -235,13 +250,13 @@
 
 .forRC p{
     font-size: 20px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 
 .forRC h2{
     display: flex;
     font-size: 40px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 /* .hole{
     width: 100%;
@@ -276,7 +291,7 @@
 }
 .findCourseBlock input::placeholder{
     color: black;
-    font-family: 'Montserrat Medium';
+    font-family: "Tilda Sans Medium";
 }
 .findCourseBlock button{
     padding: 10px;
@@ -284,7 +299,7 @@
     border: 2px solid #6657BF;
     background-color: #6657BF;
     color: white;
-    font-family: 'Montserrat Medium';
+    ffont-family: "Tilda Sans Medium";
 }
 .desktopHeader{
     width: 100%;
@@ -412,7 +427,7 @@
 }
 
 .menu_ul li a{
-    font-family: 'Montserrat Medium';
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     display: flex;
     align-content: center;
@@ -431,7 +446,7 @@
 }
 .link > a{
     color: black;
-    font-family: 'Montserrat Medium';
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
 }
 .link > a:hover{
@@ -475,7 +490,7 @@
 .exitBtn{
     font-size: 14px;
     padding: 10px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .exitBtn:hover{
     text-decoration: underline;
@@ -536,7 +551,7 @@
 }
 .downtitle{
     font-size: 40px;
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     color: black;
 }
 .downRowsLeft{
@@ -563,12 +578,12 @@
 }
 .downRowTitle{
     font-size: 25px;
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     color: black;
 }
 .downRowText{
     font-size: 16px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .downImg{
     width: 24%;
@@ -583,14 +598,14 @@
     margin-left: 10px;
 }
 .downlink{
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     color: black;
     font-weight: bolder;
     text-decoration: underline;
     cursor: pointer;
 }
 .downButton{
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     background-color: #422FAF;
     color: white;
     border: none;
@@ -628,7 +643,7 @@
 }
 
 .sendAppText {
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     font-size: 32px;
     margin-bottom: 40px;
 }
@@ -665,7 +680,7 @@
 }
 
 .modal h3 {
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     font-size: 28px;
     margin: 0px 0 20px;
     line-height: 110%;
@@ -673,7 +688,7 @@
 
 .goal_title {
     font-size: 20px;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
 }
 
 .titleBlock {
@@ -682,7 +697,7 @@
 }
 
 .modal p {
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
     text-align: start;
     font-weight: 400;
     font-size: 20px;
@@ -698,7 +713,7 @@
     background-position: right 0.7em top 50%, 0 0;
     background-size: 0.65em auto, 100%;
     -webkit-appearance: none;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
     font-size: 16px;
 }
 
@@ -743,7 +758,7 @@
 }
 .clickMore {
     display: block;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
     margin-top: 30px;
     font-size: 24px;
     background: url("https://realibi.kz/file/934620.png") no-repeat;
@@ -752,7 +767,7 @@
 }
 
 .buttonSingin {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background-color: #007AFF;
     color: white;
@@ -768,7 +783,7 @@
 }
 
 .svgLogo{
-        display: none;
+   width: 150px;
 }
 
 @media screen and (max-width: 1444px) {
@@ -967,7 +982,8 @@
     .whiteHeader{
         width: 100%;
         display: flex;
-        z-index: 7
+        z-index: 7;
+        justify-content: center;
     }
     .logo{
         width: auto;
@@ -1050,7 +1066,7 @@
         text-align: center;
     }
     .mobileButton1{
-        font-family: "Montserrat Medium";
+        font-family: "Tilda Sans Medium";
         background-color: #422FAF;
         color: white;
         border: none;
@@ -1070,7 +1086,7 @@
         border: 2px solid #422FAF;
     }
     .mobileButton2{
-        font-family: "Montserrat Medium";
+        font-family: "Tilda Sans Medium";
         background-color: white;
         color: black;
         border: none;
@@ -1427,11 +1443,11 @@
 }
 .title_mobile{
     font-size: 32px;
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     box-sizing: border-box;
 }
 .message_mobile{
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
 }
 .courses_block_mobile{
     box-sizing: border-box;
@@ -1445,7 +1461,7 @@
 }
 .link_mobile{
     color: black;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     text-decoration: none;
     cursor: pointer;
     margin-top: 79px;
@@ -1461,7 +1477,7 @@
     background: none;
     border: 2px solid white;
     color: white;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .howItWorks_mobile:hover {
     opacity: 0.8;
@@ -1492,6 +1508,7 @@
     background-size: cover;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     box-shadow: 0px 2px 9px grey;
 }
@@ -1501,38 +1518,38 @@
     background: #192435;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 20vh;
     /*padding: 20px 0 56px;*/
 }
 
 .info_about_us_mobile h2 {
-    font-family: "Century Gothic Bold";
+    font-family: "Tilda Sans Bold";
     font-size: 32px;
     color: #f3f3f3;
 }
 
 .mainImageTitleBlock_mobile h1{
-    font-family: "Century Gothic Bold";
+    font-family: "Tilda Sans Bold";
     /* padding-right: 82px; */
     font-size: 32px;
     margin: 25px 0 25px;
 }
-  
-  
+
 .selectContainer_mobile {
     position: relative;
     margin-bottom: 20px;
 }
 
 .button_mobile {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background-color: #19A85C;
     color: white;
     width: max-content;
     border: none;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 12px;
     transition: 0.8s;
     font-size: 22px;
@@ -1541,7 +1558,7 @@
 }
 
 .modal_button_mobile {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background-color: #19A85C;
     color: white;
@@ -1567,7 +1584,7 @@
 }
 
 .searchBtn_mobile {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background: none;
     color: white;
@@ -1595,7 +1612,7 @@
     font-size: 22px;
     color: black;
     margin-bottom: 10px;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
   }
 
 .selectBlock_mobile {
@@ -1636,13 +1653,11 @@
 
 .round_tutor_mobile p, .round_center_mobile p, .round_direction_mobile p {
     font-size: 16px;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
 }
 
 .round_tutor_mobile h2, .round_center_mobile h2, .round_direction_mobile h2 {
     display: flex;
-    font-size: 32px;
-    font-family: "Montserrat Medium";
 }
 /* .applicationBlock {
     width: 43%; */
@@ -1660,7 +1675,7 @@
     display: flex; 
     justify-content: center;
     font-size: 2.5vw;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .doughnut_mobile {
     width: 100%;
@@ -1672,13 +1687,13 @@
 
 .forRC_mobile p{
     font-size: 20px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 
 .forRC_mobile h2{
     display: flex;
     font-size: 40px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 /* .hole{
     width: 100%;
@@ -1713,7 +1728,7 @@
 }
 .findCourseBlock_mobile input::placeholder{
     color: black;
-    font-family: 'Montserrat Medium';
+    font-family: "Tilda Sans Medium";
 }
 .findCourseBlock_mobile button{
     padding: 10px;
@@ -1721,7 +1736,7 @@
     border: 2px solid #6657BF;
     background-color: #6657BF;
     color: white;
-    font-family: 'Montserrat Medium';
+    font-family: "Tilda Sans Medium";
 }
 .desktopHeader_mobile{
     width: 100%;
@@ -1754,6 +1769,7 @@
     height: 10vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background: #192435;
     opacity: 0.9;
     z-index: 7;
@@ -1844,7 +1860,7 @@
 }
 
 .menu_ul_mobile li a{
-    font-family: 'Montserrat Medium';
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     display: flex;
     align-content: center;
@@ -1863,7 +1879,7 @@
 }
 .link_mobile > a{
     color: black;
-    font-family: 'Montserrat Medium';
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
 }
 .link_mobile > a:hover{
@@ -1907,7 +1923,7 @@
 .exitBtn_mobile{
     font-size: 14px;
     padding: 10px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .exitBtn_mobile:hover{
     text-decoration: underline;
@@ -1968,7 +1984,7 @@
 }
 .downtitle_mobile{
     font-size: 40px;
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     color: black;
 }
 .downRowsLeft_mobile{
@@ -1995,12 +2011,12 @@
 }
 .downRowTitle_mobile{
     font-size: 25px;
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     color: black;
 }
 .downRowText_mobile{
     font-size: 16px;
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
 }
 .downImg_mobile{
     width: 24%;
@@ -2015,14 +2031,14 @@
     margin-left: 10px;
 }
 .downlink_mobile{
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     color: black;
     font-weight: bolder;
     text-decoration: underline;
     cursor: pointer;
 }
 .downButton_mobile{
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     background-color: #422FAF;
     color: white;
     border: none;
@@ -2060,7 +2076,7 @@
 } */
 
 .sendAppText_mobile {
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     font-size: 32px;
     margin-bottom: 40px;
 }
@@ -2106,7 +2122,7 @@
 
 .application_mobile p {
     font-size: 20px;
-    font-family: "Century Gothic Regular";
+    font-family: "Tilda Sans Regular";
     line-height: 130%;
     text-align: start;
 }
@@ -2124,7 +2140,7 @@
 }
 
 .modal_mobile h3 {
-    font-family: "Montserrat Bold";
+    font-family: "Tilda Sans Bold";
     font-size: 28px;
     margin: 0px 0 20px;
     line-height: 110%;
@@ -2132,7 +2148,7 @@
 
 .goal_title_mobile {
     font-size: 20px;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
 }
 
 .titleBlock_mobile {
@@ -2141,7 +2157,7 @@
 }
 
 .modal_mobile p {
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
     text-align: start;
     font-weight: 400;
     font-size: 20px;
@@ -2157,11 +2173,12 @@
     background-position: right 0.7em top 50%, 0 0;
     background-size: 0.65em auto, 100%;
     -webkit-appearance: none;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
     font-size: 16px;
 }
 
 .modal_info_mobile {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -2202,7 +2219,7 @@
 }
 .clickMore_mobile {
     display: block;
-    font-family: "Montserrat Regular";
+    font-family: "Tilda Sans Regular";
     margin-top: 30px;
     font-size: 24px;
     background: url("https://realibi.kz/file/934620.png") no-repeat;
@@ -2211,7 +2228,7 @@
 }
 
 .buttonSingin_mobile {
-    font-family: "Montserrat Medium";
+    font-family: "Tilda Sans Medium";
     cursor: pointer;
     background-color: #007AFF;
     color: white;
@@ -2299,6 +2316,7 @@
         width: 100%;
         display: flex;
         z-index: 7;
+        justify-content: flex-start;
     }
     .logo_mobile{
         order: 1;
@@ -2437,7 +2455,8 @@
     .whiteHeader_mobile{
         width: 100%;
         display: flex;
-        z-index: 7
+        z-index: 7;
+        justify-content: center;
     }
     .logo_mobile{
         width: auto;
@@ -2546,7 +2565,7 @@
         text-align: center;
     }
     .mobileButton1_mobile{
-        font-family: "Montserrat Medium";
+        font-family: "Tilda Sans Medium";
         background-color: #422FAF;
         color: white;
         border: none;
@@ -2566,7 +2585,7 @@
         border: 2px solid #422FAF;
     }
     .mobileButton2_mobile{
-        font-family: "Montserrat Medium";
+        font-family: "Tilda Sans Medium";
         background-color: white;
         color: black;
         border: none;
@@ -2715,7 +2734,7 @@
         padding-top: 2px;
     }
     .whiteHeader_mobile{
-        height: 7vh;
+        height: 8vh;
     }
     .button_mobile{
         padding: 5px;
@@ -2724,15 +2743,15 @@
         display: flex;
     }
     .svgLogo{
-        display: none;
+        width: 100px;
     }
     .round_center_mobile {
-        padding: 55px 0 20px;
+        padding: 55px 0 0px;
         background-position: 50% 0%;
         background-size: 42px;
     }
     .round_tutor_mobile, .round_direction_mobile {
-        padding: 55px 0 20px;
+        padding: 55px 0 0px;
         background-position: 50% 0%;
         background-size: 42px;
     }
@@ -2833,18 +2852,18 @@
         top: 5%;
     }  
     .button2_mobile{
-        font-family: "Montserrat Bold";
+        font-family: "Tilda Sans Bold";
         padding: 10px;
         font-size: 12px;
     }
     .mobileButton1_mobile{
-        font-family: "Montserrat Bold";
+        font-family: "Tilda Sans Bold";
         padding: 8px;
         font-size: 12px;
         margin-left: 5%;
     }
     .mobileButton2_mobile{
-        font-family: "Montserrat Bold";
+        font-family: "Tilda Sans Bold";
         padding: 8px;
         font-size: 12px;
         margin-left: 5%;
@@ -2864,18 +2883,18 @@
         top: 5%;
     }  
     .button2{
-        font-family: "Montserrat Bold";
+        font-family: "Tilda Sans Bold";
         padding: 10px;
         font-size: 12px;
     }
     .mobileButton1{
-        font-family: "Montserrat Bold";
+        font-family: "Tilda Sans Bold";
         padding: 8px;
         font-size: 12px;
         margin-left: 5%;
     }
     .mobileButton2{
-        font-family: "Montserrat Bold";
+        font-family: "Tilda Sans Bold";
         padding: 8px;
         font-size: 12px;
         margin-left: 5%;

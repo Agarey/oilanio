@@ -274,7 +274,10 @@ export default function CourseCard(props) {
       </Link>
       <div>
         <p className={styles.fullname}>
-          {props.course.course_title}
+          {props.course.course_title?.length < 30 
+            ? (props.course.course_title) 
+            : (props.course.course_title?.substr(0, 30).concat('...'))
+          }
         </p>
       </div>
       <div className={styles.info_block}>
@@ -288,9 +291,9 @@ export default function CourseCard(props) {
             })
           }}
         >
-          {props.course.title.length < 124 
+          {props.course.title?.length < 25
             ? (props.course.title) 
-            : (props.course.title.substr(0, 124).concat('...'))
+            : (props.course.title?.substr(0, 25).concat('...'))
           }
         </p>
         <p className={styles.info_value}>

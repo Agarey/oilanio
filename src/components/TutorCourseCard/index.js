@@ -75,13 +75,19 @@ export default function TutorCourseCard(props) {
       </div>
       <div className={styles.fullname_container}>
         <p className={styles.fullname}>
-          {props.course.fullname}
+          {props.course.fullname?.length < 30 
+            ? (props.course.fullname) 
+            : (props.course.fullname?.substr(0, 30).concat('...'))
+          }
         </p>
       </div>
       <div className={styles.info_block}>
         <p className={styles.course_title}>Репетитор</p>
         <p className={styles.course_category}>
-          {props.course.category_name}
+          {props.course.category_name?.length < 25
+            ? (props.course.category_name) 
+            : (props.course.category_name?.substr(0, 25).concat('...'))
+          }
         </p>
         <p className={styles.info_value}>
           {props.course.city_name}

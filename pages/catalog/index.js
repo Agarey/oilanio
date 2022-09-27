@@ -808,12 +808,12 @@ const Catalog = () => {
                 <h1>Нужен образовательный центр или репетитор?</h1>
                 <p>Найдите лучший всего за 15 минут</p>
                 <div className={styles.findCourseBlock}>
-                <input onChange={(e) => {setSearchInput(e.target.value)
-                compareDirectrion(searchInput)
-                compareCourseName(searchInput)
-                compareIsTutor(searchInput)
-                setIsFilterOpen(true)
-            
+                <input onChange={(e) => {
+                    setSearchInput(e.target.value)
+                    compareDirectrion(searchInput)
+                    compareCourseName(searchInput)
+                    compareIsTutor(searchInput)
+                    setIsFilterOpen(true)
                 }} value={searchInput} style={{width: '80%'}} placeholder={'Название специальности или языка'}/>
                 <button
                     onClick={()=>{
@@ -1105,4 +1105,3 @@ const Catalog = () => {
 }
 
 export default Catalog;
-
