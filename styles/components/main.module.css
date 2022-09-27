@@ -2455,7 +2455,7 @@
         width: 100%;
         display: flex;
         z-index: 7;
-        justify-content: center;
+        justify-content: start;
     }
     .logo_mobile{
         width: auto;
