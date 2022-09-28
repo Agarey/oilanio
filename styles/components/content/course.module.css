@@ -1,16 +1,26 @@
 @font-face {
-    font-family: "Rubik Regular";
-    src: url("../../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+    font-family: "Montserrat Regular";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
 }
 @font-face {
-    font-family: "Rubik Medium";
-    src: url("../../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+    font-family: "Montserrat Medium";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
 }
 @font-face {
-    font-family: "Rubik Bold";
-    src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+    font-family: "Montserrat Bold";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
 }
 
+.blueSubtitle {
+    font-family: 'Montserrat Regular' !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    text-decoration-line: underline !important;
+    margin-right: 8px !important;
+    color: #007AFF;
+}
 .flex{
     display: flex;
 }
@@ -508,7 +518,7 @@
 
 
 .feedbackInputArea{
-    padding-left: 62px;
+    /* padding-left: 62px; */
     width: 100%;
     height: auto;
     box-sizing: border-box;
@@ -518,39 +528,51 @@
 }
 
 .feedbackInput{
-    font-family: "Rubik Regular";
-    padding: 5px 10px;
+    font-family: "Montserrat Regular";
+    /* padding: 5px 10px; */
     border: none;
-    border-radius: 10px;
-    width: 400px;
-    background: #EAEAEA;
-    margin-bottom: 10px;
+    margin-bottom: 32px;
+
+    width: 547px;
+    height: 56px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 16px;
 }
 .feedbackInput:focus, .feedbackTextArea:focus{
     outline: none;
 }
 .feedbackTextArea{
-    font-family: "Rubik Regular";
-    padding: 5px 10px;
+    font-family: "Montserrat Regular";
+    padding: 10px;
     border: none;
-    border-radius: 10px;
-    width: 500px;
-    height: 250px;
     resize: none;
-    background: #EAEAEA;
+
+    width: 547px;
+    height: 120px;
+
+    /* BG/White */
+
+    background: #FFFFFF;
+    border-radius: 8px;
 }
 .feedbackLeftBlock{
     width: 49%;
 }
 .feedbackRightBlock{
-    width: 100%;
-    margin-top: 10px;
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: space-between;*/
+    margin-top: 32px;
+    /* display: flex; */
+    display: grid;
+    grid-column: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    /* flex-direction: column; */
+    justify-items: stretch;
+    /* grid-template-rows: auto; */
+    justify-content: start;
+    width: fit-content;
 }
 .feedbackSubtitle{
-    font-family: 'Rubik Regular';
+    font-family: 'Montserrat Medium' !important;
     font-weight: bold;
     font-size: 16px;
     color: black;

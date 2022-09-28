@@ -1,14 +1,14 @@
 @font-face {
-    font-family: "Rubik Regular";
-    src: url("../../../public/fonts/Rubik/Rubik-Regular.ttf") format("truetype");
+    font-family: "Montserrat Regular";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
 }
 @font-face {
-    font-family: "Rubik Medium";
-    src: url("../../../public/fonts/Rubik/Rubik-Medium.ttf") format("truetype");
+    font-family: "Montserrat Medium";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
 }
 @font-face {
-    font-family: "Rubik Bold";
-    src: url("../../../public/fonts/Rubik/Rubik-Bold.ttf") format("truetype");
+    font-family: "Montserrat Bold";
+    src: url("../../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
 }
 
 .container{
@@ -16,7 +16,7 @@
     padding: 0 9%;
     box-sizing: border-box;
     padding-bottom: 30px;
-    background-color: #E9EDF1;
+    background-color: #f3f3f3;
 }
 .header{
     width: 100%;
@@ -25,7 +25,7 @@
     background: #EEEDED;
     padding: 10px;
     color: black;
-    font-family: "Rubik Regular";
+    font-family: "Montserrat Regular";
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,7 +55,7 @@
     background: #EEEDED;
     padding: 10px;
     color: black;
-    font-family: "Rubik Medium";
+    font-family: "Montserrat Medium";
     cursor: pointer;
     border-radius: 10px;
     border: none;
@@ -69,11 +69,15 @@
     border-radius: 10px;
     border: none;
     color: white;
-    font-family: "Rubik Medium";
+    font-family: "Montserrat Medium";
     background: #412FAE;
 }
 .button:active{
     outline: none;
+}
+.blueSubtitle {
+    color: #007AFF;
+    font-family: "Montserrat Medium";
 }
 @media screen and (max-width: 762px){
     .list{

@@ -640,12 +640,21 @@ function coursePage(props) {
                         </div>
                     ))) : <LoadingBlock/>}
                 </div>
-            </div>
+            </div>*/}
             <div className={styles.backToCoursesPageButtonBody}>
-                <Link href="/">
+                <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                target="_blank">
                     <a className={styles.backToCoursesPageButton}>Все курсы</a>
                 </Link>
-            </div>*/}
+                {/* <Link
+                    href={`/tutorPage/${encodeURIComponent(props.course.url)}?id=${encodeURIComponent(props.courseDetails.id)}`}
+                    target="_blank" className={styles.noHover}
+                >
+                    <button className={newStyles.button} onClick={async () => {
+                    // handleShow();
+                    }}>Перейти к центру</button>
+                </Link> */}
+            </div>
 
             <div className={styles.titleBlock} style={{margin: '20px 0'}}>
                 <span className={newStyles.locationTitle}>Похожие варианты</span>

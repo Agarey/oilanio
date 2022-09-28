@@ -11,6 +11,7 @@ const LurkingFilterBlock = ({
   setCoursesLoading,
   setCourseCards,
   setTutorCards,
+  centerName,
   ...props
 }) => {
   const [show, setShow] = useState(true);
@@ -46,7 +47,7 @@ const LurkingFilterBlock = ({
     console.log('ids',catIds)
     if (props.isTutors) {
       const data = {
-        centerName: "",
+        centerName: centerName? centerName : "",
         city: cityId,
         direction: catIds,
         priceFrom: priceFrom,
@@ -66,7 +67,7 @@ const LurkingFilterBlock = ({
       setCoursesLoading(false);
     } else {
       const data = {
-        centerName: "",
+        centerName: centerName? centerName : "",
         city: cityId,
         direction: catIds,
         priceFrom: priceFrom,

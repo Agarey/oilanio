@@ -505,24 +505,34 @@ function coursePage(props) {
                                             </a>*/}
                                         </div>
                                     </div>
-                                    {/*<div className={newStyles.secondButtonsRow}>
+                                    <div className={newStyles.secondButtonsRow}>
                                         <div style={{
                                             display: 'flex',
                                             width: '100%',
                                             marginTop: 10
                                         }}>
                                             <div className={styles.enableOnMobile}>
+                                            <Link
+                                                href={`/centerPage/${encodeURIComponent(props.course.url)}?id=${encodeURIComponent(props.courseDetails.id)}`}
+                                                target="_blank" className={styles.noHover}
+                                            >
                                                 <button className={newStyles.button} onClick={async () => {
-                                                    handleShow();
+                                                    // handleShow();
                                                 }}>Перейти к центру</button>
+                                            </Link>
                                             </div>
                                             <div className={styles.disableOnMobile}>
+                                            <Link
+                                                href={`/centerPage/${encodeURIComponent(props.course.url)}?id=${encodeURIComponent(props.courseDetails.id)}`}
+                                                target="_blank" className={styles.noHover}
+                                            >
                                                 <button className={newStyles.button} onClick={async () => {
-                                                    handleShow();
+                                                    // handleShow();
                                                 }}>Перейти к центру</button>
+                                            </Link>
                                             </div>
                                         </div>
-                                    </div>*/}
+                                    </div>
                                 </div>
                             </div>
                             <div className={newStyles.theThirdInfoColumn}>
@@ -636,24 +646,34 @@ function coursePage(props) {
                             </a>*/}
                         </div>
                     </div>
-                    {/*<div className={newStyles.secondButtonsRow}>
+                    <div className={newStyles.secondButtonsRow}>
                         <div style={{
                             display: 'flex',
                             width: '100%',
                             marginTop: 10
                         }}>
                             <div className={styles.enableOnMobile}>
+                            <Link
+                                href={`/centerPage/${encodeURIComponent(props.course.url)}?id=${encodeURIComponent(props.courseDetails.id)}`}
+                                target="_blank" className={styles.noHover}
+                            >
                                 <button className={newStyles.button} onClick={async () => {
-                                    handleShow();
+                                    // handleShow();
                                 }}>Перейти к центру</button>
+                            </Link>
                             </div>
                             <div className={styles.disableOnMobile}>
+                            <Link
+                                href={`/centerPage/${encodeURIComponent(props.course.url)}?id=${encodeURIComponent(props.courseDetails.id)}`}
+                                target="_blank" className={styles.noHover}
+                            >
                                 <button className={newStyles.button} onClick={async () => {
-                                    handleShow();
+                                    // handleShow();
                                 }}>Перейти к центру</button>
+                            </Link>
                             </div>
                         </div>
-                    </div>*/}
+                    </div>
                 </div>
             </div>
             <div className={newStyles.aboutBlockMobile}>
