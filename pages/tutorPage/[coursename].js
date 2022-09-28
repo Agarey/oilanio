@@ -226,12 +226,13 @@ function coursePage(props) {
           setCoursesLoading(false);
     }, [])
 
-    const [filteredCities, setFilteredCities] = useState([props.courseDetails.city_name])
+    const [filteredCities, setFilteredCities] = useState([])
     const [filteredCategories, setFilteredCategories] = useState([])
     const handlerForModal = () => {
         let cardsList = props.subcourses
         let categories = filters[1];
         let cities = filters[0];
+        let cityName = props?.courseDetails?.city_name
 
         let filteredCities = cardsList?.map(el => {
             return cities?.find(el2 => {
@@ -240,7 +241,16 @@ function coursePage(props) {
               }
             })
         })
+        let filteredCities2 = cities?.find(el => {
+            if (el.name == cityName) {
+                let array1 = el
+                let array2 = Object.values(array1)
+                return array2
+            }
+        })
         let filteredCitiesWrapper = [...new Set(filteredCities)]
+        // const filteredCities2Wrapper = Object.values(filteredCities2)
+        // let filteredCities2Wrapper = [...new Set(filteredCities2)]
 
         let filteredCategoriesInitial = cardsList?.map(el => {
             let array1 = categories?.find(el2 => {
@@ -277,7 +287,12 @@ function coursePage(props) {
         console.log("filteredCategoriesWrapper3", filteredCategoriesWrapper3)
         // setFilteredCities(props.courseDetails.city_name)
         setFilteredCategories(filteredCategoriesWrapper3)
+        setFilteredCities(filteredCities2)
+        // console.log("filteredCities2Wrapper", filteredCities2Wrapper)
       }
+      useEffect(() => {
+        console.log("filteredCities", filteredCities)
+      }, [filteredCities])
     useEffect(() => {
         console.log("filteredCategoriesfilteredCategories", filteredCategories)
     }, [filteredCategories])
@@ -450,7 +465,7 @@ function coursePage(props) {
                             </div>
                             <div style={{display: windowSizeFinal?.innerWidth >= 1315 ? "block" : "none"}} className={styles.infoBlock_second}>
                             <button onClick={() => setShowAboutCenter(!showAboutCenter)} className={styles.showAboutCenter_button}>
-                                <span>О репетиторе</span><span>{showAboutCenter?<span>&#708;</span>:<span>&#709;</span>}</span>
+                                <span>О репетиторе</span><span>{showAboutCenter?<span>&#709;</span>:<span>&#708;</span>}</span>
                             </button>
                             <div style={{display: showAboutCenter ? "block" : "none"}} className={styles.infoBlock_info}>
                                 <h3>О репетиторе</h3>
@@ -473,7 +488,7 @@ function coursePage(props) {
                     </div>
                     <div style={{display: windowSizeFinal?.innerWidth >= 1315 ? "none" : "block"}} className={styles.infoBlock_second}>
                             <button onClick={() => setShowAboutCenter(!showAboutCenter)} className={styles.showAboutCenter_button}>
-                                <span>О репетиторе</span><span>{showAboutCenter?<span>&#708;</span>:<span>&#709;</span>}</span>
+                                <span>О репетиторе</span><span>{showAboutCenter?<span>&#709;</span>:<span>&#708;</span>}</span>
                             </button>
                             <div style={{display: showAboutCenter ? "block" : "none"}} className={styles.infoBlock_info}>
                                 <h3 style={{marginBottom: '32px'}}>О репетиторе</h3>

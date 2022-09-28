@@ -487,7 +487,7 @@ function coursePage(props) {
                             </div>
                             <div style={{display: windowSizeFinal?.innerWidth >= 1315 ? "block" : "none"}} className={styles.infoBlock_second}>
                             <button onClick={() => setShowAboutCenter(!showAboutCenter)} className={styles.showAboutCenter_button}>
-                                <span>О центре</span><span>{showAboutCenter?<span>&#708;</span>:<span>&#709;</span>}</span>
+                                <span>О центре</span><span>{showAboutCenter?<span>&#709;</span>:<span>&#708;</span>}</span>
                             </button>
                             <div style={{display: showAboutCenter ? "block" : "none"}} className={styles.infoBlock_info}>
                                 <h3>О центре</h3>
@@ -498,7 +498,7 @@ function coursePage(props) {
                     </div>
                     <div style={{display: windowSizeFinal?.innerWidth >= 1315 ? "none" : "block"}} className={styles.infoBlock_second}>
                             <button onClick={() => setShowAboutCenter(!showAboutCenter)} className={styles.showAboutCenter_button}>
-                                <span>О центре</span><span>{showAboutCenter?<span>&#708;</span>:<span>&#709;</span>}</span>
+                                <span>О центре</span><span>{showAboutCenter?<span>&#709;</span>:<span>&#708;</span>}</span>
                             </button>
                             <div style={{display: showAboutCenter ? "block" : "none"}} className={styles.infoBlock_info}>
                                 <h3>О центре</h3>
@@ -506,7 +506,7 @@ function coursePage(props) {
                             </div>
                     </div>
                 </div>
-                <div className={styles.wrapper_2}>
+                <div style={{display: teachers.length > 0 ? "block" : "none"}} className={styles.wrapper_2}>
                     <h2>
                         Преподаватели
                     </h2>

@@ -378,7 +378,7 @@ function coursePage(props) {
                                                 <button className={newStyles.button} onClick={async () => {
                                                     handleShow();
                                                 }}>Оставить заявку</button>
-                                            </div>
+                                            </div>       
                                             {/*<a
                                                 onClick={() => {
                                                     ym(78186067,'reachGoal','whatsapp_click_center');
@@ -407,24 +407,30 @@ function coursePage(props) {
                                             </a>*/}
                                         </div>
                                     </div>
-                                    {/*<div className={newStyles.secondButtonsRow}>
+                                    <div className={newStyles.secondButtonsRow}>
                                         <div style={{
                                             display: 'flex',
                                             width: '100%',
                                             marginTop: 10
                                         }}>
                                             <div className={styles.enableOnMobile}>
+                                                <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                                                target="_blank">
                                                 <button className={newStyles.button} onClick={async () => {
-                                                    handleShow();
+                                                    
                                                 }}>Перейти к репетитору</button>
+                                                </Link> 
                                             </div>
                                             <div className={styles.disableOnMobile}>
+                                            <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                                                target="_blank">
                                                 <button className={newStyles.button} onClick={async () => {
-                                                    handleShow();
+                                                    
                                                 }}>Перейти к репетитору</button>
+                                            </Link> 
                                             </div>
                                         </div>
-                                    </div>*/}
+                                    </div>
                                 </div>
                             </div>
                             <div className={newStyles.theThirdInfoColumn}>
@@ -528,6 +534,11 @@ function coursePage(props) {
                                 <button className={newStyles.button} onClick={async () => {
                                     handleShow();
                                 }}>Оставить заявку</button>
+                                <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                                target="_blank">
+                                    <button className={newStyles.button} onClick={async () => {
+                                    }}>Все курсы</button>
+                                </Link>
                             </div>
                             {/*<a
                                 onClick={() => {
@@ -557,24 +568,30 @@ function coursePage(props) {
                             </a>*/}
                         </div>
                     </div>
-                    {/*<div className={newStyles.secondButtonsRow}>
+                    <div className={newStyles.secondButtonsRow}>
                         <div style={{
                             display: 'flex',
                             width: '100%',
                             marginTop: 10
                         }}>
                             <div className={styles.enableOnMobile}>
+                            <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                                target="_blank">
                                 <button className={newStyles.button} onClick={async () => {
-                                    handleShow();
-                                }}>Перейти к центру</button>
+                                    
+                                }}>Перейти к репетитору</button>
+                            </Link> 
                             </div>
                             <div className={styles.disableOnMobile}>
+                            <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                                target="_blank">
                                 <button className={newStyles.button} onClick={async () => {
-                                    handleShow();
-                                }}>Перейти к центру</button>
+                                    
+                                }}>Перейти к репетитору</button>
+                            </Link> 
                             </div>
                         </div>
-                    </div>*/}
+                    </div>
                 </div>
             </div>
             <div className={newStyles.aboutBlockMobile}>
@@ -681,7 +698,7 @@ function coursePage(props) {
             
 
 
-            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0', cursor: "pointer"}}>
+            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
                 <a className={styles.link} onClick={()=> {
                     addCards()
                 }}>Смотреть еще</a>

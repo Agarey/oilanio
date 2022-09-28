@@ -177,15 +177,13 @@
     height: 126px;
 }
 .showAboutCenter_button {
-    display: flex;
-    flex-direction: row;
+    display: none;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    padding: 10px;
-    gap: 10px;
-    width: 121px;
+    width: 172px;
     height: 44px;
+    padding: 10px;
     background: #FFFFFF;
     border-radius: 8px;
     font-family: 'Montserrat Medium';
@@ -257,7 +255,6 @@
     }
     .showAboutCenter_button {
         display: flex;
-        flex-direction: column
     }
 }
 @media screen and (max-width: 480px) {
