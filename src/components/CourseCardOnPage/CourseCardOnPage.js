@@ -253,19 +253,8 @@ export default function CourseCard(props) {
             <div className={styles.titleLinkButtonBody}></div>
           }
           <div 
-            style={props.course.verificated
-              ? {
-                backgroundSize: '100% 100%',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                height: '40px',
-                width: '40px',
-                position: 'absolute',
-                backgroundImage: 'url(https://realibi.kz/file/890265.png)',
-                top: '10px',
-                left: '10px',
-              } 
-              : {}
+            className={props.course.verificated
+              ? styles.verification_block : null
             }
           >
           </div>
@@ -306,10 +295,9 @@ export default function CourseCard(props) {
                 }}
               >               
                 <p 
-                  style={{marginLeft: '3px'}} 
                   className={styles.info_price}
                 >
-                  Цена: {props.course.currency}{coursePrice}/{props.course.unit_of_time}
+                  {props.course.currency}{coursePrice}/{props.course.unit_of_time}
                 </p>
               </div>
             )
@@ -322,10 +310,9 @@ export default function CourseCard(props) {
                 }}
               >     
                 <p 
-                  style={{marginLeft: '3px'}} 
                   className={styles.info_price}
                 >
-                  Цена: {coursePrice} {props.course.currency}/{props.course.unit_of_time}
+                  {coursePrice} {props.course.currency}/{props.course.unit_of_time}
                 </p>
               </div>
             )

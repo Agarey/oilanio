@@ -249,22 +249,22 @@
     padding-left: 26px;
 }
 .course_title {
-    background: url('https://realibi.kz/file/267901.png') no-repeat;
+    background: url('https://realibi.kz/file/541751.png') no-repeat;
     background-size: 21px;
     background-position: 0 50%;
 }
 .course_category{
-    background: url('https://realibi.kz/file/524387.png') no-repeat;
+    background: url('https://realibi.kz/file/475217.png') no-repeat;
     background-size: 16px;
     background-position: 2px 50%;
 }
 .info_value{
-    background: url('https://realibi.kz/file/205075.png') no-repeat;
+    background: url('https://realibi.kz/file/812322.png') no-repeat;
     background-size: 16px;
     background-position: 2px 50%;
 }
 .info_price{
-    background: url('https://realibi.kz/file/474729.png') no-repeat;
+    background: url('https://realibi.kz/file/404173.png') no-repeat;
     background-size: 19px;
     background-position: 2px 50%;
 }
@@ -481,7 +481,30 @@
     }
 }
 
-@media screen and (max-width: 540px){
+@media screen and (max-width: 700px){
+    .container {
+        width: 210px;
+        padding: 10px;
+        /* height: 545px;
+        grid-template-areas: "image" "fullname" "info" "linkButton"; */
+    }
+    .info_block {
+        margin-left: 0;
+    }
+    .white_link_button {
+        border: none;
+        text-decoration: underline;
+        height: auto;
+    }
+    .titleImageBody {
+        width: 180px;
+    }
+    .button_container {
+        flex-direction: column-reverse;
+    }
+}
+
+/* @media screen and (max-width: 540px){
     .container {
         grid-template-areas: "image info" "fullname info" "linkButton linkButton";
         background: #fff;
@@ -497,14 +520,14 @@
     .titleImageBody{
         width: 180px;
     }
-}
+} */
 
 @media screen and (max-width: 480px){
     .container {
         max-width: 420px;
     }
 }
-
+/* 
 @media screen and (max-width: 410px){
     .container {
         max-width: 320px;
@@ -520,4 +543,4 @@
     .titleImageBody {
         width: 100%;
     }
-}
+} */

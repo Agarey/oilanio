@@ -294,8 +294,9 @@
     /* background-color: #E9EDF1; */
     justify-content: center;
     /*grid-template-columns: [card] 22.5% [card] 22.5% [card] 22.5% [card] 22.5%;*/
-     grid-template-columns: [card] 30% [card] 30% [card] 30%; 
-    grid-gap: 1%;
+    grid-template-columns: [card] 30% [card] 30% [card] 30%; 
+    /* grid-gap: 1%; */
+    justify-items: center;
 }
 .courseInfoListFooter{
     width: 100%;
@@ -414,6 +415,11 @@
     }
     .courses_block{
         grid-template-columns: [card] 30% [card] 30% [card] 30%;
+    }
+}
+@media (max-width: 1200px){
+    .courses_block{
+        grid-template-columns: [card] 45% [card] 45%;
     }
 }
 @media (max-width: 1000px){

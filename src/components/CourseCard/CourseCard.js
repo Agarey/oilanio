@@ -267,7 +267,7 @@ export default function CourseCard(props) {
             //   } 
             //   : {}
             // }
-            className={props.course.verificated ? styles.verificated_icon : null}
+            className={props.course.verificated ? styles.verification_block : null}
           >
           </div>
         </div>
@@ -310,7 +310,6 @@ export default function CourseCard(props) {
                 }}
               >               
                 <p 
-                  style={{marginLeft: '3px'}} 
                   className={styles.info_price}
                 >
                   Цена: {props.course.currency}{coursePrice}/{props.course.unit_of_time}
@@ -326,7 +325,6 @@ export default function CourseCard(props) {
                 }}
               >     
                 <p 
-                  style={{marginLeft: '3px'}} 
                   className={styles.info_price}
                 >
                   {coursePrice} {props.course.currency === 'KZT' ? "₸" : props.course.currency} / {props.course.unit_of_time}

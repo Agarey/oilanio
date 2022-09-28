@@ -330,7 +330,7 @@ function coursePage(props) {
                             <div className={newStyles.verificatedSheild} 
                                 style={props.courseDetails.verificated?
                                     {
-                                        backgroundImage: 'url(https://realibi.kz/file/890265.png)',
+                                        backgroundImage: 'url(https://realibi.kz/file/20345.png)',
                                     }:
                                     {}
                                 }
@@ -802,14 +802,14 @@ function coursePage(props) {
             
 
 
-            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
+            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0', cursor: "pointer"}}>
                 <a className={styles.link} onClick={()=> {
                     addCards()
                 }}>Смотреть еще</a>
             </div>
             <ContactBlock/>
 
-            <br /><br /><br /><br />
+            {/* <br /><br /><br /><br /> */}
 
             <Footer />
         </div>

@@ -47,6 +47,18 @@
     text-decoration: none;
 }
 
+.verification_block{
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-image: url(https://realibi.kz/file/20345.png);
+}
+
 .orangeContainer:hover{
     box-shadow: 0 2px 13px -2px #ff9348;
     transition: 0.5s;
@@ -261,26 +273,26 @@
     padding-left: 26px;
 }
 .course_title {
-    background: url('https://realibi.kz/file/267901.png') no-repeat;
-    background-size: 21px;
-    background-position: 0 27%;
+    background: url('https://realibi.kz/file/541751.png') no-repeat;
+    background-size: 24px 20px;
+    background-position: 0 50%;
 }
 .course_category{
-    background: url('https://realibi.kz/file/524387.png') no-repeat;
-    background-size: 16px;
-    background-position: 2px 50%;
+    background: url('https://realibi.kz/file/475217.png') no-repeat;
+    background-size: 22px 20px;
+    background-position: 0px 50%;
     max-height: 60px;
     overflow: hidden;
 }
 .info_value{
-    background: url('https://realibi.kz/file/205075.png') no-repeat;
-    background-size: 16px;
-    background-position: 2px 50%;
+    background: url('https://realibi.kz/file/812322.png') no-repeat;
+    background-size: 22px 20px;
+    background-position: 0px 50%;
 }
 .info_price{
-    background: url('https://realibi.kz/file/474729.png') no-repeat;
-    background-size: 19px;
-    background-position: 2px 50%;
+    background: url('https://realibi.kz/file/404173.png') no-repeat;
+    background-size: 22px 20px;
+    background-position: 0px 50%;
 }
 .subtitle{
     font-size: 16px;
@@ -469,7 +481,7 @@
     margin-top: 5px;
 }
 
-.verification_block{
+/* .verification_block{
     background-size: 70% 90%;
     background-position: center;
     background-repeat: no-repeat;
@@ -479,7 +491,8 @@
     right: 5px;
     background-image: url(https://realibi.kz/file/777788.png);
     bottom: 15px;
-}
+} */
+
 .hideContact{
     width: 36px;
     display: block;

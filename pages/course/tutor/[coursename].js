@@ -681,7 +681,7 @@ function coursePage(props) {
             
 
 
-            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0'}}>
+            <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '10px 0', cursor: "pointer"}}>
                 <a className={styles.link} onClick={()=> {
                     addCards()
                 }}>Смотреть еще</a>
