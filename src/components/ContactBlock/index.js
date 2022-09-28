@@ -24,6 +24,12 @@ const ContactBlock = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.rightBlock}>
+        <Image 
+          src='https://realibi.kz/file/309178.png' 
+          className={styles.image}
+        />
+      </div>
       <div className={styles.leftBlock}>
         <div className={styles.titleBlock}>
           <span className={styles.title}>
@@ -42,7 +48,7 @@ const ContactBlock = () => {
                 onChange={(e) => setName(e.target.value)}
                 className={styles.techSupportInput}
                 style={{ cursor: "text", color: "black" }}
-                placeholder="Имя"
+                placeholder="Имя Фамилия"
               />
             </div>
             <div className={styles.selectContainer}>
@@ -79,12 +85,6 @@ const ContactBlock = () => {
             {message}
           </span>
         </div>
-      </div>
-      <div className={styles.rightBlock}>
-        <Image 
-          src='https://realibi.kz/file/340104.png' 
-          className={styles.image}
-        />
       </div>
     </div>
   )
