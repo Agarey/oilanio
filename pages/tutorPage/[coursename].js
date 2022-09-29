@@ -243,14 +243,17 @@ function coursePage(props) {
         })
         let filteredCities2 = cities?.find(el => {
             if (el.name == cityName) {
-                let array1 = el
-                let array2 = Object.values(array1)
-                return array2
+                let array1 = el.name
+                // let array2 = Object.values(array1)
+                return Array.from(array1)
             }
         })
         let filteredCitiesWrapper = [...new Set(filteredCities)]
         // const filteredCities2Wrapper = Object.values(filteredCities2)
         // let filteredCities2Wrapper = [...new Set(filteredCities2)]
+        let filteredCities2Wrapper = [filteredCities]
+        let filteredCities2Wrapper2 = filteredCities2Wrapper = filteredCities2
+        
 
         let filteredCategoriesInitial = cardsList?.map(el => {
             let array1 = categories?.find(el2 => {
@@ -415,7 +418,7 @@ function coursePage(props) {
                                 categories={props.categories} 
                                 cityName={props.courseDetails.city_name}
                                 filteredCategories={filteredCategories}
-                                filteredCities={filteredCities}
+                                filteredCities={props.filteredCities}
                                 courseDetails={props.courseDetails}
                                 isTutors={true}/> 
                                 : ''}
@@ -471,7 +474,7 @@ function coursePage(props) {
                                 <h3>О репетиторе</h3>
                                 <p className={styles.aboutCenter}>{props.courseDetails.tutor_description}</p>
                             </div>
-                            <div className={styles.sertificatesSection}>
+                            <div  style={{display: sertificates.length > 0 ? "block" : "none"}} className={styles.sertificatesSection}>
                                 <h3>Сертификаты и дипломы</h3>
                                 <div className={styles.sertificates}>
                                     {props.sertificates.map(el => (
@@ -494,7 +497,7 @@ function coursePage(props) {
                                 <h3 style={{marginBottom: '32px'}}>О репетиторе</h3>
                                 <p className={styles.aboutCenter}>{props.courseDetails.tutor_description}</p>
                             </div>
-                            <div className={styles.sertificatesSection}>
+                            <div style={{display: sertificates.length > 0 ? "block" : "none"}} className={styles.sertificatesSection}>
                                 <h3>Сертификаты и дипломы</h3>
                                 <div className={styles.sertificates}>
                                     {props.sertificates.map(el => (
@@ -594,6 +597,8 @@ coursePage.getInitialProps = async (ctx) => {
         console.log('subcourses' , subCoursesResult.data)
         let sertificatesResult = await axios.post(`${globals.productionServerDomain}/tutorSertificates/` + courseInfo.tutor_id);
         console.log('sertificates' , sertificatesResult.data)
+        let filteredCities = await axios.post(`${globals.productionServerDomain}/getFilteredCities/` + courseDetails.city_id )
+        console.log("filteredCities.data", filteredCities.data)
         let categories = await axios.get(`${globals.productionServerDomain}/getCourseCategories`)
         let data = {
             course_id: courseInfo.tutor_id,
@@ -612,7 +617,8 @@ coursePage.getInitialProps = async (ctx) => {
             subcourses: subCoursesResult['data'],
             sertificates: sertificatesResult['data'],
             feedbacksByCourseId: feedbacksByCourseId['data'],
-            categories: categories['data']
+            categories: categories['data'],
+            filteredCities: filteredCities['data'] 
             //similarCourses: similarCoursesResult['data'],
         }
     }else{

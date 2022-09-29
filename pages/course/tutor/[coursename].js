@@ -534,11 +534,11 @@ function coursePage(props) {
                                 <button className={newStyles.button} onClick={async () => {
                                     handleShow();
                                 }}>Оставить заявку</button>
-                                <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                                {/* <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
                                 target="_blank">
                                     <button className={newStyles.button} onClick={async () => {
                                     }}>Все курсы</button>
-                                </Link>
+                                </Link> */}
                             </div>
                             {/*<a
                                 onClick={() => {
@@ -659,10 +659,10 @@ function coursePage(props) {
                 </div>
             </div>*/}
             <div className={styles.backToCoursesPageButtonBody}>
-                <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
+                {/* <Link href={`/tutorPage/${encodeURIComponent(props.course.id)}`}
                 target="_blank">
                     <a className={styles.backToCoursesPageButton}>Все курсы</a>
-                </Link>
+                </Link> */}
                 {/* <Link
                     href={`/tutorPage/${encodeURIComponent(props.course.url)}?id=${encodeURIComponent(props.courseDetails.id)}`}
                     target="_blank" className={styles.noHover}
