@@ -1,0 +1,107 @@
+.title {
+    font-family: 'Gotham Medium';
+    font-size: 28px;
+    color: black;
+    /* padding: 10px 0px 20px 20px; */
+    margin: 0;
+}
+
+.titleWrapper {
+    width: 30%;
+    border-right: 0.5px solid #a3cefd60;
+}
+
+
+.lesson_tesisWrapper {
+    width: 40%;
+    margin-left: 20px;
+}
+
+.lesson_tesisWrapper p {
+    font-family: 'Gotham Regular';
+    font-size: 16px;
+    color: black;
+    margin: 0;
+}
+
+.lessonInfo {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    width: 70%;
+    padding: 30px 20px;
+    box-shadow: 0px 0px 11px 4px #A3CEFD40;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.wrapper {
+    width: 100%;
+    position: relative;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.inputs {
+    /* width: 130px; */
+    /* height: 48px; */
+
+    background: #A3CEFD;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    padding: 30px 30px;
+    margin: 0 5px;
+    font-family: 'Gotham Regular';
+}
+
+.inputsWrapper {
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .inputsWrapper {
+        justify-content: flex-start
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 40px 0;
+    }
+
+    .inputsWrapper {
+        justify-content: flex-start;
+        margin-left: 0;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .lessonInfo {
+        width: 100%;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .tesisWrapper p {
+        font-size: 14px;
+    }
+
+    .inputs {
+        margin: 0 5px 0 0;
+    }
+}

@@ -1,0 +1,262 @@
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../../../public/fonts/noto/NotoSans-Regular.ttf") format("truetype");
+}
+@font-face {
+font-family: "Muller Regular";
+src: url("../../../public/fonts/Muller/MullerRegular.ttf") format("truetype");
+}
+@font-face {
+font-family: "Muller Medium";
+src: url("../../../public/fonts/Muller/MullerMedium.ttf") format("truetype");
+}
+@font-face {
+font-family: "Muller Bold";
+src: url("../../../public/fonts/Muller/MullerBold.ttf") format("truetype");
+}
+
+/* .container{
+background-color: #f1faff;
+width: 100%;
+padding-top: 40px;
+padding-left: 5%;
+padding-right: 5%;
+padding-bottom: 40px;
+
+} */
+
+.modal {
+  max-height: 90vh;
+  overflow: scroll;
+  position: fixed;
+  z-index: 500;
+  border: 2px solid #1472a4;
+  width: 80%;
+  /* padding: 40px; */
+  /* left: 41%; */
+  text-align: center;
+  /* top: 20%; */
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  left: 50%;
+  margin-right: -50%;
+  /* transform: translate(-50%, -50%); */
+  top: 60%;
+  border-radius: 20px;
+}
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
+.detailInfo{
+  background: #FFFFFF;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailInfoHeader{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 32px;
+}
+
+.detailInfoHeader p {
+  font-family: 'Muller Medium';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  /*line-height: 150%;*/
+  display: flex;
+  /*align-items: center;*/
+  text-transform: uppercase;
+  color: #3666B0;
+  margin: 0px;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+}
+.profile_info {
+  background: url(https://realibi.kz/file/251011.png) no-repeat;
+  background-size: 50px;
+  background-position: 0 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 40px;
+  padding-left: 60px;
+}
+
+.profile_info span {
+  font-size: 20px;
+  color: #1F1F1FE8;
+  padding: 0;
+}
+
+.profile_info p {
+  font-size: 15px;
+  color: #3666B0;
+  margin: 0;
+}
+
+
+.detailInfoHeader_right {
+  display: flex;
+}
+
+.profile_edit {
+  background: url(https://realibi.kz/file/616612.png) no-repeat;
+  display: inline-block;
+  width: 20px;
+  background-size: 18px;
+  background-position: 0 50%;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.profile_info p span {
+  font-size: 15px;
+  color: #30253566;
+}
+
+.profile_message {
+  width: 40%;
+  text-align: start;
+  margin-right: 20px;
+}
+
+.profile_message span {
+  font-size: 10px;
+  color: #3B3B3BC9;
+}
+
+.detailInfoContain{
+  display: none;
+}
+
+.profile_edit_container {
+  flex-direction: column;
+  margin-left: 40px;
+  width: 40%;
+}
+
+.profile_edit_container input {
+  padding: 10px;
+  border: 1px solid #C5DFFF;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+.profile_edit_container button {
+  background: #3666B0;
+  border: 1px solid #C5DFFF;
+  border-radius: 3px;
+  color: #fff;
+  padding: 8px;
+}
+
+.showDetailInfoContain{
+  display: flex;
+  padding: 32px;
+  font-family: 'Noto Sans';
+}
+
+.showButton{
+  cursor: pointer;
+}
+
+.showButton img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+.dataBlock{
+  /* border: 1px solid black; */
+  width: 100%;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+
+.formBlock{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: start;
+}
+
+/* .formBlock div {
+  margin-bottom: 40px;
+} */
+
+.formBlock select {
+  margin: 20px 0;
+  padding: 10px;
+}
+
+.formBlock_text {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0;
+  color: #005C9F;
+}
+
+.new_program {
+  display: flex;
+  align-items: center;
+}
+
+.save_button {
+  height: 48px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    background: #ffffff;
+    border-radius: 8px;
+    color: #3666B0;
+    padding: 0px 20px;
+    margin-left: 20px;
+    border: none;
+    border: 2px solid #3666B0;
+}
+
+.close {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1280px) {
+  .container{
+    margin: 40px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .showDetailInfoContain {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 500px) {
+.container{
+  margin: 20px;
+}
+}
+
+@media screen and (max-width: 390px) {
+.detailInfoHeader p {
+  font-size: 14px;
+}
+.showDetailInfoContain {
+  padding: 15px;
+}
+}

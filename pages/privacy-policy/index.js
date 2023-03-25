@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '../../styles/components/content/PrivacyPolicy.module.css'
+import styles from '../../styles/PrivacyPolicy.module.css'
 import Header from '../../src/components/Header/Header'
 import Footer from "../../src/components/Footer/Footer";
 import ContactButton from "../../src/components/ContactButton/ContactButton";
@@ -13,13 +13,13 @@ export default function PrivacyPolicy() {
                 <link rel="icon" href="/atom-icon.png" />
             </Head>
 
-            <Header white={true}/>
+            <Header />
 
 
             <div className={styles.container}>
                 <span className={styles.title}>Политика конфиденциальности</span>
 
-                <p className={styles.text}>
+                <div className={styles.text}>
                     Настоящая политика конфиденциальности и обработки персональных данных регулирует
                     порядок обработки и использования персональных и иных данных сайта ТОО «АбАз»
                     (дальше — Оператор). Действующая редакция настоящей Политики конфиденциальности,
@@ -126,7 +126,7 @@ export default function PrivacyPolicy() {
                     конфиденциальности следует сообщать по электронной почте:
                     <span style={{ fontWeight: 500 }}> OilanEdu@gmail.com</span>
                     <br/><br/>
-                </p>
+                </div>
             </div>
 
             <br/><br/><br/><br/>

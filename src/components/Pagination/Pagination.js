@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from "./Pagination.module.css";
 import classnames from 'classnames';
 
-function Pagination({ pages = 10, setCurrentPage }) {
+function Pagination({ pages = 10, setCurrentPage, more, setMore }) {
   const numberOfPages = [];
   for (let i = 1; i <= pages; i++) {
     numberOfPages.push(i);
@@ -45,10 +45,47 @@ function Pagination({ pages = 10, setCurrentPage }) {
     setCurrentPage(currentButton);
   }, [currentButton]);
 
+  // console.log(numberOfPages, currentButton);
 
   return (
     <div className={styles.pagination_container}>
-      <a
+      <div>
+        Страница {currentButton} из {numberOfPages.length}
+      </div>
+      <div className={styles.btns}>
+        <a
+          href="#students"
+          className={classnames(currentButton === 1 
+            ? styles.disabled 
+            : '', 
+            styles.prev_btn
+          )}
+          onClick={() => {
+            window.scrollBy(0, 1200)
+            setCurrentButton(prev => prev <= 1 ? prev : prev - 1)
+          }}
+        ></a>
+        <a
+          href="#students"
+          className={!more ? styles.top_btn : styles.btm_btn}
+          onClick={() => {
+            window.scrollBy(0, 1200)
+            setMore(!more)
+          }}
+        ></a>
+        <a
+          href="#students"
+          className={classnames(currentButton === numberOfPages.length 
+            ? styles.disabled 
+            : '', 
+            styles.next_btn
+          )}
+          onClick={() => {
+            setCurrentButton(prev => prev >= numberOfPages.length ? prev : prev + 1);
+          }}
+        ></a>
+      </div>
+      {/* <a
         href="#"
         className={classnames(currentButton === 1 
           ? styles.disabled 
@@ -59,8 +96,8 @@ function Pagination({ pages = 10, setCurrentPage }) {
           window.scrollBy(0, 1200)
           setCurrentButton(prev => prev <= 1 ? prev : prev - 1)
         }}
-      ></a>
-      {arrOfCurrButtons.map(((item, index) => {
+      ></a> */}
+      {/* {arrOfCurrButtons.map(((item, index) => {
         return <a
           href="#"
           key={index}
@@ -74,8 +111,8 @@ function Pagination({ pages = 10, setCurrentPage }) {
         >
           {item}
         </a>
-      }))}
-      <a
+      }))} */}
+      {/* <a
         href="#"
         className={classnames(currentButton === numberOfPages.length 
           ? styles.disabled 
@@ -85,7 +122,7 @@ function Pagination({ pages = 10, setCurrentPage }) {
         onClick={() => {
           setCurrentButton(prev => prev >= numberOfPages.length ? prev : prev + 1);
         }}
-      ></a>
+      ></a> */}
     </div>
   );
 };

@@ -1,0 +1,173 @@
+@font-face {
+  font-family: "Noto Sans Regular";
+  src: url("../../../public/fonts/notosansdisplay/NotoSansDisplay-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans Medium";
+  src: url("../../../public/fonts/notosansdisplay/NotoSansDisplay-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans Bold";
+  src: url("../../../public/fonts/notosansdisplay/NotoSansDisplay-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Muller Regular";
+  src: url("../../../public/fonts/Muller/MullerRegular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Muller Medium";
+  src: url("../../../public/fonts/Muller/MullerMedium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Muller Bold";
+  src: url("../../../public/fonts/Muller/MullerBold.ttf") format("truetype");
+}
+
+.container {
+  background-color: rgb(241, 250, 255);
+  padding: 40px 120px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.container h2 {
+  font-family: "Noto Sans Medium";
+  font-size: 24px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.course_lessons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.course_lessons div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order_line {
+  width: 79px;
+  border: 1px solid #000;
+  margin-bottom: 40px;
+}
+
+.order_line:nth-child(16n) {
+  display: none;
+}
+
+.order_line:last-of-type {
+  display: none;
+}
+
+.lesson_item { 
+  width: 64px;
+  height: 64px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 50%;
+  justify-content: center;
+  border: 1px solid #F3F3F3;
+  margin-bottom: 10px;
+}
+
+.lesson_item_done { 
+  width: 64px;
+  height: 64px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  background: url(https://realibi.kz/file/661249.png) no-repeat;
+  background-position: center;
+  background-size: 20px 14px;
+  border-radius: 50%;
+  justify-content: center;
+  border: 1px solid #179427;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1000px){ 
+  .course_lessons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  .order_line {
+    width: 50px;
+  }
+  .order_line:nth-child(3n) {
+    display: none;
+  }
+  .order_line:last-of-type {
+    display: none;
+  }
+  .container {
+    padding: 40px 10px;
+  }
+}
+
+@media screen and (max-width: 768px){ 
+  .course_lessons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  .order_line {
+    width: 50px;
+  }
+  .order_line:nth-child(3n) {
+    display: none;
+  }
+  .order_line:last-of-type {
+    display: none;
+  }
+  .container {
+    padding: 40px 10px;
+  }
+}
+
+@media screen and (max-width: 480px){ 
+  .course_lessons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  .order_line {
+    width: 50px;
+  }
+  .order_line:nth-child(3n) {
+    display: none;
+  }
+  .order_line:last-of-type {
+    display: none;
+  }
+  .container {
+    padding: 40px 10px;
+  }
+}
+
+@media screen and (max-width: 360px){ 
+  .course_lessons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  .order_line {
+    width: 50px;
+  }
+  .order_line:nth-child(3n) {
+    display: none;
+  }
+  .order_line:last-of-type {
+    display: none;
+  }
+  .container {
+    padding: 40px 10px;
+  }
+}
+

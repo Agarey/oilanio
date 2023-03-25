@@ -1,0 +1,216 @@
+@font-face {
+  font-family: "Gotham Regular";
+  src: url('../../../public/fonts/Gotham_pro/gothampro.ttf') format(truetype);
+}
+
+@font-face {
+  font-family: 'Gotham Medium';
+  src: url('../../../public/fonts/Gotham_pro/gothampro_medium.ttf') format(truetype);
+}
+
+@font-face {
+  font-family: 'Gotham Light';
+  src: url('../../../public/fonts/Gotham_pro/gothampro_light.ttf') format(truetype);
+}
+
+@font-face {
+  font-family: 'Gotham Bold';
+  src: url('../../../public/fonts/Gotham_pro/gothampro_bold.ttf') format(truetype);
+}
+
+.welcome_section {
+  text-align: center;
+}
+
+.welcome_header {
+  font-size: 25px;
+  color: #000;
+  text-align: center;
+  margin-top: 25px;
+  font-family: "Gotham Medium";
+}
+
+.enter_data_header {
+  font-family: 'Gotham Regular';
+  font-size: 16px;
+  color: #636975;
+  margin-bottom: 25px;
+}
+
+.role_radio_section {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.role_radio {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.role_radio label {
+  font-family: 'Gotham Regular';
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+
+.form_input {
+  position: relative;
+  width: 100%;
+  text-align: start;
+  margin-bottom: 20px;
+}
+
+.form_input input {
+  width: 100%;
+  outline: none;
+  background: #FFFFFF;
+  border: 0.5px solid #A3CEFD;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: 'Gotham Regular';
+}
+
+
+.password_cr {
+  background: url(https://realibi.kz/file/358554.png) no-repeat;
+  background-position: 98%;
+  background-size: 24px;
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 8px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.pass_data_head {
+  font-family: "Noto Sans Medium";
+  font-size: 14px;
+}
+
+.pass_data_text {
+  font-size: 12px;
+  font-family: "Noto Sans Regular";
+  background: url("https://realibi.kz/file/102414.png") no-repeat 0 50%;
+  background-size: 8px;
+  padding-left: 13px;
+}
+
+.pass_data {
+  position: absolute;
+  left: 330px;
+  top: -30px;
+  width: 288px;
+  background: #fafafa;
+  text-align: start;
+  padding: 20px;
+  box-shadow: 0px 4px 4px #DBE8F5;
+  border-radius: 3px;
+}
+
+.pass_data_left {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 30px 20px 30px 0;
+  border-color: transparent #fafafa transparent transparent;
+  position: absolute;
+  top: 20px;
+  left: -12px;
+}
+
+
+.generate_pass {
+  border: none;
+  background: none;
+  color: #2E8CF2;
+  font-family: 'Gotham Regular';
+  /* text-decoration: underline; */
+  cursor: pointer;
+  display: flex;
+  align-self: flex-start;
+  font-size: 14px;
+  /* margin-top: 10px; */
+  width: fit-content;
+  padding: 0;
+}
+
+.generate_pass:hover {
+  transition: all 0.1s linear;
+  text-decoration: underline;
+}
+
+.generate_pass_text {
+  font-family: 'Gotham Regular';
+  padding: 10px;
+  border: 1px solid rgba(151, 151, 151, 0.8);
+  border-radius: 3px;
+  width: 100%;
+  text-align: start;
+  position: relative;
+}
+
+.generate_pass_copy {
+  background: url(https://realibi.kz/file/401602.png) no-repeat;
+  background-size: contain;
+  width: 15px;
+  display: block;
+  position: absolute;
+  height: 16px;
+  top: 13px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.form_submit_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.url_input {
+  display: none;
+}
+
+.submit_button {
+  background: #2E8CF2;
+  border-radius: 5px;
+  color: white;
+  padding: 15px 40px;
+  outline: none;
+  border: none;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.error_message {
+  color: #FF858B;
+  display: inline-block;
+  background: url("https://realibi.kz/file/776633.png") no-repeat 0px 50%;
+  background-size: 17px;
+  padding: 10px 20px;
+}
+
+@media screen and (max-width:575px) {
+  .welcome_header {
+    font-size: 19px;
+  }
+
+  .enter_data_header {
+    font-size: 14px;
+  }
+
+  .welcome_section {
+    width: 100%;
+  }
+
+}

@@ -1,12 +1,11 @@
 import Head from 'next/head'
-import styles from '../../styles/components/content/PrivacyPolicy.module.css'
+import styles from '../../styles/PrivacyPolicy.module.css'
 import Header from '../../src/components/Header/Header'
 import Footer from "../../src/components/Footer/Footer"
 import Link from "next/link";
-import ContactButton from "../../src/components/ContactButton/ContactButton";
 import React from "react";
 
-export default function Elc() {
+export default function Elc(props) {
     const ym = () => {
         return (
             "<!-- Yandex.Metrika counter -->\n" +
