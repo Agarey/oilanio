@@ -73,6 +73,7 @@ const createCourse = () => {
     const courseData = {
       course: {
         title: title,
+        description: description,
         courseUrl: courseUrl,
         teacherId: teacher?.id,
         categoryId: subject,

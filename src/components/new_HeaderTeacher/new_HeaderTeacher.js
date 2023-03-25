@@ -203,27 +203,23 @@ export default function HeaderTeacher(props) {
         </div>
         <div
           className={styles.contact}
-          onClick={() => setMenuVisible(!menuVisible)}
           style={{cursor: "pointer"}}
         >
-            <Link
-              href={`/cabinet/teacher/${encodeURIComponent(props?.teacher?.url)}/profile`}
-              target="_blank"
-
-            >
-                        <div
+            
+            <div
             className={styles.contactImage}
+            onClick={() => router.push(`/cabinet/teacher/${encodeURIComponent(props?.teacher?.url)}/profile`)}
             style={{
               backgroundImage: props.teacher?.avatar !== null ? "url(" + props.teacher?.avatar + ")" : "url(https://realibi.kz/file/142617.png)",
             }}
           />
-            </Link>
+            
 
           <div className={styles.contactDetails}>
             <b className={styles.contactName}>
               {props.teacher?.name} {props.teacher?.surname}
             </b>
-            {/* <span className={styles.contactRole}>Преподаватель</span> */}
+            <span className={styles.contactRole} onClick={handleLogout}>Выйти</span>
           </div>
 
         </div>
@@ -326,7 +322,7 @@ export default function HeaderTeacher(props) {
             >
               <li className={styles.li}>Профиль</li>
             </Link> */}
-            <li className={styles.li} onClick={handleLogout}>Выйти</li>
+            
           </ul>
         {/* )} */}
       </div>

@@ -96,7 +96,7 @@ export default function Student({ programs }) {
     console.log(result.data);
   }
   const getLessons = async () => {
-    await axios.get(`${globals.productionServerDomain}/getLessonInfo?course_url=${studentPrograms[0]?.course_url}&program_id=${studentPrograms[0]?.program_id}&student_id=${studentPrograms[0]?.student_id}`).then(res => {
+    await axios.get(`${globals.productionServerDomain}/getLessonInfo_v2?course_url=${studentPrograms[0]?.course_url}&program_id=${studentPrograms[0]?.program_id}&student_id=${studentPrograms[0]?.student_id}`).then(res => {
       setLessons(res.data);
       console.log(res.data);
     });
@@ -116,6 +116,7 @@ export default function Student({ programs }) {
 
   const getProgramsByStudentId = async () => {
     let result = await axios.post(`${globals.productionServerDomain}/getProgramsByStudentId/` + student?.id)
+    console.log('ee', student)
     setStudentPrograms(result.data);
     console.log(studentPrograms)
   }
@@ -263,6 +264,24 @@ export default function Student({ programs }) {
     }
   }
 
+  const deletestudent = async (id) => {
+    const data = {
+      id
+    }; 
+
+    await axios({ 
+      method: "delete",
+      url: `${globals.productionServerDomain}/deleteStudent`,
+      data: data,
+    })
+      .then(function (res) {
+        alert("Студент успешно удален");
+      })
+      .catch((err) => {
+        alert("Произошла ошибка"); 
+      });
+  }
+
   return (
     <div className={styles.container}>
       <HeaderTeacher
@@ -278,7 +297,13 @@ export default function Student({ programs }) {
             <p style={{color: tabNum === 2 ? "#2E8CF2" : "#000"}}  onClick={() => setTabNum(2)}>Домашние задания</p>
           </div>
           <div>
-            {tabNum === 0 && <p className={styles.studentDelete}>Удалить студента</p>}
+            {tabNum === 0 && <p 
+              className={styles.studentDelete}
+              onClick={() => {
+                deletestudent(student?.id)
+                router.push(`/cabinet/teacher/${teacherUrl}/myStudents`)
+              }}
+            >Удалить студента</p>}
           </div>
         </div>
         {tabNum === 0 && <div className={styles.profile}>

@@ -209,13 +209,13 @@ export default function NewHeaderStudent(props) {
             </li>
           </ul>
         </div>
-        <div className={styles.contact} onClick={() => setMenuVisible(!menuVisible)}>
+        <div className={styles.contact}>
           <div className={styles.image_wrapper}>
-            <img src="https://realibi.kz/file/185698.svg" alt="" />
+            <img src="https://realibi.kz/file/185698.svg" alt="" onClick={() => router.push(`/cabinet/student/${encodeURIComponent(props.nickname)}/profile`)}/>
           </div>
           <div className={styles.wrapper_text}>
-            <p>Сашка Барабанов{props.name} {props.surname}</p>
-            <span>Студент</span></div>
+            <p>{props.name} {props.surname}</p>
+            <span onClick={handleLogout}>Выйти</span></div>
           {/* <span>Баланс - {balance * 10}</span> */}
           {menuVisible && (
             <ul className={`menu ${menuVisible ? "menu-active" : ""}`}>
