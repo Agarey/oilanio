@@ -5,6 +5,8 @@ import globals from "../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { Image } from "react-bootstrap";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
+
 
 const myCourses = () => {
   const router = useRouter();
@@ -28,7 +30,9 @@ const myCourses = () => {
 
   }, [teacherUrl, teacher]);
 
+  const [baseDataIsLoading, setBaseDataIsLoading] = useState(true)
   const loadBaseData = async () => {
+    setBaseDataIsLoading(true)
     let data = teacherUrl
     let getTeacherByUrl = await axios.post(`${globals.productionServerDomain}/getTeacherByUrl/` + data)
     const teacherIdLocal = getTeacherByUrl['data'][0]?.id
@@ -40,6 +44,7 @@ const myCourses = () => {
     let teacherPrograms = await axios.post(`${globals.productionServerDomain}/getProgramsByTeacherId/` + teacherIdLocal)
     console.log('teacherPrograms', teacherPrograms)
     setPrograms(teacherPrograms['data'])
+    setBaseDataIsLoading(false)
   }
 
   return <>
@@ -50,7 +55,8 @@ const myCourses = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
-      {courses.length > 0 ?
+             <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
+            {baseDataIsLoading ? '' : <>      {courses.length > 0 ?
         <>
           <div className={styles.wrapperAll}>
             <div className={styles.mainRow}>
@@ -99,7 +105,8 @@ const myCourses = () => {
             <p>Для того, чтобы вести уроки на платформе, вам необходимо выбрать предмет, по которому будете обучать</p>
             <button onClick={() => router.push(`/cabinet/teacher/${teacherUrl}/createCourse`)}>Создать курс</button>
           </div>
-        </>}
+        </>}</>}
+
     </div>
   </>;
 };

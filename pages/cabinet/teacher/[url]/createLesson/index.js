@@ -6,6 +6,7 @@ import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { Image } from "react-bootstrap";
 import { Card } from "react-bootstrap";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const createLesson = () => {
   const router = useRouter();
@@ -124,6 +125,7 @@ const createLesson = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.createLesson}>
         <div className={styles.contentContainer}>
           <div className={styles.lesson_head}>

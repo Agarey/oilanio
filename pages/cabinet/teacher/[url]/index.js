@@ -938,7 +938,7 @@ function TeacherCabinet(props) {
           />
           <div className={styles.cantainer}>
             <GoToLessonWithTimerComponent isTeacher={true} url={props.url} />
-            {showSubscriptionLoss ?
+            {showSubscriptionLoss && teacher.register_date != undefined && Math.floor(dateOfSubscriptionLoss/86400000) > 0 ?
                         <div className={styles.subscriptionLoss}>
                         До истечения пробного периода осталось {Math.floor(dateOfSubscriptionLoss/86400000)} дней
                         <div
@@ -957,7 +957,7 @@ function TeacherCabinet(props) {
                 </h1>
                 {closerLesson ? <p>
                   Ближайшее занятие сегодня, в {formattedTime}, с учеником {closerStudent?.name} {closerStudent?.surname} 
-                  по предмету "{closerCourse?.title}"
+                  по предмету {closerCourse?.title}
                 </p> : ''}
 
                 {/* <p>Занятие №{closerLesson.lesson_number} {closerLesson.title}</p> */}
@@ -977,12 +977,12 @@ function TeacherCabinet(props) {
                 >
                   Перейти к занятию
                 </button>
-                {closerLesson !== undefined && students.length > 0 && closerStudent != undefined ?
+                {/* {closerLesson !== undefined && students.length > 0 && closerStudent != undefined ?
                   <>
                     <p className={styles.closerLessonInfo}>Занятие №{closerLesson.lesson_order} Тема - {closerLesson.title}  </p>
                     <p className={styles.closerLessonInfo}>Студент - {closerStudent?.name} {closerStudent?.surname}</p>
                   </>
-                  : ''}
+                  : ''} */}
               </div>
               <div className={styles.calendarBlock}>
                 <Calendar2 lessons={lessons} />

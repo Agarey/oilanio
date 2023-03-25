@@ -5,6 +5,7 @@ import globals from "../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { Image } from "react-bootstrap";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const createCourse = () => {
   const router = useRouter();
@@ -200,6 +201,7 @@ const createCourse = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.editLesson}>
         <span className={styles.whichProgramm}>Программа {lesson?.program_title}</span>
         <div className={styles.row}>
@@ -230,7 +232,7 @@ const createCourse = () => {
           <div className={styles.exerciseSelectBlock}>
             {exercises.map(exercise => (
               <div className={styles.exerItem}
-                style={exercise.id == selectedExercise.id ? { backgroundColor: '#2E8CF2' } : { backgroundColor: '#A3CEFD' }}
+                // style={exercise.id == selectedExercise.id ? { display: 'flex', padding: '2px', border: '3px solid #007AFF', borderRadius: '8px', marginRight: '20px', marginBottom: '5px', marginTop: '5px' } : { display: 'flex', padding: '2px', border: '3px solid white', borderRadius: '8px', marginRight: '20px', marginBottom: '5px', marginTop: '5px' }}
                 onClick={async () => {
                   await setSelectedExercise(exercise)
                   await setExerciseText(exercise.text)

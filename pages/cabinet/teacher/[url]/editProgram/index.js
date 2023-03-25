@@ -5,6 +5,7 @@ import globals from "../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { Image } from "react-bootstrap";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const editProgramPage = () => {
   const router = useRouter();
@@ -106,6 +107,7 @@ const editProgramPage = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.editProgram}>
         <div className={styles.stepTwo}>
           <div className={styles.row}>

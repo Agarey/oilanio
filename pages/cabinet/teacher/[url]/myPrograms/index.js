@@ -4,6 +4,7 @@ import styles from './index.module.css'
 import globals from "../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const myPrograms = () => {
   const router = useRouter();
@@ -49,6 +50,7 @@ const myPrograms = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.wrapperAll}>
         <div className={styles.titleRow}>
           <div onClick={() => router.push(`/cabinet/teacher/${teacherUrl}/myCourses`)} className={styles.courseTitle}>

@@ -4,6 +4,7 @@ import styles from './index.module.css'
 import globals from "../../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
+import GoToLessonWithTimerComponent from "../../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const AddNewGroup = () => {
   const router = useRouter();
@@ -167,6 +168,7 @@ const AddNewGroup = () => {
           teacher={teacher}
           isInMainPage={isInMainPage}
         />
+         <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
         <div className={styles.contentWrapper}>
           <div className={styles.detailInfo}>
             <div className={styles.showDetailInfoContain}>

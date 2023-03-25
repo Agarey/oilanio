@@ -5,6 +5,7 @@ import globals from "../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { Image } from "react-bootstrap";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const createCourse = () => {
   const router = useRouter();
@@ -110,6 +111,7 @@ const createCourse = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.createCourse}>
         <div className={styles.stepOne}>
           <div className={styles.row}>

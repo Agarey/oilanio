@@ -6,6 +6,7 @@ import axios from "axios";
 import HeaderTeacher from "../../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { ClickAwayListener } from "@mui/base";
 import Link from "next/link";
+import GoToLessonWithTimerComponent from "../../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const Group = () => {
   const router = useRouter();
@@ -210,6 +211,7 @@ const Group = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.contentWrapper}>
         <div className={styles.groupClicker}>
           <span onClick={() => router.push(`/cabinet/teacher/${encodeURIComponent(teacherUrl)}/myStudents`)}>Студенты</span>

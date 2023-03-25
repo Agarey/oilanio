@@ -5,6 +5,7 @@ import globals from "../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { ClickAwayListener } from "@mui/base";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const myStudents = () => {
   const router = useRouter();
@@ -216,6 +217,7 @@ const myStudents = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.contentWrapper}>
         <div className={styles.groupClicker}>
           <span className={isStudents?styles.blueSpan:styles.whiteSpan} onClick={() => setIsStudents(true)}>Студенты</span>

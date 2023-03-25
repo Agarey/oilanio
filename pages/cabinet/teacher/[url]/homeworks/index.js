@@ -5,6 +5,7 @@ import globals from "../../../../../src/globals";
 import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import HomeworksByTeacher from "../../../../../src/components/HomeworksByTeacher/HomeworksByTeacher";
+import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
 
 const homeworks = () => {
   const router = useRouter();
@@ -154,6 +155,7 @@ const homeworks = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
+       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.wrapperAll}>
         <div><h1>Домашние задания</h1></div>
         <div className={styles.wrapperAnswers}>
