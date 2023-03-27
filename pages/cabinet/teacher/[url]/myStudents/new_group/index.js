@@ -32,7 +32,7 @@ const AddNewGroup = () => {
   const studentsHandler = () => {
     students.forEach(student => {
       studentsByGroup.forEach(id => {
-        if (student.id === id) {
+        if (student.id === id.id) {
           setStudentsByGroupInfo(Array.from(new Set([...studentsByGroupInfo, student])));
         }
       })

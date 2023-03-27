@@ -165,7 +165,11 @@ export default function NewHeaderStudent(props) {
               cursor: 'pointer',
             }}
           >
-            <img src="https://realibi.kz/file/42902.svg" alt="" />
+            <img 
+              src="https://realibi.kz/file/42902.svg" 
+              alt=""
+              onClick={() => router.push(`/cabinet/student/${encodeURIComponent(props.nickname)}/course/${props.courseUrl}?program=${props.programId}`)} 
+            />
           </a>
           {/* </Link> */}
         </div>

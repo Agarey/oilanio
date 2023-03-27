@@ -74,6 +74,7 @@ const createCourse = () => {
     const courseData = {
       course: {
         title: title,
+        description: description,
         courseUrl: courseUrl,
         teacherId: teacher?.id,
         categoryId: subject,
@@ -107,7 +108,7 @@ const createCourse = () => {
         teacher={teacher}
         isInMainPage={isInMainPage}
       />
-       <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
+      <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
       <div className={styles.modal} style={viewModal ? { display: 'flex' } : { display: 'none' }}>
         <h1>Поздравляем, вы создали новый курс</h1>
         <p>Теперь вам нужно добавить уроки к программе занятий и вы можете приступать к обучению</p>

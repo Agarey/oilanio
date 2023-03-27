@@ -26,6 +26,7 @@ function GoToLessonWithTimerComponent({ isTeacher, url, nickname, courseUrl }) {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [dataLoaded, setDataLoaded] = useState(false)
+    const [studentsLoaded, setStudentsLoaded] = useState(false)
     
     const [emptyProgramCourseId, setEmptyProgramCourseId] = useState(0)
     const [emptyProgramTeacherId, setEmptyProgramTeacherId] = useState(0)
@@ -118,7 +119,7 @@ function GoToLessonWithTimerComponent({ isTeacher, url, nickname, courseUrl }) {
     }, [lessons])
     
     const updateTimer = () => {
-        const future = Date.parse(isTeacher ? closerLesson.personal_time : closerLesson.fact_date);
+        const future = Date.parse(isTeacher ? closerLesson?.personal_time : closerLesson?.fact_date);
         const now = new Date();
         const diff = future - now; 
           
@@ -208,20 +209,20 @@ function GoToLessonWithTimerComponent({ isTeacher, url, nickname, courseUrl }) {
         const allStudents = await axios.post(`${globals.productionServerDomain}/getAllStudents/` + course.id)
         course.all_students = allStudents.data[0].all_students;
         const passedStudents = await axios.post(`${globals.productionServerDomain}/getPassedStudents/` + course.id)
-        console.log('passedStudents', passedStudents, router)
+        // console.log('passedStudents', passedStudents, router)
         course.passed_students = passedStudents.data[0].passed_students;
       }); 
       let teacherPrograms = await axios.post(`${globals.productionServerDomain}/getProgramsByTeacherId/` + teacherIdLocal)
       let count = 0
         teacherPrograms['data'].forEach(async program => {
-          console.log(program);
+          // console.log(program);
           let qtyStudentsInProgram
-          try {
-            qtyStudentsInProgram = await axios.post(`${globals.productionServerDomain}/getQtyStudentsInProgram`, program.id);
-          } catch (error) {
+          // try {
+          //   qtyStudentsInProgram = await axios.post(`${globals.productionServerDomain}/getQtyStudentsInProgram`, program.id);
+          // } catch (error) {
             
-          }
-          console.log(qtyStudentsInProgram);
+          // }
+          // console.log(qtyStudentsInProgram);
   
           count += 1
           program.number = count
@@ -239,7 +240,7 @@ function GoToLessonWithTimerComponent({ isTeacher, url, nickname, courseUrl }) {
       let teacherStudents = await axios.post(`${globals.productionServerDomain}/getStudentsByTeacherId/`, dataStudents)
       for (let index = 0; index < teacherStudents['data'].length; index++) {
         const student = teacherStudents['data'][index];
-        console.log("SUPER TEST", student);
+        // console.log("SUPER TEST", student);
          // debugger
          student.check = 0
          let diff = 604800000*7
@@ -248,8 +249,8 @@ function GoToLessonWithTimerComponent({ isTeacher, url, nickname, courseUrl }) {
          let studentCheck = 0
          let studentLessons = await axios.get(`${globals.productionServerDomain}/getLessonInfo_v2?course_url=${student.course_url}&program_id=${student.program_id}&student_id=${student.student_id}`)
              let lessons = studentLessons.data
-             console.log("SUPER TEST", lessons);
-             console.log(lessons, "lessonsOfAllStudents"); 
+             // console.log("SUPER TEST", lessons);
+             // console.log(lessons, "lessonsOfAllStudents"); 
             //  setAllStudentsLessons(prevData => ({ ...prevData, ...lessons }));
              lessonsOfAllStudents.push(...lessons); 
              for (let index = 0; index < studentLessons.data.length; index++) {

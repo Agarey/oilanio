@@ -141,7 +141,11 @@ export default function HeaderTeacher(props) {
               cursor: 'pointer',
             }}
           >
-            <img src="https://realibi.kz/file/42902.svg" alt="" />
+            <img 
+              src="https://realibi.kz/file/42902.svg" 
+              alt="" 
+              onClick={() => router.push(`/cabinet/teacher/${encodeURIComponent(props?.teacher?.url)}`)}
+            />
           </a>
           {/* </Link> */}
         </div>

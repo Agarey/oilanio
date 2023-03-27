@@ -36,7 +36,7 @@
 	border: none;
 	border-radius: 3px;
 	width: fit-content;
-	background: #2E8CF2;
+	/*background: #2E8CF2;*/
 	color: white;
 	font-family: 'Gotham Regular';
 	outline: none;
@@ -78,11 +78,11 @@
 }
 
 .selectedExer {
-	background-color: green;
+	background-color: #2E8CF2;
 }
 
 .notSelectedExer {
-	background-color: gray;
+	background-color: #A3CEFD;
 }
 
 .input_container {
@@ -238,7 +238,7 @@
 		border: none;
 		border-radius: 3px;
 		width: fit-content;
-		background: #2E8CF2;
+		/*background: #2E8CF2;*/
 		color: white;
 		font-family: 'Gotham Regular';
 		outline: none;
