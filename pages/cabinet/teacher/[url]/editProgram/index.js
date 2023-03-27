@@ -147,7 +147,7 @@ const editProgramPage = () => {
               </div>
             </div>
           </div>
-          <div className={styles.input_container}>
+          {/* <div className={styles.input_container}>
             <p>Количество занятий в неделю</p>
             <div className={styles.input_with_checkbox}>
               <select value="1">
@@ -172,7 +172,7 @@ const editProgramPage = () => {
           <div className={styles.input_container}>
             <p>Время занятий</p>
             <input placeholder={programLessTime} />
-          </div>
+          </div> */}
           <button className={styles.form_button} onClick={() => {handleSubmit()}}>Сохранить</button>
         </div>
       </div>
