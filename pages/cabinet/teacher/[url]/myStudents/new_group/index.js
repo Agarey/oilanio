@@ -19,7 +19,7 @@ const AddNewGroup = () => {
   useEffect(() => {
     console.log(studentsByGroupInfo, "studentsByGroupInfo");
     studentsByGroupInfo
-    debugger
+    // debugger
   }, [studentsByGroupInfo])
 
   const [teacher, setTeacher] = useState([])
