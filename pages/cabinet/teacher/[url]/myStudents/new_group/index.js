@@ -16,6 +16,11 @@ const AddNewGroup = () => {
   const [courseId, setCourseId] = useState(0);
   const [studentsByGroup, setStudentsByGroup] = useState([]);
   const [studentsByGroupInfo, setStudentsByGroupInfo] = useState([]);
+  useEffect(() => {
+    console.log(studentsByGroupInfo, "studentsByGroupInfo");
+    studentsByGroupInfo
+    debugger
+  }, [studentsByGroupInfo])
 
   const [teacher, setTeacher] = useState([])
   const [teachers, setTeachers] = useState([])
@@ -28,21 +33,45 @@ const AddNewGroup = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [succesMessage, setSuccesMessage] = useState("");
+  const [selectedStudent, setSelectedStudent] = useState()
 
   const studentsHandler = () => {
     students.forEach(student => {
       studentsByGroup.forEach(id => {
-        if (student.id === id.id) {
-          setStudentsByGroupInfo(Array.from(new Set([...studentsByGroupInfo, student])));
+        // // debugger
+        if (student.student_id === id) {
+          // // debugger
+          if (!studentsByGroupInfo.includes(student)) {
+            // setStudentsByGroupInfo.push(newObj);
+            setStudentsByGroupInfo(prevState => {
+              return [
+                ...prevState,
+                student
+              ]
+            });
+          }
+          // setStudentsByGroupInfo(Array.from(new Set([...studentsByGroupInfo, student])));
+         
         }
+       
       })
     })
   }
 
+
+  const deleteStudHandler = (studId) => {
+    console.log(studId);
+    setStudentsByGroup(studentsByGroup.filter(stud => stud !== studId))
+    setStudentsByGroupInfo(studentsByGroupInfo.filter(stud => stud.student_id !== studId))
+  }
+
   useEffect(() => {
     studentsHandler();
+  }, [studentsByGroup]);
+
+  useEffect(() => {
     if (students.length<1) {getStudents()}
-  }, [studentsByGroup, students])
+  }, [students]);
 
   console.log(studentsByGroupInfo);
 
@@ -89,6 +118,8 @@ const AddNewGroup = () => {
   const getStudents = async () => {
     let result = await axios.post(`${globals.productionServerDomain}/getStudentsByTeacherId`, {id: teacher?.id, sort: 'name'})
     setStudents(result.data);
+    setSelectedStudent(result.data[0]?.student_id)
+    // debugger
     console.log('result.data', result.data)
     console.log(students)
   }
@@ -168,7 +199,7 @@ const AddNewGroup = () => {
           teacher={teacher}
           isInMainPage={isInMainPage}
         />
-         <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
+              <GoToLessonWithTimerComponent isTeacher={true} url={router.query.url} />
         <div className={styles.contentWrapper}>
           <div className={styles.detailInfo}>
             <div className={styles.showDetailInfoContain}>
@@ -223,22 +254,34 @@ const AddNewGroup = () => {
                     <p>Добавьте студентов</p>
                     <select
                       className={styles.input_block}
-                      onChange={(e) => {
-                        setStudentsByGroup(Array.from(new Set([...studentsByGroup, +e.target.value])))
-                      }}
+                      // onChange={() => {
+                      //   console.log(e.target.value);
+                      //   setStudentsByGroup(Array.from(new Set([...studentsByGroup, e.target.value])))
+                      // }}
+                      onChange={(e) => {setStudentsByGroup(prevState => {
+                        let test = (+e.target.value)
+                        // debugger
+                        return [
+                          ...prevState,
+                          test
+                        ]
+                      })
+                      // debugger
+                    }}
+                      
                     >
-                      <option value="0" disabled>Студенты</option>
+                      <option value={selectedStudent}>Студенты</option>
                       {students.map(student => (
-                        <option value={student.id}>{student.surname} {student.name}</option>
+                        <option value={student.student_id}>{student.surname} {student.name}</option>
                       ))}
                     </select>
                   </div>
-                  <span
-                    style={{ display: errorMessage === "" ? "none" : "inline-block" }}
+                  <div
+                    style={{ display: errorMessage === "" ? "none" : "block" }}
                     className={styles.error_message}
                   >
                     {errorMessage}
-                  </span>
+                  </div>
                   <button
                     className={styles.form_button}
                     onClick={() => {
@@ -247,12 +290,12 @@ const AddNewGroup = () => {
                   >
                     Создать группу
                   </button>
-                  <span
-                    style={{ display: succesMessage === "" ? "none" : "inline-block" }}
+                  <div
+                    style={{ display: succesMessage === "" ? "none" : "block" }}
                     className={styles.success_message}
                   >
                     {succesMessage}
-                  </span>
+                  </div>
                 </div>
                 <div className={styles.addedStudents}>
                   <p>Добавленные студенты</p>
@@ -262,12 +305,13 @@ const AddNewGroup = () => {
                         <img src="https://realibi.kz/file/185698.svg" alt="" />
                         <p>{stud.surname} {stud.name}</p>
                       </div>
-                      <img className={styles.student_delete} src="https://realibi.kz/file/775192.svg" alt="" />
+                      <div onClick={() => deleteStudHandler(stud.student_id)}>
+                        <img className={styles.student_delete} src="https://realibi.kz/file/775192.svg" alt="" />
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
         </div>
