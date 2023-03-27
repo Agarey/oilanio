@@ -157,10 +157,10 @@ const createProgram = () => {
           if (a.includes(dayOfWeek)) {
             console.log(true, "ITS TRUEEE", currentDate);
             const lessonData = {
-              lessonTitle: "Название " + count + 1,
-              lessonOrder: count + 1,
+              lessonTitle: "Название " + ((+count) + 1),
+              lessonOrder: ((+count) + 1),
               lessonCourseId: courseId,
-              lessonTesis: "Тезис " + count + 1,
+              lessonTesis: "Тезис " + ((+count) + 1),
               lessonStartTime: currentDate,
               lessonProgramId: localProgramId,
             };
