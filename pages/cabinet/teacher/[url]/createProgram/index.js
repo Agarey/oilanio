@@ -59,7 +59,11 @@ const createProgram = () => {
   const handleSubmit2 = () => {
     if (programTitle && programType) {
       createNewProgram2()
-      setViewMidal(true)
+      if (autoLessonsCancelled) {
+        setViewMidal(true)
+      } else {
+
+      }
     }
   }
   const createNewProgram = () => {
@@ -179,7 +183,12 @@ const createProgram = () => {
           } else {
             console.log(true, "ITS NOT TRUEEE");
           }
-          
+        }
+        if (autoLessonsCancelled) {
+          // setViewMidal(true)
+        } else {
+          await router.push(`/cabinet/teacher/${teacherUrl}/myPrograms?course=${courseId}`)
+          window.location.reload()
         }
       // const { lessonTitle, lessonOrder, lessonCourseId, lessonTesis, lessonStartTime, lessonProgramId } = request.body
 

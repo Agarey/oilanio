@@ -68,7 +68,12 @@ const homeworks = () => {
     megadata['data'].forEach(answer => {
       answer.isExpanded = false
     })
-    setAnswers(megadata['data'])
+    const uniqueLessons = megadata['data'].filter((item, index, self) => 
+      index === self.findIndex((t) => (
+        t.lesson_id === item.lesson_id
+      ))
+    );
+    setAnswers(uniqueLessons)
     let studentsData = await axios.post(`${globals.productionServerDomain}/getStudentsByTeacherId/`, { id: teacherIdLocal, sort: 'id' })
     console.log('studentsData', studentsData['data'])
     setStudents(studentsData['data'])
@@ -82,7 +87,15 @@ const homeworks = () => {
       }
       return acc;
     }, { map: new Map(), data: [] }).data;
-
+    let count = 0
+    uniqueData.forEach(async (row, index) => {
+      count += 1
+      row.exercise_order = count
+      let getExercises = await axios.post(`${globals.productionServerDomain}/getExercisesByLessonId/` + row?.lesson_id)
+      let localLesson = getExercises['data'][index]
+      row.exercise_text = localLesson?.text
+      debugger
+    })
     console.log('uniqueData', uniqueData);
     setLessonData(uniqueData)
   }

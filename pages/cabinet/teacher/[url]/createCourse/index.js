@@ -55,9 +55,12 @@ const createCourse = () => {
     if (step === 1 && subject && title && description) {
       setStep(2)
     } else if (step === 2 && programTitle && programType) {
-      setViewMidal(true)
-      createNewCourse()
+      if (autoLessonsCancelled) {
+        setViewMidal(true)
+      } else {
 
+      }
+      createNewCourse()
     }
   }
 
@@ -92,11 +95,11 @@ const createCourse = () => {
     console.log('courseData', courseData)
     debugger
     await axios.post(`${globals.productionServerDomain}/createCourseAndProgram/`, courseData)
-      .then(response => {
+      .then(async response => {
         console.log(response.data);
         setProgram(response.data.programId)
         // handle success
-        debugger
+        // debugger
         if (autoLessonsCancelled) {
            
         } else {
@@ -126,7 +129,7 @@ const createCourse = () => {
               lessonProgramId: localProgramId,
             };
             debugger
-            axios.post(`${globals.productionServerDomain}/createLesson/`, lessonData)
+            await axios.post(`${globals.productionServerDomain}/createLesson/`, lessonData)
             .then(response => {
               console.log(response.data);
               setProgram(response.data.programId)
@@ -142,6 +145,12 @@ const createCourse = () => {
           }
           
         } 
+        if (autoLessonsCancelled) {
+          // setViewMidal(true)
+        } else {
+          await router.push(`/cabinet/teacher/${teacherUrl}/myCourses`)
+          window.location.reload()
+        }
         }
       })
       .catch(error => {
