@@ -102,6 +102,7 @@ const createCourse = () => {
         } else {
                   // auto lessons
         let localProgramId = response.data.programId
+        let localCourseId = response.data.courseId
         const a = daysOfTheWeek; // Дни недели, которые нужно проверять
         let count = 0;
         const [hours, minutes] = newProgramTimes.split(":");
@@ -119,7 +120,7 @@ const createCourse = () => {
             const lessonData = {
               lessonTitle: "Название " + ((+count) + 1),
               lessonOrder: ((+count) + 1),
-              lessonCourseId: localProgramId,
+              lessonCourseId: localCourseId,
               lessonTesis: "Тезис " + ((+count) + 1),
               lessonStartTime: currentDate,
               lessonProgramId: localProgramId,

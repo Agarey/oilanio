@@ -25,7 +25,7 @@ const createProgram = () => {
   const [newProgramTimes, setDewProgramTimes] = useState()
   useEffect(() => {
     newProgramTimes
-    debugger
+    // debugger
   }, [newProgramTimes])
   const [autoLessonsCancelled, setAutoLessonsCancelled] = useState(false)
 
@@ -164,6 +164,7 @@ const createProgram = () => {
               lessonStartTime: currentDate,
               lessonProgramId: localProgramId,
             };
+            // debugger
             await axios.post(`${globals.productionServerDomain}/createLesson/`, lessonData)
             .then(response => {
               console.log(response.data);
