@@ -91,14 +91,25 @@ const homeworks = () => {
     uniqueData.forEach(async (row, index) => {
       count += 1
       row.exercise_order = count
-      let getExercises = await axios.post(`${globals.productionServerDomain}/getExercisesByLessonId/` + row?.lesson_id)
-      let localLesson = getExercises['data'][index]
-      row.exercise_text = localLesson?.text
+      // let getExercises = await axios.post(`${globals.productionServerDomain}/getExercisesByLessonId/` + row?.lesson_id)
+      // let localLesson = getExercises['data'][index]
+      // row.exercise_text = localLesson?.text
       // debugger
     })
     console.log('uniqueData', uniqueData);
     setLessonData(uniqueData)
   }
+  // useEffect(() => {
+  //   loadBaseData()
+  // }, [])
+  useEffect(() => {
+    if (!lessonData) {
+      console.log('myState has not changed yet');
+      setTimeout(() => {
+        loadBaseData()
+      }, 1000);
+    }
+  }, [lessonData]);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -161,6 +172,19 @@ const homeworks = () => {
   console.log(selectedExId);
 
   const LessonDataComponent = ({LD, i, answer}) => {
+    const [localExrciseText, setLocalExrciseText] = useState()
+    const [teacherCommentLocal, setTeacherCommentLocal] = useState('')
+    const [markLocal, setMarkLocal] = useState(0);
+    useEffect(() => {
+      LD
+      async function test () {
+        let getExercises = await axios.post(`${globals.productionServerDomain}/getExercisesByLessonId/` + LD?.lesson_id)
+        let localLesson = getExercises['data'][i]
+        setLocalExrciseText(localLesson?.text)
+        // debugger
+      }
+      test()
+    }, [])
     return <div key={i}>
     <div>
       {selectedExId === LD?.exercise_id && selectedStudId === LD?.student_id && selectedAnswerId === LD?.answer_id ? <div className={styles.checkRow}>
@@ -168,7 +192,7 @@ const homeworks = () => {
               <div>
                   <div className={styles.wrapper_block}>
                   <span className={styles.work_headline}>Задание</span>
-                  <input className={styles.input_container} type="text" value={LD?.exercise_text} />
+                  <input className={styles.input_container} type="text" value={localExrciseText} />
                 </div>
                 <div className={styles.checkRow}>
                   <span className={styles.student_answer}>
@@ -181,11 +205,11 @@ const homeworks = () => {
                     ? <div className={styles.wrapper_block}>
                       <span className={styles.work_headline}>Оцените выполнение задания</span>
                       <div className={styles.grade_toMark}>
-                        <span className={mark === 1 ? styles.grade_toMark_active : styles.grade_toMark_item} onClick={() => setMark(1)}>1</span>
-                        <span className={mark === 2 ? styles.grade_toMark_active : styles.grade_toMark_item} onClick={() => setMark(2)}>2</span>
-                        <span className={mark === 3 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMark(3)}>3</span>
-                        <span className={mark === 4 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMark(4)}>4</span>
-                        <span className={mark === 5 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMark(5)}>5</span>
+                        <span className={markLocal === 1 ? styles.grade_toMark_active : styles.grade_toMark_item} onClick={() => setMarkLocal(1)}>1</span>
+                        <span className={markLocal === 2 ? styles.grade_toMark_active : styles.grade_toMark_item} onClick={() => setMarkLocal(2)}>2</span>
+                        <span className={markLocal === 3 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMarkLocal(3)}>3</span>
+                        <span className={markLocal === 4 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMarkLocal(4)}>4</span>
+                        <span className={markLocal === 5 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMarkLocal(5)}>5</span>
                       </div> 
                     </div>
                     : <></>
@@ -208,11 +232,11 @@ const homeworks = () => {
               <div className={styles.answer_input}>
                 <textarea
                   className={styles.teacherComment}
-                  value={teacherComment}
+                  value={teacherCommentLocal}
                   onChange={e => {
                     // if (symbols !== 0) {
-                      setTeacherComment(e.target.value)
-                      console.log(teacherComment)
+                      setTeacherCommentLocal(e.target.value)
+                      console.log(teacherCommentLocal)
                     // }
                   }}
                   placeholder=""
@@ -224,8 +248,8 @@ const homeworks = () => {
               <button
                 className={styles.sendButton}
                 onClick={async () => {
-                  await updateAnswerComment(selectedStudId, selectedExId, teacherComment, new Date())
-                  await updateAnswerStatus(selectedAnswerId, 'correct', mark)
+                  await updateAnswerComment(selectedStudId, selectedExId, teacherCommentLocal, new Date())
+                  await updateAnswerStatus(selectedAnswerId, 'correct', markLocal)
                   // await getAnswer(selectedStudId, selectedExId)
                   // await getLessonExercises(selectedLessonId)
                   // await getLessonExercises22(selectedLessonId)
@@ -281,15 +305,24 @@ const homeworks = () => {
                   <div className={styles.answerText}>
                     {answer.isExpanded && (
                       <div>
-                        <div className={styles.bricksRow}>
+                        {/* <div className={styles.bricksRow}>
                           {lessonData.map((LD, i) => {
                             console.log('LD', LD)
                             console.log('answer', answer)
+                            let test = lessonData.filter(el => (el?.lesson_id == answer?.lesson_id && el?.student_id == answer?.student_id))
+                            
+                            // if ((LD?.lesson_id == answer?.lesson_id && LD?.student_id == answer?.student_id)) {
+                              
+                            //   debugger
+                            // }
+                            if (test.length > 0) {
+                              debugger
+                            }
                             return (
                               <div key={i}>
                                 {(LD?.lesson_id == answer?.lesson_id && LD?.student_id == answer?.student_id) ?
                                   <>
-                                    <div>
+                                  {test.map(el => <>                                    <div>
                                       <div 
                                         className={styles.lesson_work}
                                         data-index={i}
@@ -304,7 +337,8 @@ const homeworks = () => {
                                       >
                                         Задание {LD?.exercise_order}
                                       </div>
-                                    </div>
+                                    </div></>)}
+
                                     
                                   </>
                                   :
@@ -313,6 +347,24 @@ const homeworks = () => {
                               </div>
                             )
                           })}
+                        </div> */}
+                        <div className={styles.bricksRow}>
+                        {lessonData.filter(el => (el?.lesson_id == answer?.lesson_id && el?.student_id == answer?.student_id)).map((LD, i) => <>                                    <div>
+                                      <div 
+                                        className={styles.lesson_work}
+                                        data-index={i}
+                                        style={{opacity: selectedAnswerId === LD?.answer_id ? "1" : "40%"}}
+                                        onClick={() => {
+                                          setMark(LD?.teacher_mark)
+                                          setSelectedExId(LD?.exercise_id)
+                                          setSelectedStudId(LD?.student_id)
+                                          setSelectedAnswerId(LD?.answer_id)
+                                          setSelectedLessonId(LD?.lesson_id)
+                                        }}
+                                      >
+                                        Задание {i + 1}
+                                      </div>
+                                    </div></>)}
                         </div>
                         
                         {/* {lessonData.map((LD, i) => {
@@ -401,7 +453,12 @@ const homeworks = () => {
                             </div>
                           )
                         })} */}
-                        {lessonData.map((LD, i) => {
+                        {/* {lessonData.map((LD, i) => {
+                          return (
+                            <LessonDataComponent LD={LD} i={i} answer={answer}/>
+                          )
+                        })} */}
+                        {lessonData.filter(el => (el?.lesson_id == answer?.lesson_id && el?.student_id == answer?.student_id)).map((LD, i) => {
                           return (
                             <LessonDataComponent LD={LD} i={i} answer={answer}/>
                           )
