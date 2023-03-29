@@ -1,21 +1,21 @@
 @font-face {
   font-family: "Gotham Regular";
-  src: url('../../../../public/fonts/Gotham_pro/gothampro.ttf') format(truetype);
+  src: url('../../../../../public/fonts/Gotham_pro/gothampro.ttf') format(truetype);
 }
 
 @font-face {
   font-family: 'Gotham Medium';
-  src: url('../../../../public/fonts/Gotham_pro/gothampro_medium.ttf') format(truetype);
+  src: url('../../../../../public/fonts/Gotham_pro/gothampro_medium.ttf') format(truetype);
 }
 
 @font-face {
   font-family: 'Gotham Light';
-  src: url('../../../../public/fonts/Gotham_pro/gothampro_light.ttf') format(truetype);
+  src: url('../../../../../public/fonts/Gotham_pro/gothampro_light.ttf') format(truetype);
 }
 
 @font-face {
   font-family: 'Gotham Bold';
-  src: url('../../../../public/fonts/Gotham_pro/gothampro_bold.ttf') format(truetype);
+  src: url('../../../../../public/fonts/Gotham_pro/gothampro_bold.ttf') format(truetype);
 }
 
 .container {
