@@ -97,8 +97,15 @@ export default function Student({ programs }) {
   }
   const getLessons = async () => {
     await axios.get(`${globals.productionServerDomain}/getLessonInfo_v2?course_url=${studentPrograms[0]?.course_url}&program_id=${studentPrograms[0]?.program_id}&student_id=${studentPrograms[0]?.student_id}`).then(res => {
-      setLessons(res.data);
-      console.log(res.data);
+      let array = res.data
+      const uniqueLessons = array.filter((item, index, self) => 
+        index === self.findIndex((t) => (
+          t.id === item.id
+        ))
+      );
+      setLessons(uniqueLessons);
+      console.log(uniqueLessons);
+      // debugger
     });
   }
 

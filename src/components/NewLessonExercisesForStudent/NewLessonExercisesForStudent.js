@@ -46,6 +46,8 @@ const NewLessonExercisesForStudent = ({ fetchData, exercises, student, bg, paddi
 
       linkify(exercises[active]?.text)
     }
+    setAnswer('')
+    setComment('')
   }, [active])
 
   const sendAnswer = async (answerText, lessonId, exerciseId, studentId, status, comment) => {

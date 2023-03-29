@@ -6,7 +6,7 @@ import globals from "../../globals";
 
 const NewStudentHomeworks = ({ index, lesson, student }) => {
   const [showTesis, setShowTesis] = useState(false);
-  let isActive = (new Date(lesson.start_time).getTime()) <= (new Date().getTime());
+  let isActive = lesson.personal_time ? (new Date(lesson.personal_time).getTime()) <= (new Date().getTime())  : (new Date(lesson.start_time).getTime()) <= (new Date().getTime());
 
   const [exercises, setExercises] = useState([])
 

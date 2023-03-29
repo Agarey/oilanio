@@ -30,8 +30,14 @@ const StudentCourse = (props) => {
       console.log(res.data[0] !== undefined);
       if (res.data.length !== 0) {
         await axios.get(`${globals.productionServerDomain}/getLessonInfo_v2?course_url=${courseUrl}&program_id=${programId == !undefined ? programId : res.data[0]?.program_id}&student_id=${res.data[0]?.id}`).then(res => {
-          setLesson(res.data[0]);
-          setLessons(res.data);
+          let array = res.data
+          const uniqueLessons = array.filter((item, index, self) => 
+            index === self.findIndex((t) => (
+              t.id === item.id
+            ))
+          );
+          setLesson(uniqueLessons[0]);
+          setLessons(uniqueLessons);
           setDataLoaded(true)
         });
       } else {

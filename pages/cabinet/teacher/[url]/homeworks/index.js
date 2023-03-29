@@ -94,7 +94,7 @@ const homeworks = () => {
       let getExercises = await axios.post(`${globals.productionServerDomain}/getExercisesByLessonId/` + row?.lesson_id)
       let localLesson = getExercises['data'][index]
       row.exercise_text = localLesson?.text
-      debugger
+      // debugger
     })
     console.log('uniqueData', uniqueData);
     setLessonData(uniqueData)
@@ -159,6 +159,89 @@ const homeworks = () => {
   }
 
   console.log(selectedExId);
+
+  const LessonDataComponent = ({LD, i, answer}) => {
+    return <div key={i}>
+    <div>
+      {selectedExId === LD?.exercise_id && selectedStudId === LD?.student_id && selectedAnswerId === LD?.answer_id ? <div className={styles.checkRow}>
+        <div className={styles.answer_block}>
+              <div>
+                  <div className={styles.wrapper_block}>
+                  <span className={styles.work_headline}>Задание</span>
+                  <input className={styles.input_container} type="text" value={LD?.exercise_text} />
+                </div>
+                <div className={styles.checkRow}>
+                  <span className={styles.student_answer}>
+                    <div className={styles.student_answer_text}>
+                        <span className={styles.work_headline}>Ответ студента: </span>
+                        <input className={styles.input_container} type="text" value={LD?.answer_text} />
+                    </div>
+                  </span>
+                  {answer 
+                    ? <div className={styles.wrapper_block}>
+                      <span className={styles.work_headline}>Оцените выполнение задания</span>
+                      <div className={styles.grade_toMark}>
+                        <span className={mark === 1 ? styles.grade_toMark_active : styles.grade_toMark_item} onClick={() => setMark(1)}>1</span>
+                        <span className={mark === 2 ? styles.grade_toMark_active : styles.grade_toMark_item} onClick={() => setMark(2)}>2</span>
+                        <span className={mark === 3 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMark(3)}>3</span>
+                        <span className={mark === 4 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMark(4)}>4</span>
+                        <span className={mark === 5 ? styles.grade_toMark_active : styles.grade_toMark_item}  onClick={() => setMark(5)}>5</span>
+                      </div> 
+                    </div>
+                    : <></>
+                  }
+                </div>
+              </div>
+              <div style={answer ? { display: 'flex' } : { display: 'none' }} className={styles.comment_block}>
+                <span className={styles.work_headline}>Комментарий ученика</span>
+                <div className={styles.answer_input}>
+                  <textarea
+                    className={styles.studentComment}
+                    value={LD?.student_comment ? LD?.student_comment : "Студент не оставил комментарии"}
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <div className={styles.comment_block}>
+              <span className={styles.work_headline}>Добавьте комментарий для ученика</span>
+              <div className={styles.answer_input}>
+                <textarea
+                  className={styles.teacherComment}
+                  value={teacherComment}
+                  onChange={e => {
+                    // if (symbols !== 0) {
+                      setTeacherComment(e.target.value)
+                      console.log(teacherComment)
+                    // }
+                  }}
+                  placeholder=""
+                  // onKeyDown={(e) => onKeyDownHandler(e)}
+                >
+                </textarea>
+              </div>
+
+              <button
+                className={styles.sendButton}
+                onClick={async () => {
+                  await updateAnswerComment(selectedStudId, selectedExId, teacherComment, new Date())
+                  await updateAnswerStatus(selectedAnswerId, 'correct', mark)
+                  // await getAnswer(selectedStudId, selectedExId)
+                  // await getLessonExercises(selectedLessonId)
+                  // await getLessonExercises22(selectedLessonId)
+                }}
+                // disabled={teacherComment == '' ? true : false}
+              >
+                Сохранить и отправить
+              </button>
+            </div>
+          </div> : <></>}
+        </div>
+        
+    
+    
+  </div>
+  }
 
   return <>
     <div className={styles.container}>
@@ -232,7 +315,7 @@ const homeworks = () => {
                           })}
                         </div>
                         
-                        {lessonData.map((LD, i) => {
+                        {/* {lessonData.map((LD, i) => {
                           console.log('LD', LD)
                           console.log('answer', answer)
                           return (
@@ -316,6 +399,11 @@ const homeworks = () => {
                               
                               
                             </div>
+                          )
+                        })} */}
+                        {lessonData.map((LD, i) => {
+                          return (
+                            <LessonDataComponent LD={LD} i={i} answer={answer}/>
                           )
                         })}
                       </div>
