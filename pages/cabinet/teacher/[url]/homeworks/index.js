@@ -109,7 +109,7 @@ const homeworks = () => {
         loadBaseData()
       }, 1000);
     }
-  }, [lessonData]);
+  }, [answers]);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
