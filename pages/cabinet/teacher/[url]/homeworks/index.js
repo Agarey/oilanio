@@ -58,6 +58,7 @@ const homeworks = () => {
   }
 
   const loadBaseData = async () => {
+    console.log("IM HERE");
     let data = teacherUrl
     let getTeacherByUrl = await axios.post(`${globals.productionServerDomain}/getTeacherByUrl/` + data)
     const teacherIdLocal = getTeacherByUrl['data'][0]?.id
@@ -103,13 +104,13 @@ const homeworks = () => {
   //   loadBaseData()
   // }, [])
   useEffect(() => {
-    if (!lessonData) {
+    if (!answers.length > 0 && !lessonData.length > 0) {
       console.log('myState has not changed yet');
       setTimeout(() => {
         loadBaseData()
       }, 1000);
     }
-  }, [answers]);
+  }, [answers, lessonData]);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
