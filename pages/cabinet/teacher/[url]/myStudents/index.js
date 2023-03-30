@@ -22,6 +22,16 @@ const myStudents = () => {
   const [sortMode, setSortMode] = useState(false)
 
   const isInMainPage = true;
+  
+  useEffect(() => {
+    
+    let test = router.asPath.includes("#groups")
+    if (test) {
+    setIsStudents(false)  
+    }
+    router
+    // debugger
+  }, [])
 
   const loadStudentLessons = async (studentId, programId) => {
     setLessonsLoaded(true)

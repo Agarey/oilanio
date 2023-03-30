@@ -161,22 +161,25 @@ function TeacherProfile(props) {
         setTeacherPassword()
         setTeacherAboutSelf(teacherInfo.description)
         setTeacherSkills(teacherInfo.skills)
-        setTeacherSkillsSplitted(teacherInfo.skills?.split(";"))
+        // setTeacherSkillsSplitted(teacherInfo.skills?.split(";"))
         setTeacherExp(teacherInfo.experience)
         setTeacherLogin(teacherInfo.url)
     }
     useEffect(() => {
         loadTeacherProfileInfo()
     }, [])
+    useEffect(() => {
+        setTeacherSkillsSplitted(teacherSkills?.split(";"))
+    }, [teacherSkills])
 
     const [changeMod, setChangeMod] = useState(false)
     const [changeModOfSkills, setChangeModOfSkills] = useState(false)
     const [newSkillValue, setNewSkillValue] = useState()
 
-    useEffect(() => {
-        setTeacherSkillsSplitted(teacherSkills?.split(";"))
-        // let test = teacherSkills?.split(";")
-    }, [teacherSkills])
+    // useEffect(() => {
+    //     setTeacherSkillsSplitted(teacherSkills?.split(";"))
+    //     // let test = teacherSkills?.split(";")
+    // }, [teacherSkills])
     return (
         <>  <div className={styles.container}>
             <HeaderTeacher white={true} teacher={teacher} />
@@ -259,31 +262,31 @@ function TeacherProfile(props) {
                             </div>
                             <div className={styles.input_container}>
                                 <h2>Навыки</h2>
-                                {changeMod ? <input type="text"
-                                disabled={!changeMod}
-                                    onChange={(event) => setTeacherSkills(event.target.value)}
-                                    value={teacherSkills} /> : <div className={styles.skillsContainer}>
-                                        {teacherSkillsSplitted?.map(el => <p className={styles.skillWords}>{el}</p>)}
+                                        <div className={styles.skillsContainer}>
+                                        {teacherSkillsSplitted?.map(el => { return (el.length != 0 ? <p className={styles.skillWords}>{el}</p> : '')})}
                                         {changeModOfSkills ? '' : <p
                                         onClick={() => {
-                                            // setChangeModOfSkills(true)
+                                            setChangeModOfSkills(true)
                                         }} 
                                         className={styles.skillWordsAdd}>+</p>}
                                         {changeModOfSkills ? <div className={styles.skillsSubmitWrapper}>
-                                            <input value={newSkillValue} onChange={() => setNewSkillValue(event.target.value)}/>
+                                            <input className={styles.skillsInput} value={newSkillValue} onChange={() => setNewSkillValue(event.target.value)}/>
                                             <p
                                                 onClick={() => {setChangeModOfSkills(false)
-                                                                let test = teacherSkillsSplitted
-                                                                setTeacherSkillsSplitted(prevState => {
-                                                                    return [
-                                                                      ...prevState,
-                                                                      newSkillValue + ';'
-                                                                    ]
-                                                                  })}} 
+                                                                let test
+                                                                // test = (prevState => {
+                                                                //     return [
+                                                                //       ...prevState,
+                                                                //       newSkillValue + ";"
+                                                                //     ]
+                                                                //   })
+                                                                test = teacherSkills + " " + newSkillValue + ";"
+                                                                setTeacherSkills(test)
+                                                                debugger}} 
                                                 className={styles.skillWordsAdd}>✓
                                             </p>
                                         </div>  : ''}
-                                        </div>}
+                                        </div>
                             </div>
                             <div className={styles.input_container}>
                                 <h2>Опыт работы</h2>

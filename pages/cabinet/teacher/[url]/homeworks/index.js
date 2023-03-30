@@ -185,6 +185,8 @@ const homeworks = () => {
         // debugger
       }
       test()
+      setMarkLocal(LD.teacher_mark)
+      // debugger
     }, [])
     return <div key={i}>
     <div>

@@ -186,6 +186,7 @@ const AddNewGroup = () => {
           console.log(err);
           setErrorMessage(err.response.data)
         });
+        router.push(`/cabinet/teacher/${encodeURIComponent(teacherUrl)}/myStudents#groups`)
     } else {
       setErrorMessage("Заполните поля, обязательные для заполнения")
     }
