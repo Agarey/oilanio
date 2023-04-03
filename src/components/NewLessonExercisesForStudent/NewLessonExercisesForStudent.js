@@ -27,6 +27,7 @@ const NewLessonExercisesForStudent = ({ fetchData, exercises, student, bg, paddi
         studentId,
         exerciseId
       };
+      debugger
       let exerciseAnswer = axios({
         method: "post",
         url: `${globals.productionServerDomain}/getTeacherCommentsByStudExId`,
@@ -35,9 +36,11 @@ const NewLessonExercisesForStudent = ({ fetchData, exercises, student, bg, paddi
         .then(function (res) {
           if (res.data[0]) {
             setTeacherComments(res.data)
+            debugger
           } else {
             console.log('ответов нет')
             setTeacherComments([])
+            debugger
           }
         })
         .catch((err) => {

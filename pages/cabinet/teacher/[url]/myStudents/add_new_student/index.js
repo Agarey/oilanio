@@ -277,8 +277,10 @@ const AddNewStudent = () => {
                   </span>
                   <button
                     className={styles.form_button}
-                    onClick={() => {
-                      createStudentAndProgram();
+                    onClick={async() => {
+                      await createStudentAndProgram();
+                      await router.push(`/cabinet/teacher/${teacherUrl}/myStudents`)
+                      await window.location.reload()
                     }}
                   >
                     Добавить студента

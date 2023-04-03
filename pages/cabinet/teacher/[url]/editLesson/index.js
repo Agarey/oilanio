@@ -6,6 +6,7 @@ import axios from "axios";
 import HeaderTeacher from "../../../../../src/components/new_HeaderTeacher/new_HeaderTeacher";
 import { Image } from "react-bootstrap";
 import GoToLessonWithTimerComponent from "../../../../../src/components/GoToLessonWithTimerComponent/GoToLessonWithTimerComponent";
+import EditLessonHomeworkComponent from "../../../../../src/components/EditLessonHomeworkComponent/EditLessonHomeworkComponent";
 
 const createCourse = () => {
   const router = useRouter();
@@ -38,7 +39,7 @@ const createCourse = () => {
 
   useEffect(() => {
     if (!baseDataLoaded || !teacher) {
-      loadBaseData()
+      loadBaseDataFirst()
       setBaseDataLoaded(true)
     }
     console.log('teacherUrl', teacherUrl)
@@ -46,7 +47,7 @@ const createCourse = () => {
 
   }, [teacherUrl, teacher]);
 
-  const loadBaseData = async () => {
+  const loadBaseDataFirst = async () => {
     let data = teacherUrl
     let getTeacherByUrl = await axios.post(`${globals.productionServerDomain}/getTeacherByUrl/` + data)
     const teacherIdLocal = getTeacherByUrl['data'][0]?.id
@@ -55,6 +56,33 @@ const createCourse = () => {
     let lessonInfo = await axios.post(`${globals.productionServerDomain}/getLessonById/`, { lessonId })
     console.log(lessonInfo['data'][0])
     setLesson(lessonInfo['data'][0])
+    let count = 0
+    let getExercises = await axios.post(`${globals.productionServerDomain}/getExercisesByLessonId/` + lessonInfo['data'][0]?.id).then(res => {
+      console.log('exercises', res.data)
+      res.data.forEach(async row => {
+        count += 1
+        row.exercise_order = count
+        const data = {
+          new_order: count,
+          exercise_id: row.id
+        }
+        await axios.put(`${globals.productionServerDomain}/updateExerNumber/`, data)
+      })
+      setExercises(res.data)
+      // debugger
+    })
+
+  }
+
+  const loadBaseDataSecond = async () => {
+    let data = teacherUrl
+    let getTeacherByUrl = await axios.post(`${globals.productionServerDomain}/getTeacherByUrl/` + data)
+    const teacherIdLocal = getTeacherByUrl['data'][0]?.id
+    console.log('teacherIdLocal', teacherIdLocal)
+    setTeacher(getTeacherByUrl['data'][0])
+    let lessonInfo = await axios.post(`${globals.productionServerDomain}/getLessonById/`, { lessonId })
+    console.log(lessonInfo['data'][0])
+    // setLesson(lessonInfo['data'][0])
     let count = 0
     let getExercises = await axios.post(`${globals.productionServerDomain}/getExercisesByLessonId/` + lessonInfo['data'][0]?.id).then(res => {
       console.log('exercises', res.data)
@@ -148,6 +176,13 @@ const createCourse = () => {
       })
         .then(function (res) {
           alert("Задание успешно создано");
+          // let idOfNewExercise = res['data']
+          // let localExercisesArray1 = exercises
+          // const newExercise = {id: idOfNewExercise, text: exerciseText, lesson_id: exerciseLessonId, correct_answer: correctlyAnswer, status: status}
+          // localExercisesArray1.push(newExercise)
+          // setExercises(localExercisesArray1)
+          // debugger
+          // debugger
         })
         .catch((err) => {
           alert("Произошла ошибка");
@@ -193,6 +228,7 @@ const createCourse = () => {
       });
   }
 
+  const [handleSubmitIsClicked, setHandleSubmitIsClicked] = useState(false)
   return <>
     <div className={styles.container}>
       <HeaderTeacher
@@ -238,7 +274,7 @@ const createCourse = () => {
                   await setExerciseText(exercise.text)
                   await setFirstExerPress(true)
                   await setExerciseAnswer(exercise.correct_answer)
-                  await loadBaseData()
+                  await loadBaseDataSecond()
                 }}
               >
                 Задание {exercise.exer_order}
@@ -249,54 +285,31 @@ const createCourse = () => {
                 className={styles.plusMinusButton}
                 onClick={async () => {
                   await createEmptyExercise()
-                  await loadBaseData()
+                  await loadBaseDataSecond()
                   await setSelectedExercise('')
-                  await loadBaseData()
-                  await loadBaseData()
+                  // await loadBaseDataSecond()
+                  await loadBaseDataSecond()
                 }}
               >+</div>
               <div
                 className={styles.plusMinusButton}
                 onClick={async () => {
                   await deleteExercise(selectedExercise.id)
-                  await loadBaseData()
+                  await loadBaseDataSecond()
                   await setSelectedExercise('')
                 }}
               >-</div>
             </div>
           </div>
-          <div className={styles.input_container}>
-            <span>Домашнее задание</span>
-            <textarea
-              className={styles.exerciseText}
-              type="text"
-              value={exerciseText}
-              placeholder="пр. в учебнике на странице 52 сделать задание 5, 6, 7А"
-              disabled={!firstExerPress}
-              onChange={(e) => setExerciseText(e.target.value)}>
-            </textarea>
-          </div>
-          <div className={styles.input_container}>
-            <div className={styles.inputBlock}>
-              <input
-                className={styles.exerciseAnswer}
-                type="text"
-                value={exerciseAnswer}
-                disabled={!firstExerPress}
-                placeholder="пр. 5 - A, D, B;"
-                onChange={(e) => setExerciseAnswer(e.target.value)}
-              />
-            </div>
-            <div className={styles.inputBlock}>
-              <button
-                style={{ display: 'flex' }}
-                className={styles.saveButton}
-                onClick={async () => {
-                  handleSubmit()
-                }}
-              >Сохранить</button>
-            </div>
-          </div>
+          {exercises.map(el => (
+            <EditLessonHomeworkComponent el={el} selectedExercise={selectedExercise} firstExerPress={firstExerPress}
+            handleSubmitIsClicked={handleSubmitIsClicked}
+            setHandleSubmitIsClicked={setHandleSubmitIsClicked}
+            lessonTitle={lessonTitle}
+            lessonDesc={lessonDesc}
+            />
+          ))}
+
         </div>
       </div>
     </div>

@@ -181,6 +181,7 @@ const myStudents = () => {
     );
 
     setStudents(teacherStudents['data'])
+    debugger
     setGroups(teacherGroups['data'])
     console.log(teacherStudents['data']);
   }
@@ -309,7 +310,7 @@ const myStudents = () => {
                         </p>
                       </div>
                       <div className={styles.student_btn_obman}><span></span></div>
-                      <div className={styles.student_btn} onClick={() => router.push(`/cabinet/teacher/${teacherUrl}/student?nick=${student?.nickname}`)}><img src="https://realibi.kz/file/897616.svg" alt="" /></div>
+                      <div className={styles.student_btn} onClick={() => router.push(`/cabinet/teacher/${teacherUrl}/student?nick=${student?.nickname}&programId=${student?.program_id}`)}><img src="https://realibi.kz/file/897616.svg" alt="" /></div>
                     </div>
                   ))}
                 </div>

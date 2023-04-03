@@ -134,6 +134,8 @@ export default function Student({ programs }) {
     loadTeacherData()
     getStudents()
     getRoles()
+    router
+    debugger
   }, [])
 
   useEffect(() => {
@@ -454,6 +456,7 @@ export default function Student({ programs }) {
 Student.getInitialProps = async (ctx) => {
   // debugger
   if (ctx.query.nick !== undefined) {
+    // debugger
     return {
       nick: ctx.query.nick,
     }
